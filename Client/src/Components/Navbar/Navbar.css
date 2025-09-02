@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(90deg, #c1827e 0%, #b8326e 100%);
+    background: linear-gradient(to right,  #b88915 ,#b18c3c, #a94b1d);
   }
   
   .navbar-left {
@@ -44,7 +44,8 @@
   }
 
   .nav-link:hover ,.logout-button:hover{
-    background-color: #a33768;
+    background:#91720c;
+    color:white
   }
   
   .navbar-right {
@@ -54,7 +55,6 @@
   }
   
   .logout-button {
-    background: #b8326e;
     color: white;
     border: none;
     padding: 8px 12px;
@@ -62,15 +62,15 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
+    background:#DAA520 ;
   }
   
 
   .nav-item.active .nav-link {
     color: #fff;         
     background-color: #150709;  
-    background-color: rgb(132, 5, 73);
     border-radius: 5px;
     padding: 5px 10px;
-   
+
   }
   

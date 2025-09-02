@@ -1,0 +1,58 @@
+.tableContainer {
+  overflow-x: auto;
+  margin-top: 0rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.tableHead {
+  background-color: #38383e;
+  color: white;
+}
+
+.tableHeaderCell {
+  padding: 8px;
+  text-align: center;
+  color: white;
+}
+
+.tableRow {
+  border-bottom: 1px solid #ccc;
+}
+
+.tableCell {
+  padding: 8px;
+  text-align: center;
+}
+
+.checkbox {
+  transform: scale(1.2);
+}
+
+.heading{
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.tableContainer {
+  max-height: 300px; 
+  overflow-y: auto;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color:#38383e;
+  color: white;
+  font-weight: 500;
+}
+
+
+
+

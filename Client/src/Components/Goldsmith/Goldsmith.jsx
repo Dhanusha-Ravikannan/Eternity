@@ -17,7 +17,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import "./Goldsmith.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
-// import { BACKEND_SERVER_URL } from "../../Config/Config";
+
 
 const Goldsmith = () => {
   const [goldsmith, setGoldsmith] = useState([]);

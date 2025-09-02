@@ -1,0 +1,332 @@
+
+.pageWrapper {
+  margin-top: 1rem;
+  width: 90rem;
+  margin-left: 3rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 6px;
+  background-color: rgb(247, 249, 249);
+ 
+}
+
+.headingg {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #4a2c13;
+  text-align: center;
+  margin-top: 2rem;
+  border-bottom: 2px dashed #c2a676;
+  padding-bottom: 0.5rem;
+  padding-top: 1rem;
+
+}
+
+
+.details {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  margin: 0.4rem 0 0.4rem 1rem;
+  margin-top: 1rem;
+}
+
+.details span {
+  margin-left: 0.5rem;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #bfa77a;
+  margin: 1rem 1rem 2rem 1rem;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-start;
+  padding: 0 1rem;
+}
+
+.card {
+  border-radius: 10px;
+  padding: 1.2rem;
+  width: 145px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  margin-left: 2rem;
+  background: #38383e;
+  
+
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+.lotLabel {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #3e2a15;
+  text-align: center;
+  color: white;
+}
+
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0.8rem;
+}
+
+
+.button {
+  background-color: #b58e33;
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-weight: bold;
+}
+
+.button:hover {
+  background-color: #efeeea;
+  color: black;
+}
+
+
+.closebutton {
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.closebutton:hover {
+  background-color: #a93226;
+}
+
+.detailscard{
+  background-color: #f9f7f2;
+}
+
+
+
+
+
+/* 
+<Dialog open={isAddItemOpen} onClose={() => setIsAddItemOpen(false)} fullWidth maxWidth="sm">
+<DialogTitle>Add New Filing Item</DialogTitle>
+<DialogContent>
+  <TextField
+    fullWidth
+    label="Item Name"
+    value={newItem.item}
+    onChange={(e) => setNewItem({ ...newItem, item: e.target.value })}
+    sx={{ mt: 2 }}
+  />
+  <TextField
+    fullWidth
+    label="Weight"
+    type="number"
+    value={newItem.beforeWeight}
+    onChange={(e) => setNewItem({ ...newItem, beforeWeight: e.target.value })}
+    sx={{ mt: 2 }}
+  />
+  <TextField
+    fullWidth
+    label="Touch"
+    value={newItem.touch}
+    onChange={(e) => setNewItem({ ...newItem, touch: e.target.value })}
+    sx={{ mt: 2 }}
+  />
+  <TextField
+    fullWidth
+    label="Purity"
+    value={newItem.purity}
+    onChange={(e) => setNewItem({ ...newItem, purity: e.target.value })}
+    sx={{ mt: 2 }}
+  />
+  <TextField
+    fullWidth
+    label="Remarks"
+    value={newItem.remarks}
+    onChange={(e) => setNewItem({ ...newItem, remarks: e.target.value })}
+    sx={{ mt: 2 }}
+  />
+</DialogContent>
+<DialogActions>
+  <Button onClick={() => setIsAddItemOpen(false)}>Cancel</Button>
+  <Button
+    variant="contained"
+    onClick={() => {
+      if (!newItem.item || !newItem.beforeWeight) {
+        alert("Item name and weight are required");
+        return;
+      }
+      setCustomItems(prev => [...prev, newItem]);
+      setNewItem({ item: '', beforeWeight: '', touch: '', purity: '', remarks: '' });
+      setIsAddItemOpen(false);
+    }}
+  >
+    Save
+  </Button>
+</DialogActions>
+</Dialog> */
+
+
+
+/* const handleSaveSummary = () => {
+  const data = {
+    totalReceipt: totalReceipt.toFixed(2),
+    totalWastage,
+    balance,
+    overallWastage,
+    givenGold
+  };
+  localStorage.setItem('filingSummary', JSON.stringify(data));
+  setClosingSummary(data);
+  alert("Summary saved successfully.");
+};
+
+
+useEffect(() => {
+  localStorage.setItem('filingEntries', JSON.stringify(entries));
+}, [entries]);
+
+const handleCloseJobcard = () => {
+  const lots = JSON.parse(localStorage.getItem("filingLots") || "[]");
+  const nextId = lots.length + 1;
+  lots.push({ id: nextId, date: new Date().toISOString() });
+  localStorage.setItem("filingLots", JSON.stringify(lots));
+  alert("Jobcard closed successfully.");
+}; */
+
+
+
+
+  /* Right side: Summary box */
+/* 
+  <Box
+    sx={{
+      ml: 10,
+      p: 2,
+      border: '1px solid #ccc',
+      borderRadius: '8px',
+      minWidth: '70px',
+      height: 'fit-content',
+      mt: 1,
+      mr: 10
+    }}
+  >
+    <Typography sx={{marginLeft:'5rem', color:'darkblue'}}><b> Opening Balance: 0 </b>  </Typography> <hr/>
+
+    <Typography sx={{ color:'red', marginLeft:'0rem', fontWeight:'bold', fontSize:'1.1rem'}}> Montly Wastage </Typography>
+
+<Box sx={{ mt: 2 }}>
+  <Typography><strong>Total Receipt:</strong> {totalReceipt.toFixed(2)}g</Typography>
+
+  <TextField
+    label="Wastage (%)"
+    type="number"
+    fullWidth
+    size="small"
+    value={wastagePercent}
+    onChange={(e) => setWastagePercent(e.target.value)}
+    sx={{ mt: 2 }}
+  />
+
+  <Typography sx={{ mt: 2 }}>
+    <strong>Total Wastage:</strong> {isNaN(totalWastage) ? '0.00' : totalWastage}g
+  </Typography>
+
+  <Typography sx={{ mt: 2 }}>
+    <strong>Balance:</strong> {balance}g
+  </Typography>
+
+   <Typography sx={{ mt: 2 }}>
+    <strong>Overall Wastage: </strong> 
+    <span style={{ color: parseFloat(overallWastage) >= 0 ? 'green' : 'red' }}>
+      {isNaN(overallWastage) ? '0.00' : overallWastage}g
+    </span>
+  </Typography>  */
+
+/* Show Given Gold only if Overall Wastage is negative */
+/* {parseFloat(overallWastage) < 0 && (
+  <TextField
+    label="Given Gold"
+    type="number"
+    fullWidth
+    size="small"
+    value={givenGold}
+    onChange={(e) => setGivenGold(e.target.value)}
+    sx={{ mt: 2 }}
+  />
+)} */
+
+/* Closing Balance – Always show if overallWastage is non-zero */
+/* <Typography sx={{ mt: 2, color:'darkblue' }}>
+  <strong>Closing Balance:</strong>{" "}
+  {(
+    parseFloat(overallWastage || 0) +
+    parseFloat(parseFloat(overallWastage) < 0 ? givenGold || 0 : 0)
+  ).toFixed(2)}g
+</Typography>
+
+<Typography
+  sx={{
+    mt: 1,
+    color:
+      parseFloat(overallWastage || 0) -
+        parseFloat(parseFloat(overallWastage) < 0 ? givenGold || 0 : 0) >
+      0
+        ? 'green'
+        : 'red'
+  }}
+>
+  <strong>
+    {(
+      parseFloat(overallWastage || 0) -
+      parseFloat(parseFloat(overallWastage) < 0 ? givenGold || 0 : 0)
+    ) > 0
+      ? 'Worker should give to Owner'
+      : (
+          parseFloat(overallWastage || 0) -
+          parseFloat(parseFloat(overallWastage) < 0 ? givenGold || 0 : 0)
+        ) < 0
+      ? 'Owner should give to Worker'
+      : 'No balance due'}
+  </strong>
+</Typography>
+
+<Button
+  variant="contained"
+  color="primary"
+  sx={{ mt: 3, width: '100%' , backgroundColor: '#1a1a1f', color:'white', textAlign:'center'  }}
+  onClick={handleSaveSummary}
+>
+  Save Summary
+</Button>
+
+
+<Button
+  variant="outlined"
+  color="error"
+  sx={{ mt: 2, width: '100%' }}
+  onClick={handleCloseJobcard}
+>
+  Close Jobcard
+</Button>
+</Box>
+  </Box> */

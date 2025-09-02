@@ -1,0 +1,73 @@
+.customerContainer {
+    width: 85%;
+    margin: 40px auto;
+  }
+  
+  .customerTable {
+    margin-top: 40px;
+    color: white;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  /* .customerTable th, */
+  .customerTable td {
+    border: 1px solid #e5dfdf;
+    padding: 8px;
+    text-align: left;
+    font-family:sans-serif;
+    background-color:white;
+    color: black;
+
+  }
+  
+  .customerTable th {
+    background-color:#38383e;
+    color: white;
+    font-weight: 500;
+  }
+  
+  .styledButton {
+    margin: 8px;
+    padding: 8px 24px;
+    border-radius: 8px;
+    text-transform: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .styledButton:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dialogPaper {
+    width: 400px !important;
+    max-width: 90%;
+  }
+  
+  .actionIcons {
+    width: 7rem;
+  }
+  
+  .centerText {
+    text-align: center;
+  }
+  
+  .editIcon {
+    margin-right: 8px;
+    cursor: pointer;
+  
+  }
+  
+  .deleteIcon {
+    color: rgb(178, 21, 21);
+    margin-left: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .itemList{
+    margin-top: 2rem;
+  }
+
+  .addButton{
+    background-color: #fffbe2 !important;
+  }

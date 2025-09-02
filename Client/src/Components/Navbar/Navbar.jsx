@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import './Navbar.css';
 import LogoutIcon from '@mui/icons-material/Logout';
 import logo from '../../assets/logo.jpg';
@@ -27,7 +27,7 @@ function Navbar() {
           <a href="/master" className="nav-link">Master</a>
         </li>
         <li className={`nav-item ${isActive("/customer") ? "active" : ""}`}>
-          <a href="/master" className="nav-link">Customer</a>
+          <a href="/customer" className="nav-link">Customer</a>
         </li>
         <li className={`nav-item ${isActive("/casting") ? "active" : ""}`}>
           <a href="/casting" className="nav-link">Casting/Melting</a>
@@ -44,12 +44,52 @@ function Navbar() {
         <li className={`nav-item ${isActive("/billing") ? "active" : ""}`}>
           <a href="/billing" className="nav-link">Billing</a>
         </li>
-        <li className={`nav-item ${isActive("/report") ? "active" : ""}`}>
+        {/* <li className={`nav-item ${isActive("/report") ? "active" : ""}`}>
           <a href="/report" className="nav-link">Report</a>
-        </li>
-        {/* <li className={`nav-item ${isActive("/stock") ? "active" : ""}`}>
-          <a href="/stock" className="nav-link">Stock</a>
         </li> */}
+
+<li className="nav-item dropdown">
+  <a
+    href="#"
+    className="nav-link dropdown-toggle"
+    id="reportDropdown"
+    role="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Report
+  </a>
+  <ul className="dropdown-menu" aria-labelledby="reportDropdown">
+    <li>
+      <Link className="dropdown-item" to="/salesreport">Sales Report</Link>
+    </li>
+    <li>
+      <Link className="dropdown-item" to="/customerreport">Customer Report</Link>
+    </li>
+    <li>
+      <Link className="dropdown-item" to="/stockreport">Stock Report</Link>
+    </li>
+    <li>
+      <Link className="dropdown-item" to="/receiptreport">Receipt Report</Link>
+    </li>
+    <li>
+      <Link className="dropdown-item" to="/castingMeltingrreports">Casting/Melting Report</Link>
+    </li>
+    <li>
+      <Link className="dropdown-item" to="/filingreports">Filing Report</Link>
+    </li>
+    <li>
+      <Link className="dropdown-item" to="/settingreports">Setting Report</Link>
+    </li>
+    <li>
+      <Link className="dropdown-item" to="/buffingreports">Buffing Report</Link>
+    </li>
+  </ul>
+</li>
+
+        <li className={`nav-item ${isActive("/stock") ? "active" : ""}`}>
+          <a href="/stock" className="nav-link">Stock</a>
+        </li>
       </ul>
 
       <div className="navbar-right">     
@@ -66,5 +106,5 @@ function Navbar() {
     </>
   );
 }
-
 export default Navbar;
+
