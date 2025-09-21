@@ -1,0 +1,16 @@
+.tableCell {
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+.tablehead {
+    background-color: #38383e;
+    color: antiquewhite;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-weight: bold;
+}
+.trEven {
+    background-color: #f5f5f5;
+  }

@@ -1,6 +1,5 @@
-import { PrismaClient } from '../generated/prisma/index.js'; 
+import { PrismaClient } from "../generated/prisma/index.js";
 const prisma = new PrismaClient();
-
 
 // Create customer
 export const createCustomer = async (req, res) => {
@@ -44,5 +43,26 @@ export const deleteCustomer = async (req, res) => {
     res.json({ message: "Customer deleted" });
   } catch (error) {
     res.status(404).json({ error: "Customer not found" });
+  }
+};
+
+export const getHallmarkByCustomerId = async (req, res) => {
+  try {
+    const { customerId } = req.params;
+
+    const hallmark = await prisma.hallmark.findMany({
+      where: {
+        customer_id: parseInt(customerId),
+      },
+    });
+
+    if (hallmark.length === 0) {
+      return res.status(200).json({ balance: 0 });
+    }
+
+    res.status(200).json(hallmark);
+  } catch (error) {
+    console.error("Error fetching hallmark:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };

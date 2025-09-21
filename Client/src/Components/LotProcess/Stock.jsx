@@ -2,118 +2,255 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import Navbar from "../Navbar/Navbar";
+import { Button, TextField } from "@mui/material";
+import styles from "./Stock.module.css";
+
+
 
 const Stock = () => {
-  const [scrapItems, setScrapItems] = useState([]);
+  const [stockItems, setStockItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [customerName, setCustomerName] = useState("");
+  const [touchSummary, setTouchSummary] = useState({});
 
   useEffect(() => {
-    const fetchScrapItems = async () => {
+    const fetchStockItems = async () => {
       try {
-        const response = await axios.get(`${BACKEND_SERVER_URL}/api/castingitems`);
+        const response = await axios.get(`${BACKEND_SERVER_URL}/api/stock`);
         const allItems = response.data;
-        const scrapOnly = allItems.filter(item => item.type === "ScrapItems");
-        setScrapItems(scrapOnly);
-        setFilteredItems(scrapOnly);
+        console.log("Available stock Items:", allItems);
+        setStockItems(allItems);
+        setFilteredItems(allItems);
+        calculateSummary(allItems);
       } catch (error) {
-        console.error("Error fetching scrap items:", error);
+        console.error("Error fetching stock items:", error);
       }
     };
 
-    fetchScrapItems();
+    fetchStockItems();
   }, []);
 
-  useEffect(() => {
-    let filtered = scrapItems;
+  const calculateSummary = (items) => {
+    const summary = {};
 
-    // Filter by customer name (partial match, case-insensitive)
-    if (customerName.trim()) {
-      filtered = filtered.filter(item =>
-        item.casting_customer?.name?.toLowerCase().includes(customerName.toLowerCase())
-      );
-    }
+    items.forEach((item) => {
+      const touch = item.touch?.touch || item.touch_id;
+      const weight = parseFloat(item.weight) || 0;
 
-    // Filter by date range
+      if (touch) {
+        if (!summary[touch]) {
+          summary[touch] = 0;
+        }
+        summary[touch] += weight;
+      }
+    });
+
+    setTouchSummary(summary);
+  };
+
+  const applyFilters = () => {
+    let filtered = [...stockItems];
+
     if (fromDate && toDate) {
       const from = new Date(fromDate);
       const to = new Date(toDate);
-      filtered = filtered.filter(item => {
-        const itemDate = new Date(item.castingEntry?.date);
+      to.setHours(23, 59, 59, 999);
+
+      filtered = filtered.filter((item) => {
+        const itemDate = new Date(item.createdAt);
         return itemDate >= from && itemDate <= to;
       });
     }
 
+    if (customerName.trim()) {
+      const nameLower = customerName.toLowerCase();
+
+      filtered = filtered.filter((item) => {
+        const castingName =
+          item.castingItem?.castingEntry?.casting_customer?.name?.toLowerCase() ||
+          "";
+        const filingName =
+          item.filingItem?.filing_entry?.filing_person?.name?.toLowerCase() ||
+          "";
+        const settingName =
+          item.settingItem?.settingEntryId?.setting_person?.name?.toLowerCase() ||
+          "";
+        const buffingName =
+          item.buffingItem?.buffingEntryId?.buffing_person?.name?.toLowerCase() ||
+          "";
+        const purchaseName =
+          item.purchaseId?.SupplierId?.name?.toLowerCase() || "";
+        const transactionName =
+          item.customer?.name?.toLowerCase() || 
+          item.transactionCustomer?.name?.toLowerCase() || 
+          "";
+
+        return (
+          castingName.includes(nameLower) ||
+          filingName.includes(nameLower) ||
+          settingName.includes(nameLower) ||
+          buffingName.includes(nameLower) ||
+          purchaseName.includes(nameLower) ||
+          transactionName.includes(nameLower)
+        );
+      });
+    }
+
     setFilteredItems(filtered);
-  }, [fromDate, toDate, customerName, scrapItems]);
+    calculateSummary(filtered);
+  };
+
+  const resetFilters = () => {
+    setFromDate("");
+    setToDate("");
+    setCustomerName("");
+    setFilteredItems(stockItems);
+    calculateSummary(stockItems);
+  };
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div style={{ margin: "2rem" }}>
-        <h3 style={{ color: "#5f4917", textAlign: "center" }}>Scrap Items (Stock)</h3>
-        <br/>
+        <h4 style={{ textAlign: "center", color: "black" }}>
+          Scrap Items (Stock)
+        </h4>
+        <br />
 
-        {/* Filters */}
-        <div style={{ marginBottom: "1rem", display: "flex", gap: "1rem", alignItems: "center" }}>
-          <label>
-            From: <input type="date" value={fromDate} onChange={e => setFromDate(e.target.value)} />
-          </label>
-          <label>
-            To: <input type="date" value={toDate} onChange={e => setToDate(e.target.value)} />
-          </label>
-          <label>
-            Customer Name:{" "}
-            <input
-              type="text"
-              placeholder="Search by customer"
-              value={customerName}
-              onChange={e => setCustomerName(e.target.value)}
-            />
-          </label>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
+            flexWrap: "wrap",
+            marginTop: "0.5rem",
+          }}
+        >
+          <TextField
+            label="From Date"
+            type="date"
+            size="small"
+            value={fromDate}
+            onChange={(e) => setFromDate(e.target.value)}
+            InputLabelProps={{ shrink: true }}
+            sx={{ ml: "2rem" }}
+          />
+          <TextField
+            label="To Date"
+            type="date"
+            size="small"
+            value={toDate}
+            onChange={(e) => setToDate(e.target.value)}
+            InputLabelProps={{ shrink: true }}
+          />
+
+          <TextField
+            label="Customer Name"
+            type="text"
+            sx={{ width: 200 }}
+            margin="dense"
+            size="small"
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+          />
+
+          <Button variant="outlined" onClick={applyFilters}>
+            Filter
+          </Button>
+          <Button variant="outlined" onClick={resetFilters}>
+            Reset
+          </Button>
         </div>
 
+        {Object.keys(touchSummary).length > 0 && (
+          <div className={styles.summarySection}>
+            <h4>Summary</h4>
+            <div className={styles.summaryGrid}>
+              {Object.entries(touchSummary).map(([touch, weight]) => (
+                <div key={touch} className={styles.summaryItem}>
+                  <span>Touch {touch} Total Weight:</span>
+                  <span>{weight.toFixed(2)}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {filteredItems.length > 0 ? (
-          <table border="1" cellPadding="8" cellSpacing="0" style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead style={{ backgroundColor: "#f0f0f0" }}>
+                    <div className={styles.tablecontainer} > 
+        <table className={styles.table} style={{marginTop:'2rem'}}>
+            <thead style={{ backgroundColor: "#38383e", color: "white" }}>
               <tr>
                 <th>S.No</th>
                 <th>Date</th>
-                <th>Customer Name</th>
+                <th>Time</th>
+                <th>Name</th>
                 <th>Item</th>
                 <th>Weight</th>
                 <th>Touch</th>
                 <th>Purity</th>
-                <th>Scrap Weight</th>
-                <th>Scrap Wastage</th>
                 <th>Remarks</th>
+                <th>Process</th>
               </tr>
             </thead>
             <tbody>
-              {filteredItems.map((item, index) => (
-                <tr key={item.id}>
-                  <td>{index + 1}</td>
-                  <td>
-                    {item.castingEntry?.date
-                      ? new Date(item.castingEntry.date).toLocaleDateString()
-                      : "-"}
-                  </td>
-                  <td>{item.casting_customer?.name || "-"}</td>
-                  <td>{item.item?.name}</td>
-                  <td>{item.weight}</td>
-                  <td>{item.touch}</td>
-                  <td>{item.item_purity}</td>
-                  <td>{item.scrap_weight}</td>
-                  <td>{item.scrap_wastage?.toFixed(2)}</td>
-                  <td>{item.remarks}</td>
-                </tr>
-              ))}
+              {filteredItems.map((item, index) => {
+                const createdDate = new Date(item.createdAt);
+                const dateString = createdDate.toLocaleDateString();
+                const timeString = createdDate.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                });
+
+                const customerName =
+                  item.castingItem?.castingEntry?.casting_customer?.name ||
+                  item.filingItem?.filing_entry?.filing_person?.name ||
+                  item.settingItem?.settingEntryId?.setting_person?.name ||
+                  item.buffingItem?.buffingEntryId?.buffing_person?.name ||
+                  item.purchaseId?.SupplierId?.name ||
+                  item.customer?.name || 
+                  item.transactionCustomer?.name || 
+                  "-";
+
+                const itemName =
+                  item.item?.name || item.purchaseId?.item || item.item_type  || "-";
+
+                const processName = item.castingItem
+                  ? "Casting"
+                  : item.filingItem
+                    ? "Filing"
+                    : item.settingItem
+                      ? "Setting"
+                      : item.buffingItem
+                        ? "Buffing"
+                        : item.purchaseId
+                          ? "Purchase"
+                          : "Customer Transaction";
+
+                return (
+                  <tr key={item.id} className={styles.trEven}  >
+                    <td>{index + 1}</td>
+                    <td>{dateString}</td>
+                    <td>{timeString}</td>
+                    <td>{customerName}</td>
+                    <td>{itemName}</td>
+                    <td>{item.weight ?? "-"}</td>
+                    <td>{item.touch?.touch ?? item.touch_id ?? "-"}</td>
+                    <td>{item.item_purity ?? "-"}</td>
+                    <td>{item.remarks || "-"}</td>
+                    <td>{processName}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
+          </div>
         ) : (
-          <p style={{ textAlign: "center", color: "gray" }}>No Customer Name found.</p>
+          <p style={{ textAlign: "center", color: "gray" }}>
+            No matching stock data found.
+          </p>
         )}
       </div>
     </>

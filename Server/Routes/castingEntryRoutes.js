@@ -1,18 +1,3 @@
-// import express from 'express';
-// import { createCastingEntry,getAllCastingEntry } from '../Controllers/castingEntryController.js';
-
-
-// const router = express.Router();
-
-// router.post("/",createCastingEntry);
-// router.get ("/", getAllCastingEntry);
-
-
-
-// export default router;
-
-
-
 import express from 'express';
 import {
   createCastingEntry,

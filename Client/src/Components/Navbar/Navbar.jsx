@@ -1,71 +1,191 @@
-import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import './Navbar.css';
-import LogoutIcon from '@mui/icons-material/Logout';
-import logo from '../../assets/logo.jpg';
+import React, { useState } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import logo from "../../assets/logo.jpg";
+import styles from "./Navbar.module.css";
 
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [reportOpen, setReportOpen] = useState(false);
 
   const handleLogout = () => {
     navigate("/");
   };
 
-  // Helper to check if route is active
   const isActive = (path) => location.pathname === path;
 
   return (
-    <> 
-    <nav className="navbar">
-      <div className="navbar-left">
-        <img src={logo} alt="Logo" className="navbar-logo" />
+    <nav className={styles.navbar}>
+      {/* Left Logo */}
+      <div className={styles.navbarLeft}>
+        <img src={logo} alt="Logo" className={styles.navbarLogo} />
       </div>
 
-      <ul className="nav-list"> 
-        <li className={`nav-item ${isActive("/master") ? "active" : ""}`}>
-          <a href="/master" className="nav-link">Master</a>
+      {/* Nav Links */}
+      <ul className={styles.navList}>
+        <li className={styles.navItem}>
+          <Link
+            to="/master"
+            className={`${styles.navLink} ${
+              isActive("/master") ? styles.active : ""
+            }`}
+          >
+            Master
+          </Link>
         </li>
-        <li className={`nav-item ${isActive("/customer") ? "active" : ""}`}>
-          <a href="/customer" className="nav-link">Customer</a>
+        <li className={styles.navItem}>
+          <Link
+            to="/customer"
+            className={`${styles.navLink} ${
+              isActive("/customer") ? styles.active : ""
+            }`}
+          >
+            Customer
+          </Link>
         </li>
-        <li className={`nav-item ${isActive("/casting") ? "active" : ""}`}>
-          <a href="/casting" className="nav-link">Casting/Melting</a>
+        <li className={styles.navItem}>
+          <Link
+            to="/casting"
+            className={`${styles.navLink} ${
+              isActive("/casting") ? styles.active : ""
+            }`}
+          >
+            Casting/Melting
+          </Link>
         </li>
-        <li className={`nav-item ${isActive("/filing") ? "active" : ""}`}>
-          <a href="/filing" className="nav-link">Filing</a>
+        <li className={styles.navItem}>
+          <Link
+            to="/filing"
+            className={`${styles.navLink} ${
+              isActive("/filing") ? styles.active : ""
+            }`}
+          >
+            Filing
+          </Link>
         </li>
-        <li className={`nav-item ${isActive("/setting") ? "active" : ""}`}>
-          <a href="/setting" className="nav-link">Setting</a>
+        <li className={styles.navItem}>
+          <Link
+            to="/setting"
+            className={`${styles.navLink} ${
+              isActive("/setting") ? styles.active : ""
+            }`}
+          >
+            Setting
+          </Link>
         </li>
-        <li className={`nav-item ${isActive("/buffing") ? "active" : ""}`}>
-          <a href="/buffing" className="nav-link">Buffing</a>
+        <li className={styles.navItem}>
+          <Link
+            to="/buffing"
+            className={`${styles.navLink} ${
+              isActive("/buffing") ? styles.active : ""
+            }`}
+          >
+            Buffing
+          </Link>
         </li>
-        <li className={`nav-item ${isActive("/billing") ? "active" : ""}`}>
-          <a href="/billing" className="nav-link">Billing</a>
+        <li className={styles.navItem}>
+          <Link
+            to="/billing"
+            className={`${styles.navLink} ${
+              isActive("/billing") ? styles.active : ""
+            }`}
+          >
+            Billing
+          </Link>
         </li>
-        <li className={`nav-item ${isActive("/report") ? "active" : ""}`}>
-          <a href="/report" className="nav-link">Report</a>
+
+        {/* Dropdown */}
+        <li
+          className={`${styles.navItem} ${styles.dropdown}`}
+          onMouseEnter={() => setReportOpen(true)}
+          onMouseLeave={() => setReportOpen(false)}
+        >
+          <div className={styles.dropdownToggle}>Report▾</div>
+          <ul
+            className={`${styles.dropdownMenu} ${
+              reportOpen ? styles.show : ""
+            }`}
+          >
+               <li>
+              <Link className={styles.dropdownItem} to="/castingMeltingrreports">
+                Casting Report
+              </Link>
+            </li>
+            <li>
+              <Link className={styles.dropdownItem} to="/filingreports">
+                Filing Report
+              </Link>
+            </li>
+            <li>
+              <Link className={styles.dropdownItem} to="/settingreports">
+                Setting Report
+              </Link>
+            </li>
+            <li>
+              <Link className={styles.dropdownItem} to="/buffingreports">
+                Buffing Report
+              </Link>
+            </li>
+            <li>
+              <Link className={styles.dropdownItem} to="/workerReport">
+                Worker Report
+              </Link>
+            </li>
+            <li>
+              <Link className={styles.dropdownItem} to="/purchasereport">
+                Purchase Report
+              </Link>
+            </li>
+            <li>
+              <Link className={styles.dropdownItem} to="/salesreport">
+                Sales Report
+              </Link>
+            </li>
+            <li>
+              <Link className={styles.dropdownItem} to="/customerreport">
+                Customer Report
+              </Link>
+            </li>
+            <li>
+              <Link className={styles.dropdownItem} to="/stockreport">
+                Stock Report
+              </Link>
+            </li>
+            {/* <li>
+              <Link className={styles.dropdownItem} to="/receiptreport">
+                Receipt Report
+              </Link>
+            </li>  */}
+          
+          </ul>
         </li>
-        <li className={`nav-item ${isActive("/stock") ? "active" : ""}`}>
-          <a href="/stock" className="nav-link">Stock</a>
+
+        <li className={styles.navItem}>
+          <Link
+            to="/stock"
+            className={`${styles.navLink} ${
+              isActive("/stock") ? styles.active : ""
+            }`}
+          >
+            Stock
+          </Link>
         </li>
       </ul>
 
-      <div className="navbar-right">     
+      {/* Right Logout */}
+      <div className={styles.navbarRight}>
         <button
-  onClick={handleLogout}
-  className="logout-button"
-  title="Logout"
->
-  <LogoutIcon />
-</button>
-
-
+          onClick={handleLogout}
+          className={styles.logoutButton}
+          title="Logout"
+        >
+          <LogoutIcon />
+        </button>
       </div>
     </nav>
-    </>
   );
 }
 
 export default Navbar;
+

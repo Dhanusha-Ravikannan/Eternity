@@ -58,7 +58,7 @@ const Login = () => {
 
     {/* Text on the right */}
     <Box>
-      <Typography variant="h5" fontWeight="bold" gutterBottom sx={{ color: 'red', color:'black' , ml:5 ,
+      <Typography variant="h5" fontWeight="bold" gutterBottom sx={{ color:'black' , ml:5 ,
          fontFamily: 'Playfair Display, serif',
          textShadow: '1px 1px 4px rgba(0,0,0,0.3)',
       }}>
@@ -76,9 +76,6 @@ const Login = () => {
     fullWidth
     variant="contained"
     sx={{
-      backgroundColor: '#d46d68',
-      background:'#DAA520' ,
-    background:'black',
     background: 'linear-gradient(to left, #674903, #DAA520)',
       fontWeight: 'bold',
       fontSize: '1rem',

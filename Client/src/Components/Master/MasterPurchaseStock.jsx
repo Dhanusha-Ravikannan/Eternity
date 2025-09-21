@@ -2,295 +2,485 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Master from "./Master";
-import "./MasterPurchaseStock.css";
+import Master from "./MasterNavbar";
+import styles from "./MasterPurchaseStock.module.css";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import { Edit, Delete, Search } from "@mui/icons-material";
+import {
+  TextField,
+  MenuItem,
+  Button,
+  Box,
+  InputAdornment,
+} from "@mui/material";
 
 const MasterPurchaseStock = () => {
   const [showModal, setShowModal] = useState(false);
   const [purchaseList, setPurchaseList] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
+  const [supplierList, setSupplierList] = useState([]);
+  const [touchList, setTouchList] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const getTodayDate = () => new Date().toISOString().split("T")[0];
 
   const [formData, setFormData] = useState({
-    supplierName: "",
-    purchaseDate: "",
+    supplierId: "",
+    purchaseDate: getTodayDate(),
     item: "",
-    goldWeight: "",
-    goldTouch: "",
-    goldPurity: "",
-    goldRate: "",
-    goldTotalValue: "",
-    silverWeight: "",
-    silverTouch: "",
-    silverPurity: "",
-    silverRate: "",
-    silvertotalValue: "",
+    weight: "",
+    touch_id: "",
+    touch_value: "",
+    purity: "",
+    rate: "",
+    totalValue: "",
+    remarks: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Fetch all purchases from backend
   const fetchPurchases = async () => {
     try {
-      const response = await axios.get(`${BACKEND_SERVER_URL}/api/purchase`);
-      setPurchaseList(response.data);
-    } catch (error) {
+      const { data } = await axios.get(`${BACKEND_SERVER_URL}/api/purchase`);
+      console.log("Qqqqqqqqqqq", data)
+      setPurchaseList(data);
+    } catch {
       toast.error("Failed to fetch purchases");
+    }
+  };
+
+  const fetchSuppliers = async () => {
+    try {
+      const { data } = await axios.get(`${BACKEND_SERVER_URL}/api/addsupplier`);
+      setSupplierList(data);
+    } catch {
+      toast.error("Failed to fetch suppliers");
+    }
+  };
+
+  const fetchTouchList = async () => {
+    try {
+      const { data } = await axios.get(`${BACKEND_SERVER_URL}/api/addtouch`);
+      setTouchList(data);
+    } catch {
+      toast.error("Failed to fetch touch list");
     }
   };
 
   useEffect(() => {
     fetchPurchases();
+    fetchSuppliers();
+    fetchTouchList();
   }, []);
 
   const resetForm = () => {
     setFormData({
-      supplierName: "",
-      purchaseDate: "",
+      supplierId: "",
+      purchaseDate: getTodayDate(),
       item: "",
-      goldWeight: "",
-      goldTouch: "",
-      goldPurity: "",
-      goldRate: "",
-      goldTotalValue: "",
-      silverWeight: "",
-      silverTouch: "",
-      silverPurity: "",
-      silverRate: "",
-      silvertotalValue: "",
+      weight: "",
+      touch_id: "",
+      touch_value: "",
+      purity: "",
+      rate: "",
+      totalValue: "",
+      remarks: "",
     });
     setEditingIndex(null);
   };
 
-  // Submit form handler - add or update purchase
+  useEffect(() => {
+    const w = parseFloat(formData.weight);
+    const t = parseFloat(formData.touch_value);
+    if (!isNaN(w) && !isNaN(t)) {
+      const purity = (w * t) / 100; // formula: weight * touch / 100
+      setFormData((prev) => ({ ...prev, purity: purity.toFixed(2) }));
+    } else {
+      setFormData((prev) => ({ ...prev, purity: "" }));
+    }
+  }, [formData.weight, formData.touch_value]);
+
+  //  formula updated: totalValue = purity * rate
+  useEffect(() => {
+    const r = parseFloat(formData.rate);
+    const p = parseFloat(formData.purity);
+    if (!isNaN(r) && !isNaN(p)) {
+      setFormData((prev) => ({
+        ...prev,
+        totalValue: (p * r).toFixed(2),
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, totalValue: "" }));
+    }
+  }, [formData.rate, formData.purity]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
-      name: formData.supplierName,
+      supplierId: parseInt(formData.supplierId, 10),
       createdAt: formData.purchaseDate,
       item: formData.item,
-      goldWeight: formData.goldWeight ? parseFloat(formData.goldWeight) : null,
-      goldTouch: formData.goldTouch ? parseFloat(formData.goldTouch) : null,
-      goldPurity: formData.goldPurity ? parseFloat(formData.goldPurity) : null,
-      goldRate: formData.goldRate ? parseFloat(formData.goldRate) : null,
-      goldtotalValue: formData.goldTotalValue ? parseFloat(formData.goldTotalValue) : null,
-      silverWeight: formData.silverWeight ? parseFloat(formData.silverWeight) : null,
-      silverTouch: formData.silverTouch ? parseFloat(formData.silverTouch) : null,
-      silverPurity: formData.silverPurity ? parseFloat(formData.silverPurity) : null,
-      silverRate: formData.silverRate ? parseFloat(formData.silverRate) : null,
-      silvertotalValue: formData.silvertotalValue ? parseFloat(formData.silvertotalValue) : null,
+      weight: parseFloat(formData.weight),
+      touch_id: parseInt(formData.touch_id, 10),
+      purity: parseFloat(formData.purity),
+      rate: parseFloat(formData.rate),
+      totalValue: parseFloat(formData.totalValue),
+      remarks: formData.remarks || "",
     };
 
     try {
-      if (editingIndex !== null) {
-        // Update existing purchase
-        const id = purchaseList[editingIndex].id;
-        const response = await axios.put(`${BACKEND_SERVER_URL}/api/purchase/${id}`, payload);
-        const updatedList = [...purchaseList];
-        updatedList[editingIndex] = response.data;
-        setPurchaseList(updatedList);
-        toast.success("Purchase updated successfully!");
-      } else {
-        // Create new purchase
-    
-        const response = await axios.post(`${BACKEND_SERVER_URL}/api/purchase`, payload);
-console.log("Response data:", response.data);
-setPurchaseList((prev) => [...prev, response.data]);
-toast.success("Purchase submitted successfully!");
+      const headers = { headers: { "Content-Type": "application/json" } };
+      let data;
 
+      if (editingIndex !== null) {
+        // Update existing purchase (using savePurchase endpoint)
+        const id = purchaseList[editingIndex].id;
+        const res = await axios.put(
+          `${BACKEND_SERVER_URL}/api/purchase/purchase/${id}`,
+          payload,
+          headers
+        );
+        data = res.data;
+
+        // Replace updated row in state
+        setPurchaseList((prev) =>
+          prev.map((p, i) => (i === editingIndex ? data : p))
+        );
+        toast.success("Purchase updated!");
+      } else {
+        //  Create new purchase (using savePurchase endpoint)
+        const res = await axios.post(
+          `${BACKEND_SERVER_URL}/api/purchase/purchase`,
+          payload,
+          headers
+        );
+        data = res.data;
+
+        // Add new row at end of table
+        setPurchaseList((prev) => [...prev, data]);
+        toast.success("Purchase submitted!");
       }
 
       resetForm();
       setShowModal(false);
-    } catch (error) {
-      toast.error(`Error: ${error.response?.data?.message || error.message}`);
+    } catch (err) {
+      toast.error(`Error: ${err.response?.data?.message || err.message}`);
     }
   };
 
   const handleEdit = (index) => {
-    const item = purchaseList[index];
+    const p = purchaseList[index];
     setFormData({
-      supplierName: item.name,
-      purchaseDate: item.createdAt,
-      item: item.item,
-      goldWeight: item.goldWeight || "",
-      goldTouch: item.goldTouch || "",
-      goldPurity: item.goldPurity || "",
-      goldRate: item.goldRate || "",
-      goldTotalValue: item.goldtotalValue || "",
-      silverWeight: item.silverWeight || "",
-      silverTouch: item.silverTouch || "",
-      silverPurity: item.silverPurity || "",
-      silverRate: item.silverRate || "",
-      silvertotalValue: item.silvertotalValue || "",
+      supplierId: p.supplierId,
+      purchaseDate: p.createdAt.split("T")[0],
+      item: p.item,
+      weight: p.weight,
+      touch_id: p.touch_id,
+      touch_value: p.TouchId?.touch || "",
+      purity: p.purity,
+      rate: p.rate,
+      totalValue: p.totalValue,
+      remarks: p.remarks || "",
     });
     setEditingIndex(index);
     setShowModal(true);
   };
 
-  // Delete purchase handler
   const handleDelete = async (index) => {
-    const itemToDelete = purchaseList[index];
-    const confirmed = window.confirm(`Are you sure you want to delete "${itemToDelete.name}"?`);
-    if (!confirmed) return;
+    const p = purchaseList[index];
+    if (!window.confirm(`Delete purchase for supplier ID ${p.supplierId}?`))
+      return;
     try {
-      await axios.delete(`${BACKEND_SERVER_URL}/api/purchase/${itemToDelete.id}`);
-      const filteredList = purchaseList.filter((_, i) => i !== index);
-      setPurchaseList(filteredList);
-      toast.error("Purchase deleted successfully!");
-    } catch (error) {
-      toast.error("Failed to delete purchase");
+      await axios.delete(`${BACKEND_SERVER_URL}/api/purchase/${p.id}`);
+      setPurchaseList((prev) => prev.filter((_, i) => i !== index));
+      toast.success("Purchase deleted!");
+    } catch {
+      toast.error("Failed to delete");
     }
   };
+
+  const filteredPurchases = purchaseList.filter((p) =>
+    (p.SupplierId?.name || "").toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
       <Master />
-      <div className="stock-page">
+      <div className={styles.stockPage}>
         <ToastContainer />
+        <div className={styles.search}>
+          <Button
+            style={{
+              backgroundColor: "#F5F5F5",
+              color: "black",
+              borderColor: "#25274D",
+              borderStyle: "solid",
+              borderWidth: "2px",
+              marginLeft: "3rem",
+            }}
+            variant="contained"
+            onClick={() => {
+              resetForm();
+              setShowModal(true);
+            }}
+          >
+            Add Stock Purchase
+          </Button>
 
-        <button
-          className="open-modal-btn"
-          onClick={() => {
-            setShowModal(true);
-            resetForm();
-          }}
-        >
-          Add Stock Purchase
-        </button>
+          <TextField
+            placeholder="Search by Supplier Name"
+            variant="outlined"
+            size="small"
+            sx={{ marginLeft: "51.5rem" }}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Button
+            style={{
+              backgroundColor: "#F5F5F5",
+              color: "black",
+              borderColor: "#25274D",
+              borderStyle: "solid",
+              borderWidth: "2px",
+              marginLeft: "1.2rem",
+            }}
+            onClick={() => setSearchTerm("")}
+          >
+            Reset
+          </Button>
+        </div>
 
         {showModal && (
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <h3>{editingIndex !== null ? "Edit Purchase" : "Add Stock Purchase"}</h3>
-              <form onSubmit={handleSubmit} className="purchase-form">
-                <div className="right-column">
-                  <div className="form-group">
-                    <label>Supplier Name:</label>
-                    <input type="text" name="supplierName" value={formData.supplierName} onChange={handleChange} required />
-                  </div>
-                  <div className="form-group">
-                    <label>Purchase Date:</label>
-                    <input type="date" name="purchaseDate" value={formData.purchaseDate} onChange={handleChange} required />
-                  </div>
-                  <div className="form-group">
-                    <label>Item:</label>
-                    <select name="item" value={formData.item} onChange={handleChange} required>
-                      <option value="">Select Item</option>
-                      <option value="Gold">Gold</option>
-                      <option value="Silver">Silver</option>
-                    </select>
-                  </div>
-                </div>
+          <div className={styles.modalOverlay}>
+            <div className={styles.modalContent}>
+              <h5 style={{ textAlign: "center", fontWeight:'530' }}>
+                {editingIndex !== null ? "Edit Purchase" : "Add Stock Purchase"}
+              </h5>
+              <form onSubmit={handleSubmit} className={styles.purchaseForm}>
+                <Box display="flex" flexDirection="column" gap={2}>
+                  <TextField
+                    select
+                    label="Select Supplier"
+                    name="supplierId"
+                    fullWidth
+                    required
+                    value={formData.supplierId}
+                    onChange={handleChange}
+                  >
+                    {supplierList
+                      .filter((s) => s.name.trim())
+                      .map((s) => (
+                        <MenuItem key={s.id} value={s.id}>
+                          {s.name}
+                        </MenuItem>
+                      ))}
+                  </TextField>
 
-                <div className="form-content">
-                  <div className="left-column">
-                    {formData.item === "Gold" && (
-                      <>
-                        <div className="form-group">
-                          <label>Gold Weight:</label>
-                          <input type="number" name="goldWeight" value={formData.goldWeight} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                          <label>Touch:</label>
-                          <input type="number" name="goldTouch" value={formData.goldTouch} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                          <label>Purity:</label>
-                          <input type="number" name="goldPurity" value={formData.goldPurity} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                          <label>Gold Rate:</label>
-                          <input type="number" name="goldRate" value={formData.goldRate} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                          <label>Total Value:</label>
-                          <input type="number" name="goldTotalValue" value={formData.goldTotalValue} onChange={handleChange} />
-                        </div>
-                      </>
-                    )}
+                  <TextField
+                    margin="dense"
+                    label="Purchase Date"
+                    name="purchaseDate"
+                    type="date"
+                    fullWidth
+                    required
+                    InputLabelProps={{ shrink: true }}
+                    value={formData.purchaseDate}
+                    onChange={handleChange}
+                  />
+                  <Box display="flex" gap={2}>
+                    <TextField
+                      select
+                      label="Item"
+                      name="item"
+                      fullWidth
+                      required
+                      value={formData.item}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Gold">Gold</MenuItem>
+                      <MenuItem value="Silver">Silver</MenuItem>
+                    </TextField>
 
-                    {formData.item === "Silver" && (
-                      <>
-                        <div className="form-group">
-                          <label>Silver Weight:</label>
-                          <input type="number" name="silverWeight" value={formData.silverWeight} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                          <label>Touch:</label>
-                          <input type="number" name="silverTouch" value={formData.silverTouch} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                          <label>Purity:</label>
-                          <input type="number" name="silverPurity" value={formData.silverPurity} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                          <label>Silver Rate:</label>
-                          <input type="number" name="silverRate" value={formData.silverRate} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                          <label>Total Value:</label>
-                          <input type="number" name="silvertotalValue" value={formData.silvertotalValue} onChange={handleChange} />
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
+                    <TextField
+                      label="Weight"
+                      name="weight"
+                      type="number"
+                      autoComplete="off"
+                      onWheel={(e) => e.target.blur()}
+                      fullWidth
+                      required
+                      value={formData.weight}
+                      onChange={handleChange}
+                    />
+                  </Box>
+                  <Box display="flex" gap={2}>
+                    <TextField
+                      select
+                      label="Touch"
+                      name="touch_id"
+                      fullWidth
+                      required
+                      value={formData.touch_id}
+                      onChange={(e) => {
+                        const selected = touchList.find(
+                          (t) => t.id === parseInt(e.target.value)
+                        );
+                        setFormData((prev) => ({
+                          ...prev,
+                          touch_id: e.target.value,
+                          touch_value: selected?.touch || "",
+                        }));
+                      }}
+                    >
+                      {touchList.map((t) => (
+                        <MenuItem key={t.id} value={t.id}>
+                          {t.touch}
+                        </MenuItem>
+                      ))}
+                    </TextField>
 
-                <div className="form-actions">
-                  <button type="submit" className="submit">
-                    {editingIndex !== null ? "Update Purchase" : "Submit Purchase"}
-                  </button>
-                  <button type="button" className="cancel-btn" onClick={() => setShowModal(false)}>
-                    Cancel
-                  </button>
-                </div>
+                    <TextField
+                      label="Purity"
+                      name="purity"
+                      type="number"
+                      fullWidth
+                      value={formData.purity}
+                      InputProps={{ readOnly: true }}
+                    />
+                  </Box>
+                  <Box display="flex" gap={2}>
+                    <TextField
+                      label="Rate"
+                      name="rate"
+                      type="number"
+                      autoComplete="off"
+                      onWheel={(e) => e.target.blur()}
+                      fullWidth
+                      required
+                      value={formData.rate}
+                      onChange={handleChange}
+                    />
+
+                    <TextField
+                      label="Total Value"
+                      name="totalValue"
+                      type="number"
+                      fullWidth
+                      value={formData.totalValue}
+                      InputProps={{ readOnly: true }}
+                    />
+                  </Box>
+                  <TextField
+                    label="Remarks"
+                    name="remarks"
+                    multiline
+                    rows={2}
+                    fullWidth
+                    value={formData.remarks}
+                    onChange={handleChange}
+                  />
+
+                  <Box display="flex" justifyContent="flex-end" gap={2}>
+                  <Button
+                      variant="outlined"
+                      onClick={() => setShowModal(false)}
+                    >
+                      Cancel
+                    </Button>
+                    <Button variant="contained" type="submit">
+                      {editingIndex !== null
+                        ? "Update "
+                        : "Submit "}
+                    </Button>
+                  
+                  </Box>
+                </Box>
               </form>
             </div>
           </div>
         )}
 
-        {purchaseList.length > 0 && (
-          <div className="item-listt"> 
-          <table >
-            <thead>
-              <tr>
-                <th>S.No</th>
-                <th>Supplier Name</th>
-                <th>Purchase Date</th>
-                <th>Item</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {purchaseList.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>{item.createdAt}</td>
-                  <td>{item.item}</td>
-<td style={{width:"7rem"}}>
-            <b onClick={() => handleEdit(index)} style={{ marginRight: "8px" }}>
-           <Edit />
-            </b>
-            <b onClick={() => handleDelete(index)} style={{ color: "red", marginLeft:'0.5rem' }}>
-                <Delete />
-            </b>
-</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          </div>
-        )}
+<div>
+  <table className={styles.purchaseTable}>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Name</th>
+        <th>Item</th>
+        <th>Weight</th>
+        <th>Touch</th>
+        <th>Purity</th>
+        <th>Rate</th>
+        <th>Total Value</th>
+        <th>Remarks</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {filteredPurchases.length > 0 ? (
+        filteredPurchases.map((p, idx) => {
+          const updatedDateObj = p.updatedAt ? new Date(p.updatedAt) : null;
+
+          const formattedUpdatedDate = updatedDateObj
+            ? updatedDateObj.toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })
+            : "—";
+
+          const formattedUpdatedTime = updatedDateObj
+            ? updatedDateObj.toLocaleTimeString("en-IN", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              })
+            : "—";
+
+          return (
+            <tr key={p.id} className={idx % 2 === 0 ? styles.trEven : ""} >
+              <td>{idx + 1}</td>
+              <td>{formattedUpdatedDate}</td>
+              <td>{formattedUpdatedTime}</td>
+              <td>{p.SupplierId?.name || "-"}</td>
+              <td>{p.item}</td>
+              <td>{p.weight}</td>
+              <td>{p.TouchId?.touch || "-"}</td>
+              <td>{p.purity}</td>
+              <td>{p.rate}</td>
+              <td>{p.totalValue}</td>
+              <td>{p.remarks || "-"}</td>
+              <td>
+                <Edit style={{ cursor: "pointer" }} onClick={() => handleEdit(idx)} />
+                <Delete onClick={() => handleDelete(idx)} className={styles.deleteIcon} />
+              </td>
+            </tr>
+          );
+        })
+      ) : (
+        <tr>
+          <td colSpan={12} style={{ textAlign: "center", padding: "1rem" }}>
+            Purchase Name not found
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+</div>
+
       </div>
     </>
   );

@@ -1,0 +1,87 @@
+/* src/components/Reports/StockReport.module.css */
+
+.reportContainer {
+    padding: 2rem;
+    background-color: #fafafa;
+    min-height: 100vh;
+  }
+  
+  .reportTitle {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .dateFilter {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .summarySection {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .sectionHeader h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #444;
+  }
+  
+  .sectionHeader button {
+    margin-left: 0.5rem;
+    text-transform: none;
+    font-size: 0.85rem;
+  }
+  
+  .summaryGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  
+  .summaryItem {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .summaryItem:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+  }
+  
+  .summaryItem span:first-child {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .summaryItem span:last-child {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #222;
+  }
+  

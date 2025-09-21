@@ -1,11 +1,13 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./CustomerTranscation.css";
 import { useSearchParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
+import Navbar from "../Navbar/Navbar";
+import { TextField, MenuItem, Button } from "@mui/material";
+import styles from './CustomerTranscation.module.css'
+
 
 const CustomerTranscation = () => {
   const [searchParams] = useSearchParams();
@@ -13,22 +15,24 @@ const CustomerTranscation = () => {
   const customerName = searchParams.get("name");
   console.log("customerId:", customerId, "customerName:", customerName);
 
-
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [transactions, setTransactions] = useState([]);
+  const [touchOptions, setTouchOptions] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState("");
+  const getTodayDate = () => new Date().toISOString().split("T")[0];
 
   const [newTransaction, setNewTransaction] = useState({
-    date: "",
+    date: getTodayDate(),
     value: "",
     type: "Select",
     cashValue: "",
     goldValue: "",
     touch: "",
+    touchId: "", 
     purity: "",
-    goldRate: ""
+    goldRate: "",
   });
 
   useEffect(() => {
@@ -38,6 +42,7 @@ const CustomerTranscation = () => {
           const response = await axios.get(
             `${BACKEND_SERVER_URL}/api/transactions/${customerId}`
           );
+          console.log("transactions", response) 
           setTransactions(response.data);
         }
       } catch (error) {
@@ -46,13 +51,25 @@ const CustomerTranscation = () => {
       }
     };
 
+    const fetchAllData = async () => {
+      try {
+        const [touchRes] = await Promise.all([
+          axios.get(`${BACKEND_SERVER_URL}/api/addtouch`),
+        ]);
+        setTouchOptions(touchRes.data);
+      } catch (err) {
+        console.error("Error fetching dropdown data", err);
+      }
+    };
+
+    fetchAllData();
     fetchTransactions();
   }, [customerId]);
 
-const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     const updatedTransaction = { ...newTransaction, [name]: value };
-  
+
     if (name === "cashValue" && updatedTransaction.type === "Cash") {
       updatedTransaction.value = value;
       const cashValue = parseFloat(value);
@@ -79,27 +96,31 @@ const handleChange = (e) => {
       } else {
         updatedTransaction.purity = "";
       }
-    } else if (name === "touch" && updatedTransaction.type === "Gold") {
-      const gold = parseFloat(updatedTransaction.goldValue);
-      const touch = parseFloat(value);
-      if (!isNaN(gold) && !isNaN(touch)) {
-        updatedTransaction.purity = ((gold * touch) / 100).toFixed(3);
-      } else {
-        updatedTransaction.purity = "";
+    } else if (name === "touchId" && updatedTransaction.type === "Gold") {
+      const selectedTouch = touchOptions.find(option => option.id === parseInt(value));
+      if (selectedTouch) {
+        updatedTransaction.touchId = selectedTouch.id;
+        updatedTransaction.touch = selectedTouch.touch;
+        
+        const gold = parseFloat(updatedTransaction.goldValue);
+        const touch = parseFloat(selectedTouch.touch);
+        if (!isNaN(gold) && !isNaN(touch)) {
+          updatedTransaction.purity = ((gold * touch) / 100).toFixed(3);
+        }
       }
     } else if (name === "type") {
       updatedTransaction.value = "";
       updatedTransaction.cashValue = "";
       updatedTransaction.goldValue = "";
       updatedTransaction.touch = "";
+      updatedTransaction.touchId = "";
       updatedTransaction.purity = "";
       updatedTransaction.goldRate = "";
     }
-  
+
     setNewTransaction(updatedTransaction);
   };
 
-  
   const addTransaction = async (e) => {
     e.preventDefault();
     setError("");
@@ -120,18 +141,18 @@ const handleChange = (e) => {
       };
 
       if (newTransaction.type === "Cash") {
-        if (!newTransaction.cashValue) {
+        if (!newTransaction.cashValue || !newTransaction.goldRate) {
           throw new Error("Cash value and Gold Rate are required");
         }
         transactionData.value = parseFloat(newTransaction.cashValue);
         transactionData.goldRate = parseFloat(newTransaction.goldRate);
         transactionData.purity = parseFloat(newTransaction.purity);
       } else if (newTransaction.type === "Gold") {
-        if (!newTransaction.goldValue || !newTransaction.touch) {
+        if (!newTransaction.goldValue || !newTransaction.touchId) {
           throw new Error("Gold value and touch are required");
         }
         transactionData.value = parseFloat(newTransaction.goldValue);
-        transactionData.touch = parseFloat(newTransaction.touch);
+        transactionData.touchId = parseInt(newTransaction.touchId); 
         transactionData.purity = parseFloat(newTransaction.purity);
       }
 
@@ -139,7 +160,6 @@ const handleChange = (e) => {
         `${BACKEND_SERVER_URL}/api/transactions`,
         transactionData
       );
-
       setTransactions([...transactions, response.data]);
       resetForm();
       setShowPopup(false);
@@ -152,12 +172,13 @@ const handleChange = (e) => {
 
   const resetForm = () => {
     setNewTransaction({
-      date: "",
+      date: getTodayDate(),
       value: "",
       type: "Select",
       cashValue: "",
       goldValue: "",
       touch: "",
+      touchId: "",
       purity: "",
       goldRate: "",
     });
@@ -171,9 +192,24 @@ const handleChange = (e) => {
 
     return (!from || transactionDate >= from) && (!to || transactionDate <= to);
   });
-  
 
- 
+
+  console.log("filteredTransactions", filteredTransactions);
+
+  // const totals = filteredTransactions.reduce(
+  //   (acc, transaction) => {
+  //     if (transaction.type === "Cash") {
+  //       acc.totalCash += parseFloat(transaction.value) || 0;
+  //     } else if (transaction.type === "Gold") {
+  //       acc.totalPurity += parseFloat(transaction.purity) || 0;
+  //     }
+  //     return acc;
+  //   },
+  //   { totalCash: 0, totalPurity: 0 }
+  // );
+
+
+
   const totals = filteredTransactions.reduce(
     (acc, transaction) => {
       if (transaction.type === "Cash") {
@@ -181,236 +217,270 @@ const handleChange = (e) => {
       } else if (transaction.type === "Gold") {
         acc.totalPurity += parseFloat(transaction.purity) || 0;
       }
+  
+      //  Always add purity if available (for total across both types)
+      acc.goldTotalPurity += parseFloat(transaction.purity) || 0;
+  
       return acc;
     },
-    { totalCash: 0, totalPurity: 0 }
+    { totalCash: 0, totalPurity: 0, goldTotalPurity: 0 }
   );
+  
 
   return (
-    <div className="customer-transactions">
-      <ToastContainer position="top-right" autoClose={3000} />
-      <h2>
-        Customer Transactions{" "}
-        {customerName && `for ${decodeURIComponent(customerName)}`}
-      </h2>
-      <br />
-      {error && <div className="error-message">{error}</div>}
+    <>
+      <Navbar />
+      <div className={styles.customerTransactions}>
+        <ToastContainer position="top-right" autoClose={3000} />
+        <h4>
+          Customer Transactions{" "}
+          {customerName && `for ${decodeURIComponent(customerName)}`}
+        </h4><hr/>
+       
+        {error && <div className={styles.errorMessage}>{error}</div>}
 
-      <div className="filters">
-        <label>
-          From Date:
-          <input
+        <div className={styles.filters}>
+
+        <Button
+            style={{
+              backgroundColor: "#F5F5F5",
+              color: "black",
+              borderColor: "#25274D",
+              borderStyle: "solid",
+              borderWidth: "2px",
+              marginRight:'18rem'
+            }}
+            variant="contained"
+            onClick={() => setShowPopup(true)}
+          > Add Transaction </Button>
+
+<TextField
+            label="From Date"
             type="date"
+            size="small"
             value={fromDate}
             onChange={(e) => setFromDate(e.target.value)}
+            InputLabelProps={{ shrink: true }}
+            sx={{ ml: "11.5rem" }}
           />
-        </label>
-        <label>
-          To Date:
-          <input
+          <TextField
+            label="To Date"
             type="date"
+            size="small"
+            sx={{ ml: "1.9rem" }}
             value={toDate}
             onChange={(e) => setToDate(e.target.value)}
+            InputLabelProps={{ shrink: true }}
           />
-        </label>
-      </div>
+        </div>
 
-      <button onClick={() => setShowPopup(true)} className="add-btn">
-        Add Transaction
-      </button>
+{showPopup && (
+  <div className={styles.modalOverlay}>
+    <div className={styles.modalContent}>
+      <h5 style={{ textAlign: "center", fontWeight: "530" }}>Add Transaction</h5>
+      <form onSubmit={addTransaction} className={styles.transactionForm}>
+        {/* Date */}
 
-      {showPopup && (
-        <div className="popup">
-          <div className="popup-content">
-            <span
-              className="popup-close"
-              onClick={() => {
-                resetForm();
-                setShowPopup(false);
-              }}
+        <TextField
+          margin="dense"
+          label="Date"
+          name="date"
+          type="date"
+          fullWidth
+          required
+          InputLabelProps={{ shrink: true }}
+          value={newTransaction.date}
+          onChange={handleChange}
+        />
+   
+        {/* Type */}
+  
+        <TextField
+          select
+          label="Type"
+          name="type"
+          fullWidth
+          required
+          value={newTransaction.type}
+          onChange={handleChange}
+        >
+          <MenuItem value="Cash">Cash</MenuItem>
+          <MenuItem value="Gold">Gold</MenuItem>
+        </TextField>
+      
+
+        {/* Cash fields */}
+        {newTransaction.type === "Cash" && (
+          <>
+            <TextField
+              label="Cash Value"
+              name="cashValue"
+              type="number"
+              fullWidth
+              required
+              value={newTransaction.cashValue}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Gold Rate"
+              name="goldRate"
+              type="number"
+              fullWidth
+              required
+              value={newTransaction.goldRate}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Purity"
+              name="purity"
+              type="number"
+              fullWidth
+              value={newTransaction.purity}
+              InputProps={{ readOnly: true }}
+            />
+          </>
+        )}
+
+        {/* Gold fields */}
+        {newTransaction.type === "Gold" && (
+          <>
+            <TextField
+              label="Gold Value (grams)"
+              name="goldValue"
+              type="number"
+              fullWidth
+              required
+              value={newTransaction.goldValue}
+              onChange={handleChange}
+            />
+            <TextField
+              select
+              label="Touch"
+              name="touchId"
+              fullWidth
+              required
+              value={newTransaction.touchId}
+              onChange={handleChange}
             >
-              ×
-            </span>
+              {touchOptions.map((touchObj) => (
+                <MenuItem key={touchObj.id} value={touchObj.id}>
+                  {touchObj.touch}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              label="Purity"
+              name="purity"
+              type="number"
+              fullWidth
+              value={newTransaction.purity}
+              InputProps={{ readOnly: true }}
+            />
+          </>
+        )}
 
-            <h3>Add Transaction</h3>
-            <form onSubmit={addTransaction}>
-              <label>
-                Date:
-                <input
-                  type="date"
-                  name="date"
-                  value={newTransaction.date}
-                  onChange={handleChange}
-                  required
-                />
-              </label>
-
-              <label>
-                Type:
-                <select
-                  name="type"
-                  value={newTransaction.type}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="Select">Select</option>
-                  <option value="Cash">Cash</option>
-                  <option value="Gold">Gold</option>
-                </select>
-              </label>
-
-
-{newTransaction.type === "Cash" && (
-                <>
-                  <label>
-                    Cash Value:
-                    <input
-                      type="number"
-                      name="cashValue"
-                      value={newTransaction.cashValue}
-                      onChange={handleChange}
-                      step="0.01"
-                      required
-                    />
-                  </label>
-                  <label>
-                    Gold Rate:
-                    <input
-                      type="number"
-                      name="goldRate"
-                      value={newTransaction.goldRate}
-                      onChange={handleChange}
-                      step="0.01"
-                      required
-                    />
-                  </label>
-                  <label>
-                    Purity:
-                    <input
-                      type="number"
-                      name="purity"
-                      value={newTransaction.purity}
-                      readOnly
-                    />
-                  </label>
-                </>
-              )}
-
-
-              {newTransaction.type === "Gold" && (
-                <>
-                  <label>
-                    Gold Value (grams):
-                    <input
-                      type="number"
-                      name="goldValue"
-                      value={newTransaction.goldValue}
-                      onChange={handleChange}
-                      step="0.001"
-                      required
-                    />
-                  </label>
-                  <label>
-                    Touch (%):
-                    <input
-                      type="number"
-                      name="touch"
-                      value={newTransaction.touch}
-                      onChange={handleChange}
-                      min="0"
-                      max="100"
-                      step="0.01"
-                    />
-                  </label>
-                  <label>
-                    Purity:
-                    <input
-                      type="number"
-                      name="purity"
-                      value={newTransaction.purity}
-                      readOnly
-                    />
-                  </label>
-                </>
-              )}
-
-              <div className="form-actions">
-                <button type="submit" className="save-btn">
-                  Save
-                </button>
-                <button
-                  type="button"
-                  className="cancel-btn"
-                  onClick={() => {
-                    resetForm();
-                    setShowPopup(false);
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
+        <div className={styles.formActions}>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              resetForm();
+              setShowPopup(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button variant="contained" type="submit">
+            Save
+          </Button>
         </div>
-      )}
-
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Value</th>
-            <th>Type</th>
-            <th>Touch</th>
-            <th>Purity</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredTransactions.length > 0 ? (
-            filteredTransactions.map((transaction, index) => (
-              <tr
-                key={index}
-                className={
-                  transaction.type === "Gold" ? "gold-row" : "cash-row"
-                }
-              >
-                <td>
-                  {new Date(transaction.date).toLocaleDateString("en-IN")}
-                </td>
-                <td>
-                  {transaction.type === "Gold"
-                    ? `${transaction.value} g`
-                    : `₹ ${transaction.value.toFixed(2)}`}
-                </td>
-                <td>{transaction.type}</td>
-                <td>{transaction.touch || "-"}</td>
-                <td>{transaction.purity || "-"}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" className="no-data">
-                No transactions found
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-
-      {(totals.totalCash > 0 || totals.totalPurity > 0) && (
-        <div className="transaction-totals">
-          <h3>Transaction Totals</h3>
-          <div className="total-row">
-            <span>Total Cash:</span>
-            <span>₹ {totals.totalCash.toFixed(2)}</span>
-          </div>
-          <div className="total-row">
-            <span>Total Purity:</span>
-            <span>{totals.totalPurity.toFixed(3)} g</span>
-          </div>
-        </div>
-      )}
+      </form>
     </div>
+  </div>
+)}
+<br/>
+<div > 
+        <table className={styles.purchaseTable}>
+          <thead>
+            <tr>
+            <th>S.No</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Value</th>
+              <th>Type</th>
+              <th>Touch</th>
+              <th>Purity</th>
+            </tr>
+          </thead>
+        
+
+<tbody>
+  {filteredTransactions.length > 0 ? (
+    filteredTransactions.map((transaction, index) => (
+      <tr
+        key={index} 
+        className={transaction.type === "Gold" ? "gold-row" : "cash-row"}
+      >
+        <td>{index + 1}</td>   
+        <td>{new Date(transaction.date).toLocaleDateString("en-IN")}</td>
+        <td>
+          {transaction.updatedAt
+            ? new Date(transaction.updatedAt).toLocaleTimeString("en-IN", {
+                hour: "2-digit",
+                minute: "2-digit"
+             
+              })
+            : "-"}
+        </td>
+        <td>
+          {transaction.type === "Gold"
+            ? `${transaction.value} g`
+            : `₹ ${transaction.value.toFixed(2)}`}
+        </td>
+        <td>{transaction.type}</td>
+        <td>{transaction.touch ? transaction.touch.touch : "-"}</td>
+        <td>{transaction.purity || "-"}</td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="7" className={styles.noData}>
+        No transactions found
+      </td>
+    </tr>
+  )}
+</tbody>
+          <tfoot> 
+            <tr><td colSpan={6}><b>  Total Purity ( Both Cash and Gold )</b> </td> 
+            <td> <b> {totals.goldTotalPurity.toFixed(3)} g </b></td>
+            </tr>
+          </tfoot>
+        </table>
+        </div>
+
+        {(totals.totalCash > 0 || totals.totalPurity > 0) && (
+  <div className={styles.transactionTotals}>
+    <h4>Transaction Totals</h4>
+    <div className={styles.totalRow}>
+      <span>Total Cash:</span>
+      <span>₹ {totals.totalCash.toFixed(2)}</span>
+    </div>
+    <div className={styles.totalRow}>
+      <span>Total Purity (Gold only):</span>
+      <span>{totals.totalPurity.toFixed(3)} g</span>
+    </div>
+  
+  </div>
+)}
+
+      </div>
+    </>
   );
 };
 
 export default CustomerTranscation;
+
+
+
+
+
+

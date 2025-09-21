@@ -1,0 +1,83 @@
+.mastercontainer {
+    display: flex;
+    align-items: flex-start;
+    padding: 70px;
+    gap: 60px;
+  }
+  
+  .additemform {
+    width: 25%;  
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+  }
+  
+  .additemform h4 {
+    margin-bottom: 15px;
+  }
+  
+  .additemform label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+  
+  .additemform input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .additemform button {
+    width: 100%;
+    padding: 10px;
+    background-color:#38383e;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .additemform button:hover {
+    background-color:#232327;
+  }
+  
+  
+  .itemlist {
+    width: 30%;  
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+  }
+  
+  .itemlist h4 {
+    margin-bottom: 15px;
+  }
+  
+  .itemlist table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .itemlist th, .itemlist td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+
+  }
+  
+  .itemlist th {
+  
+    background-color:#38383e;
+    color: white;
+    font-weight: 500;
+  }
+  
+  .trEven {
+    background-color: #f5f5f5;
+  }

@@ -1,0 +1,141 @@
+
+
+.details b{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.1rem;
+}
+
+.card{
+    margin-top: 2rem;
+    display:grid;
+    justify-content: center;
+    background-color: aliceblue;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    width: 60rem;
+    margin-left: 18rem;     
+}
+
+.details{
+    margin-right: 40rem;
+}
+
+.headingg{
+   font-size: 1.4rem;
+   font-weight: bold;
+   display: flex;
+   justify-content: center;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.details span{
+    font-size: 1.1rem;
+}
+
+/* SettingReport.module.css */
+.customTableHead {
+    background-color: rgb(186, 183, 177);
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+  }
+  
+  
+  .assigned {
+    background-color: #d4edda;
+    cursor: not-allowed;
+  }
+  
+  .tbodyRow {
+    text-align: center;
+  }
+  
+  .cursorPointer {
+    cursor: pointer;
+  }
+  
+  .noProductRow td {
+    text-align: center;
+    padding: 16px;
+  }
+  
+  .nestedRow td {
+    text-align: center; 
+    padding: 8px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px; 
+    font-size: medium;
+    text-align: center;
+  }
+  
+  .theadRow {
+    background-color: #38383e;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .th, .td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .tfootRow {
+    font-weight: bold;
+    background-color: #f0f0f0;
+  }
+  
+  .tfootCell {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+
+
+  .tableContainer {
+    max-height: 300px; 
+    overflow-y: auto;
+  }
+  
+  .table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color:#38383e;
+    color: white;
+    font-weight: 500;
+  }
+  
+  .heading{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse; 
+  }
+  
+  .table td {
+    border: 1px solid #ccc;
+    padding: 7px;
+    text-align: center;
+  }
+  
+  .table th {
+    background-color:#38383e;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+
+  .tablecontainer{
+    width: 100%;
+    padding: 0rem 2rem 0rem 2rem;
+  }

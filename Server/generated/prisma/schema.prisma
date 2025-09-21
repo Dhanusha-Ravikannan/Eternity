@@ -31,15 +31,21 @@ enum STONEOPTION {
 
 model AddCustomer {
   id           Int                   @id @default(autoincrement())
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @default(now()) @updatedAt
   name         String
   phoneNumber  String?
   address      String?
   email        String?
   transactions CustomerTransaction[]
+  bills        Bill[]
+  hallmarks    Hallmark[]
 }
 
 model AddCasting {
   id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
   name         String
   phoneNumber  String?
   address      String?
@@ -50,187 +56,557 @@ model AddCasting {
 }
 
 model AddFiling {
-  id          Int           @id @default(autoincrement())
-  name        String
-  phoneNumber String?
-  address     String?
-  email       String?
-  filings     FilingEntry[]
+  id              Int               @id @default(autoincrement())
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  name            String
+  phoneNumber     String?
+  address         String?
+  email           String?
+  filingWastages  FilingWastage[]
+  filings         FilingEntry[]
+  lotInfo         LotInfo[]
+  lotFilingMapper LotFilingMapper[]
 }
 
 model AddSetting {
-  id          Int            @id @default(autoincrement())
-  name        String
-  phoneNumber String?
-  address     String?
-  email       String?
-  settings    SettingEntry[]
+  id              Int                @id @default(autoincrement())
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  name            String
+  phoneNumber     String?
+  address         String?
+  email           String?
+  settingWastages SettingWastage[]
+  settings        SettingEntry[]
+  settingMapper   LotSettingMapper[]
+  lotInfo         LotInfo[]
 }
 
 model AddBuffing {
-  id          Int            @id @default(autoincrement())
-  name        String
-  phoneNumber String?
-  address     String?
-  email       String?
-  buffings    BuffingEntry[]
+  id              Int                @id @default(autoincrement())
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  name            String
+  phoneNumber     String?
+  address         String?
+  email           String?
+  buffings        BuffingEntry[]
+  buffingMapper   LotBuffingMapper[]
+  lotInfo         LotInfo[]
+  buffingWastages BuffingWastage[]
 }
 
 model AddSupplierItem {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   name        String
   email       String?
   phoneNumber String?
   address     String?
+
+  AddPurchaseStock AddPurchaseStock[]
 }
 
 model AddPurchaseStock {
-  id               Int      @id @default(autoincrement())
-  name             String
-  createdAt        DateTime
-  item             ITEMTYPE
-  goldWeight       Int?
-  goldTouch        Float?
-  goldPurity       Float?
-  goldRate         Float?
-  goldtotalValue   Float?
-  silverWeight     Int?
-  silverTouch      Float?
-  silverPurity     Float?
-  silverRate       Float?
-  silvertotalValue Float?
+  id         Int             @id @default(autoincrement())
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  supplierId Int
+  SupplierId AddSupplierItem @relation(fields: [supplierId], references: [id])
+  item       ITEMTYPE
+  weight     Int
+  touch_id   Int
+  TouchId    AddTouch        @relation(fields: [touch_id], references: [id])
+  purity     Float
+  rate       Float
+  totalValue Float
+  remarks    String?
+
+  Stock Stock[]
 }
 
 model CustomerTransaction {
   id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now()) @updatedAt
   date       DateTime
   value      Float
   type       String
-  touch      Float?
+  touchId    Int?
   purity     Float?
   goldRate   Float?
-  createdAt  DateTime
   customer   AddCustomer @relation(fields: [customerId], references: [id])
+  touch      AddTouch?   @relation(fields: [touchId], references: [id])
   customerId Int
+  usedPurity Float?
 }
 
 model AddItem {
-  id           Int            @id @default(autoincrement())
-  name         String
-  castingItems CastingItems[]
-  stock        Stock[]
+  id            Int            @id @default(autoincrement())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @default(now()) @updatedAt
+  name          String
+  casting_items CastingItems[]
+  stock         Stock[]
+  filing_items  FilingItems[]
+  setting_items SettingItems[]
+  buffing_items BuffingItems[]
+  QCStock       QcStock[]
+  billItems     BillItem[]
+}
+
+model AddTouch {
+  id                   Int                   @id @default(autoincrement())
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @default(now()) @updatedAt
+  touch                Float
+  casting_entry        CastingEntry[]
+  casting_items        CastingItems[]
+  filing_items         FilingItems[]
+  setting_items        SettingItems[]
+  buffing_items        BuffingItems[]
+  stock                Stock[]
+  add_purchase_stock   AddPurchaseStock[]
+  customer_transaction CustomerTransaction[]
+
+  QCStock       QcStock[]
+  receivedItems ReceivedItem[]
+  billItems     BillItem[]
+}
+
+model QcStock {
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime
+  updatedAt    DateTime   @default(now()) @updatedAt
+  item_id      Int
+  itemId       AddItem    @relation(fields: [item_id], references: [id])
+  weight       Float
+  stone_weight Float
+  final_weight Float
+  touch_id     Int
+  touchId      AddTouch   @relation(fields: [touch_id], references: [id])
+  purity       Float
+  remarks      String?
+  BillItem     BillItem[]
 }
 
 model CastingEntry {
-  id                  Int            @id @default(autoincrement())
-  createdAt           DateTime       @default(now())
-  date                DateTime
-  given_gold          Float
-  given_touch         Float
-  purity              Float
-  final_touch         Float
-  pure_value          Float
-  copper              Float
-  final_weight        Float
-  casting_customer_id Int
-  casting_customer    AddCasting     @relation(fields: [casting_customer_id], references: [id])
-  items               CastingItems[]
+  id                   Int                    @id @default(autoincrement())
+  createdAt            DateTime               @default(now())
+  date                 DateTime
+  given_gold           Float
+  touch_id             Int
+  touch                AddTouch               @relation(fields: [touch_id], references: [id])
+  purity               Float
+  final_touch          Float
+  pure_value           Float
+  copper               Float
+  final_weight         Float
+  casting_customer_id  Int
+  casting_customer     AddCasting             @relation(fields: [casting_customer_id], references: [id])
+  items                CastingItems[]
+  CastiingTotalBalance CastiingTotalBalance[]
 }
 
 model CastingItems {
-  id            Int              @id @default(autoincrement())
-  createdAt     DateTime         @default(now())
-  type          CASTINGENTRYTYPE
-  item_id       Int
-  weight        Float
-  touch         Float
-  item_purity   Float
-  remarks       String?
-  after_weight  Float?
-  scrap_weight  Float?
-  scrap_wastage Float?
-  item          AddItem          @relation(fields: [item_id], references: [id])
+  id          Int              @id @default(autoincrement())
+  createdAt   DateTime         @default(now())
+  type        CASTINGENTRYTYPE
+  item_id     Int
+  weight      Float
+  touch_id    Int
+  touch       AddTouch         @relation(fields: [touch_id], references: [id])
+  item_purity Float
+  remarks     String?
 
-  castingEntry     CastingEntry @relation(fields: [casting_entry_id], references: [id], onDelete: Cascade)
+  item             AddItem           @relation(fields: [item_id], references: [id])
+  castingEntry     CastingEntry      @relation(fields: [casting_entry_id], references: [id], onDelete: Cascade)
   casting_entry_id Int
-
-  filingEntry  FilingEntry?
-  settingEntry SettingEntry?
-  buffingEntry BuffingEntry?
-  stock        Stock[]
+  filingEntry      FilingEntry[]
+  settingEntry     SettingEntry[]
+  buffingEntry     BuffingEntry[]
+  stock            Stock[]
+  filingLotMapper  LotFilingMapper[]
 
   casting_customer_id Int
   casting_customer    AddCasting @relation(fields: [casting_customer_id], references: [id])
+}
+
+model CastiingTotalBalance {
+  id                     Int          @id @default(autoincrement())
+  createdAt              DateTime     @default(now())
+  total_item_weight      Float
+  current_balance_weight Float
+  total_scrap_weight     Float?
+  total_wastage          Float
+  item_entry             Int          @unique
+  item_entry_id          CastingEntry @relation(fields: [item_entry], references: [id], onDelete: Cascade)
+}
+
+model LotInfo {
+  id                  Int                @id @default(autoincrement())
+  lotNumber           Int
+  filing_customer_id  Int?
+  filingCustomerId    AddFiling?         @relation(fields: [filing_customer_id], references: [id], onDelete: Cascade)
+  setting_customer_id Int?
+  settingCustomerId   AddSetting?        @relation(fields: [setting_customer_id], references: [id], onDelete: Cascade)
+  buffing_customer_id Int?
+  buffingCustomerId   AddBuffing?        @relation(fields: [buffing_customer_id], references: [id], onDelete: Cascade)
+  IsActive            Boolean            @default(true)
+  filingMapper        LotFilingMapper[]
+  settingMapper       LotSettingMapper[]
+  buffingMapper       LotBuffingMapper[]
+  filingWastages      FilingWastage[]
+  buffingWastages     BuffingWastage[]
+  SettingWastage      SettingWastage[]
 }
 
 model FilingEntry {
-  id               Int            @id @default(autoincrement())
-  createdAt        DateTime       @default(now())
-  filing_person    AddFiling      @relation(fields: [filing_person_id], references: [id])
-  filing_person_id Int
-  castingItem      CastingItems   @relation(fields: [casting_item_id], references: [id])
-  casting_item_id  Int            @unique
-  weight           Float
-  touch            Float
-  item_purity      Float
-  remarks          String?
-  after_weight     Float?
-  stone_option     STONEOPTION
-  settingEntry     SettingEntry[]
-  buffingEntries   BuffingEntry[]
+  id                 Int                  @id @default(autoincrement())
+  createdAt          DateTime             @default(now())
+  filing_person      AddFiling            @relation(fields: [filing_person_id], references: [id])
+  filing_person_id   Int
+  castingItem        CastingItems         @relation(fields: [casting_item_id], references: [id])
+  casting_item_id    Int
+  filingItems        FilingItems[]
+  filingTotalBalance FilingTotalBalance[]
+  LotFilingMapper    LotFilingMapper[]
+}
+
+model LotFilingMapper {
+  id              Int           @id @default(autoincrement())
+  filing_id       Int
+  filingId        AddFiling     @relation(fields: [filing_id], references: [id], onDelete: Cascade)
+  lot_id          Int
+  lotId           LotInfo       @relation(fields: [lot_id], references: [id], onDelete: Cascade)
+  item_id         Int
+  itemId          CastingItems  @relation(fields: [item_id], references: [id], onDelete: Cascade)
+  filing_items    FilingItems[]
+  filing_entry_id Int
+  filingEntry     FilingEntry   @relation(fields: [filing_entry_id], references: [id], onDelete: Cascade)
+}
+
+model FilingItems {
+  id              Int         @id @default(autoincrement())
+  createdAt       DateTime    @default(now())
+  filing_entry_id Int
+  filing_entry    FilingEntry @relation(fields: [filing_entry_id], references: [id], onDelete: Cascade)
+
+  type               CASTINGENTRYTYPE
+  filing_item_id     Int
+  filingitem         AddItem            @relation(fields: [filing_item_id], references: [id])
+  weight             Float
+  touch_id           Int
+  touch              AddTouch           @relation(fields: [touch_id], references: [id])
+  item_purity        Float
+  remarks            String?
+  stone_option       STONEOPTION?
+  stock              Stock[]
+  setting_entry      SettingEntry[]
+  buffing_entry      BuffingEntry[]
+  filing_wastage     FilingWastage[]
+  lot_setting_mapper LotSettingMapper[]
+  LotBuffingMapper   LotBuffingMapper[]
+
+  lot_filing_mapper_id Int?
+  lotFilingMapperId    LotFilingMapper? @relation(fields: [lot_filing_mapper_id], references: [id])
+}
+
+model FilingTotalBalance {
+  id                     Int         @id @default(autoincrement())
+  createdAt              DateTime    @default(now())
+  after_weight           Float?
+  total_product_weight   Float
+  current_balance_weight Float
+  total_scrap_weight     Float?
+  wastage                Boolean
+  balance                Float
+  filing_entry_id        Int
+  filingEntryId          FilingEntry @relation(fields: [filing_entry_id], references: [id])
+}
+
+model FilingWastage {
+  id                 Int           @id @default(autoincrement())
+  createdAt          DateTime      @default(now())
+  total_receipt      Float
+  total_wastage      Float
+  balance            Float
+  wastage_percentage Int
+  given_gold         Float?
+  add_wastage        Float?
+  overall_wastage    Float
+  closing_balance    Float
+  opening_balance    Float
+  filing_person_id   Int?
+  filingPersonId     AddFiling?    @relation(fields: [filing_person_id], references: [id])
+  filing_lot_id      Int?
+  filingLotId        LotInfo?      @relation(fields: [filing_lot_id], references: [id])
+  filing_items       FilingItems[]
 }
 
 model SettingEntry {
-  id                Int            @id @default(autoincrement())
-  createdAt         DateTime       @default(now())
-  setting_person    AddSetting     @relation(fields: [setting_person_id], references: [id])
-  setting_person_id Int
-  castingItem       CastingItems   @relation(fields: [casting_item_id], references: [id])
-  casting_item_id   Int            @unique
-  weight            Float
-  touch             Float
-  item_purity       Float
-  remarks           String?
-  after_weight      Float?
-  filingEntry       FilingEntry    @relation(fields: [filing_entry_id], references: [id])
-  filing_entry_id   Int
-  buffingEntries    BuffingEntry[]
+  id                  Int                   @id @default(autoincrement())
+  createdAt           DateTime              @default(now())
+  setting_person      AddSetting            @relation(fields: [setting_person_id], references: [id])
+  setting_person_id   Int
+  castingItem         CastingItems          @relation(fields: [casting_item_id], references: [id])
+  casting_item_id     Int
+  filingItems         FilingItems[]
+  settingTotalBalance SettingTotalBalance[]
+  LotSettingMapper    LotSettingMapper[]
+
+  SettingItems SettingItems[]
+}
+
+model SettingItems {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  type             CASTINGENTRYTYPE?
+  setting_item_id  Int
+  item             AddItem            @relation(fields: [setting_item_id], references: [id])
+  scrap_weight     Float
+  touch_id         Int
+  touch            AddTouch           @relation(fields: [touch_id], references: [id])
+  item_purity      Float
+  scrap_remarks    String?
+  setting_wastage  SettingWastage[]
+  buffing_entry    BuffingEntry[]
+  stock            Stock[]
+  LotBuffingMapper LotBuffingMapper[]
+  setting_entry_id Int
+  settingEntryId   SettingEntry       @relation(fields: [setting_entry_id], references: [id], onDelete: Cascade)
+}
+
+model LotSettingMapper {
+  id               Int          @id @default(autoincrement())
+  setting_id       Int
+  settingId        AddSetting   @relation(fields: [setting_id], references: [id], onDelete: Cascade)
+  lot_id           Int
+  lotId            LotInfo      @relation(fields: [lot_id], references: [id], onDelete: Cascade)
+  filing_item_id   Int?
+  itemId           FilingItems? @relation(fields: [filing_item_id], references: [id], onDelete: Cascade)
+  setting_entry_id Int
+  settingEntry     SettingEntry @relation(fields: [setting_entry_id], references: [id], onDelete: Cascade)
+}
+
+model SettingTotalBalance {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  receipt_weight         Float
+  stone_count            Float
+  stone_weight           Float
+  remarks                String?
+  wastage                Boolean
+  total_product_weight   Float
+  current_balance_weight Float
+  total_scrap_weight     Float?
+  balance                Float?
+  setting_entry_id       Int
+  setting_entry          SettingEntry @relation(fields: [setting_entry_id], references: [id])
+}
+
+model SettingWastage {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  total_stone_count  Float
+  total_wastage      Float
+  balance            Float
+  wastage_percentage Int
+  given_gold         Float?
+  add_wastage        Float?
+  overall_wastage    Float
+  closing_balance    Float
+  opening_balance    Float
+
+  setting_person_id Int?
+  settingPersonId   AddSetting? @relation(fields: [setting_person_id], references: [id])
+  setting_lot_id    Int?
+  settingLotId      LotInfo?    @relation(fields: [setting_lot_id], references: [id])
+
+  setting_items SettingItems[]
 }
 
 model BuffingEntry {
-  id                Int          @id @default(autoincrement())
-  createdAt         DateTime     @default(now())
-  buffing_person    AddBuffing   @relation(fields: [buffing_person_id], references: [id])
-  buffing_person_id Int
-  castingItem       CastingItems @relation(fields: [casting_item_id], references: [id])
-  casting_item_id   Int          @unique
-  weight            Float
-  touch             Float
-  item_purity       Float
-  remarks           String?
-  after_weight      Float?
-  settingEntry      SettingEntry @relation(fields: [setting_entry_id], references: [id])
-  setting_entry_id  Int
-  filingEntry       FilingEntry  @relation(fields: [filing_entry_id], references: [id])
-  filing_entry_id   Int
-  type              STONEOPTION
+  id                  Int                   @id @default(autoincrement())
+  createdAt           DateTime              @default(now())
+  buffing_person      AddBuffing            @relation(fields: [buffing_person_id], references: [id])
+  buffing_person_id   Int
+  castingItem         CastingItems          @relation(fields: [casting_item_id], references: [id])
+  casting_item_id     Int
+  filing_items        FilingItems[]
+  setting_items       SettingItems[]
+  BuffingTotalBalance BuffingTotalBalance[]
+  LotBuffingMapper    LotBuffingMapper[]
+  BuffingItems        BuffingItems[]
+}
+
+model BuffingItems {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  type             CASTINGENTRYTYPE
+  buffing_item_id  Int
+  item             AddItem          @relation(fields: [buffing_item_id], references: [id])
+  scrap_weight     Float
+  touch_id         Int
+  touch            AddTouch         @relation(fields: [touch_id], references: [id])
+  item_purity      Float
+  scrap_remarks    String?
+  stock            Stock[]
+  buffing_wastage  BuffingWastage[]
+  buffing_entry_id Int
+  buffingEntryId   BuffingEntry     @relation(fields: [buffing_entry_id], references: [id], onDelete: Cascade)
+}
+
+model BuffingTotalBalance {
+  id                 Int          @id @default(autoincrement())
+  createdAt          DateTime     @default(now())
+  receipt_weight     Float
+  remarks            String?
+  wastage            Boolean
+  total_scrap_weight Float?
+  balance            Float
+  buffing_entry_id   Int
+  BuffingEntryId     BuffingEntry @relation(fields: [buffing_entry_id], references: [id])
+}
+
+model LotBuffingMapper {
+  id               Int           @id @default(autoincrement())
+  buffing_id       Int
+  buffingId        AddBuffing    @relation(fields: [buffing_id], references: [id], onDelete: Cascade)
+  lot_id           Int
+  lotId            LotInfo       @relation(fields: [lot_id], references: [id], onDelete: Cascade)
+  setting_item_id  Int?
+  settingItemId    SettingItems? @relation(fields: [setting_item_id], references: [id], onDelete: Cascade)
+  filing_item_id   Int?
+  filingItemId     FilingItems?  @relation(fields: [filing_item_id], references: [id], onDelete: Cascade)
+  buffing_entry_id Int
+  buffingEntry     BuffingEntry  @relation(fields: [buffing_entry_id], references: [id], onDelete: Cascade)
+}
+
+model BuffingWastage {
+  id                 Int         @id @default(autoincrement())
+  createdAt          DateTime    @default(now())
+  total_receipt      Float
+  total_wastage      Float
+  balance            Float
+  wastage_percentage Int
+  given_gold         Float?
+  add_wastage        Float?
+  overall_wastage    Float
+  closing_balance    Float
+  opening_balance    Float
+  buffing_person_id  Int?
+  buffingPersonId    AddBuffing? @relation(fields: [buffing_person_id], references: [id])
+  buffing_lot_id     Int?
+  buffingLotId       LotInfo?    @relation(fields: [buffing_lot_id], references: [id])
+
+  buffing_items BuffingItems[]
 }
 
 model Stock {
-  id              Int          @id @default(autoincrement())
-  createdAt       DateTime     @default(now())
-  castingItem     CastingItems @relation(fields: [casting_item_id], references: [id], onDelete: Cascade)
-  casting_item_id Int
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
 
-  item_id       Int
-  item          AddItem @relation(fields: [item_id], references: [id])
-  weight        Float
-  touch         Float
-  item_purity   Float
-  remarks       String?
-  scrap_weight  Float?
-  scrap_wastage Float?
+  casting_item_id Int?
+  castingItem     CastingItems? @relation(fields: [casting_item_id], references: [id], onDelete: Cascade)
 
-  casting_customer_id Int
-  casting_customer    AddCasting @relation(fields: [casting_customer_id], references: [id])
+  filing_item_id Int?
+  filingItem     FilingItems? @relation(fields: [filing_item_id], references: [id], onDelete: Cascade)
+
+  setting_item_id Int?
+  settingItem     SettingItems? @relation(fields: [setting_item_id], references: [id], onDelete: Cascade)
+
+  buffing_item_id     Int?
+  buffingItem         BuffingItems? @relation(fields: [buffing_item_id], references: [id], onDelete: Cascade)
+  item_type           ITEMTYPE?
+  item_id             Int?
+  item                AddItem?      @relation(fields: [item_id], references: [id])
+  weight              Float
+  touch_id            Int?
+  touch               AddTouch?     @relation(fields: [touch_id], references: [id])
+  item_purity         Float
+  remarks             String?
+  casting_customer_id Int?
+  casting_customer    AddCasting?   @relation(fields: [casting_customer_id], references: [id])
+
+  purchase_id Int?
+  purchaseId  AddPurchaseStock? @relation(fields: [purchase_id], references: [id], onDelete: Cascade)
+}
+
+model Hallmark {
+  id          Int      @id @default(autoincrement())
+  customer_id Int
+  balance     Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  customer AddCustomer @relation(fields: [customer_id], references: [id])
+}
+
+model Bill {
+  id               Int      @id @default(autoincrement())
+  customer_id      Int
+  bill_no          String
+  date             String
+  time             String
+  gold_rate        Float
+  total_pure       Float
+  total_amount     Float
+  customer_balance Float
+  grand_total      Float
+  cash_balance     Float
+  pure_balance     Float
+  prev_hallmark    Float
+  hallmark_balance Float
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  customer      AddCustomer    @relation(fields: [customer_id], references: [id])
+  billItems     BillItem[]
+  receivedItems ReceivedItem[]
+}
+
+model BillItem {
+  id           Int      @id @default(autoincrement())
+  bill_id      Int
+  qc_stock_id  Int
+  item_name    String
+  weight       Float
+  stone_weight Float?
+  total_weight Float
+  touchId      Int?
+  pure         Float
+  amount       Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  bill      Bill      @relation(fields: [bill_id], references: [id])
+  qcStock   QcStock   @relation(fields: [qc_stock_id], references: [id])
+  AddItem   AddItem?  @relation(fields: [addItemId], references: [id])
+  addItemId Int?
+  touch     AddTouch? @relation(fields: [touchId], references: [id])
+}
+
+model ReceivedItem {
+  id              Int      @id @default(autoincrement())
+  bill_id         Int
+  type            ITEMTYPE
+  date            String
+  gold_rate       Float?
+  gold            Float?
+  touchId         Int?
+  purity_weight   Float
+  amount          Float?
+  hallmark_charge Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  bill  Bill      @relation(fields: [bill_id], references: [id])
+  touch AddTouch? @relation(fields: [touchId], references: [id])
 }

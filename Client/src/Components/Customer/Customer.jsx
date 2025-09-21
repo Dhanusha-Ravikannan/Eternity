@@ -16,10 +16,9 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import PreviewIcon from "@mui/icons-material/Preview";
 import { useNavigate } from "react-router-dom";
-import './Customer.css';
 import Navbar from "../Navbar/Navbar";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
-
+import styles from "./Customer.module.css";
 
 const Customer = () => {
   const [customers, setCustomers] = useState([]);
@@ -44,7 +43,8 @@ const Customer = () => {
     const nameMatch =
       customer.name &&
       customer.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const phoneMatch = customer.phoneNumber && customer.phoneNumber.includes(searchTerm);
+    const phoneMatch =
+      customer.phoneNumber && customer.phoneNumber.includes(searchTerm);
     const addressMatch =
       customer.address &&
       customer.address.toLowerCase().includes(searchTerm.toLowerCase());
@@ -53,94 +53,108 @@ const Customer = () => {
   });
 
   return (
-    <> 
-    <Navbar/>
-    <Container maxWidth="lg">
-      <Paper className="customer-table-container" elevation={3} sx={{ p: 3 }}>
-        <Typography variant="h5" align="center" gutterBottom>
-          Customer Detailss
-        </Typography>
-
-        <TextField
-          label="Search Customer"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: "30px",
-              width: "22rem",
-              backgroundColor: "#f8f9fa",
-              "&.Mui-focused": {
-                backgroundColor: "#ffffff",
-              },
-            },
-          }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon style={{ color: "#777" }} />
-              </InputAdornment>
-            ),
-          }}
-        />
-
-        {filteredCustomers.length > 0 ? (
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ backgroundColor: '#38383e', color:'white', textAlign:'center'  }} >
-                    <strong>Customer Name</strong>
-                  </TableCell>
-                  <TableCell sx={{ backgroundColor: '#38383e', color:'white', textAlign:'center'  }}>
-                    <strong>Phone Number</strong>
-                  </TableCell>
-                  <TableCell sx={{ backgroundColor: '#38383e', color:'white', textAlign:'center'  }}>
-                    <strong>Address</strong>
-                  </TableCell>
-                  <TableCell sx={{ backgroundColor: '#38383e', color:'white', textAlign:'center'  }}>
-                    <strong>Actions</strong>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {filteredCustomers.map((customer, index) => (
-                  <TableRow key={index} hover>
-                    <TableCell align="center">{customer.name}</TableCell>
-                    <TableCell align="center">{customer.phoneNumber}</TableCell>
-                    <TableCell align="center">{customer.address}</TableCell>
-                    <TableCell align="center">
-                      {/* <IconButton onClick={() => navigate("/customertranscation")}> */}
-                      <IconButton
-                        onClick={() =>
-                          navigate(
-                            `/customertranscation?id=${
-                              customer.id
-                            }&name=${encodeURIComponent(customer.name)}`
-                          )
-                          
-                        }
-                        
-                      >
-                        <PreviewIcon color="primary" />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        ) : (
-          <Typography variant="body1" align="center">
-            No customer details available.
+    <>
+      <Navbar />
+      <Container maxWidth="lg">
+        <Paper
+          className={styles.customerTableContainer}
+          elevation={3}
+          sx={{ p: 3 }}
+        >
+          <Typography variant="h5" align="center" gutterBottom>
+            Customer Details
           </Typography>
-        )}
-      </Paper>
-    </Container>
 
+          <TextField
+            label="Search Customer"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "30px",
+                width: "22rem",
+                backgroundColor: "#f8f9fa",
+                "&.Mui-focused": {
+                  backgroundColor: "#ffffff",
+                },
+              },
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon style={{ color: "#777" }} />
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          {filteredCustomers.length > 0 ? (
+            <TableContainer>
+              <Table className={styles.table}>
+              <TableHead>
+  <TableRow>
+    <TableCell className={styles.tablehead}>S.No</TableCell>
+    <TableCell className={styles.tablehead}>Date</TableCell>
+    <TableCell className={styles.tablehead}>Time</TableCell>
+    <TableCell className={styles.tablehead}>Customer Name</TableCell>
+    <TableCell className={styles.tablehead}>Phone Number</TableCell>
+    <TableCell className={styles.tablehead}>Address</TableCell>
+    <TableCell className={styles.tablehead}>Actions</TableCell>
+  </TableRow>
+</TableHead>
+
+<TableBody>
+  {filteredCustomers.map((customer, index) => {
+    const updatedAt = new Date(customer.updatedAt);
+    const dateString = updatedAt.toLocaleDateString();
+    const timeString = updatedAt.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    return (
+      <TableRow
+        key={index}
+        className={index % 2 === 0 ? styles.trEven : ""}
+      >
+        <TableCell className={styles.tableCell}>{index + 1}</TableCell>
+        <TableCell className={styles.tableCell}>{dateString}</TableCell>
+        <TableCell className={styles.tableCell}>{timeString}</TableCell>
+        <TableCell className={styles.tableCell}>{customer.name}</TableCell>
+        <TableCell className={styles.tableCell}>{customer.phoneNumber}</TableCell>
+        <TableCell className={styles.tableCell}>{customer.address}</TableCell>
+
+        <TableCell className={styles.tableCell}>
+          <IconButton
+            onClick={() =>
+              navigate(
+                `/customertranscation?id=${customer.id}&name=${encodeURIComponent(
+                  customer.name
+                )}`
+              )
+            }
+            className={styles.iconButton}
+          >
+            <PreviewIcon color="primary" />
+          </IconButton>
+        </TableCell>
+      </TableRow>
+    );
+  })}
+</TableBody>
+
+              </Table>
+            </TableContainer>
+          ) : (
+            <Typography variant="body1" align="center">
+              No customer details available.
+            </Typography>
+          )}
+        </Paper>
+      </Container>
     </>
   );
 };
