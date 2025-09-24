@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
-import { TextField, IconButton, MenuItem, Button } from "@mui/material";
+import { TextField, IconButton, MenuItem, Button,Typography } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "./Billing.module.css";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
+
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 
 const Billing = () => {
   const [customers, setCustomers] = useState([]);
@@ -26,6 +33,25 @@ const Billing = () => {
   const [customerBalance, setCustomerBalance] = useState(0);
   const [hallmarkForThisBill, setHallmarkForThisBill] = useState(0);
   const [touchItems, setTouchItems] = useState([]);
+  const [bills, setBills] = useState([]);
+const [viewBill, setViewBill] = useState(null);
+const [openBillsPopup, setOpenBillsPopup] = useState(false);
+const [openViewBillPopup, setOpenViewBillPopup] = useState(false);
+
+const fetchBills = async () => {
+  try {
+    const res = await fetch(`${BACKEND_SERVER_URL}/api/bills`);
+    const data = await res.json();
+    setBills(data);
+  } catch (error) {
+    console.error("Error fetching bills:", error);
+  }
+};
+
+useEffect(() => {
+  fetchBills();
+}, []);
+
 
   const fetchCustomers = async () => {
     try {
@@ -750,12 +776,213 @@ const Billing = () => {
 
           <Button
             variant="contained"
-            sx={{ mt: 5, backgroundColor: "rgb(139, 103, 14)" }}
+            sx={{ mt: 5}}
             onClick={handleSave}
           >
             Save
-          </Button>
+          </Button> 
+ 
+          <Button
+  variant="contained"
+  sx={{ mt: 5, ml: 2 }}
+  onClick={() => setOpenBillsPopup(true)}
+>
+  View All Bills
+</Button>
+
         </div>
+
+        <Dialog
+  open={openBillsPopup}
+  onClose={() => setOpenBillsPopup(false)}
+  maxWidth="md"
+  fullWidth
+>
+
+  <br/>
+  <h4><center>  Saved Bill Details </center> </h4>
+  <DialogContent>
+    {!viewBill ? (
+      <div className={styles.table}>
+        <div style={{marginLeft:'3rem'}}> 
+        <table>
+          <thead>
+            <tr>
+              <th style={{width:'5rem'}} >S.No</th>
+              <th style={{width:'10rem'}}>Bill No</th>
+              <th style={{width:'12rem'}}>Customer Name</th>
+              <th style={{width:'10rem'}}>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bills.map((bill, idx) => (
+              <tr key={bill.id}>
+                <td>{idx + 1}</td>
+                <td>{bill.bill_no || idx + 1}</td>
+                <td>{bill.customer?.name || "-"}</td>
+                <td>{bill.date}</td>
+                <td>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={() => setViewBill(bill)}
+                  >
+                    view bill details
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    ) : (
+      // Show bill details in view mode
+<div> 
+  
+<div className={styles.bill}>
+  <div className={styles.leftSection}>
+    <Typography><b>Bill No: </b> {viewBill.bill_no}</Typography>
+    <Typography><b>Customer Name: </b> {viewBill.customer?.name}</Typography>
+    <Typography><b>Gold Rate: </b> {viewBill.gold_rate}</Typography>
+  </div>
+
+  <div className={styles.rightSection}>
+    <Typography><b>Date: </b>{viewBill.date}</Typography>
+    <Typography><b>Time: </b>{viewBill.time}</Typography>
+  </div>
+</div>
+  
+      <div className={styles.billdetails}>Bill Details:</div>
+      <div className={styles.table}>
+        <table>
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Weight</th>
+              <th>Stone Weight</th>
+              <th>Total Weight</th>
+              <th style={{width:'5rem'}}>%</th>
+              <th>Pure</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {viewBill.billItems.map((item, index) => (
+              <tr key={index}>
+                <td>{item.item_name}</td>
+                <td>{item.weight}</td>
+                <td>{item.stone_weight}</td>
+                <td>{item.total_weight}</td>
+                <td>{item.touch.touch || item.touchId}</td>
+                <td>{item.pure}</td>
+                <td>{item.amount}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan={5}><b>Excess Balance</b></td>
+              <td>{viewBill.customer_balance}</td>
+              <td>{(viewBill.customer_balance * viewBill.gold_rate).toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td colSpan={5}><b>Final Bill Total</b></td>
+              <td>{viewBill.total_pure}</td>
+              <td>{viewBill.total_amount}</td>
+            </tr>
+            <tr>
+              <td colSpan={5} className={styles.trEven}><b>Total</b></td>
+              <td className={styles.trEven}>
+                {(viewBill.total_pure - viewBill.customer_balance).toFixed(3)}
+              </td>
+              <td className={styles.trEven}>
+                {(viewBill.total_amount - viewBill.customer_balance * viewBill.gold_rate).toFixed(2)} <br />
+                {viewBill.total_amount - viewBill.customer_balance * viewBill.gold_rate >= 0
+                  ? "Customer must give to Owner"
+                  : "Owner must give to Customer"}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+  
+      <div className={styles.bal}>
+        <p><b>Prev Hallmark Balance:</b> {viewBill.prev_hallmark}</p>
+      </div>
+  
+      <div className={styles.receivedHeader}>
+        <div className={styles.billdetails}>Received Details:</div>
+      </div>
+      <div className={styles.table}>
+        <table>
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Gold Rate</th>
+              <th>Gold WT</th>
+              <th>Touch</th>
+              <th>Purity Weight</th>
+              <th>Amount</th>
+              <th>Hallmark Charge</th>
+            </tr>
+          </thead>
+          <tbody>
+            {viewBill.receivedItems?.map((row, idx) => (
+              <tr key={idx}>
+                <td>{idx + 1}</td>
+                <td>{row.date}</td>
+                <td>{row.type}</td>
+                <td>{row.goldRate || "-" }</td>
+                <td>{row.gold || "-"}</td>
+                <td>{row.touch?.touch ?? "-"}</td> 
+                <td>{row.purity_weight || "-"}</td>
+                <td>{row.amount || "-"}</td>
+                <td>{row.hallmark_charge || "-"}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot className={styles.trEven}>
+            <tr>
+              <td colSpan={6}><b>Total Purity</b></td>
+              <td> <b>
+        {viewBill.receivedItems?.reduce(
+          (sum, row) => sum + (Number(row.purity_weight) || 0),
+          0
+        ) ?? 0} </b> </td>
+              <td colSpan={2}></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+  
+      <div className={styles.balance} style={{marginTop:'2rem'}}>
+    
+        <p><b>Cash Balance:</b> ₹{viewBill.cash_balance}</p>
+        <p><b>Excess Pure:</b> {viewBill.excessPure}</p>
+        <p><b>Pure Balance:</b> {viewBill.pure_balance.toFixed(3)}</p>
+        <p><b>Hallmark Balance:</b> {viewBill.hallmark_balance}</p>
+      </div>
+  
+      <Button
+        variant="outlined"
+        onClick={() => setViewBill(null)}
+        style={{ marginTop: "13px" }}
+      >
+        Back to Bills
+      </Button>
+    </div>
+    )}
+  </DialogContent>
+
+  <DialogActions>
+    <Button   variant="outlined" onClick={() => setOpenBillsPopup(false)}>Close</Button>
+  </DialogActions>
+</Dialog>
+
         <div className={styles.tablecard}>
           <h3>Available Product Weights</h3>
           <div className={styles.billdetails}>Product Details:</div>

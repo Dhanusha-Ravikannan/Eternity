@@ -392,8 +392,9 @@ const CustomerTranscation = () => {
             <th>S.No</th>
               <th>Date</th>
               <th>Time</th>
-              <th>Value</th>
               <th>Type</th>
+              <th>Value</th>
+              <th>Gold Rate</th>
               <th>Touch</th>
               <th>Purity</th>
               <th>Used Purity</th>
@@ -419,12 +420,14 @@ const CustomerTranscation = () => {
               })
             : "-"}
         </td>
+        <td>{transaction.type}</td>
         <td>
           {transaction.type === "Gold"
             ? `${transaction.value} g`
             : `₹ ${transaction.value.toFixed(2)}`}
         </td>
-        <td>{transaction.type}</td>
+
+        <td>{transaction.goldRate}</td>
         <td>{transaction.touch ? transaction.touch.touch : "-"}</td>
         <td>{transaction.purity || "-"}</td>
         <td>{transaction.usedPurity || "-" }</td>
@@ -439,7 +442,7 @@ const CustomerTranscation = () => {
   )}
 </tbody>
           <tfoot> 
-            <tr><td colSpan={6}><b>  Total Purity ( Both Cash and Gold )</b> </td> 
+            <tr><td colSpan={7}><b>  Total Purity ( Both Cash and Gold )</b> </td> 
             <td> <b> {totals.goldTotalPurity.toFixed(3)} g </b></td>
             <td><b>{totals.totalUsedPurity.toFixed(3)} g</b></td>
             </tr>

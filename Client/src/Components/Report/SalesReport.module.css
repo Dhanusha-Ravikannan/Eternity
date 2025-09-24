@@ -211,3 +211,223 @@
   margin-bottom: 1rem;
 }
 
+.billinvoice{
+  display: flex;
+  justify-content: space-between;
+  background-color: #ecedef;
+  padding: 1rem;
+
+}
+
+
+.bill {
+  display: flex;
+  justify-content: space-between; /* Push left + right content apart */
+  align-items: flex-start; /* Align at top */
+  margin-bottom: 1rem;
+  background-color: #f1f2f4;
+  padding: 1rem;
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+ 
+}
+
+.rightSection {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
+
+.card{
+  width: 60rem;
+   padding: 2rem;
+   border-radius: 8px;
+   box-shadow: 
+   0 4px 8px rgba(0, 0, 0, 0.1),   
+   0 0px 8px rgba(0, 0, 0, 0.15); 
+}
+
+.balance{
+   display: flex;
+   justify-content: space-around;
+   font-weight: bold;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   font-size: 1.1rem;
+}
+.bal{
+ font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+ font-size: 1.1rem;
+ margin-top: 1rem;
+}
+
+.receivedHeader {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 10px; 
+
+ }
+ 
+ .receivedHeader h2 {
+   margin: 0; 
+ }
+
+ .label{
+   display: flex;
+   justify-content: space-between;
+   margin-top: 2rem;
+ }
+ 
+ .datetime {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end; 
+   margin-bottom: 10px;
+   font-weight: bold;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   font-size: 1rem;
+   font-size: 1.1rem;
+   gap: 0.3rem;
+  
+
+   
+ }
+ 
+ .datetime p {
+   margin: 0; 
+ }
+ 
+
+ .billNo{
+   margin-top: 1rem;
+   font-size: 1.1rem;
+   font-weight: bold;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   text-decoration: underline dotted black;
+ }
+
+ .tablecard{
+   width: 26rem;
+   padding: 2rem;
+   border-radius: 8px;
+   box-shadow: 
+ 0 4px 8px rgba(0, 0, 0, 0.1),   
+ 0 0px 8px rgba(0, 0, 0, 0.15); 
+
+ }
+
+ .tablecard h3{
+   display: flex;
+   justify-content: center;
+   font-size: 1.4rem !important;
+   
+  
+ }
+
+ .container {
+   display: flex;
+   justify-content: space-around;
+   align-items: flex-start;
+   margin-top: 2rem;
+   padding: 3;
+   padding-top: 2rem;
+   padding-bottom: 2rem;
+   width: 90rem;
+   margin-left: 3rem;
+   border-radius: 8px;
+
+ }
+
+.card h3{
+   display: flex;
+   justify-content: center;
+}
+
+.billdetails{
+   color: rgb(234, 35, 35);
+   font-weight: bold;
+   font-size: 1.3rem;
+   margin-top: 2.5rem;
+
+   
+} 
+
+.customerCard {
+ margin-left: 0;
+ background-color: rgb(245, 247, 249);
+ padding: 1rem;
+ margin-top: 1rem;
+ font-size: 1.2rem;
+ border-radius: 8px;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.customerCard span {
+ font-weight: bold;
+}
+
+.tablehead b{
+ font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+
+
+.table {
+ width: 100%;
+ border-collapse: collapse; 
+}
+
+.table td {
+ border: 1px solid #ccc;
+ padding: 10px;
+ text-align: center;
+
+
+}
+
+.table th {
+ background-color:#38383e;
+ color: white;
+ font-weight: bold;
+ padding: 11px;
+ border: 1px solid #ccc;
+ text-align: center;
+}
+
+.trEven {
+ background-color: #f5f5f5;
+}
+
+
+
+.bill {
+ display: flex;
+ justify-content: space-between; /* Push left + right content apart */
+ align-items: flex-start; /* Align at top */
+ margin-bottom: 1rem;
+ background-color: #f1f2f4;
+ padding: 1rem;
+ box-shadow: 
+ 0 4px 8px rgba(0, 0, 0, 0.1),   
+ 0 0px 8px rgba(0, 0, 0, 0.15); 
+}
+
+.leftSection {
+ display: flex;
+ flex-direction: column;
+ gap: 4px;
+
+}
+
+.rightSection {
+ text-align: right;
+ display: flex;
+ flex-direction: column;
+ gap: 4px;
+}
