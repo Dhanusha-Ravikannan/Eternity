@@ -78,3 +78,23 @@ export const getAllTransactions = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const getAllTransactionsWithoutCustomer = async (req, res) => {
+  try {
+
+    const transactions = await prisma.customerTransaction.findMany({
+      include: { touch: true,customer:true },
+      orderBy: { date: "desc" },
+
+      include:{
+        touch:true,
+        customer:true
+      }
+    });
+
+    res.status(200).json(transactions);
+  } catch (error) {
+    console.error("Error fetching transactions:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

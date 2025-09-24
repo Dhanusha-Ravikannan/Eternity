@@ -26,6 +26,7 @@ import autoTable from "jspdf-autotable";
 const MasterCustomerReport = () => {
   const [bills, setBills] = useState([]);
   const [allBills, setAllBills] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [customerFilter, setCustomerFilter] = useState("");
@@ -34,7 +35,20 @@ const MasterCustomerReport = () => {
   useEffect(() => {
     fetchBills();
     fetchCustomers();
+    fetchTransactions();
   }, []);
+
+  const parseDateSafe = (dateStr) => {
+    if (!dateStr) return null;
+    if (dateStr instanceof Date) return dateStr;
+    if (!isNaN(Date.parse(dateStr))) return new Date(dateStr);
+    const parts = dateStr.split("/");
+    if (parts.length === 3) {
+      const [day, month, year] = parts.map(Number);
+      return new Date(year, month - 1, day);
+    }
+    return null;
+  };
 
   const fetchBills = async () => {
     try {
@@ -54,6 +68,79 @@ const MasterCustomerReport = () => {
     } catch (error) {
       console.error("Error fetching customers:", error.message);
     }
+  };
+
+  const fetchTransactions = async () => {
+    try {
+      const response = await axios.get(
+        `${BACKEND_SERVER_URL}/api/transactions`
+      );
+      console.log("Fetched transactions:", response.data);
+      setTransactions(response.data);
+    } catch (error) {
+      console.error("Error fetching transactions:", error.message);
+    }
+  };
+
+  const calculateAdvanceUsed = () => {
+    const sortedBills = [...bills].sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+
+    const customerTransactions = {};
+    transactions.forEach((t) => {
+      const cid = t.customer_id || t.customerId;
+      if (!cid || !(parseFloat(t.purity) > 0)) return;
+      if (!customerTransactions[cid]) {
+        customerTransactions[cid] = [];
+      }
+      customerTransactions[cid].push({
+        ...t,
+        purity: parseFloat(t.purity) || 0,
+        date: parseDateSafe(t.date || t.createdAt),
+      });
+    });
+
+    Object.keys(customerTransactions).forEach((cid) => {
+      customerTransactions[cid].sort((a, b) => a.date - b.date);
+    });
+
+    const remainingPurityByTxn = {};
+    Object.values(customerTransactions)
+      .flat()
+      .forEach((t) => {
+        remainingPurityByTxn[t.id] = t.purity;
+      });
+
+    const advanceUsedMap = {};
+
+    sortedBills.forEach((bill) => {
+      const customerId = bill.customer_id || bill.customerId;
+
+      const billDate = parseDateSafe(bill.date || bill.createdAt);
+      let billPure = parseFloat(bill.total_pure) || 0;
+      let advanceUsed = 0;
+
+      const txns = customerTransactions[customerId] || [];
+
+      const eligibleTxns = txns.filter((txn) => txn.date <= billDate);
+
+      for (const txn of eligibleTxns) {
+        if (billPure <= 0) break;
+
+        let available = remainingPurityByTxn[txn.id] || 0;
+        if (available > 0) {
+          const toUse = Math.min(billPure, available);
+          advanceUsed += toUse;
+          billPure -= toUse;
+          remainingPurityByTxn[txn.id] -= toUse; 
+        }
+      }
+
+      advanceUsedMap[bill.id] = advanceUsed;
+    });
+
+    return advanceUsedMap;
   };
 
   const handleFilter = () => {
@@ -80,13 +167,14 @@ const MasterCustomerReport = () => {
     setBills(allBills);
   };
 
-  // Calculate summary data by customer
   const calculateCustomerSummary = () => {
+    const advanceUsedMap = calculateAdvanceUsed();
     const summary = {};
 
     bills.forEach((bill) => {
       const customerId = bill.customer_id;
       const customerName = bill.customer?.name || `Customer ${customerId}`;
+      const advanceUsed = advanceUsedMap[bill.id] || 0;
 
       if (!summary[customerId]) {
         summary[customerId] = {
@@ -95,14 +183,15 @@ const MasterCustomerReport = () => {
           totalAmount: 0,
           totalPure: 0,
           totalGold: 0,
+          totalAdvanceUsed: 0,
         };
       }
 
       summary[customerId].totalBills += 1;
       summary[customerId].totalAmount += parseFloat(bill.total_amount) || 0;
       summary[customerId].totalPure += parseFloat(bill.total_pure) || 0;
+      summary[customerId].totalAdvanceUsed += advanceUsed;
 
-      // Calculate total gold from bill items
       const billGold =
         bill.billItems?.reduce(
           (sum, item) => sum + (parseFloat(item.weight) || 0),
@@ -114,13 +203,17 @@ const MasterCustomerReport = () => {
     return summary;
   };
 
-  // Calculate overall totals
   const calculateOverallTotals = () => {
+    const advanceUsedMap = calculateAdvanceUsed();
+
     return bills.reduce(
       (totals, bill) => {
+        const advanceUsed = advanceUsedMap[bill.id] || 0;
+
         totals.totalBills += 1;
         totals.totalAmount += parseFloat(bill.total_amount) || 0;
         totals.totalPure += parseFloat(bill.total_pure) || 0;
+        totals.totalAdvanceUsed += advanceUsed;
 
         const billGold =
           bill.billItems?.reduce(
@@ -131,12 +224,19 @@ const MasterCustomerReport = () => {
 
         return totals;
       },
-      { totalBills: 0, totalAmount: 0, totalPure: 0, totalGold: 0 }
+      {
+        totalBills: 0,
+        totalAmount: 0,
+        totalPure: 0,
+        totalGold: 0,
+        totalAdvanceUsed: 0,
+      }
     );
   };
 
   const customerSummary = calculateCustomerSummary();
   const overallTotals = calculateOverallTotals();
+  const advanceUsedMap = calculateAdvanceUsed();
 
   const exportPDF = () => {
     const doc = new jsPDF();
@@ -150,7 +250,6 @@ const MasterCustomerReport = () => {
       }
     );
 
-    // Overall Summary
     autoTable(doc, {
       startY: 25,
       head: [
@@ -159,6 +258,7 @@ const MasterCustomerReport = () => {
           "Total Gold Weight",
           "Total Pure Weight",
           "Total Amount",
+          "Total Advance Used",
         ],
       ],
       body: [
@@ -167,13 +267,13 @@ const MasterCustomerReport = () => {
           overallTotals.totalGold.toFixed(2),
           overallTotals.totalPure.toFixed(2),
           `₹${overallTotals.totalAmount.toFixed(2)}`,
+          overallTotals.totalAdvanceUsed.toFixed(2),
         ],
       ],
       styles: { halign: "center" },
       headStyles: { fillColor: [41, 128, 185] },
     });
 
-    // Customer-wise Summary
     if (Object.keys(customerSummary).length > 0) {
       const summaryRows = Object.entries(customerSummary).map(
         ([customerId, data]) => [
@@ -182,13 +282,21 @@ const MasterCustomerReport = () => {
           data.totalGold.toFixed(2),
           data.totalPure.toFixed(2),
           `₹${data.totalAmount.toFixed(2)}`,
+          data.totalAdvanceUsed.toFixed(2),
         ]
       );
 
       autoTable(doc, {
         startY: doc.lastAutoTable.finalY + 10,
         head: [
-          ["Customer", "Bills", "Gold Weight", "Pure Weight", "Total Amount"],
+          [
+            "Customer",
+            "Bills",
+            "Gold Weight",
+            "Pure Weight",
+            "Total Amount",
+            "Advance Used",
+          ],
         ],
         body: summaryRows,
         styles: { halign: "center" },
@@ -196,7 +304,6 @@ const MasterCustomerReport = () => {
       });
     }
 
-    // Bills Table
     const tableColumn = [
       "S.No",
       "Bill No",
@@ -205,23 +312,32 @@ const MasterCustomerReport = () => {
       "Gold Rate",
       "Total Gold",
       "Total Pure",
+      "Advance Used",
+      "Net Pure",
       "Total Amount",
       "Grand Total",
       "Cash Balance",
     ];
 
-    const tableRows = bills.map((bill, index) => [
-      index + 1,
-      bill.bill_no,
-      new Date(bill.createdAt).toLocaleDateString(),
-      bill.customer?.name || "-",
-      bill.gold_rate ? `₹${bill.gold_rate}` : "-",
-      overallTotals.totalGold.toFixed(2),
-      bill.total_pure,
-      `₹${bill.total_amount}`,
-      `₹${bill.grand_total}`,
-      `₹${bill.cash_balance}`,
-    ]);
+    const tableRows = bills.map((bill, index) => {
+      const advanceUsed = advanceUsedMap[bill.id] || 0;
+      const netPure = Math.max(0, parseFloat(bill.total_pure) - advanceUsed);
+
+      return [
+        index + 1,
+        bill.bill_no,
+        new Date(bill.createdAt).toLocaleDateString(),
+        bill.customer?.name || "-",
+        bill.gold_rate ? `₹${bill.gold_rate}` : "-",
+        overallTotals.totalGold.toFixed(2),
+        bill.total_pure,
+        advanceUsed.toFixed(2),
+        netPure.toFixed(2),
+        `₹${bill.total_amount}`,
+        `₹${bill.grand_total}`,
+        `₹${bill.cash_balance}`,
+      ];
+    });
 
     autoTable(doc, {
       startY: doc.lastAutoTable.finalY + 10,
@@ -297,7 +413,6 @@ const MasterCustomerReport = () => {
           </Button>
         </Stack>
 
-        {/* Summary Section */}
         <div className={styles.summarySection}>
           <h4>Overall Summary</h4>
           <div className={styles.summaryGrid}>
@@ -317,10 +432,13 @@ const MasterCustomerReport = () => {
               <span>Total Amount:</span>
               <span>₹{overallTotals.totalAmount.toFixed(2)}</span>
             </div>
+            <div className={styles.summaryItem}>
+              <span>Total Advance Used:</span>
+              <span>{overallTotals.totalAdvanceUsed.toFixed(2)}</span>
+            </div>
           </div>
         </div>
 
-        {/* Customer-wise Summary */}
         {Object.keys(customerSummary).length > 0 && (
           <div className={styles.summarySection}>
             <h4>Customer-wise Summary</h4>
@@ -343,13 +461,16 @@ const MasterCustomerReport = () => {
                     <span>{data.name} Total Amount:</span>
                     <span>₹{data.totalAmount.toFixed(2)}</span>
                   </div>
+                  <div className={styles.summaryItem}>
+                    <span>{data.name} Advance Used:</span>
+                    <span>{data.totalAdvanceUsed.toFixed(2)}</span>
+                  </div>
                 </React.Fragment>
               ))}
             </div>
           </div>
         )}
 
-        {/* Bills Table */}
         <TableContainer className={styles.itemList}>
           <Table className={styles.customerTable}>
             <TableHead>
@@ -366,10 +487,10 @@ const MasterCustomerReport = () => {
                   Received Items
                 </TableCell>
                 <TableCell rowSpan={2}>Total Pure</TableCell>
+                <TableCell rowSpan={2}>Advance Used</TableCell>
+                <TableCell rowSpan={2}>Net Pure</TableCell>
                 <TableCell rowSpan={2}>Total Amount</TableCell>
                 <TableCell rowSpan={2}>Grand Total</TableCell>
-                <TableCell rowSpan={2}>Cash Balance</TableCell>
-                <TableCell rowSpan={2}>Actions</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Item Name</TableCell>
@@ -392,8 +513,12 @@ const MasterCustomerReport = () => {
                 bills.map((bill, billIndex) => {
                   const billItems = bill.billItems || [];
                   const receivedItems = bill.receivedItems || [];
+                  const advanceUsed = advanceUsedMap[bill.id] || 0;
+                  const netPure = Math.max(
+                    0,
+                    parseFloat(bill.total_pure) - advanceUsed
+                  );
 
-                  // Take max rows needed
                   const maxRows =
                     Math.max(billItems.length, receivedItems.length) || 1;
 
@@ -427,7 +552,6 @@ const MasterCustomerReport = () => {
                               </>
                             )}
 
-                            {/* Bill Items */}
                             <TableCell>{item?.item_name || "-"}</TableCell>
                             <TableCell>{item?.weight || "-"}</TableCell>
                             <TableCell>{item?.stone_weight || "-"}</TableCell>
@@ -437,7 +561,6 @@ const MasterCustomerReport = () => {
                               {item?.amount != null ? `₹${item.amount}` : "-"}
                             </TableCell>
 
-                            {/* Received Items */}
                             <TableCell>{rItem?.type || "-"}</TableCell>
                             <TableCell>{rItem?.date || "-"}</TableCell>
                             <TableCell>{rItem?.gold || "-"}</TableCell>
@@ -454,22 +577,16 @@ const MasterCustomerReport = () => {
                                   {bill.total_pure}
                                 </TableCell>
                                 <TableCell rowSpan={maxRows}>
+                                  {advanceUsed.toFixed(2)}
+                                </TableCell>
+                                <TableCell rowSpan={maxRows}>
+                                  {netPure.toFixed(2)}
+                                </TableCell>
+                                <TableCell rowSpan={maxRows}>
                                   ₹{bill.total_amount}
                                 </TableCell>
                                 <TableCell rowSpan={maxRows}>
                                   ₹{bill.grand_total}
-                                </TableCell>
-                                <TableCell rowSpan={maxRows}>
-                                  ₹{bill.cash_balance}
-                                </TableCell>
-                                <TableCell rowSpan={maxRows}>
-                                  <Button
-                                    variant="outlined"
-                                    size="small"
-                                    onClick={() => handleViewDetails(bill)}
-                                  >
-                                    View Details
-                                  </Button>
                                 </TableCell>
                               </>
                             )}
@@ -481,7 +598,7 @@ const MasterCustomerReport = () => {
                 })
               ) : (
                 <TableRow>
-                  <TableCell colSpan={18} align="center">
+                  <TableCell colSpan={19} align="center">
                     No bills found
                   </TableCell>
                 </TableRow>
