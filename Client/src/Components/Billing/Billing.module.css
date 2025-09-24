@@ -14,12 +14,17 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 1.1rem;
 }
+.bal{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
 
 .receivedHeader {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px; 
-    margin-top: 2rem;
+ 
   }
   
   .receivedHeader h2 {
@@ -101,7 +106,7 @@
     color: rgb(234, 35, 35);
     font-weight: bold;
     font-size: 1.3rem;
-    margin-top: 1.5rem;
+    margin-top: 2.5rem;
  
     
 } 
@@ -150,4 +155,32 @@
 
 .trEven {
   background-color: #f5f5f5;
+}
+
+
+
+.bill {
+  display: flex;
+  justify-content: space-between; /* Push left + right content apart */
+  align-items: flex-start; /* Align at top */
+  margin-bottom: 1rem;
+  background-color: #f1f2f4;
+  padding: 1rem;
+  box-shadow: 
+  0 4px 8px rgba(0, 0, 0, 0.1),   
+  0 0px 8px rgba(0, 0, 0, 0.15); 
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+ 
+}
+
+.rightSection {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
