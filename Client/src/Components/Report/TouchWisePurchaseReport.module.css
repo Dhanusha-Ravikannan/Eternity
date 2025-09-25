@@ -55,6 +55,18 @@
     background-color: #38383e !important;
     color: white !important;
     font-weight: bold;
+    border: 1px solid gray;
 
   }
+
+
   
+
+
+  .itemname th{
+    background-color: #37373b !important;
+    color: white !important;
+    /* font-weight: bold; */
+    border: 1px solid gray;
+
+  }

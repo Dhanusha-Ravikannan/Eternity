@@ -319,7 +319,8 @@ const Stock = () => {
                   item.settingItem?.settingEntryId?.setting_person?.name ||
                   item.buffingItem?.buffingEntryId?.buffing_person?.name ||
                   item.purchaseId?.SupplierId?.name ||
-                  item.customer?.name || 
+                  item.customer?.name ||
+                  item.customer_transaction?.customer?.name ||
                   item.transactionCustomer?.name || 
                   "-";
 

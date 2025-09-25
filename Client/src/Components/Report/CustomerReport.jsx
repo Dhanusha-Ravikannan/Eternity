@@ -492,7 +492,7 @@ const MasterCustomerReport = () => {
                 <TableCell rowSpan={2}>Total Amount</TableCell>
                 <TableCell rowSpan={2}>Grand Total</TableCell>
               </TableRow>
-              <TableRow>
+              <TableRow className={styles.itemname}>
                 <TableCell>Item Name</TableCell>
                 <TableCell>Weight</TableCell>
                 <TableCell>Stone Weight</TableCell>
