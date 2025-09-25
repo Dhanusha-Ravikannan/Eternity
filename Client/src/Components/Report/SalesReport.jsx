@@ -63,10 +63,15 @@ useEffect(() => {
     (sum, inv) => sum + (inv.amount_received || 0),
     0
   );
-  const totalPureReceived = invoices.reduce(
-    (sum, inv) => sum + (inv.pure_received || 0),
-    0
-  );
+ 
+  const totalPureReceived = invoices.reduce((sum, inv) => {
+    const invTotal = inv.receivedItems?.reduce(
+      (s, row) => s + (Number(row.purity_weight) || 0),
+      0
+    ) ?? 0;
+    return sum + invTotal;
+  }, 0);
+  
   const totalCashBalance = invoices.reduce(
     (sum, inv) => sum + (inv.cash_balance || 0),
     0
@@ -308,7 +313,9 @@ const downloadPDF = () => {
                   <td>{inv.total_pure}</td>
                   <td>{inv.total_amount}</td>
                   <td>{inv.amount_received || "-"}</td>
-                  <td>{inv.pure_received || "-"} </td>
+                  {/* <td>{inv.pure_received || "-"} </td> */}
+                  <td> {inv.receivedItems?.reduce(  (sum, row) => sum + (Number(row.purity_weight) || 0), 0 ) ?? 0} </td>
+
                   <td>{inv.cash_balance}</td>
                   <td>{inv.pure_balance.toFixed(3)}</td>
                   <td>
@@ -480,7 +487,7 @@ const downloadPDF = () => {
             </tbody>
             <tfoot className={styles.trEven}>
               <tr>
-                <td colSpan={6}><b>Total Purity</b></td>
+                <td colSpan={6}>Total Purity</td>
                 <td>
 
                     {viewInvoice.receivedItems?.reduce(

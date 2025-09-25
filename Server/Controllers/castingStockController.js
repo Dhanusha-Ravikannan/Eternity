@@ -105,6 +105,12 @@ export const getAllStock = async (req, res) => {
           },
         },
         casting_customer: true,
+        customer_transaction:{
+          include:{       
+            customer:true,
+            touch: true,
+          }
+        },
 
       },
     });

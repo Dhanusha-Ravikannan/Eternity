@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma/index.js";
+import { ITEMTYPE, PrismaClient } from "../generated/prisma/index.js";
 const prisma = new PrismaClient();
 
 export const createTransaction = async (req, res) => {
@@ -36,12 +36,13 @@ export const createTransaction = async (req, res) => {
         buffing_item_id: null,
         item_type: "Gold", 
         item_id: null,
-        weight: 0,
+        weight: value?parseFloat(value):0,
         touch_id: touchId ? parseInt(touchId) : null,
         item_purity: purity ? parseFloat(purity) : 0, 
         remarks: `From Customer Transaction of Customer Id - ${customerId}`,
         casting_customer_id: null,
         purchase_id: null,
+        customer_transaction_id: customerId,
       },
     });
 

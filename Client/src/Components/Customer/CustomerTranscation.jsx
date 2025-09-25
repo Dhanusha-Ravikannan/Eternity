@@ -400,8 +400,6 @@ const CustomerTranscation = () => {
               <th>Used Purity</th>
             </tr>
           </thead>
-        
-
 <tbody>
   {filteredTransactions.length > 0 ? (
     filteredTransactions.map((transaction, index) => (
@@ -463,7 +461,7 @@ const CustomerTranscation = () => {
     </div>
     <div className={styles.totalRow}>
       <span>Available Purity (Not Used):</span>
-      <span>{totals.goldTotalPurity. toFixed(3) - totals.totalUsedPurity.toFixed(3)} g</span>
+      <span> {(totals.goldTotalPurity - totals.totalUsedPurity).toFixed(3)} g </span>
     </div>
   
   </div>

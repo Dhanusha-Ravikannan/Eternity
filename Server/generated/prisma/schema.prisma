@@ -17,6 +17,7 @@ datasource db {
 enum ITEMTYPE {
   Gold
   Silver
+  Cash
 }
 
 enum CASTINGENTRYTYPE {
@@ -141,6 +142,7 @@ model CustomerTransaction {
   touch      AddTouch?   @relation(fields: [touchId], references: [id])
   customerId Int
   usedPurity Float?
+  stock      Stock[]
 }
 
 model AddItem {
@@ -535,8 +537,10 @@ model Stock {
   casting_customer_id Int?
   casting_customer    AddCasting?   @relation(fields: [casting_customer_id], references: [id])
 
-  purchase_id Int?
-  purchaseId  AddPurchaseStock? @relation(fields: [purchase_id], references: [id], onDelete: Cascade)
+  purchase_id             Int?
+  purchaseId              AddPurchaseStock?    @relation(fields: [purchase_id], references: [id], onDelete: Cascade)
+  customer_transaction_id Int?
+  customer_transaction    CustomerTransaction? @relation(fields: [customer_transaction_id], references: [id])
 }
 
 model Hallmark {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 import { TextField, IconButton, MenuItem, Button,Typography } from "@mui/material";
@@ -6,19 +6,12 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "./Billing.module.css";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
-
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions,} from "@mui/material";
 
 const Billing = () => {
   const [customers, setCustomers] = useState([]);
   const [items, setItems] = useState([]);
   const [qcStock, setQcStock] = useState([]);
-
   const [selectedCustomer, setSelectedCustomer] = useState("");
   const [selectedCustomerId, setSelectedCustomerId] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState("");
@@ -37,6 +30,38 @@ const Billing = () => {
 const [viewBill, setViewBill] = useState(null);
 const [openBillsPopup, setOpenBillsPopup] = useState(false);
 const [openViewBillPopup, setOpenViewBillPopup] = useState(false);
+const [printSize, setPrintSize] = useState("A4");
+const printRef = useRef();
+
+const handlePrint = () => {
+  const style = document.createElement("style");
+  style.innerHTML = `
+    @page { size: ${printSize}; margin: 1mm; }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #print-section, #print-section * {
+        visibility: visible;
+      }
+      #print-section {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+  window.print();
+  setTimeout(() => {
+    document.head.removeChild(style);
+  }, 1000);
+};
+
 
 const fetchBills = async () => {
   try {
@@ -51,7 +76,6 @@ const fetchBills = async () => {
 useEffect(() => {
   fetchBills();
 }, []);
-
 
   const fetchCustomers = async () => {
     try {
@@ -412,6 +436,8 @@ useEffect(() => {
   };
 
   console.log("touch", touchItems);
+
+  
   return (
     <>
       <Navbar />
@@ -799,7 +825,8 @@ useEffect(() => {
   fullWidth
 >
 
-  <br/>
+  <br/> 
+  <div id="print-section" ref={printRef} > 
   <h4><center>  Saved Bill Details </center> </h4>
   <DialogContent>
     {!viewBill ? (
@@ -966,18 +993,28 @@ useEffect(() => {
         <p><b>Pure Balance:</b> {viewBill.pure_balance.toFixed(3)}</p>
         <p><b>Hallmark Balance:</b> {viewBill.hallmark_balance}</p>
       </div>
-  
-      <Button
-        variant="outlined"
-        onClick={() => setViewBill(null)}
-        style={{ marginTop: "13px" }}
-      >
-        Back to Bills
-      </Button>
+
+    {/* 🔹 Controls (hidden during print) */}
+    <div className="no-print" style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
+        <select
+          value={printSize}
+          onChange={(e) => setPrintSize(e.target.value)}
+          style={{ padding: "5px" }}
+        >
+          <option value="A4">A4</option>
+          <option value="A5">A5</option>
+          <option value="A6">A6</option>
+        </select>
+
+        <button onClick={() => handlePrint()}>Print Bill</button>
+        <button onClick={() => setViewBill(null)}>Back to Bills</button>
+      </div>
+
+      
     </div>
     )}
   </DialogContent>
-
+  </div>
   <DialogActions>
     <Button   variant="outlined" onClick={() => setOpenBillsPopup(false)}>Close</Button>
   </DialogActions>

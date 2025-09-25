@@ -465,7 +465,8 @@ exports.Prisma.StockScalarFieldEnum = {
   item_purity: 'item_purity',
   remarks: 'remarks',
   casting_customer_id: 'casting_customer_id',
-  purchase_id: 'purchase_id'
+  purchase_id: 'purchase_id',
+  customer_transaction_id: 'customer_transaction_id'
 };
 
 exports.Prisma.HallmarkScalarFieldEnum = {
@@ -637,7 +638,8 @@ exports.Prisma.ReceivedItemOrderByRelevanceFieldEnum = {
 };
 exports.ITEMTYPE = exports.$Enums.ITEMTYPE = {
   Gold: 'Gold',
-  Silver: 'Silver'
+  Silver: 'Silver',
+  Cash: 'Cash'
 };
 
 exports.CASTINGENTRYTYPE = exports.$Enums.CASTINGENTRYTYPE = {
