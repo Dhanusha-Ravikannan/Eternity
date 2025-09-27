@@ -271,23 +271,45 @@ useEffect(() => {
   });
 
   const addToBill = (item, index) => {
-    const totalWeight = item.weight - (item.stoneWeight || 0);
-
+    const stoneWeight = parseFloat(item.stoneWeight || item.stone_weight || 0);
+    const totalWeight = parseFloat(item.weight || 0) - stoneWeight;
+  
     setBillItems((prev) => [
       ...prev,
       {
         ...item,
-        totalWeight,
+        stoneWeight,     
+        totalWeight,     
         percent: "",
         pure: 0,
         amount: 0,
       },
     ]);
-
+  
     const updatedAvailable = [...availableItems];
     updatedAvailable.splice(index, 1);
     setAvailableItems(updatedAvailable);
   };
+  
+
+  // const addToBill = (item, index) => {
+  //   const totalWeight = parseFloat(item.weight || 0) - parseFloat(item.stoneWeight || 0);
+
+  //   setBillItems((prev) => [
+  //     ...prev,
+  //     {
+  //       ...item,
+  //       totalWeight,
+  //       percent: "",
+  //       pure: 0,
+  //       amount: 0,
+  //     },
+  //   ]);
+
+  //   const updatedAvailable = [...availableItems];
+  //   updatedAvailable.splice(index, 1);
+  //   setAvailableItems(updatedAvailable);
+  // };
 
   const handleInputChange = (index, field, value) => {
     const newBill = [...billItems];
@@ -437,7 +459,6 @@ useEffect(() => {
 
   console.log("touch", touchItems);
 
-  
   return (
     <>
       <Navbar />
@@ -501,7 +522,7 @@ useEffect(() => {
             />
           </div>
 
-          <p className={styles.customerCard}>
+          <p className={styles.customerCardd}>
             <span>Customer Name:</span> {selectedCustomer}
           </p>
 
@@ -525,30 +546,20 @@ useEffect(() => {
                   <tr key={index}>
                     <td>{selectedProduct}</td>
                     <td>{item.weight}</td>
-                    <td>{item.stone_weight}</td>
-                    <td>{item.totalWeight}</td>
+                    <td>{item.stoneWeight || item.stone_weight}</td>
+                    <td>{item.totalWeight || item.total_weight}</td>               
+<td>
+<TextField
+  type="number"
+  size="small"
+  value={item.percent || ""}
+  onChange={(e) => handleInputChange(index, "percent", e.target.value)}
+  style={{ width: "6rem" }}
+  autoComplete="off"
+  onWheel={(e) => e.target.blur()} 
+/>
+</td>
 
-                    <td>
-                      <TextField
-                        select
-                        size="small"
-                        value={item.touchId || ""}
-                        onChange={(e) => {
-                          const selected = touchItems.find(
-                            (t) => t.id === parseInt(e.target.value)
-                          );
-                          handleInputChange(index, "percent", selected.touch);
-                          handleInputChange(index, "touchId", selected.id);
-                        }}
-                        style={{ width: "6rem" }}
-                      >
-                        {touchItems.map((t) => (
-                          <MenuItem key={t.id} value={t.id}>
-                            {t.touch}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </td>
                     <td>{item.pure}</td>
                     <td>{item.amount}</td>
                     <td>
@@ -562,46 +573,66 @@ useEffect(() => {
                   </tr>
                 ))}
               </tbody>
-              <tfoot>
-                <tr>
-                  <td colSpan={5} >
-                    <b>Excess Balance</b>
-                  </td>
-                  <td >
-                    {customerBalance
-                      ? parseFloat(customerBalance).toFixed(3)
-                      : 0}
-                  </td>
-                  <td > {customerBalance * goldRate}</td>
-                  <td > </td>
-                </tr>
-                <tr>
-                  <td colSpan={5}>
-                    <b>Final Bill Total</b>
-                  </td>
-                  <td>{totalPure}</td>
-                  <td>{totalAmount}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td colSpan={5} className={styles.trEven}>
-                    <b>Total</b>
-                  </td>
-                  <td className={styles.trEven}>{(totalPure - customerBalance).toFixed(3)}</td>
-                  <td colSpan={3} className={styles.trEven}>
-                    {(totalAmount - customerBalance * goldRate).toFixed(2)}{" "}
-                    <br />
-                    {totalAmount - customerBalance * goldRate >= 0
-                      ? "Customer must give to Owner"
-                      : "Owner must give to Customer"}
-                  </td>
-                </tr>
-              </tfoot>
+             
+<tfoot>
+  {customerBalance > 0 ? (
+    <tr style={{ color: "green", fontWeight: "bold" }}>
+      <td colSpan={5}>
+        Customer Excess Balance
+      </td>
+      <td>{parseFloat(customerBalance).toFixed(3)}</td>
+      <td>{(customerBalance * goldRate).toFixed(2)}</td>
+      <td></td>
+    </tr>
+  ) : (
+    <tr style={{ color: "red", fontWeight: "bold" }}>
+      <td colSpan={5}>
+        Customer Balance
+      </td>
+      <td>{parseFloat(Math.abs(customerBalance)).toFixed(3)}</td>
+      <td>{(Math.abs(customerBalance) * goldRate).toFixed(2)}</td>
+      <td></td>
+    </tr>
+  )}
+
+  <tr>
+    <td colSpan={5}>
+      <b>Final Bill Total</b>
+    </td>
+    <td>{totalPure}</td>
+    <td>{totalAmount}</td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td colSpan={5} className={styles.trEven}>
+      <b>Total</b>
+    </td>
+    <td className={styles.trEven}>
+      {(totalPure - customerBalance).toFixed(3)}
+    </td>
+
+     <td
+      colSpan={3}
+      className={styles.trEven}
+      style={{
+        color:
+          totalAmount - customerBalance * goldRate >= 0 ? "green" : "red",
+        fontWeight: "bold",
+      }}
+    >
+      {(totalAmount - customerBalance * goldRate).toFixed(2)} <br />
+      {totalAmount - customerBalance * goldRate >= 0
+        ? "Customer must give to Owner"
+        : "Owner must give to Customer"}
+    </td>
+  </tr>
+</tfoot>
+
             </table>
           </div>
           <br />
-          {/* <label><b>  Prev Hallmark : </b> 0 </label> */}
-
+          
           <div style={{ marginTop: "1rem" }}>
             <label>
               <b>Prev Hallmark Balance:</b> {prevHallmark}
@@ -631,18 +662,18 @@ useEffect(() => {
               <AddCircleOutlineIcon />
             </IconButton>
           </div>
-          <div className={styles.table}>
-            <table>
+          <div >
+            <table className={styles.table}>
               <thead>
                 <tr>
                   <th>S.No</th>
                   <th>Date</th>
-                  <th>Type</th>
-                  <th>Gold Rate</th>
-                  <th>Gold WT</th>
-                  <th>Touch</th>
-                  <th>Purity Weight</th>
-                  <th>Amount</th>
+                  <th style={{width:'3rem'}} >Type</th>
+                  <th style={{width:'22rem'}}>Gold Rate</th>
+                  <th style={{width:'17rem'}}>Gold Weight</th>
+                  <th style={{width:'17rem'}}>Touch</th>
+                  <th style={{width:'17rem'}}>Purity </th>
+                  <th style={{width:'17rem'}}>Amount</th>
                   <th>Hallmark Charge</th>
                   <th>Action</th>
                 </tr>
@@ -665,7 +696,7 @@ useEffect(() => {
                         <MenuItem value="Cash">Cash</MenuItem>
                       </TextField>
                     </td>
-                    <td>
+                    <td style={{padding:'0.3rem'}}>
                       <TextField
                         type="number"
                         size="small"
@@ -678,7 +709,7 @@ useEffect(() => {
                         onWheel={(e) => e.target.blur()}                      
                       />
                     </td>
-                    <td>
+                    <td style={{padding:'0.3rem'}} >
                       <TextField
                         type="number"
                         size="small"
@@ -691,32 +722,19 @@ useEffect(() => {
                         onWheel={(e) => e.target.blur()}
                       />
                     </td>
-                    <td>
-                      <TextField
-                        select
-                        size="small"
-                        value={row.touchId || ""}
-                        disabled={row.type === "Cash"}
-                        onChange={(e) => {
-                          const selected = touchItems.find(
-                            (t) => t.id === parseInt(e.target.value)
-                          );
-                          handleReceivedInput(idx, "touchId", selected.id);
-                          handleReceivedInput(
-                            idx,
-                            "touchValue",
-                            selected.touch
-                          );
-                        }}
-                      >
-                        {touchItems.map((t) => (
-                          <MenuItem key={t.id} value={t.id}>
-                            {t.touch}
-                          </MenuItem>
-                        ))}
-                      </TextField>
+                    <td style={{padding:'0.3rem'}}>
+                      
+<TextField
+  type="number"
+  size="small"
+  value={row.touchValue || ""}
+  disabled={row.type === "Cash"}
+  onChange={(e) => handleReceivedInput(idx, "touchValue", e.target.value)}
+  autoComplete="off"
+  onWheel={(e) => e.target.blur()} 
+/>
                     </td>
-                    <td>
+                    <td style={{padding:'0.3rem'}}>
                       <TextField
                         type="number"
                         size="small"
@@ -726,7 +744,7 @@ useEffect(() => {
                         InputProps={{ readOnly: true }}
                       />
                     </td>
-                    <td>
+                    <td style={{padding:'0.3rem'}}>
                       <TextField
                         type="number"
                         size="small"
@@ -739,7 +757,7 @@ useEffect(() => {
                         onWheel={(e) => e.target.blur()}
                       />
                     </td>
-                    <td>
+                    <td style={{padding:'0.3rem'}}>
                       <TextField
                         type="number"
                         size="small"
@@ -880,7 +898,6 @@ useEffect(() => {
     <Typography><b>Time: </b>{viewBill.time}</Typography>
   </div>
 </div>
-  
       <div className={styles.billdetails}>Bill Details:</div>
       <div className={styles.table}>
         <table>
@@ -932,6 +949,8 @@ useEffect(() => {
               </td>
             </tr>
           </tfoot>
+
+
         </table>
       </div>
   
@@ -1028,7 +1047,7 @@ useEffect(() => {
               <thead>
                 <tr>
                   <th>S.No</th>
-                  <th>Product Finish Weight</th>
+                  <th>Product Weight</th>
                   <th>Stone Weight</th>
                   <th>Touch</th>
                   <th>Action</th>
