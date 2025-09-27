@@ -59,11 +59,6 @@ export type CustomerTransaction = $Result.DefaultSelection<Prisma.$CustomerTrans
  */
 export type AddItem = $Result.DefaultSelection<Prisma.$AddItemPayload>
 /**
- * Model AddTouch
- * 
- */
-export type AddTouch = $Result.DefaultSelection<Prisma.$AddTouchPayload>
-/**
  * Model QcStock
  * 
  */
@@ -188,6 +183,11 @@ export type BillItem = $Result.DefaultSelection<Prisma.$BillItemPayload>
  * 
  */
 export type ReceivedItem = $Result.DefaultSelection<Prisma.$ReceivedItemPayload>
+/**
+ * Model AddTouch
+ * 
+ */
+export type AddTouch = $Result.DefaultSelection<Prisma.$AddTouchPayload>
 
 /**
  * Enums
@@ -440,16 +440,6 @@ export class PrismaClient<
   get addItem(): Prisma.AddItemDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.addTouch`: Exposes CRUD operations for the **AddTouch** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more AddTouches
-    * const addTouches = await prisma.addTouch.findMany()
-    * ```
-    */
-  get addTouch(): Prisma.AddTouchDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.qcStock`: Exposes CRUD operations for the **QcStock** model.
     * Example usage:
     * ```ts
@@ -698,6 +688,16 @@ export class PrismaClient<
     * ```
     */
   get receivedItem(): Prisma.ReceivedItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.addTouch`: Exposes CRUD operations for the **AddTouch** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AddTouches
+    * const addTouches = await prisma.addTouch.findMany()
+    * ```
+    */
+  get addTouch(): Prisma.AddTouchDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1147,7 +1147,6 @@ export namespace Prisma {
     AddPurchaseStock: 'AddPurchaseStock',
     CustomerTransaction: 'CustomerTransaction',
     AddItem: 'AddItem',
-    AddTouch: 'AddTouch',
     QcStock: 'QcStock',
     CastingEntry: 'CastingEntry',
     CastingItems: 'CastingItems',
@@ -1172,7 +1171,8 @@ export namespace Prisma {
     Hallmark: 'Hallmark',
     Bill: 'Bill',
     BillItem: 'BillItem',
-    ReceivedItem: 'ReceivedItem'
+    ReceivedItem: 'ReceivedItem',
+    AddTouch: 'AddTouch'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1191,7 +1191,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "addCustomer" | "addCasting" | "addFiling" | "addSetting" | "addBuffing" | "addSupplierItem" | "addPurchaseStock" | "customerTransaction" | "addItem" | "addTouch" | "qcStock" | "castingEntry" | "castingItems" | "castiingTotalBalance" | "lotInfo" | "filingEntry" | "lotFilingMapper" | "filingItems" | "filingTotalBalance" | "filingWastage" | "settingEntry" | "settingItems" | "lotSettingMapper" | "settingTotalBalance" | "settingWastage" | "buffingEntry" | "buffingItems" | "buffingTotalBalance" | "lotBuffingMapper" | "buffingWastage" | "stock" | "hallmark" | "bill" | "billItem" | "receivedItem"
+      modelProps: "addCustomer" | "addCasting" | "addFiling" | "addSetting" | "addBuffing" | "addSupplierItem" | "addPurchaseStock" | "customerTransaction" | "addItem" | "qcStock" | "castingEntry" | "castingItems" | "castiingTotalBalance" | "lotInfo" | "filingEntry" | "lotFilingMapper" | "filingItems" | "filingTotalBalance" | "filingWastage" | "settingEntry" | "settingItems" | "lotSettingMapper" | "settingTotalBalance" | "settingWastage" | "buffingEntry" | "buffingItems" | "buffingTotalBalance" | "lotBuffingMapper" | "buffingWastage" | "stock" | "hallmark" | "bill" | "billItem" | "receivedItem" | "addTouch"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1786,72 +1786,6 @@ export namespace Prisma {
           count: {
             args: Prisma.AddItemCountArgs<ExtArgs>
             result: $Utils.Optional<AddItemCountAggregateOutputType> | number
-          }
-        }
-      }
-      AddTouch: {
-        payload: Prisma.$AddTouchPayload<ExtArgs>
-        fields: Prisma.AddTouchFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.AddTouchFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.AddTouchFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
-          }
-          findFirst: {
-            args: Prisma.AddTouchFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.AddTouchFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
-          }
-          findMany: {
-            args: Prisma.AddTouchFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>[]
-          }
-          create: {
-            args: Prisma.AddTouchCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
-          }
-          createMany: {
-            args: Prisma.AddTouchCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.AddTouchDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
-          }
-          update: {
-            args: Prisma.AddTouchUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
-          }
-          deleteMany: {
-            args: Prisma.AddTouchDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.AddTouchUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.AddTouchUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
-          }
-          aggregate: {
-            args: Prisma.AddTouchAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAddTouch>
-          }
-          groupBy: {
-            args: Prisma.AddTouchGroupByArgs<ExtArgs>
-            result: $Utils.Optional<AddTouchGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.AddTouchCountArgs<ExtArgs>
-            result: $Utils.Optional<AddTouchCountAggregateOutputType> | number
           }
         }
       }
@@ -3505,6 +3439,72 @@ export namespace Prisma {
           }
         }
       }
+      AddTouch: {
+        payload: Prisma.$AddTouchPayload<ExtArgs>
+        fields: Prisma.AddTouchFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AddTouchFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AddTouchFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          findFirst: {
+            args: Prisma.AddTouchFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AddTouchFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          findMany: {
+            args: Prisma.AddTouchFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>[]
+          }
+          create: {
+            args: Prisma.AddTouchCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          createMany: {
+            args: Prisma.AddTouchCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AddTouchDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          update: {
+            args: Prisma.AddTouchUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          deleteMany: {
+            args: Prisma.AddTouchDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AddTouchUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AddTouchUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          aggregate: {
+            args: Prisma.AddTouchAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAddTouch>
+          }
+          groupBy: {
+            args: Prisma.AddTouchGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AddTouchGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AddTouchCountArgs<ExtArgs>
+            result: $Utils.Optional<AddTouchCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3610,7 +3610,6 @@ export namespace Prisma {
     addPurchaseStock?: AddPurchaseStockOmit
     customerTransaction?: CustomerTransactionOmit
     addItem?: AddItemOmit
-    addTouch?: AddTouchOmit
     qcStock?: QcStockOmit
     castingEntry?: CastingEntryOmit
     castingItems?: CastingItemsOmit
@@ -3636,6 +3635,7 @@ export namespace Prisma {
     bill?: BillOmit
     billItem?: BillItemOmit
     receivedItem?: ReceivedItemOmit
+    addTouch?: AddTouchOmit
   }
 
   /* Types for Logging */
@@ -4157,127 +4157,6 @@ export namespace Prisma {
    * AddItemCountOutputType without action
    */
   export type AddItemCountOutputTypeCountBillItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BillItemWhereInput
-  }
-
-
-  /**
-   * Count Type AddTouchCountOutputType
-   */
-
-  export type AddTouchCountOutputType = {
-    casting_entry: number
-    casting_items: number
-    filing_items: number
-    setting_items: number
-    buffing_items: number
-    stock: number
-    add_purchase_stock: number
-    customer_transaction: number
-    QCStock: number
-    receivedItems: number
-    billItems: number
-  }
-
-  export type AddTouchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    casting_entry?: boolean | AddTouchCountOutputTypeCountCasting_entryArgs
-    casting_items?: boolean | AddTouchCountOutputTypeCountCasting_itemsArgs
-    filing_items?: boolean | AddTouchCountOutputTypeCountFiling_itemsArgs
-    setting_items?: boolean | AddTouchCountOutputTypeCountSetting_itemsArgs
-    buffing_items?: boolean | AddTouchCountOutputTypeCountBuffing_itemsArgs
-    stock?: boolean | AddTouchCountOutputTypeCountStockArgs
-    add_purchase_stock?: boolean | AddTouchCountOutputTypeCountAdd_purchase_stockArgs
-    customer_transaction?: boolean | AddTouchCountOutputTypeCountCustomer_transactionArgs
-    QCStock?: boolean | AddTouchCountOutputTypeCountQCStockArgs
-    receivedItems?: boolean | AddTouchCountOutputTypeCountReceivedItemsArgs
-    billItems?: boolean | AddTouchCountOutputTypeCountBillItemsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouchCountOutputType
-     */
-    select?: AddTouchCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountCasting_entryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CastingEntryWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountCasting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CastingItemsWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountFiling_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FilingItemsWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountSetting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SettingItemsWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountBuffing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BuffingItemsWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StockWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountAdd_purchase_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AddPurchaseStockWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountCustomer_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CustomerTransactionWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountQCStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: QcStockWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountReceivedItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ReceivedItemWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountBillItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BillItemWhereInput
   }
 
@@ -5005,6 +4884,109 @@ export namespace Prisma {
    */
   export type BillCountOutputTypeCountReceivedItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReceivedItemWhereInput
+  }
+
+
+  /**
+   * Count Type AddTouchCountOutputType
+   */
+
+  export type AddTouchCountOutputType = {
+    casting_entry: number
+    casting_items: number
+    filing_items: number
+    setting_items: number
+    buffing_items: number
+    stock: number
+    add_purchase_stock: number
+    customer_transaction: number
+    QCStock: number
+  }
+
+  export type AddTouchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    casting_entry?: boolean | AddTouchCountOutputTypeCountCasting_entryArgs
+    casting_items?: boolean | AddTouchCountOutputTypeCountCasting_itemsArgs
+    filing_items?: boolean | AddTouchCountOutputTypeCountFiling_itemsArgs
+    setting_items?: boolean | AddTouchCountOutputTypeCountSetting_itemsArgs
+    buffing_items?: boolean | AddTouchCountOutputTypeCountBuffing_itemsArgs
+    stock?: boolean | AddTouchCountOutputTypeCountStockArgs
+    add_purchase_stock?: boolean | AddTouchCountOutputTypeCountAdd_purchase_stockArgs
+    customer_transaction?: boolean | AddTouchCountOutputTypeCountCustomer_transactionArgs
+    QCStock?: boolean | AddTouchCountOutputTypeCountQCStockArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouchCountOutputType
+     */
+    select?: AddTouchCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountCasting_entryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CastingEntryWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountCasting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CastingItemsWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountFiling_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FilingItemsWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountSetting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SettingItemsWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountBuffing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BuffingItemsWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountAdd_purchase_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddPurchaseStockWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountCustomer_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerTransactionWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountQCStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QcStockWhereInput
   }
 
 
@@ -14778,1268 +14760,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AddItemInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model AddTouch
-   */
-
-  export type AggregateAddTouch = {
-    _count: AddTouchCountAggregateOutputType | null
-    _avg: AddTouchAvgAggregateOutputType | null
-    _sum: AddTouchSumAggregateOutputType | null
-    _min: AddTouchMinAggregateOutputType | null
-    _max: AddTouchMaxAggregateOutputType | null
-  }
-
-  export type AddTouchAvgAggregateOutputType = {
-    id: number | null
-    touch: number | null
-  }
-
-  export type AddTouchSumAggregateOutputType = {
-    id: number | null
-    touch: number | null
-  }
-
-  export type AddTouchMinAggregateOutputType = {
-    id: number | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    touch: number | null
-  }
-
-  export type AddTouchMaxAggregateOutputType = {
-    id: number | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    touch: number | null
-  }
-
-  export type AddTouchCountAggregateOutputType = {
-    id: number
-    createdAt: number
-    updatedAt: number
-    touch: number
-    _all: number
-  }
-
-
-  export type AddTouchAvgAggregateInputType = {
-    id?: true
-    touch?: true
-  }
-
-  export type AddTouchSumAggregateInputType = {
-    id?: true
-    touch?: true
-  }
-
-  export type AddTouchMinAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    touch?: true
-  }
-
-  export type AddTouchMaxAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    touch?: true
-  }
-
-  export type AddTouchCountAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    touch?: true
-    _all?: true
-  }
-
-  export type AddTouchAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AddTouch to aggregate.
-     */
-    where?: AddTouchWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AddTouches to fetch.
-     */
-    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: AddTouchWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AddTouches from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AddTouches.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned AddTouches
-    **/
-    _count?: true | AddTouchCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: AddTouchAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AddTouchSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: AddTouchMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: AddTouchMaxAggregateInputType
-  }
-
-  export type GetAddTouchAggregateType<T extends AddTouchAggregateArgs> = {
-        [P in keyof T & keyof AggregateAddTouch]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateAddTouch[P]>
-      : GetScalarType<T[P], AggregateAddTouch[P]>
-  }
-
-
-
-
-  export type AddTouchGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AddTouchWhereInput
-    orderBy?: AddTouchOrderByWithAggregationInput | AddTouchOrderByWithAggregationInput[]
-    by: AddTouchScalarFieldEnum[] | AddTouchScalarFieldEnum
-    having?: AddTouchScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: AddTouchCountAggregateInputType | true
-    _avg?: AddTouchAvgAggregateInputType
-    _sum?: AddTouchSumAggregateInputType
-    _min?: AddTouchMinAggregateInputType
-    _max?: AddTouchMaxAggregateInputType
-  }
-
-  export type AddTouchGroupByOutputType = {
-    id: number
-    createdAt: Date
-    updatedAt: Date
-    touch: number
-    _count: AddTouchCountAggregateOutputType | null
-    _avg: AddTouchAvgAggregateOutputType | null
-    _sum: AddTouchSumAggregateOutputType | null
-    _min: AddTouchMinAggregateOutputType | null
-    _max: AddTouchMaxAggregateOutputType | null
-  }
-
-  type GetAddTouchGroupByPayload<T extends AddTouchGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<AddTouchGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof AddTouchGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], AddTouchGroupByOutputType[P]>
-            : GetScalarType<T[P], AddTouchGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type AddTouchSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    touch?: boolean
-    casting_entry?: boolean | AddTouch$casting_entryArgs<ExtArgs>
-    casting_items?: boolean | AddTouch$casting_itemsArgs<ExtArgs>
-    filing_items?: boolean | AddTouch$filing_itemsArgs<ExtArgs>
-    setting_items?: boolean | AddTouch$setting_itemsArgs<ExtArgs>
-    buffing_items?: boolean | AddTouch$buffing_itemsArgs<ExtArgs>
-    stock?: boolean | AddTouch$stockArgs<ExtArgs>
-    add_purchase_stock?: boolean | AddTouch$add_purchase_stockArgs<ExtArgs>
-    customer_transaction?: boolean | AddTouch$customer_transactionArgs<ExtArgs>
-    QCStock?: boolean | AddTouch$QCStockArgs<ExtArgs>
-    receivedItems?: boolean | AddTouch$receivedItemsArgs<ExtArgs>
-    billItems?: boolean | AddTouch$billItemsArgs<ExtArgs>
-    _count?: boolean | AddTouchCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["addTouch"]>
-
-
-
-  export type AddTouchSelectScalar = {
-    id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    touch?: boolean
-  }
-
-  export type AddTouchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "touch", ExtArgs["result"]["addTouch"]>
-  export type AddTouchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    casting_entry?: boolean | AddTouch$casting_entryArgs<ExtArgs>
-    casting_items?: boolean | AddTouch$casting_itemsArgs<ExtArgs>
-    filing_items?: boolean | AddTouch$filing_itemsArgs<ExtArgs>
-    setting_items?: boolean | AddTouch$setting_itemsArgs<ExtArgs>
-    buffing_items?: boolean | AddTouch$buffing_itemsArgs<ExtArgs>
-    stock?: boolean | AddTouch$stockArgs<ExtArgs>
-    add_purchase_stock?: boolean | AddTouch$add_purchase_stockArgs<ExtArgs>
-    customer_transaction?: boolean | AddTouch$customer_transactionArgs<ExtArgs>
-    QCStock?: boolean | AddTouch$QCStockArgs<ExtArgs>
-    receivedItems?: boolean | AddTouch$receivedItemsArgs<ExtArgs>
-    billItems?: boolean | AddTouch$billItemsArgs<ExtArgs>
-    _count?: boolean | AddTouchCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-  export type $AddTouchPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "AddTouch"
-    objects: {
-      casting_entry: Prisma.$CastingEntryPayload<ExtArgs>[]
-      casting_items: Prisma.$CastingItemsPayload<ExtArgs>[]
-      filing_items: Prisma.$FilingItemsPayload<ExtArgs>[]
-      setting_items: Prisma.$SettingItemsPayload<ExtArgs>[]
-      buffing_items: Prisma.$BuffingItemsPayload<ExtArgs>[]
-      stock: Prisma.$StockPayload<ExtArgs>[]
-      add_purchase_stock: Prisma.$AddPurchaseStockPayload<ExtArgs>[]
-      customer_transaction: Prisma.$CustomerTransactionPayload<ExtArgs>[]
-      QCStock: Prisma.$QcStockPayload<ExtArgs>[]
-      receivedItems: Prisma.$ReceivedItemPayload<ExtArgs>[]
-      billItems: Prisma.$BillItemPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      createdAt: Date
-      updatedAt: Date
-      touch: number
-    }, ExtArgs["result"]["addTouch"]>
-    composites: {}
-  }
-
-  type AddTouchGetPayload<S extends boolean | null | undefined | AddTouchDefaultArgs> = $Result.GetResult<Prisma.$AddTouchPayload, S>
-
-  type AddTouchCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<AddTouchFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AddTouchCountAggregateInputType | true
-    }
-
-  export interface AddTouchDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AddTouch'], meta: { name: 'AddTouch' } }
-    /**
-     * Find zero or one AddTouch that matches the filter.
-     * @param {AddTouchFindUniqueArgs} args - Arguments to find a AddTouch
-     * @example
-     * // Get one AddTouch
-     * const addTouch = await prisma.addTouch.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends AddTouchFindUniqueArgs>(args: SelectSubset<T, AddTouchFindUniqueArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one AddTouch that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {AddTouchFindUniqueOrThrowArgs} args - Arguments to find a AddTouch
-     * @example
-     * // Get one AddTouch
-     * const addTouch = await prisma.addTouch.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends AddTouchFindUniqueOrThrowArgs>(args: SelectSubset<T, AddTouchFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AddTouch that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchFindFirstArgs} args - Arguments to find a AddTouch
-     * @example
-     * // Get one AddTouch
-     * const addTouch = await prisma.addTouch.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends AddTouchFindFirstArgs>(args?: SelectSubset<T, AddTouchFindFirstArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AddTouch that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchFindFirstOrThrowArgs} args - Arguments to find a AddTouch
-     * @example
-     * // Get one AddTouch
-     * const addTouch = await prisma.addTouch.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends AddTouchFindFirstOrThrowArgs>(args?: SelectSubset<T, AddTouchFindFirstOrThrowArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more AddTouches that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all AddTouches
-     * const addTouches = await prisma.addTouch.findMany()
-     * 
-     * // Get first 10 AddTouches
-     * const addTouches = await prisma.addTouch.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const addTouchWithIdOnly = await prisma.addTouch.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends AddTouchFindManyArgs>(args?: SelectSubset<T, AddTouchFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a AddTouch.
-     * @param {AddTouchCreateArgs} args - Arguments to create a AddTouch.
-     * @example
-     * // Create one AddTouch
-     * const AddTouch = await prisma.addTouch.create({
-     *   data: {
-     *     // ... data to create a AddTouch
-     *   }
-     * })
-     * 
-     */
-    create<T extends AddTouchCreateArgs>(args: SelectSubset<T, AddTouchCreateArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many AddTouches.
-     * @param {AddTouchCreateManyArgs} args - Arguments to create many AddTouches.
-     * @example
-     * // Create many AddTouches
-     * const addTouch = await prisma.addTouch.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends AddTouchCreateManyArgs>(args?: SelectSubset<T, AddTouchCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a AddTouch.
-     * @param {AddTouchDeleteArgs} args - Arguments to delete one AddTouch.
-     * @example
-     * // Delete one AddTouch
-     * const AddTouch = await prisma.addTouch.delete({
-     *   where: {
-     *     // ... filter to delete one AddTouch
-     *   }
-     * })
-     * 
-     */
-    delete<T extends AddTouchDeleteArgs>(args: SelectSubset<T, AddTouchDeleteArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one AddTouch.
-     * @param {AddTouchUpdateArgs} args - Arguments to update one AddTouch.
-     * @example
-     * // Update one AddTouch
-     * const addTouch = await prisma.addTouch.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends AddTouchUpdateArgs>(args: SelectSubset<T, AddTouchUpdateArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more AddTouches.
-     * @param {AddTouchDeleteManyArgs} args - Arguments to filter AddTouches to delete.
-     * @example
-     * // Delete a few AddTouches
-     * const { count } = await prisma.addTouch.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends AddTouchDeleteManyArgs>(args?: SelectSubset<T, AddTouchDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AddTouches.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many AddTouches
-     * const addTouch = await prisma.addTouch.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends AddTouchUpdateManyArgs>(args: SelectSubset<T, AddTouchUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one AddTouch.
-     * @param {AddTouchUpsertArgs} args - Arguments to update or create a AddTouch.
-     * @example
-     * // Update or create a AddTouch
-     * const addTouch = await prisma.addTouch.upsert({
-     *   create: {
-     *     // ... data to create a AddTouch
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the AddTouch we want to update
-     *   }
-     * })
-     */
-    upsert<T extends AddTouchUpsertArgs>(args: SelectSubset<T, AddTouchUpsertArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of AddTouches.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchCountArgs} args - Arguments to filter AddTouches to count.
-     * @example
-     * // Count the number of AddTouches
-     * const count = await prisma.addTouch.count({
-     *   where: {
-     *     // ... the filter for the AddTouches we want to count
-     *   }
-     * })
-    **/
-    count<T extends AddTouchCountArgs>(
-      args?: Subset<T, AddTouchCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], AddTouchCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a AddTouch.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends AddTouchAggregateArgs>(args: Subset<T, AddTouchAggregateArgs>): Prisma.PrismaPromise<GetAddTouchAggregateType<T>>
-
-    /**
-     * Group by AddTouch.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends AddTouchGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: AddTouchGroupByArgs['orderBy'] }
-        : { orderBy?: AddTouchGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, AddTouchGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAddTouchGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the AddTouch model
-   */
-  readonly fields: AddTouchFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for AddTouch.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__AddTouchClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    casting_entry<T extends AddTouch$casting_entryArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$casting_entryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CastingEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    casting_items<T extends AddTouch$casting_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$casting_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CastingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    filing_items<T extends AddTouch$filing_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$filing_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    setting_items<T extends AddTouch$setting_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$setting_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SettingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    buffing_items<T extends AddTouch$buffing_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$buffing_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BuffingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    stock<T extends AddTouch$stockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    add_purchase_stock<T extends AddTouch$add_purchase_stockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$add_purchase_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddPurchaseStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    customer_transaction<T extends AddTouch$customer_transactionArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$customer_transactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    QCStock<T extends AddTouch$QCStockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$QCStockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QcStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    receivedItems<T extends AddTouch$receivedItemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$receivedItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReceivedItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    billItems<T extends AddTouch$billItemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$billItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BillItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the AddTouch model
-   */
-  interface AddTouchFieldRefs {
-    readonly id: FieldRef<"AddTouch", 'Int'>
-    readonly createdAt: FieldRef<"AddTouch", 'DateTime'>
-    readonly updatedAt: FieldRef<"AddTouch", 'DateTime'>
-    readonly touch: FieldRef<"AddTouch", 'Float'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * AddTouch findUnique
-   */
-  export type AddTouchFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    /**
-     * Filter, which AddTouch to fetch.
-     */
-    where: AddTouchWhereUniqueInput
-  }
-
-  /**
-   * AddTouch findUniqueOrThrow
-   */
-  export type AddTouchFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    /**
-     * Filter, which AddTouch to fetch.
-     */
-    where: AddTouchWhereUniqueInput
-  }
-
-  /**
-   * AddTouch findFirst
-   */
-  export type AddTouchFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    /**
-     * Filter, which AddTouch to fetch.
-     */
-    where?: AddTouchWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AddTouches to fetch.
-     */
-    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AddTouches.
-     */
-    cursor?: AddTouchWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AddTouches from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AddTouches.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AddTouches.
-     */
-    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch findFirstOrThrow
-   */
-  export type AddTouchFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    /**
-     * Filter, which AddTouch to fetch.
-     */
-    where?: AddTouchWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AddTouches to fetch.
-     */
-    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AddTouches.
-     */
-    cursor?: AddTouchWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AddTouches from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AddTouches.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AddTouches.
-     */
-    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch findMany
-   */
-  export type AddTouchFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    /**
-     * Filter, which AddTouches to fetch.
-     */
-    where?: AddTouchWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AddTouches to fetch.
-     */
-    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing AddTouches.
-     */
-    cursor?: AddTouchWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AddTouches from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AddTouches.
-     */
-    skip?: number
-    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch create
-   */
-  export type AddTouchCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    /**
-     * The data needed to create a AddTouch.
-     */
-    data: XOR<AddTouchCreateInput, AddTouchUncheckedCreateInput>
-  }
-
-  /**
-   * AddTouch createMany
-   */
-  export type AddTouchCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many AddTouches.
-     */
-    data: AddTouchCreateManyInput | AddTouchCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * AddTouch update
-   */
-  export type AddTouchUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    /**
-     * The data needed to update a AddTouch.
-     */
-    data: XOR<AddTouchUpdateInput, AddTouchUncheckedUpdateInput>
-    /**
-     * Choose, which AddTouch to update.
-     */
-    where: AddTouchWhereUniqueInput
-  }
-
-  /**
-   * AddTouch updateMany
-   */
-  export type AddTouchUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update AddTouches.
-     */
-    data: XOR<AddTouchUpdateManyMutationInput, AddTouchUncheckedUpdateManyInput>
-    /**
-     * Filter which AddTouches to update
-     */
-    where?: AddTouchWhereInput
-    /**
-     * Limit how many AddTouches to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * AddTouch upsert
-   */
-  export type AddTouchUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    /**
-     * The filter to search for the AddTouch to update in case it exists.
-     */
-    where: AddTouchWhereUniqueInput
-    /**
-     * In case the AddTouch found by the `where` argument doesn't exist, create a new AddTouch with this data.
-     */
-    create: XOR<AddTouchCreateInput, AddTouchUncheckedCreateInput>
-    /**
-     * In case the AddTouch was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<AddTouchUpdateInput, AddTouchUncheckedUpdateInput>
-  }
-
-  /**
-   * AddTouch delete
-   */
-  export type AddTouchDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    /**
-     * Filter which AddTouch to delete.
-     */
-    where: AddTouchWhereUniqueInput
-  }
-
-  /**
-   * AddTouch deleteMany
-   */
-  export type AddTouchDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AddTouches to delete
-     */
-    where?: AddTouchWhereInput
-    /**
-     * Limit how many AddTouches to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * AddTouch.casting_entry
-   */
-  export type AddTouch$casting_entryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CastingEntry
-     */
-    select?: CastingEntrySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CastingEntry
-     */
-    omit?: CastingEntryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CastingEntryInclude<ExtArgs> | null
-    where?: CastingEntryWhereInput
-    orderBy?: CastingEntryOrderByWithRelationInput | CastingEntryOrderByWithRelationInput[]
-    cursor?: CastingEntryWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CastingEntryScalarFieldEnum | CastingEntryScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch.casting_items
-   */
-  export type AddTouch$casting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CastingItems
-     */
-    select?: CastingItemsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CastingItems
-     */
-    omit?: CastingItemsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CastingItemsInclude<ExtArgs> | null
-    where?: CastingItemsWhereInput
-    orderBy?: CastingItemsOrderByWithRelationInput | CastingItemsOrderByWithRelationInput[]
-    cursor?: CastingItemsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CastingItemsScalarFieldEnum | CastingItemsScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch.filing_items
-   */
-  export type AddTouch$filing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FilingItems
-     */
-    select?: FilingItemsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FilingItems
-     */
-    omit?: FilingItemsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FilingItemsInclude<ExtArgs> | null
-    where?: FilingItemsWhereInput
-    orderBy?: FilingItemsOrderByWithRelationInput | FilingItemsOrderByWithRelationInput[]
-    cursor?: FilingItemsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: FilingItemsScalarFieldEnum | FilingItemsScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch.setting_items
-   */
-  export type AddTouch$setting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SettingItems
-     */
-    select?: SettingItemsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SettingItems
-     */
-    omit?: SettingItemsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingItemsInclude<ExtArgs> | null
-    where?: SettingItemsWhereInput
-    orderBy?: SettingItemsOrderByWithRelationInput | SettingItemsOrderByWithRelationInput[]
-    cursor?: SettingItemsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SettingItemsScalarFieldEnum | SettingItemsScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch.buffing_items
-   */
-  export type AddTouch$buffing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BuffingItems
-     */
-    select?: BuffingItemsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BuffingItems
-     */
-    omit?: BuffingItemsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BuffingItemsInclude<ExtArgs> | null
-    where?: BuffingItemsWhereInput
-    orderBy?: BuffingItemsOrderByWithRelationInput | BuffingItemsOrderByWithRelationInput[]
-    cursor?: BuffingItemsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: BuffingItemsScalarFieldEnum | BuffingItemsScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch.stock
-   */
-  export type AddTouch$stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Stock
-     */
-    select?: StockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Stock
-     */
-    omit?: StockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockInclude<ExtArgs> | null
-    where?: StockWhereInput
-    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
-    cursor?: StockWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch.add_purchase_stock
-   */
-  export type AddTouch$add_purchase_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddPurchaseStock
-     */
-    select?: AddPurchaseStockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddPurchaseStock
-     */
-    omit?: AddPurchaseStockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddPurchaseStockInclude<ExtArgs> | null
-    where?: AddPurchaseStockWhereInput
-    orderBy?: AddPurchaseStockOrderByWithRelationInput | AddPurchaseStockOrderByWithRelationInput[]
-    cursor?: AddPurchaseStockWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AddPurchaseStockScalarFieldEnum | AddPurchaseStockScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch.customer_transaction
-   */
-  export type AddTouch$customer_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CustomerTransaction
-     */
-    select?: CustomerTransactionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CustomerTransaction
-     */
-    omit?: CustomerTransactionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CustomerTransactionInclude<ExtArgs> | null
-    where?: CustomerTransactionWhereInput
-    orderBy?: CustomerTransactionOrderByWithRelationInput | CustomerTransactionOrderByWithRelationInput[]
-    cursor?: CustomerTransactionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CustomerTransactionScalarFieldEnum | CustomerTransactionScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch.QCStock
-   */
-  export type AddTouch$QCStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QcStock
-     */
-    select?: QcStockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the QcStock
-     */
-    omit?: QcStockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QcStockInclude<ExtArgs> | null
-    where?: QcStockWhereInput
-    orderBy?: QcStockOrderByWithRelationInput | QcStockOrderByWithRelationInput[]
-    cursor?: QcStockWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: QcStockScalarFieldEnum | QcStockScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch.receivedItems
-   */
-  export type AddTouch$receivedItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ReceivedItem
-     */
-    select?: ReceivedItemSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ReceivedItem
-     */
-    omit?: ReceivedItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ReceivedItemInclude<ExtArgs> | null
-    where?: ReceivedItemWhereInput
-    orderBy?: ReceivedItemOrderByWithRelationInput | ReceivedItemOrderByWithRelationInput[]
-    cursor?: ReceivedItemWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ReceivedItemScalarFieldEnum | ReceivedItemScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch.billItems
-   */
-  export type AddTouch$billItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BillItem
-     */
-    select?: BillItemSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BillItem
-     */
-    omit?: BillItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BillItemInclude<ExtArgs> | null
-    where?: BillItemWhereInput
-    orderBy?: BillItemOrderByWithRelationInput | BillItemOrderByWithRelationInput[]
-    cursor?: BillItemWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: BillItemScalarFieldEnum | BillItemScalarFieldEnum[]
-  }
-
-  /**
-   * AddTouch without action
-   */
-  export type AddTouchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
   }
 
 
@@ -41867,7 +40587,6 @@ export namespace Prisma {
     bill?: boolean | BillDefaultArgs<ExtArgs>
     qcStock?: boolean | QcStockDefaultArgs<ExtArgs>
     AddItem?: boolean | BillItem$AddItemArgs<ExtArgs>
-    touch?: boolean | BillItem$touchArgs<ExtArgs>
   }, ExtArgs["result"]["billItem"]>
 
 
@@ -41893,7 +40612,6 @@ export namespace Prisma {
     bill?: boolean | BillDefaultArgs<ExtArgs>
     qcStock?: boolean | QcStockDefaultArgs<ExtArgs>
     AddItem?: boolean | BillItem$AddItemArgs<ExtArgs>
-    touch?: boolean | BillItem$touchArgs<ExtArgs>
   }
 
   export type $BillItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -41902,7 +40620,6 @@ export namespace Prisma {
       bill: Prisma.$BillPayload<ExtArgs>
       qcStock: Prisma.$QcStockPayload<ExtArgs>
       AddItem: Prisma.$AddItemPayload<ExtArgs> | null
-      touch: Prisma.$AddTouchPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -42261,7 +40978,6 @@ export namespace Prisma {
     bill<T extends BillDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BillDefaultArgs<ExtArgs>>): Prisma__BillClient<$Result.GetResult<Prisma.$BillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     qcStock<T extends QcStockDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QcStockDefaultArgs<ExtArgs>>): Prisma__QcStockClient<$Result.GetResult<Prisma.$QcStockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     AddItem<T extends BillItem$AddItemArgs<ExtArgs> = {}>(args?: Subset<T, BillItem$AddItemArgs<ExtArgs>>): Prisma__AddItemClient<$Result.GetResult<Prisma.$AddItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    touch<T extends BillItem$touchArgs<ExtArgs> = {}>(args?: Subset<T, BillItem$touchArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -42298,7 +41014,7 @@ export namespace Prisma {
     readonly weight: FieldRef<"BillItem", 'Float'>
     readonly stone_weight: FieldRef<"BillItem", 'Float'>
     readonly total_weight: FieldRef<"BillItem", 'Float'>
-    readonly touchId: FieldRef<"BillItem", 'Int'>
+    readonly touchId: FieldRef<"BillItem", 'Float'>
     readonly pure: FieldRef<"BillItem", 'Float'>
     readonly amount: FieldRef<"BillItem", 'Float'>
     readonly createdAt: FieldRef<"BillItem", 'DateTime'>
@@ -42666,25 +41382,6 @@ export namespace Prisma {
   }
 
   /**
-   * BillItem.touch
-   */
-  export type BillItem$touchArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    where?: AddTouchWhereInput
-  }
-
-  /**
    * BillItem without action
    */
   export type BillItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -42986,7 +41683,6 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     bill?: boolean | BillDefaultArgs<ExtArgs>
-    touch?: boolean | ReceivedItem$touchArgs<ExtArgs>
   }, ExtArgs["result"]["receivedItem"]>
 
 
@@ -43009,14 +41705,12 @@ export namespace Prisma {
   export type ReceivedItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bill_id" | "type" | "date" | "gold_rate" | "gold" | "touchId" | "purity_weight" | "amount" | "hallmark_charge" | "createdAt" | "updatedAt", ExtArgs["result"]["receivedItem"]>
   export type ReceivedItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bill?: boolean | BillDefaultArgs<ExtArgs>
-    touch?: boolean | ReceivedItem$touchArgs<ExtArgs>
   }
 
   export type $ReceivedItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ReceivedItem"
     objects: {
       bill: Prisma.$BillPayload<ExtArgs>
-      touch: Prisma.$AddTouchPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -43372,7 +42066,6 @@ export namespace Prisma {
   export interface Prisma__ReceivedItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     bill<T extends BillDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BillDefaultArgs<ExtArgs>>): Prisma__BillClient<$Result.GetResult<Prisma.$BillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    touch<T extends ReceivedItem$touchArgs<ExtArgs> = {}>(args?: Subset<T, ReceivedItem$touchArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -43408,7 +42101,7 @@ export namespace Prisma {
     readonly date: FieldRef<"ReceivedItem", 'String'>
     readonly gold_rate: FieldRef<"ReceivedItem", 'Float'>
     readonly gold: FieldRef<"ReceivedItem", 'Float'>
-    readonly touchId: FieldRef<"ReceivedItem", 'Int'>
+    readonly touchId: FieldRef<"ReceivedItem", 'Float'>
     readonly purity_weight: FieldRef<"ReceivedItem", 'Float'>
     readonly amount: FieldRef<"ReceivedItem", 'Float'>
     readonly hallmark_charge: FieldRef<"ReceivedItem", 'Float'>
@@ -43757,25 +42450,6 @@ export namespace Prisma {
   }
 
   /**
-   * ReceivedItem.touch
-   */
-  export type ReceivedItem$touchArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    where?: AddTouchWhereInput
-  }
-
-  /**
    * ReceivedItem without action
    */
   export type ReceivedItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -43791,6 +42465,1212 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ReceivedItemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AddTouch
+   */
+
+  export type AggregateAddTouch = {
+    _count: AddTouchCountAggregateOutputType | null
+    _avg: AddTouchAvgAggregateOutputType | null
+    _sum: AddTouchSumAggregateOutputType | null
+    _min: AddTouchMinAggregateOutputType | null
+    _max: AddTouchMaxAggregateOutputType | null
+  }
+
+  export type AddTouchAvgAggregateOutputType = {
+    id: number | null
+    touch: number | null
+  }
+
+  export type AddTouchSumAggregateOutputType = {
+    id: number | null
+    touch: number | null
+  }
+
+  export type AddTouchMinAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    touch: number | null
+  }
+
+  export type AddTouchMaxAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    touch: number | null
+  }
+
+  export type AddTouchCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    touch: number
+    _all: number
+  }
+
+
+  export type AddTouchAvgAggregateInputType = {
+    id?: true
+    touch?: true
+  }
+
+  export type AddTouchSumAggregateInputType = {
+    id?: true
+    touch?: true
+  }
+
+  export type AddTouchMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    touch?: true
+  }
+
+  export type AddTouchMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    touch?: true
+  }
+
+  export type AddTouchCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    touch?: true
+    _all?: true
+  }
+
+  export type AddTouchAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AddTouch to aggregate.
+     */
+    where?: AddTouchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AddTouches to fetch.
+     */
+    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AddTouchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AddTouches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AddTouches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AddTouches
+    **/
+    _count?: true | AddTouchCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AddTouchAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AddTouchSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AddTouchMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AddTouchMaxAggregateInputType
+  }
+
+  export type GetAddTouchAggregateType<T extends AddTouchAggregateArgs> = {
+        [P in keyof T & keyof AggregateAddTouch]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAddTouch[P]>
+      : GetScalarType<T[P], AggregateAddTouch[P]>
+  }
+
+
+
+
+  export type AddTouchGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddTouchWhereInput
+    orderBy?: AddTouchOrderByWithAggregationInput | AddTouchOrderByWithAggregationInput[]
+    by: AddTouchScalarFieldEnum[] | AddTouchScalarFieldEnum
+    having?: AddTouchScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AddTouchCountAggregateInputType | true
+    _avg?: AddTouchAvgAggregateInputType
+    _sum?: AddTouchSumAggregateInputType
+    _min?: AddTouchMinAggregateInputType
+    _max?: AddTouchMaxAggregateInputType
+  }
+
+  export type AddTouchGroupByOutputType = {
+    id: number
+    createdAt: Date
+    updatedAt: Date
+    touch: number
+    _count: AddTouchCountAggregateOutputType | null
+    _avg: AddTouchAvgAggregateOutputType | null
+    _sum: AddTouchSumAggregateOutputType | null
+    _min: AddTouchMinAggregateOutputType | null
+    _max: AddTouchMaxAggregateOutputType | null
+  }
+
+  type GetAddTouchGroupByPayload<T extends AddTouchGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AddTouchGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AddTouchGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AddTouchGroupByOutputType[P]>
+            : GetScalarType<T[P], AddTouchGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AddTouchSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    touch?: boolean
+    casting_entry?: boolean | AddTouch$casting_entryArgs<ExtArgs>
+    casting_items?: boolean | AddTouch$casting_itemsArgs<ExtArgs>
+    filing_items?: boolean | AddTouch$filing_itemsArgs<ExtArgs>
+    setting_items?: boolean | AddTouch$setting_itemsArgs<ExtArgs>
+    buffing_items?: boolean | AddTouch$buffing_itemsArgs<ExtArgs>
+    stock?: boolean | AddTouch$stockArgs<ExtArgs>
+    add_purchase_stock?: boolean | AddTouch$add_purchase_stockArgs<ExtArgs>
+    customer_transaction?: boolean | AddTouch$customer_transactionArgs<ExtArgs>
+    QCStock?: boolean | AddTouch$QCStockArgs<ExtArgs>
+    _count?: boolean | AddTouchCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["addTouch"]>
+
+
+
+  export type AddTouchSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    touch?: boolean
+  }
+
+  export type AddTouchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "touch", ExtArgs["result"]["addTouch"]>
+  export type AddTouchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    casting_entry?: boolean | AddTouch$casting_entryArgs<ExtArgs>
+    casting_items?: boolean | AddTouch$casting_itemsArgs<ExtArgs>
+    filing_items?: boolean | AddTouch$filing_itemsArgs<ExtArgs>
+    setting_items?: boolean | AddTouch$setting_itemsArgs<ExtArgs>
+    buffing_items?: boolean | AddTouch$buffing_itemsArgs<ExtArgs>
+    stock?: boolean | AddTouch$stockArgs<ExtArgs>
+    add_purchase_stock?: boolean | AddTouch$add_purchase_stockArgs<ExtArgs>
+    customer_transaction?: boolean | AddTouch$customer_transactionArgs<ExtArgs>
+    QCStock?: boolean | AddTouch$QCStockArgs<ExtArgs>
+    _count?: boolean | AddTouchCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $AddTouchPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AddTouch"
+    objects: {
+      casting_entry: Prisma.$CastingEntryPayload<ExtArgs>[]
+      casting_items: Prisma.$CastingItemsPayload<ExtArgs>[]
+      filing_items: Prisma.$FilingItemsPayload<ExtArgs>[]
+      setting_items: Prisma.$SettingItemsPayload<ExtArgs>[]
+      buffing_items: Prisma.$BuffingItemsPayload<ExtArgs>[]
+      stock: Prisma.$StockPayload<ExtArgs>[]
+      add_purchase_stock: Prisma.$AddPurchaseStockPayload<ExtArgs>[]
+      customer_transaction: Prisma.$CustomerTransactionPayload<ExtArgs>[]
+      QCStock: Prisma.$QcStockPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      createdAt: Date
+      updatedAt: Date
+      touch: number
+    }, ExtArgs["result"]["addTouch"]>
+    composites: {}
+  }
+
+  type AddTouchGetPayload<S extends boolean | null | undefined | AddTouchDefaultArgs> = $Result.GetResult<Prisma.$AddTouchPayload, S>
+
+  type AddTouchCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AddTouchFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AddTouchCountAggregateInputType | true
+    }
+
+  export interface AddTouchDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AddTouch'], meta: { name: 'AddTouch' } }
+    /**
+     * Find zero or one AddTouch that matches the filter.
+     * @param {AddTouchFindUniqueArgs} args - Arguments to find a AddTouch
+     * @example
+     * // Get one AddTouch
+     * const addTouch = await prisma.addTouch.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AddTouchFindUniqueArgs>(args: SelectSubset<T, AddTouchFindUniqueArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AddTouch that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AddTouchFindUniqueOrThrowArgs} args - Arguments to find a AddTouch
+     * @example
+     * // Get one AddTouch
+     * const addTouch = await prisma.addTouch.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AddTouchFindUniqueOrThrowArgs>(args: SelectSubset<T, AddTouchFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AddTouch that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchFindFirstArgs} args - Arguments to find a AddTouch
+     * @example
+     * // Get one AddTouch
+     * const addTouch = await prisma.addTouch.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AddTouchFindFirstArgs>(args?: SelectSubset<T, AddTouchFindFirstArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AddTouch that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchFindFirstOrThrowArgs} args - Arguments to find a AddTouch
+     * @example
+     * // Get one AddTouch
+     * const addTouch = await prisma.addTouch.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AddTouchFindFirstOrThrowArgs>(args?: SelectSubset<T, AddTouchFindFirstOrThrowArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AddTouches that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AddTouches
+     * const addTouches = await prisma.addTouch.findMany()
+     * 
+     * // Get first 10 AddTouches
+     * const addTouches = await prisma.addTouch.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const addTouchWithIdOnly = await prisma.addTouch.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AddTouchFindManyArgs>(args?: SelectSubset<T, AddTouchFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AddTouch.
+     * @param {AddTouchCreateArgs} args - Arguments to create a AddTouch.
+     * @example
+     * // Create one AddTouch
+     * const AddTouch = await prisma.addTouch.create({
+     *   data: {
+     *     // ... data to create a AddTouch
+     *   }
+     * })
+     * 
+     */
+    create<T extends AddTouchCreateArgs>(args: SelectSubset<T, AddTouchCreateArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AddTouches.
+     * @param {AddTouchCreateManyArgs} args - Arguments to create many AddTouches.
+     * @example
+     * // Create many AddTouches
+     * const addTouch = await prisma.addTouch.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AddTouchCreateManyArgs>(args?: SelectSubset<T, AddTouchCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a AddTouch.
+     * @param {AddTouchDeleteArgs} args - Arguments to delete one AddTouch.
+     * @example
+     * // Delete one AddTouch
+     * const AddTouch = await prisma.addTouch.delete({
+     *   where: {
+     *     // ... filter to delete one AddTouch
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AddTouchDeleteArgs>(args: SelectSubset<T, AddTouchDeleteArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AddTouch.
+     * @param {AddTouchUpdateArgs} args - Arguments to update one AddTouch.
+     * @example
+     * // Update one AddTouch
+     * const addTouch = await prisma.addTouch.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AddTouchUpdateArgs>(args: SelectSubset<T, AddTouchUpdateArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AddTouches.
+     * @param {AddTouchDeleteManyArgs} args - Arguments to filter AddTouches to delete.
+     * @example
+     * // Delete a few AddTouches
+     * const { count } = await prisma.addTouch.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AddTouchDeleteManyArgs>(args?: SelectSubset<T, AddTouchDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AddTouches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AddTouches
+     * const addTouch = await prisma.addTouch.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AddTouchUpdateManyArgs>(args: SelectSubset<T, AddTouchUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AddTouch.
+     * @param {AddTouchUpsertArgs} args - Arguments to update or create a AddTouch.
+     * @example
+     * // Update or create a AddTouch
+     * const addTouch = await prisma.addTouch.upsert({
+     *   create: {
+     *     // ... data to create a AddTouch
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AddTouch we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AddTouchUpsertArgs>(args: SelectSubset<T, AddTouchUpsertArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AddTouches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchCountArgs} args - Arguments to filter AddTouches to count.
+     * @example
+     * // Count the number of AddTouches
+     * const count = await prisma.addTouch.count({
+     *   where: {
+     *     // ... the filter for the AddTouches we want to count
+     *   }
+     * })
+    **/
+    count<T extends AddTouchCountArgs>(
+      args?: Subset<T, AddTouchCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AddTouchCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AddTouch.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AddTouchAggregateArgs>(args: Subset<T, AddTouchAggregateArgs>): Prisma.PrismaPromise<GetAddTouchAggregateType<T>>
+
+    /**
+     * Group by AddTouch.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AddTouchGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AddTouchGroupByArgs['orderBy'] }
+        : { orderBy?: AddTouchGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AddTouchGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAddTouchGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AddTouch model
+   */
+  readonly fields: AddTouchFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AddTouch.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AddTouchClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    casting_entry<T extends AddTouch$casting_entryArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$casting_entryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CastingEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    casting_items<T extends AddTouch$casting_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$casting_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CastingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    filing_items<T extends AddTouch$filing_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$filing_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    setting_items<T extends AddTouch$setting_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$setting_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SettingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    buffing_items<T extends AddTouch$buffing_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$buffing_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BuffingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    stock<T extends AddTouch$stockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    add_purchase_stock<T extends AddTouch$add_purchase_stockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$add_purchase_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddPurchaseStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customer_transaction<T extends AddTouch$customer_transactionArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$customer_transactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    QCStock<T extends AddTouch$QCStockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$QCStockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QcStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AddTouch model
+   */
+  interface AddTouchFieldRefs {
+    readonly id: FieldRef<"AddTouch", 'Int'>
+    readonly createdAt: FieldRef<"AddTouch", 'DateTime'>
+    readonly updatedAt: FieldRef<"AddTouch", 'DateTime'>
+    readonly touch: FieldRef<"AddTouch", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AddTouch findUnique
+   */
+  export type AddTouchFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter, which AddTouch to fetch.
+     */
+    where: AddTouchWhereUniqueInput
+  }
+
+  /**
+   * AddTouch findUniqueOrThrow
+   */
+  export type AddTouchFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter, which AddTouch to fetch.
+     */
+    where: AddTouchWhereUniqueInput
+  }
+
+  /**
+   * AddTouch findFirst
+   */
+  export type AddTouchFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter, which AddTouch to fetch.
+     */
+    where?: AddTouchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AddTouches to fetch.
+     */
+    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AddTouches.
+     */
+    cursor?: AddTouchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AddTouches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AddTouches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AddTouches.
+     */
+    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch findFirstOrThrow
+   */
+  export type AddTouchFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter, which AddTouch to fetch.
+     */
+    where?: AddTouchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AddTouches to fetch.
+     */
+    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AddTouches.
+     */
+    cursor?: AddTouchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AddTouches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AddTouches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AddTouches.
+     */
+    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch findMany
+   */
+  export type AddTouchFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter, which AddTouches to fetch.
+     */
+    where?: AddTouchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AddTouches to fetch.
+     */
+    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AddTouches.
+     */
+    cursor?: AddTouchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AddTouches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AddTouches.
+     */
+    skip?: number
+    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch create
+   */
+  export type AddTouchCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AddTouch.
+     */
+    data: XOR<AddTouchCreateInput, AddTouchUncheckedCreateInput>
+  }
+
+  /**
+   * AddTouch createMany
+   */
+  export type AddTouchCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AddTouches.
+     */
+    data: AddTouchCreateManyInput | AddTouchCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AddTouch update
+   */
+  export type AddTouchUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AddTouch.
+     */
+    data: XOR<AddTouchUpdateInput, AddTouchUncheckedUpdateInput>
+    /**
+     * Choose, which AddTouch to update.
+     */
+    where: AddTouchWhereUniqueInput
+  }
+
+  /**
+   * AddTouch updateMany
+   */
+  export type AddTouchUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AddTouches.
+     */
+    data: XOR<AddTouchUpdateManyMutationInput, AddTouchUncheckedUpdateManyInput>
+    /**
+     * Filter which AddTouches to update
+     */
+    where?: AddTouchWhereInput
+    /**
+     * Limit how many AddTouches to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AddTouch upsert
+   */
+  export type AddTouchUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AddTouch to update in case it exists.
+     */
+    where: AddTouchWhereUniqueInput
+    /**
+     * In case the AddTouch found by the `where` argument doesn't exist, create a new AddTouch with this data.
+     */
+    create: XOR<AddTouchCreateInput, AddTouchUncheckedCreateInput>
+    /**
+     * In case the AddTouch was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AddTouchUpdateInput, AddTouchUncheckedUpdateInput>
+  }
+
+  /**
+   * AddTouch delete
+   */
+  export type AddTouchDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter which AddTouch to delete.
+     */
+    where: AddTouchWhereUniqueInput
+  }
+
+  /**
+   * AddTouch deleteMany
+   */
+  export type AddTouchDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AddTouches to delete
+     */
+    where?: AddTouchWhereInput
+    /**
+     * Limit how many AddTouches to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AddTouch.casting_entry
+   */
+  export type AddTouch$casting_entryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CastingEntry
+     */
+    select?: CastingEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CastingEntry
+     */
+    omit?: CastingEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CastingEntryInclude<ExtArgs> | null
+    where?: CastingEntryWhereInput
+    orderBy?: CastingEntryOrderByWithRelationInput | CastingEntryOrderByWithRelationInput[]
+    cursor?: CastingEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CastingEntryScalarFieldEnum | CastingEntryScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.casting_items
+   */
+  export type AddTouch$casting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CastingItems
+     */
+    select?: CastingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CastingItems
+     */
+    omit?: CastingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CastingItemsInclude<ExtArgs> | null
+    where?: CastingItemsWhereInput
+    orderBy?: CastingItemsOrderByWithRelationInput | CastingItemsOrderByWithRelationInput[]
+    cursor?: CastingItemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CastingItemsScalarFieldEnum | CastingItemsScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.filing_items
+   */
+  export type AddTouch$filing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FilingItems
+     */
+    select?: FilingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FilingItems
+     */
+    omit?: FilingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FilingItemsInclude<ExtArgs> | null
+    where?: FilingItemsWhereInput
+    orderBy?: FilingItemsOrderByWithRelationInput | FilingItemsOrderByWithRelationInput[]
+    cursor?: FilingItemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FilingItemsScalarFieldEnum | FilingItemsScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.setting_items
+   */
+  export type AddTouch$setting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SettingItems
+     */
+    select?: SettingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SettingItems
+     */
+    omit?: SettingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SettingItemsInclude<ExtArgs> | null
+    where?: SettingItemsWhereInput
+    orderBy?: SettingItemsOrderByWithRelationInput | SettingItemsOrderByWithRelationInput[]
+    cursor?: SettingItemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SettingItemsScalarFieldEnum | SettingItemsScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.buffing_items
+   */
+  export type AddTouch$buffing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuffingItems
+     */
+    select?: BuffingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BuffingItems
+     */
+    omit?: BuffingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BuffingItemsInclude<ExtArgs> | null
+    where?: BuffingItemsWhereInput
+    orderBy?: BuffingItemsOrderByWithRelationInput | BuffingItemsOrderByWithRelationInput[]
+    cursor?: BuffingItemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BuffingItemsScalarFieldEnum | BuffingItemsScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.stock
+   */
+  export type AddTouch$stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    where?: StockWhereInput
+    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
+    cursor?: StockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.add_purchase_stock
+   */
+  export type AddTouch$add_purchase_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddPurchaseStock
+     */
+    select?: AddPurchaseStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddPurchaseStock
+     */
+    omit?: AddPurchaseStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddPurchaseStockInclude<ExtArgs> | null
+    where?: AddPurchaseStockWhereInput
+    orderBy?: AddPurchaseStockOrderByWithRelationInput | AddPurchaseStockOrderByWithRelationInput[]
+    cursor?: AddPurchaseStockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AddPurchaseStockScalarFieldEnum | AddPurchaseStockScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.customer_transaction
+   */
+  export type AddTouch$customer_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerTransaction
+     */
+    select?: CustomerTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerTransaction
+     */
+    omit?: CustomerTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerTransactionInclude<ExtArgs> | null
+    where?: CustomerTransactionWhereInput
+    orderBy?: CustomerTransactionOrderByWithRelationInput | CustomerTransactionOrderByWithRelationInput[]
+    cursor?: CustomerTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerTransactionScalarFieldEnum | CustomerTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.QCStock
+   */
+  export type AddTouch$QCStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QcStock
+     */
+    select?: QcStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QcStock
+     */
+    omit?: QcStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QcStockInclude<ExtArgs> | null
+    where?: QcStockWhereInput
+    orderBy?: QcStockOrderByWithRelationInput | QcStockOrderByWithRelationInput[]
+    cursor?: QcStockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QcStockScalarFieldEnum | QcStockScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch without action
+   */
+  export type AddTouchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
   }
 
 
@@ -43928,16 +43808,6 @@ export namespace Prisma {
   };
 
   export type AddItemScalarFieldEnum = (typeof AddItemScalarFieldEnum)[keyof typeof AddItemScalarFieldEnum]
-
-
-  export const AddTouchScalarFieldEnum: {
-    id: 'id',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    touch: 'touch'
-  };
-
-  export type AddTouchScalarFieldEnum = (typeof AddTouchScalarFieldEnum)[keyof typeof AddTouchScalarFieldEnum]
 
 
   export const QcStockScalarFieldEnum: {
@@ -44318,6 +44188,16 @@ export namespace Prisma {
   };
 
   export type ReceivedItemScalarFieldEnum = (typeof ReceivedItemScalarFieldEnum)[keyof typeof ReceivedItemScalarFieldEnum]
+
+
+  export const AddTouchScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    touch: 'touch'
+  };
+
+  export type AddTouchScalarFieldEnum = (typeof AddTouchScalarFieldEnum)[keyof typeof AddTouchScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -45264,88 +45144,6 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"AddItem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AddItem"> | Date | string
     name?: StringWithAggregatesFilter<"AddItem"> | string
-  }
-
-  export type AddTouchWhereInput = {
-    AND?: AddTouchWhereInput | AddTouchWhereInput[]
-    OR?: AddTouchWhereInput[]
-    NOT?: AddTouchWhereInput | AddTouchWhereInput[]
-    id?: IntFilter<"AddTouch"> | number
-    createdAt?: DateTimeFilter<"AddTouch"> | Date | string
-    updatedAt?: DateTimeFilter<"AddTouch"> | Date | string
-    touch?: FloatFilter<"AddTouch"> | number
-    casting_entry?: CastingEntryListRelationFilter
-    casting_items?: CastingItemsListRelationFilter
-    filing_items?: FilingItemsListRelationFilter
-    setting_items?: SettingItemsListRelationFilter
-    buffing_items?: BuffingItemsListRelationFilter
-    stock?: StockListRelationFilter
-    add_purchase_stock?: AddPurchaseStockListRelationFilter
-    customer_transaction?: CustomerTransactionListRelationFilter
-    QCStock?: QcStockListRelationFilter
-    receivedItems?: ReceivedItemListRelationFilter
-    billItems?: BillItemListRelationFilter
-  }
-
-  export type AddTouchOrderByWithRelationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    touch?: SortOrder
-    casting_entry?: CastingEntryOrderByRelationAggregateInput
-    casting_items?: CastingItemsOrderByRelationAggregateInput
-    filing_items?: FilingItemsOrderByRelationAggregateInput
-    setting_items?: SettingItemsOrderByRelationAggregateInput
-    buffing_items?: BuffingItemsOrderByRelationAggregateInput
-    stock?: StockOrderByRelationAggregateInput
-    add_purchase_stock?: AddPurchaseStockOrderByRelationAggregateInput
-    customer_transaction?: CustomerTransactionOrderByRelationAggregateInput
-    QCStock?: QcStockOrderByRelationAggregateInput
-    receivedItems?: ReceivedItemOrderByRelationAggregateInput
-    billItems?: BillItemOrderByRelationAggregateInput
-  }
-
-  export type AddTouchWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: AddTouchWhereInput | AddTouchWhereInput[]
-    OR?: AddTouchWhereInput[]
-    NOT?: AddTouchWhereInput | AddTouchWhereInput[]
-    createdAt?: DateTimeFilter<"AddTouch"> | Date | string
-    updatedAt?: DateTimeFilter<"AddTouch"> | Date | string
-    touch?: FloatFilter<"AddTouch"> | number
-    casting_entry?: CastingEntryListRelationFilter
-    casting_items?: CastingItemsListRelationFilter
-    filing_items?: FilingItemsListRelationFilter
-    setting_items?: SettingItemsListRelationFilter
-    buffing_items?: BuffingItemsListRelationFilter
-    stock?: StockListRelationFilter
-    add_purchase_stock?: AddPurchaseStockListRelationFilter
-    customer_transaction?: CustomerTransactionListRelationFilter
-    QCStock?: QcStockListRelationFilter
-    receivedItems?: ReceivedItemListRelationFilter
-    billItems?: BillItemListRelationFilter
-  }, "id">
-
-  export type AddTouchOrderByWithAggregationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    touch?: SortOrder
-    _count?: AddTouchCountOrderByAggregateInput
-    _avg?: AddTouchAvgOrderByAggregateInput
-    _max?: AddTouchMaxOrderByAggregateInput
-    _min?: AddTouchMinOrderByAggregateInput
-    _sum?: AddTouchSumOrderByAggregateInput
-  }
-
-  export type AddTouchScalarWhereWithAggregatesInput = {
-    AND?: AddTouchScalarWhereWithAggregatesInput | AddTouchScalarWhereWithAggregatesInput[]
-    OR?: AddTouchScalarWhereWithAggregatesInput[]
-    NOT?: AddTouchScalarWhereWithAggregatesInput | AddTouchScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"AddTouch"> | number
-    createdAt?: DateTimeWithAggregatesFilter<"AddTouch"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"AddTouch"> | Date | string
-    touch?: FloatWithAggregatesFilter<"AddTouch"> | number
   }
 
   export type QcStockWhereInput = {
@@ -47375,7 +47173,7 @@ export namespace Prisma {
     weight?: FloatFilter<"BillItem"> | number
     stone_weight?: FloatNullableFilter<"BillItem"> | number | null
     total_weight?: FloatFilter<"BillItem"> | number
-    touchId?: IntNullableFilter<"BillItem"> | number | null
+    touchId?: FloatNullableFilter<"BillItem"> | number | null
     pure?: FloatFilter<"BillItem"> | number
     amount?: FloatFilter<"BillItem"> | number
     createdAt?: DateTimeFilter<"BillItem"> | Date | string
@@ -47384,7 +47182,6 @@ export namespace Prisma {
     bill?: XOR<BillScalarRelationFilter, BillWhereInput>
     qcStock?: XOR<QcStockScalarRelationFilter, QcStockWhereInput>
     AddItem?: XOR<AddItemNullableScalarRelationFilter, AddItemWhereInput> | null
-    touch?: XOR<AddTouchNullableScalarRelationFilter, AddTouchWhereInput> | null
   }
 
   export type BillItemOrderByWithRelationInput = {
@@ -47404,7 +47201,6 @@ export namespace Prisma {
     bill?: BillOrderByWithRelationInput
     qcStock?: QcStockOrderByWithRelationInput
     AddItem?: AddItemOrderByWithRelationInput
-    touch?: AddTouchOrderByWithRelationInput
     _relevance?: BillItemOrderByRelevanceInput
   }
 
@@ -47419,7 +47215,7 @@ export namespace Prisma {
     weight?: FloatFilter<"BillItem"> | number
     stone_weight?: FloatNullableFilter<"BillItem"> | number | null
     total_weight?: FloatFilter<"BillItem"> | number
-    touchId?: IntNullableFilter<"BillItem"> | number | null
+    touchId?: FloatNullableFilter<"BillItem"> | number | null
     pure?: FloatFilter<"BillItem"> | number
     amount?: FloatFilter<"BillItem"> | number
     createdAt?: DateTimeFilter<"BillItem"> | Date | string
@@ -47428,7 +47224,6 @@ export namespace Prisma {
     bill?: XOR<BillScalarRelationFilter, BillWhereInput>
     qcStock?: XOR<QcStockScalarRelationFilter, QcStockWhereInput>
     AddItem?: XOR<AddItemNullableScalarRelationFilter, AddItemWhereInput> | null
-    touch?: XOR<AddTouchNullableScalarRelationFilter, AddTouchWhereInput> | null
   }, "id">
 
   export type BillItemOrderByWithAggregationInput = {
@@ -47463,7 +47258,7 @@ export namespace Prisma {
     weight?: FloatWithAggregatesFilter<"BillItem"> | number
     stone_weight?: FloatNullableWithAggregatesFilter<"BillItem"> | number | null
     total_weight?: FloatWithAggregatesFilter<"BillItem"> | number
-    touchId?: IntNullableWithAggregatesFilter<"BillItem"> | number | null
+    touchId?: FloatNullableWithAggregatesFilter<"BillItem"> | number | null
     pure?: FloatWithAggregatesFilter<"BillItem"> | number
     amount?: FloatWithAggregatesFilter<"BillItem"> | number
     createdAt?: DateTimeWithAggregatesFilter<"BillItem"> | Date | string
@@ -47481,14 +47276,13 @@ export namespace Prisma {
     date?: StringFilter<"ReceivedItem"> | string
     gold_rate?: FloatNullableFilter<"ReceivedItem"> | number | null
     gold?: FloatNullableFilter<"ReceivedItem"> | number | null
-    touchId?: IntNullableFilter<"ReceivedItem"> | number | null
+    touchId?: FloatNullableFilter<"ReceivedItem"> | number | null
     purity_weight?: FloatFilter<"ReceivedItem"> | number
     amount?: FloatNullableFilter<"ReceivedItem"> | number | null
     hallmark_charge?: FloatNullableFilter<"ReceivedItem"> | number | null
     createdAt?: DateTimeFilter<"ReceivedItem"> | Date | string
     updatedAt?: DateTimeFilter<"ReceivedItem"> | Date | string
     bill?: XOR<BillScalarRelationFilter, BillWhereInput>
-    touch?: XOR<AddTouchNullableScalarRelationFilter, AddTouchWhereInput> | null
   }
 
   export type ReceivedItemOrderByWithRelationInput = {
@@ -47505,7 +47299,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     bill?: BillOrderByWithRelationInput
-    touch?: AddTouchOrderByWithRelationInput
     _relevance?: ReceivedItemOrderByRelevanceInput
   }
 
@@ -47519,14 +47312,13 @@ export namespace Prisma {
     date?: StringFilter<"ReceivedItem"> | string
     gold_rate?: FloatNullableFilter<"ReceivedItem"> | number | null
     gold?: FloatNullableFilter<"ReceivedItem"> | number | null
-    touchId?: IntNullableFilter<"ReceivedItem"> | number | null
+    touchId?: FloatNullableFilter<"ReceivedItem"> | number | null
     purity_weight?: FloatFilter<"ReceivedItem"> | number
     amount?: FloatNullableFilter<"ReceivedItem"> | number | null
     hallmark_charge?: FloatNullableFilter<"ReceivedItem"> | number | null
     createdAt?: DateTimeFilter<"ReceivedItem"> | Date | string
     updatedAt?: DateTimeFilter<"ReceivedItem"> | Date | string
     bill?: XOR<BillScalarRelationFilter, BillWhereInput>
-    touch?: XOR<AddTouchNullableScalarRelationFilter, AddTouchWhereInput> | null
   }, "id">
 
   export type ReceivedItemOrderByWithAggregationInput = {
@@ -47559,12 +47351,88 @@ export namespace Prisma {
     date?: StringWithAggregatesFilter<"ReceivedItem"> | string
     gold_rate?: FloatNullableWithAggregatesFilter<"ReceivedItem"> | number | null
     gold?: FloatNullableWithAggregatesFilter<"ReceivedItem"> | number | null
-    touchId?: IntNullableWithAggregatesFilter<"ReceivedItem"> | number | null
+    touchId?: FloatNullableWithAggregatesFilter<"ReceivedItem"> | number | null
     purity_weight?: FloatWithAggregatesFilter<"ReceivedItem"> | number
     amount?: FloatNullableWithAggregatesFilter<"ReceivedItem"> | number | null
     hallmark_charge?: FloatNullableWithAggregatesFilter<"ReceivedItem"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"ReceivedItem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ReceivedItem"> | Date | string
+  }
+
+  export type AddTouchWhereInput = {
+    AND?: AddTouchWhereInput | AddTouchWhereInput[]
+    OR?: AddTouchWhereInput[]
+    NOT?: AddTouchWhereInput | AddTouchWhereInput[]
+    id?: IntFilter<"AddTouch"> | number
+    createdAt?: DateTimeFilter<"AddTouch"> | Date | string
+    updatedAt?: DateTimeFilter<"AddTouch"> | Date | string
+    touch?: FloatFilter<"AddTouch"> | number
+    casting_entry?: CastingEntryListRelationFilter
+    casting_items?: CastingItemsListRelationFilter
+    filing_items?: FilingItemsListRelationFilter
+    setting_items?: SettingItemsListRelationFilter
+    buffing_items?: BuffingItemsListRelationFilter
+    stock?: StockListRelationFilter
+    add_purchase_stock?: AddPurchaseStockListRelationFilter
+    customer_transaction?: CustomerTransactionListRelationFilter
+    QCStock?: QcStockListRelationFilter
+  }
+
+  export type AddTouchOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    touch?: SortOrder
+    casting_entry?: CastingEntryOrderByRelationAggregateInput
+    casting_items?: CastingItemsOrderByRelationAggregateInput
+    filing_items?: FilingItemsOrderByRelationAggregateInput
+    setting_items?: SettingItemsOrderByRelationAggregateInput
+    buffing_items?: BuffingItemsOrderByRelationAggregateInput
+    stock?: StockOrderByRelationAggregateInput
+    add_purchase_stock?: AddPurchaseStockOrderByRelationAggregateInput
+    customer_transaction?: CustomerTransactionOrderByRelationAggregateInput
+    QCStock?: QcStockOrderByRelationAggregateInput
+  }
+
+  export type AddTouchWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AddTouchWhereInput | AddTouchWhereInput[]
+    OR?: AddTouchWhereInput[]
+    NOT?: AddTouchWhereInput | AddTouchWhereInput[]
+    createdAt?: DateTimeFilter<"AddTouch"> | Date | string
+    updatedAt?: DateTimeFilter<"AddTouch"> | Date | string
+    touch?: FloatFilter<"AddTouch"> | number
+    casting_entry?: CastingEntryListRelationFilter
+    casting_items?: CastingItemsListRelationFilter
+    filing_items?: FilingItemsListRelationFilter
+    setting_items?: SettingItemsListRelationFilter
+    buffing_items?: BuffingItemsListRelationFilter
+    stock?: StockListRelationFilter
+    add_purchase_stock?: AddPurchaseStockListRelationFilter
+    customer_transaction?: CustomerTransactionListRelationFilter
+    QCStock?: QcStockListRelationFilter
+  }, "id">
+
+  export type AddTouchOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    touch?: SortOrder
+    _count?: AddTouchCountOrderByAggregateInput
+    _avg?: AddTouchAvgOrderByAggregateInput
+    _max?: AddTouchMaxOrderByAggregateInput
+    _min?: AddTouchMinOrderByAggregateInput
+    _sum?: AddTouchSumOrderByAggregateInput
+  }
+
+  export type AddTouchScalarWhereWithAggregatesInput = {
+    AND?: AddTouchScalarWhereWithAggregatesInput | AddTouchScalarWhereWithAggregatesInput[]
+    OR?: AddTouchScalarWhereWithAggregatesInput[]
+    NOT?: AddTouchScalarWhereWithAggregatesInput | AddTouchScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AddTouch"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"AddTouch"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AddTouch"> | Date | string
+    touch?: FloatWithAggregatesFilter<"AddTouch"> | number
   }
 
   export type AddCustomerCreateInput = {
@@ -48311,96 +48179,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type AddTouchCreateInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    touch: number
-    casting_entry?: CastingEntryCreateNestedManyWithoutTouchInput
-    casting_items?: CastingItemsCreateNestedManyWithoutTouchInput
-    filing_items?: FilingItemsCreateNestedManyWithoutTouchInput
-    setting_items?: SettingItemsCreateNestedManyWithoutTouchInput
-    buffing_items?: BuffingItemsCreateNestedManyWithoutTouchInput
-    stock?: StockCreateNestedManyWithoutTouchInput
-    add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
-    customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
-    QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemCreateNestedManyWithoutTouchInput
-    billItems?: BillItemCreateNestedManyWithoutTouchInput
-  }
-
-  export type AddTouchUncheckedCreateInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    touch: number
-    casting_entry?: CastingEntryUncheckedCreateNestedManyWithoutTouchInput
-    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutTouchInput
-    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutTouchInput
-    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutTouchInput
-    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutTouchInput
-    stock?: StockUncheckedCreateNestedManyWithoutTouchInput
-    add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
-    customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
-    QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemUncheckedCreateNestedManyWithoutTouchInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutTouchInput
-  }
-
-  export type AddTouchUpdateInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
-    casting_entry?: CastingEntryUpdateManyWithoutTouchNestedInput
-    casting_items?: CastingItemsUpdateManyWithoutTouchNestedInput
-    filing_items?: FilingItemsUpdateManyWithoutTouchNestedInput
-    setting_items?: SettingItemsUpdateManyWithoutTouchNestedInput
-    buffing_items?: BuffingItemsUpdateManyWithoutTouchNestedInput
-    stock?: StockUpdateManyWithoutTouchNestedInput
-    add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
-    customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
-    QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUpdateManyWithoutTouchNestedInput
-  }
-
-  export type AddTouchUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
-    casting_entry?: CastingEntryUncheckedUpdateManyWithoutTouchNestedInput
-    casting_items?: CastingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    filing_items?: FilingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    setting_items?: SettingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
-    add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
-    QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutTouchNestedInput
-  }
-
-  export type AddTouchCreateManyInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    touch: number
-  }
-
-  export type AddTouchUpdateManyMutationInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type AddTouchUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
   }
 
   export type QcStockCreateInput = {
@@ -50375,6 +50153,7 @@ export namespace Prisma {
     weight: number
     stone_weight?: number | null
     total_weight: number
+    touchId?: number | null
     pure: number
     amount: number
     createdAt?: Date | string
@@ -50382,7 +50161,6 @@ export namespace Prisma {
     bill: BillCreateNestedOneWithoutBillItemsInput
     qcStock: QcStockCreateNestedOneWithoutBillItemInput
     AddItem?: AddItemCreateNestedOneWithoutBillItemsInput
-    touch?: AddTouchCreateNestedOneWithoutBillItemsInput
   }
 
   export type BillItemUncheckedCreateInput = {
@@ -50406,6 +50184,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -50413,7 +50192,6 @@ export namespace Prisma {
     bill?: BillUpdateOneRequiredWithoutBillItemsNestedInput
     qcStock?: QcStockUpdateOneRequiredWithoutBillItemNestedInput
     AddItem?: AddItemUpdateOneWithoutBillItemsNestedInput
-    touch?: AddTouchUpdateOneWithoutBillItemsNestedInput
   }
 
   export type BillItemUncheckedUpdateInput = {
@@ -50424,7 +50202,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -50453,6 +50231,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -50467,7 +50246,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -50480,13 +50259,13 @@ export namespace Prisma {
     date: string
     gold_rate?: number | null
     gold?: number | null
+    touchId?: number | null
     purity_weight: number
     amount?: number | null
     hallmark_charge?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     bill: BillCreateNestedOneWithoutReceivedItemsInput
-    touch?: AddTouchCreateNestedOneWithoutReceivedItemsInput
   }
 
   export type ReceivedItemUncheckedCreateInput = {
@@ -50509,13 +50288,13 @@ export namespace Prisma {
     date?: StringFieldUpdateOperationsInput | string
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     purity_weight?: FloatFieldUpdateOperationsInput | number
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark_charge?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bill?: BillUpdateOneRequiredWithoutReceivedItemsNestedInput
-    touch?: AddTouchUpdateOneWithoutReceivedItemsNestedInput
   }
 
   export type ReceivedItemUncheckedUpdateInput = {
@@ -50525,7 +50304,7 @@ export namespace Prisma {
     date?: StringFieldUpdateOperationsInput | string
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     purity_weight?: FloatFieldUpdateOperationsInput | number
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark_charge?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -50553,6 +50332,7 @@ export namespace Prisma {
     date?: StringFieldUpdateOperationsInput | string
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     purity_weight?: FloatFieldUpdateOperationsInput | number
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark_charge?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -50567,12 +50347,94 @@ export namespace Prisma {
     date?: StringFieldUpdateOperationsInput | string
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     purity_weight?: FloatFieldUpdateOperationsInput | number
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark_charge?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AddTouchCreateInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    touch: number
+    casting_entry?: CastingEntryCreateNestedManyWithoutTouchInput
+    casting_items?: CastingItemsCreateNestedManyWithoutTouchInput
+    filing_items?: FilingItemsCreateNestedManyWithoutTouchInput
+    setting_items?: SettingItemsCreateNestedManyWithoutTouchInput
+    buffing_items?: BuffingItemsCreateNestedManyWithoutTouchInput
+    stock?: StockCreateNestedManyWithoutTouchInput
+    add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
+    customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
+    QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+  }
+
+  export type AddTouchUncheckedCreateInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    touch: number
+    casting_entry?: CastingEntryUncheckedCreateNestedManyWithoutTouchInput
+    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutTouchInput
+    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutTouchInput
+    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutTouchInput
+    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutTouchInput
+    stock?: StockUncheckedCreateNestedManyWithoutTouchInput
+    add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
+    customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
+    QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+  }
+
+  export type AddTouchUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+    casting_entry?: CastingEntryUpdateManyWithoutTouchNestedInput
+    casting_items?: CastingItemsUpdateManyWithoutTouchNestedInput
+    filing_items?: FilingItemsUpdateManyWithoutTouchNestedInput
+    setting_items?: SettingItemsUpdateManyWithoutTouchNestedInput
+    buffing_items?: BuffingItemsUpdateManyWithoutTouchNestedInput
+    stock?: StockUpdateManyWithoutTouchNestedInput
+    add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
+    customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
+    QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+  }
+
+  export type AddTouchUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+    casting_entry?: CastingEntryUncheckedUpdateManyWithoutTouchNestedInput
+    casting_items?: CastingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    filing_items?: FilingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    setting_items?: SettingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
+    add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
+    QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+  }
+
+  export type AddTouchCreateManyInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    touch: number
+  }
+
+  export type AddTouchUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AddTouchUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -51469,47 +51331,6 @@ export namespace Prisma {
 
   export type AddItemSumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type ReceivedItemListRelationFilter = {
-    every?: ReceivedItemWhereInput
-    some?: ReceivedItemWhereInput
-    none?: ReceivedItemWhereInput
-  }
-
-  export type ReceivedItemOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type AddTouchCountOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    touch?: SortOrder
-  }
-
-  export type AddTouchAvgOrderByAggregateInput = {
-    id?: SortOrder
-    touch?: SortOrder
-  }
-
-  export type AddTouchMaxOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    touch?: SortOrder
-  }
-
-  export type AddTouchMinOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    touch?: SortOrder
-  }
-
-  export type AddTouchSumOrderByAggregateInput = {
-    id?: SortOrder
-    touch?: SortOrder
   }
 
   export type AddItemScalarRelationFilter = {
@@ -52998,6 +52819,16 @@ export namespace Prisma {
     balance?: SortOrder
   }
 
+  export type ReceivedItemListRelationFilter = {
+    every?: ReceivedItemWhereInput
+    some?: ReceivedItemWhereInput
+    none?: ReceivedItemWhereInput
+  }
+
+  export type ReceivedItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type BillOrderByRelevanceInput = {
     fields: BillOrderByRelevanceFieldEnum | BillOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -53250,6 +53081,37 @@ export namespace Prisma {
     purity_weight?: SortOrder
     amount?: SortOrder
     hallmark_charge?: SortOrder
+  }
+
+  export type AddTouchCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    touch?: SortOrder
+  }
+
+  export type AddTouchAvgOrderByAggregateInput = {
+    id?: SortOrder
+    touch?: SortOrder
+  }
+
+  export type AddTouchMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    touch?: SortOrder
+  }
+
+  export type AddTouchMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    touch?: SortOrder
+  }
+
+  export type AddTouchSumOrderByAggregateInput = {
+    id?: SortOrder
+    touch?: SortOrder
   }
 
   export type CustomerTransactionCreateNestedManyWithoutCustomerInput = {
@@ -54531,468 +54393,6 @@ export namespace Prisma {
     connect?: BillItemWhereUniqueInput | BillItemWhereUniqueInput[]
     update?: BillItemUpdateWithWhereUniqueWithoutAddItemInput | BillItemUpdateWithWhereUniqueWithoutAddItemInput[]
     updateMany?: BillItemUpdateManyWithWhereWithoutAddItemInput | BillItemUpdateManyWithWhereWithoutAddItemInput[]
-    deleteMany?: BillItemScalarWhereInput | BillItemScalarWhereInput[]
-  }
-
-  export type CastingEntryCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
-    createMany?: CastingEntryCreateManyTouchInputEnvelope
-    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-  }
-
-  export type CastingItemsCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: CastingItemsCreateManyTouchInputEnvelope
-    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-  }
-
-  export type FilingItemsCreateNestedManyWithoutTouchInput = {
-    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: FilingItemsCreateManyTouchInputEnvelope
-    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-  }
-
-  export type SettingItemsCreateNestedManyWithoutTouchInput = {
-    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: SettingItemsCreateManyTouchInputEnvelope
-    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-  }
-
-  export type BuffingItemsCreateNestedManyWithoutTouchInput = {
-    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: BuffingItemsCreateManyTouchInputEnvelope
-    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-  }
-
-  export type StockCreateNestedManyWithoutTouchInput = {
-    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
-    createMany?: StockCreateManyTouchInputEnvelope
-    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-  }
-
-  export type AddPurchaseStockCreateNestedManyWithoutTouchIdInput = {
-    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
-    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
-    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-  }
-
-  export type CustomerTransactionCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
-    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
-    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-  }
-
-  export type QcStockCreateNestedManyWithoutTouchIdInput = {
-    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
-    createMany?: QcStockCreateManyTouchIdInputEnvelope
-    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-  }
-
-  export type ReceivedItemCreateNestedManyWithoutTouchInput = {
-    create?: XOR<ReceivedItemCreateWithoutTouchInput, ReceivedItemUncheckedCreateWithoutTouchInput> | ReceivedItemCreateWithoutTouchInput[] | ReceivedItemUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: ReceivedItemCreateOrConnectWithoutTouchInput | ReceivedItemCreateOrConnectWithoutTouchInput[]
-    createMany?: ReceivedItemCreateManyTouchInputEnvelope
-    connect?: ReceivedItemWhereUniqueInput | ReceivedItemWhereUniqueInput[]
-  }
-
-  export type BillItemCreateNestedManyWithoutTouchInput = {
-    create?: XOR<BillItemCreateWithoutTouchInput, BillItemUncheckedCreateWithoutTouchInput> | BillItemCreateWithoutTouchInput[] | BillItemUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BillItemCreateOrConnectWithoutTouchInput | BillItemCreateOrConnectWithoutTouchInput[]
-    createMany?: BillItemCreateManyTouchInputEnvelope
-    connect?: BillItemWhereUniqueInput | BillItemWhereUniqueInput[]
-  }
-
-  export type CastingEntryUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
-    createMany?: CastingEntryCreateManyTouchInputEnvelope
-    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-  }
-
-  export type CastingItemsUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: CastingItemsCreateManyTouchInputEnvelope
-    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-  }
-
-  export type FilingItemsUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: FilingItemsCreateManyTouchInputEnvelope
-    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-  }
-
-  export type SettingItemsUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: SettingItemsCreateManyTouchInputEnvelope
-    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-  }
-
-  export type BuffingItemsUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: BuffingItemsCreateManyTouchInputEnvelope
-    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-  }
-
-  export type StockUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
-    createMany?: StockCreateManyTouchInputEnvelope
-    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-  }
-
-  export type AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput = {
-    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
-    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
-    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-  }
-
-  export type CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
-    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
-    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-  }
-
-  export type QcStockUncheckedCreateNestedManyWithoutTouchIdInput = {
-    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
-    createMany?: QcStockCreateManyTouchIdInputEnvelope
-    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-  }
-
-  export type ReceivedItemUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<ReceivedItemCreateWithoutTouchInput, ReceivedItemUncheckedCreateWithoutTouchInput> | ReceivedItemCreateWithoutTouchInput[] | ReceivedItemUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: ReceivedItemCreateOrConnectWithoutTouchInput | ReceivedItemCreateOrConnectWithoutTouchInput[]
-    createMany?: ReceivedItemCreateManyTouchInputEnvelope
-    connect?: ReceivedItemWhereUniqueInput | ReceivedItemWhereUniqueInput[]
-  }
-
-  export type BillItemUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<BillItemCreateWithoutTouchInput, BillItemUncheckedCreateWithoutTouchInput> | BillItemCreateWithoutTouchInput[] | BillItemUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BillItemCreateOrConnectWithoutTouchInput | BillItemCreateOrConnectWithoutTouchInput[]
-    createMany?: BillItemCreateManyTouchInputEnvelope
-    connect?: BillItemWhereUniqueInput | BillItemWhereUniqueInput[]
-  }
-
-  export type CastingEntryUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
-    upsert?: CastingEntryUpsertWithWhereUniqueWithoutTouchInput | CastingEntryUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CastingEntryCreateManyTouchInputEnvelope
-    set?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    disconnect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    delete?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    update?: CastingEntryUpdateWithWhereUniqueWithoutTouchInput | CastingEntryUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CastingEntryUpdateManyWithWhereWithoutTouchInput | CastingEntryUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CastingEntryScalarWhereInput | CastingEntryScalarWhereInput[]
-  }
-
-  export type CastingItemsUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: CastingItemsUpsertWithWhereUniqueWithoutTouchInput | CastingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CastingItemsCreateManyTouchInputEnvelope
-    set?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    disconnect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    delete?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    update?: CastingItemsUpdateWithWhereUniqueWithoutTouchInput | CastingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CastingItemsUpdateManyWithWhereWithoutTouchInput | CastingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CastingItemsScalarWhereInput | CastingItemsScalarWhereInput[]
-  }
-
-  export type FilingItemsUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: FilingItemsUpsertWithWhereUniqueWithoutTouchInput | FilingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: FilingItemsCreateManyTouchInputEnvelope
-    set?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    disconnect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    delete?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    update?: FilingItemsUpdateWithWhereUniqueWithoutTouchInput | FilingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: FilingItemsUpdateManyWithWhereWithoutTouchInput | FilingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: FilingItemsScalarWhereInput | FilingItemsScalarWhereInput[]
-  }
-
-  export type SettingItemsUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: SettingItemsUpsertWithWhereUniqueWithoutTouchInput | SettingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: SettingItemsCreateManyTouchInputEnvelope
-    set?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    disconnect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    delete?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    update?: SettingItemsUpdateWithWhereUniqueWithoutTouchInput | SettingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: SettingItemsUpdateManyWithWhereWithoutTouchInput | SettingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: SettingItemsScalarWhereInput | SettingItemsScalarWhereInput[]
-  }
-
-  export type BuffingItemsUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: BuffingItemsUpsertWithWhereUniqueWithoutTouchInput | BuffingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: BuffingItemsCreateManyTouchInputEnvelope
-    set?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    disconnect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    delete?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    update?: BuffingItemsUpdateWithWhereUniqueWithoutTouchInput | BuffingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: BuffingItemsUpdateManyWithWhereWithoutTouchInput | BuffingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: BuffingItemsScalarWhereInput | BuffingItemsScalarWhereInput[]
-  }
-
-  export type StockUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
-    upsert?: StockUpsertWithWhereUniqueWithoutTouchInput | StockUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: StockCreateManyTouchInputEnvelope
-    set?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    disconnect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    delete?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    update?: StockUpdateWithWhereUniqueWithoutTouchInput | StockUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: StockUpdateManyWithWhereWithoutTouchInput | StockUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
-  }
-
-  export type AddPurchaseStockUpdateManyWithoutTouchIdNestedInput = {
-    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
-    upsert?: AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput[]
-    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
-    set?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    disconnect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    delete?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    update?: AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput[]
-    updateMany?: AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput | AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput[]
-    deleteMany?: AddPurchaseStockScalarWhereInput | AddPurchaseStockScalarWhereInput[]
-  }
-
-  export type CustomerTransactionUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
-    upsert?: CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput | CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
-    set?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    disconnect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    delete?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    update?: CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput | CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CustomerTransactionUpdateManyWithWhereWithoutTouchInput | CustomerTransactionUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CustomerTransactionScalarWhereInput | CustomerTransactionScalarWhereInput[]
-  }
-
-  export type QcStockUpdateManyWithoutTouchIdNestedInput = {
-    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
-    upsert?: QcStockUpsertWithWhereUniqueWithoutTouchIdInput | QcStockUpsertWithWhereUniqueWithoutTouchIdInput[]
-    createMany?: QcStockCreateManyTouchIdInputEnvelope
-    set?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    disconnect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    delete?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    update?: QcStockUpdateWithWhereUniqueWithoutTouchIdInput | QcStockUpdateWithWhereUniqueWithoutTouchIdInput[]
-    updateMany?: QcStockUpdateManyWithWhereWithoutTouchIdInput | QcStockUpdateManyWithWhereWithoutTouchIdInput[]
-    deleteMany?: QcStockScalarWhereInput | QcStockScalarWhereInput[]
-  }
-
-  export type ReceivedItemUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<ReceivedItemCreateWithoutTouchInput, ReceivedItemUncheckedCreateWithoutTouchInput> | ReceivedItemCreateWithoutTouchInput[] | ReceivedItemUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: ReceivedItemCreateOrConnectWithoutTouchInput | ReceivedItemCreateOrConnectWithoutTouchInput[]
-    upsert?: ReceivedItemUpsertWithWhereUniqueWithoutTouchInput | ReceivedItemUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: ReceivedItemCreateManyTouchInputEnvelope
-    set?: ReceivedItemWhereUniqueInput | ReceivedItemWhereUniqueInput[]
-    disconnect?: ReceivedItemWhereUniqueInput | ReceivedItemWhereUniqueInput[]
-    delete?: ReceivedItemWhereUniqueInput | ReceivedItemWhereUniqueInput[]
-    connect?: ReceivedItemWhereUniqueInput | ReceivedItemWhereUniqueInput[]
-    update?: ReceivedItemUpdateWithWhereUniqueWithoutTouchInput | ReceivedItemUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: ReceivedItemUpdateManyWithWhereWithoutTouchInput | ReceivedItemUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: ReceivedItemScalarWhereInput | ReceivedItemScalarWhereInput[]
-  }
-
-  export type BillItemUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<BillItemCreateWithoutTouchInput, BillItemUncheckedCreateWithoutTouchInput> | BillItemCreateWithoutTouchInput[] | BillItemUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BillItemCreateOrConnectWithoutTouchInput | BillItemCreateOrConnectWithoutTouchInput[]
-    upsert?: BillItemUpsertWithWhereUniqueWithoutTouchInput | BillItemUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: BillItemCreateManyTouchInputEnvelope
-    set?: BillItemWhereUniqueInput | BillItemWhereUniqueInput[]
-    disconnect?: BillItemWhereUniqueInput | BillItemWhereUniqueInput[]
-    delete?: BillItemWhereUniqueInput | BillItemWhereUniqueInput[]
-    connect?: BillItemWhereUniqueInput | BillItemWhereUniqueInput[]
-    update?: BillItemUpdateWithWhereUniqueWithoutTouchInput | BillItemUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: BillItemUpdateManyWithWhereWithoutTouchInput | BillItemUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: BillItemScalarWhereInput | BillItemScalarWhereInput[]
-  }
-
-  export type CastingEntryUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
-    upsert?: CastingEntryUpsertWithWhereUniqueWithoutTouchInput | CastingEntryUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CastingEntryCreateManyTouchInputEnvelope
-    set?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    disconnect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    delete?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    update?: CastingEntryUpdateWithWhereUniqueWithoutTouchInput | CastingEntryUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CastingEntryUpdateManyWithWhereWithoutTouchInput | CastingEntryUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CastingEntryScalarWhereInput | CastingEntryScalarWhereInput[]
-  }
-
-  export type CastingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: CastingItemsUpsertWithWhereUniqueWithoutTouchInput | CastingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CastingItemsCreateManyTouchInputEnvelope
-    set?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    disconnect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    delete?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    update?: CastingItemsUpdateWithWhereUniqueWithoutTouchInput | CastingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CastingItemsUpdateManyWithWhereWithoutTouchInput | CastingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CastingItemsScalarWhereInput | CastingItemsScalarWhereInput[]
-  }
-
-  export type FilingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: FilingItemsUpsertWithWhereUniqueWithoutTouchInput | FilingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: FilingItemsCreateManyTouchInputEnvelope
-    set?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    disconnect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    delete?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    update?: FilingItemsUpdateWithWhereUniqueWithoutTouchInput | FilingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: FilingItemsUpdateManyWithWhereWithoutTouchInput | FilingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: FilingItemsScalarWhereInput | FilingItemsScalarWhereInput[]
-  }
-
-  export type SettingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: SettingItemsUpsertWithWhereUniqueWithoutTouchInput | SettingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: SettingItemsCreateManyTouchInputEnvelope
-    set?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    disconnect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    delete?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    update?: SettingItemsUpdateWithWhereUniqueWithoutTouchInput | SettingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: SettingItemsUpdateManyWithWhereWithoutTouchInput | SettingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: SettingItemsScalarWhereInput | SettingItemsScalarWhereInput[]
-  }
-
-  export type BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: BuffingItemsUpsertWithWhereUniqueWithoutTouchInput | BuffingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: BuffingItemsCreateManyTouchInputEnvelope
-    set?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    disconnect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    delete?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    update?: BuffingItemsUpdateWithWhereUniqueWithoutTouchInput | BuffingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: BuffingItemsUpdateManyWithWhereWithoutTouchInput | BuffingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: BuffingItemsScalarWhereInput | BuffingItemsScalarWhereInput[]
-  }
-
-  export type StockUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
-    upsert?: StockUpsertWithWhereUniqueWithoutTouchInput | StockUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: StockCreateManyTouchInputEnvelope
-    set?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    disconnect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    delete?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    update?: StockUpdateWithWhereUniqueWithoutTouchInput | StockUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: StockUpdateManyWithWhereWithoutTouchInput | StockUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
-  }
-
-  export type AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput = {
-    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
-    upsert?: AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput[]
-    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
-    set?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    disconnect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    delete?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    update?: AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput[]
-    updateMany?: AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput | AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput[]
-    deleteMany?: AddPurchaseStockScalarWhereInput | AddPurchaseStockScalarWhereInput[]
-  }
-
-  export type CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
-    upsert?: CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput | CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
-    set?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    disconnect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    delete?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    update?: CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput | CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CustomerTransactionUpdateManyWithWhereWithoutTouchInput | CustomerTransactionUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CustomerTransactionScalarWhereInput | CustomerTransactionScalarWhereInput[]
-  }
-
-  export type QcStockUncheckedUpdateManyWithoutTouchIdNestedInput = {
-    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
-    upsert?: QcStockUpsertWithWhereUniqueWithoutTouchIdInput | QcStockUpsertWithWhereUniqueWithoutTouchIdInput[]
-    createMany?: QcStockCreateManyTouchIdInputEnvelope
-    set?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    disconnect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    delete?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    update?: QcStockUpdateWithWhereUniqueWithoutTouchIdInput | QcStockUpdateWithWhereUniqueWithoutTouchIdInput[]
-    updateMany?: QcStockUpdateManyWithWhereWithoutTouchIdInput | QcStockUpdateManyWithWhereWithoutTouchIdInput[]
-    deleteMany?: QcStockScalarWhereInput | QcStockScalarWhereInput[]
-  }
-
-  export type ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<ReceivedItemCreateWithoutTouchInput, ReceivedItemUncheckedCreateWithoutTouchInput> | ReceivedItemCreateWithoutTouchInput[] | ReceivedItemUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: ReceivedItemCreateOrConnectWithoutTouchInput | ReceivedItemCreateOrConnectWithoutTouchInput[]
-    upsert?: ReceivedItemUpsertWithWhereUniqueWithoutTouchInput | ReceivedItemUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: ReceivedItemCreateManyTouchInputEnvelope
-    set?: ReceivedItemWhereUniqueInput | ReceivedItemWhereUniqueInput[]
-    disconnect?: ReceivedItemWhereUniqueInput | ReceivedItemWhereUniqueInput[]
-    delete?: ReceivedItemWhereUniqueInput | ReceivedItemWhereUniqueInput[]
-    connect?: ReceivedItemWhereUniqueInput | ReceivedItemWhereUniqueInput[]
-    update?: ReceivedItemUpdateWithWhereUniqueWithoutTouchInput | ReceivedItemUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: ReceivedItemUpdateManyWithWhereWithoutTouchInput | ReceivedItemUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: ReceivedItemScalarWhereInput | ReceivedItemScalarWhereInput[]
-  }
-
-  export type BillItemUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<BillItemCreateWithoutTouchInput, BillItemUncheckedCreateWithoutTouchInput> | BillItemCreateWithoutTouchInput[] | BillItemUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BillItemCreateOrConnectWithoutTouchInput | BillItemCreateOrConnectWithoutTouchInput[]
-    upsert?: BillItemUpsertWithWhereUniqueWithoutTouchInput | BillItemUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: BillItemCreateManyTouchInputEnvelope
-    set?: BillItemWhereUniqueInput | BillItemWhereUniqueInput[]
-    disconnect?: BillItemWhereUniqueInput | BillItemWhereUniqueInput[]
-    delete?: BillItemWhereUniqueInput | BillItemWhereUniqueInput[]
-    connect?: BillItemWhereUniqueInput | BillItemWhereUniqueInput[]
-    update?: BillItemUpdateWithWhereUniqueWithoutTouchInput | BillItemUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: BillItemUpdateManyWithWhereWithoutTouchInput | BillItemUpdateManyWithWhereWithoutTouchInput[]
     deleteMany?: BillItemScalarWhereInput | BillItemScalarWhereInput[]
   }
 
@@ -57732,12 +57132,6 @@ export namespace Prisma {
     connect?: AddItemWhereUniqueInput
   }
 
-  export type AddTouchCreateNestedOneWithoutBillItemsInput = {
-    create?: XOR<AddTouchCreateWithoutBillItemsInput, AddTouchUncheckedCreateWithoutBillItemsInput>
-    connectOrCreate?: AddTouchCreateOrConnectWithoutBillItemsInput
-    connect?: AddTouchWhereUniqueInput
-  }
-
   export type BillUpdateOneRequiredWithoutBillItemsNestedInput = {
     create?: XOR<BillCreateWithoutBillItemsInput, BillUncheckedCreateWithoutBillItemsInput>
     connectOrCreate?: BillCreateOrConnectWithoutBillItemsInput
@@ -57764,26 +57158,10 @@ export namespace Prisma {
     update?: XOR<XOR<AddItemUpdateToOneWithWhereWithoutBillItemsInput, AddItemUpdateWithoutBillItemsInput>, AddItemUncheckedUpdateWithoutBillItemsInput>
   }
 
-  export type AddTouchUpdateOneWithoutBillItemsNestedInput = {
-    create?: XOR<AddTouchCreateWithoutBillItemsInput, AddTouchUncheckedCreateWithoutBillItemsInput>
-    connectOrCreate?: AddTouchCreateOrConnectWithoutBillItemsInput
-    upsert?: AddTouchUpsertWithoutBillItemsInput
-    disconnect?: AddTouchWhereInput | boolean
-    delete?: AddTouchWhereInput | boolean
-    connect?: AddTouchWhereUniqueInput
-    update?: XOR<XOR<AddTouchUpdateToOneWithWhereWithoutBillItemsInput, AddTouchUpdateWithoutBillItemsInput>, AddTouchUncheckedUpdateWithoutBillItemsInput>
-  }
-
   export type BillCreateNestedOneWithoutReceivedItemsInput = {
     create?: XOR<BillCreateWithoutReceivedItemsInput, BillUncheckedCreateWithoutReceivedItemsInput>
     connectOrCreate?: BillCreateOrConnectWithoutReceivedItemsInput
     connect?: BillWhereUniqueInput
-  }
-
-  export type AddTouchCreateNestedOneWithoutReceivedItemsInput = {
-    create?: XOR<AddTouchCreateWithoutReceivedItemsInput, AddTouchUncheckedCreateWithoutReceivedItemsInput>
-    connectOrCreate?: AddTouchCreateOrConnectWithoutReceivedItemsInput
-    connect?: AddTouchWhereUniqueInput
   }
 
   export type BillUpdateOneRequiredWithoutReceivedItemsNestedInput = {
@@ -57794,14 +57172,382 @@ export namespace Prisma {
     update?: XOR<XOR<BillUpdateToOneWithWhereWithoutReceivedItemsInput, BillUpdateWithoutReceivedItemsInput>, BillUncheckedUpdateWithoutReceivedItemsInput>
   }
 
-  export type AddTouchUpdateOneWithoutReceivedItemsNestedInput = {
-    create?: XOR<AddTouchCreateWithoutReceivedItemsInput, AddTouchUncheckedCreateWithoutReceivedItemsInput>
-    connectOrCreate?: AddTouchCreateOrConnectWithoutReceivedItemsInput
-    upsert?: AddTouchUpsertWithoutReceivedItemsInput
-    disconnect?: AddTouchWhereInput | boolean
-    delete?: AddTouchWhereInput | boolean
-    connect?: AddTouchWhereUniqueInput
-    update?: XOR<XOR<AddTouchUpdateToOneWithWhereWithoutReceivedItemsInput, AddTouchUpdateWithoutReceivedItemsInput>, AddTouchUncheckedUpdateWithoutReceivedItemsInput>
+  export type CastingEntryCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
+    createMany?: CastingEntryCreateManyTouchInputEnvelope
+    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+  }
+
+  export type CastingItemsCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: CastingItemsCreateManyTouchInputEnvelope
+    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+  }
+
+  export type FilingItemsCreateNestedManyWithoutTouchInput = {
+    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: FilingItemsCreateManyTouchInputEnvelope
+    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+  }
+
+  export type SettingItemsCreateNestedManyWithoutTouchInput = {
+    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: SettingItemsCreateManyTouchInputEnvelope
+    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+  }
+
+  export type BuffingItemsCreateNestedManyWithoutTouchInput = {
+    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: BuffingItemsCreateManyTouchInputEnvelope
+    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+  }
+
+  export type StockCreateNestedManyWithoutTouchInput = {
+    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
+    createMany?: StockCreateManyTouchInputEnvelope
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+  }
+
+  export type AddPurchaseStockCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
+    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
+    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+  }
+
+  export type CustomerTransactionCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
+    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
+    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+  }
+
+  export type QcStockCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
+    createMany?: QcStockCreateManyTouchIdInputEnvelope
+    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+  }
+
+  export type CastingEntryUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
+    createMany?: CastingEntryCreateManyTouchInputEnvelope
+    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+  }
+
+  export type CastingItemsUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: CastingItemsCreateManyTouchInputEnvelope
+    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+  }
+
+  export type FilingItemsUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: FilingItemsCreateManyTouchInputEnvelope
+    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+  }
+
+  export type SettingItemsUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: SettingItemsCreateManyTouchInputEnvelope
+    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+  }
+
+  export type BuffingItemsUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: BuffingItemsCreateManyTouchInputEnvelope
+    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+  }
+
+  export type StockUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
+    createMany?: StockCreateManyTouchInputEnvelope
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+  }
+
+  export type AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
+    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
+    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+  }
+
+  export type CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
+    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
+    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+  }
+
+  export type QcStockUncheckedCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
+    createMany?: QcStockCreateManyTouchIdInputEnvelope
+    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+  }
+
+  export type CastingEntryUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
+    upsert?: CastingEntryUpsertWithWhereUniqueWithoutTouchInput | CastingEntryUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CastingEntryCreateManyTouchInputEnvelope
+    set?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    disconnect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    delete?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    update?: CastingEntryUpdateWithWhereUniqueWithoutTouchInput | CastingEntryUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CastingEntryUpdateManyWithWhereWithoutTouchInput | CastingEntryUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CastingEntryScalarWhereInput | CastingEntryScalarWhereInput[]
+  }
+
+  export type CastingItemsUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: CastingItemsUpsertWithWhereUniqueWithoutTouchInput | CastingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CastingItemsCreateManyTouchInputEnvelope
+    set?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    disconnect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    delete?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    update?: CastingItemsUpdateWithWhereUniqueWithoutTouchInput | CastingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CastingItemsUpdateManyWithWhereWithoutTouchInput | CastingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CastingItemsScalarWhereInput | CastingItemsScalarWhereInput[]
+  }
+
+  export type FilingItemsUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: FilingItemsUpsertWithWhereUniqueWithoutTouchInput | FilingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: FilingItemsCreateManyTouchInputEnvelope
+    set?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    disconnect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    delete?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    update?: FilingItemsUpdateWithWhereUniqueWithoutTouchInput | FilingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: FilingItemsUpdateManyWithWhereWithoutTouchInput | FilingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: FilingItemsScalarWhereInput | FilingItemsScalarWhereInput[]
+  }
+
+  export type SettingItemsUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: SettingItemsUpsertWithWhereUniqueWithoutTouchInput | SettingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: SettingItemsCreateManyTouchInputEnvelope
+    set?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    disconnect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    delete?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    update?: SettingItemsUpdateWithWhereUniqueWithoutTouchInput | SettingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: SettingItemsUpdateManyWithWhereWithoutTouchInput | SettingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: SettingItemsScalarWhereInput | SettingItemsScalarWhereInput[]
+  }
+
+  export type BuffingItemsUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: BuffingItemsUpsertWithWhereUniqueWithoutTouchInput | BuffingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: BuffingItemsCreateManyTouchInputEnvelope
+    set?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    disconnect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    delete?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    update?: BuffingItemsUpdateWithWhereUniqueWithoutTouchInput | BuffingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: BuffingItemsUpdateManyWithWhereWithoutTouchInput | BuffingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: BuffingItemsScalarWhereInput | BuffingItemsScalarWhereInput[]
+  }
+
+  export type StockUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
+    upsert?: StockUpsertWithWhereUniqueWithoutTouchInput | StockUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: StockCreateManyTouchInputEnvelope
+    set?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    disconnect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    delete?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    update?: StockUpdateWithWhereUniqueWithoutTouchInput | StockUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: StockUpdateManyWithWhereWithoutTouchInput | StockUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
+  }
+
+  export type AddPurchaseStockUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
+    upsert?: AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
+    set?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    disconnect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    delete?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    update?: AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput | AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: AddPurchaseStockScalarWhereInput | AddPurchaseStockScalarWhereInput[]
+  }
+
+  export type CustomerTransactionUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
+    upsert?: CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput | CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
+    set?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    disconnect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    delete?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    update?: CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput | CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CustomerTransactionUpdateManyWithWhereWithoutTouchInput | CustomerTransactionUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CustomerTransactionScalarWhereInput | CustomerTransactionScalarWhereInput[]
+  }
+
+  export type QcStockUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
+    upsert?: QcStockUpsertWithWhereUniqueWithoutTouchIdInput | QcStockUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: QcStockCreateManyTouchIdInputEnvelope
+    set?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    disconnect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    delete?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    update?: QcStockUpdateWithWhereUniqueWithoutTouchIdInput | QcStockUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: QcStockUpdateManyWithWhereWithoutTouchIdInput | QcStockUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: QcStockScalarWhereInput | QcStockScalarWhereInput[]
+  }
+
+  export type CastingEntryUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
+    upsert?: CastingEntryUpsertWithWhereUniqueWithoutTouchInput | CastingEntryUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CastingEntryCreateManyTouchInputEnvelope
+    set?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    disconnect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    delete?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    update?: CastingEntryUpdateWithWhereUniqueWithoutTouchInput | CastingEntryUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CastingEntryUpdateManyWithWhereWithoutTouchInput | CastingEntryUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CastingEntryScalarWhereInput | CastingEntryScalarWhereInput[]
+  }
+
+  export type CastingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: CastingItemsUpsertWithWhereUniqueWithoutTouchInput | CastingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CastingItemsCreateManyTouchInputEnvelope
+    set?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    disconnect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    delete?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    update?: CastingItemsUpdateWithWhereUniqueWithoutTouchInput | CastingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CastingItemsUpdateManyWithWhereWithoutTouchInput | CastingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CastingItemsScalarWhereInput | CastingItemsScalarWhereInput[]
+  }
+
+  export type FilingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: FilingItemsUpsertWithWhereUniqueWithoutTouchInput | FilingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: FilingItemsCreateManyTouchInputEnvelope
+    set?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    disconnect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    delete?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    update?: FilingItemsUpdateWithWhereUniqueWithoutTouchInput | FilingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: FilingItemsUpdateManyWithWhereWithoutTouchInput | FilingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: FilingItemsScalarWhereInput | FilingItemsScalarWhereInput[]
+  }
+
+  export type SettingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: SettingItemsUpsertWithWhereUniqueWithoutTouchInput | SettingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: SettingItemsCreateManyTouchInputEnvelope
+    set?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    disconnect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    delete?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    update?: SettingItemsUpdateWithWhereUniqueWithoutTouchInput | SettingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: SettingItemsUpdateManyWithWhereWithoutTouchInput | SettingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: SettingItemsScalarWhereInput | SettingItemsScalarWhereInput[]
+  }
+
+  export type BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: BuffingItemsUpsertWithWhereUniqueWithoutTouchInput | BuffingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: BuffingItemsCreateManyTouchInputEnvelope
+    set?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    disconnect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    delete?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    update?: BuffingItemsUpdateWithWhereUniqueWithoutTouchInput | BuffingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: BuffingItemsUpdateManyWithWhereWithoutTouchInput | BuffingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: BuffingItemsScalarWhereInput | BuffingItemsScalarWhereInput[]
+  }
+
+  export type StockUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
+    upsert?: StockUpsertWithWhereUniqueWithoutTouchInput | StockUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: StockCreateManyTouchInputEnvelope
+    set?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    disconnect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    delete?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    update?: StockUpdateWithWhereUniqueWithoutTouchInput | StockUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: StockUpdateManyWithWhereWithoutTouchInput | StockUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
+  }
+
+  export type AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
+    upsert?: AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
+    set?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    disconnect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    delete?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    update?: AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput | AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: AddPurchaseStockScalarWhereInput | AddPurchaseStockScalarWhereInput[]
+  }
+
+  export type CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
+    upsert?: CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput | CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
+    set?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    disconnect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    delete?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    update?: CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput | CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CustomerTransactionUpdateManyWithWhereWithoutTouchInput | CustomerTransactionUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CustomerTransactionScalarWhereInput | CustomerTransactionScalarWhereInput[]
+  }
+
+  export type QcStockUncheckedUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
+    upsert?: QcStockUpsertWithWhereUniqueWithoutTouchIdInput | QcStockUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: QcStockCreateManyTouchIdInputEnvelope
+    set?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    disconnect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    delete?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    update?: QcStockUpdateWithWhereUniqueWithoutTouchIdInput | QcStockUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: QcStockUpdateManyWithWhereWithoutTouchIdInput | QcStockUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: QcStockScalarWhereInput | QcStockScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -59360,8 +59106,6 @@ export namespace Prisma {
     stock?: StockCreateNestedManyWithoutTouchInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemCreateNestedManyWithoutTouchInput
-    billItems?: BillItemCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchUncheckedCreateWithoutAdd_purchase_stockInput = {
@@ -59377,8 +59121,6 @@ export namespace Prisma {
     stock?: StockUncheckedCreateNestedManyWithoutTouchInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemUncheckedCreateNestedManyWithoutTouchInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchCreateOrConnectWithoutAdd_purchase_stockInput = {
@@ -59482,8 +59224,6 @@ export namespace Prisma {
     stock?: StockUpdateManyWithoutTouchNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUpdateManyWithoutTouchNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutAdd_purchase_stockInput = {
@@ -59499,8 +59239,6 @@ export namespace Prisma {
     stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutTouchNestedInput
   }
 
   export type StockUpsertWithWhereUniqueWithoutPurchaseIdInput = {
@@ -59559,8 +59297,6 @@ export namespace Prisma {
     stock?: StockCreateNestedManyWithoutTouchInput
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemCreateNestedManyWithoutTouchInput
-    billItems?: BillItemCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchUncheckedCreateWithoutCustomer_transactionInput = {
@@ -59576,8 +59312,6 @@ export namespace Prisma {
     stock?: StockUncheckedCreateNestedManyWithoutTouchInput
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemUncheckedCreateNestedManyWithoutTouchInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchCreateOrConnectWithoutCustomer_transactionInput = {
@@ -59685,8 +59419,6 @@ export namespace Prisma {
     stock?: StockUpdateManyWithoutTouchNestedInput
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUpdateManyWithoutTouchNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutCustomer_transactionInput = {
@@ -59702,8 +59434,6 @@ export namespace Prisma {
     stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutTouchNestedInput
   }
 
   export type StockUpsertWithWhereUniqueWithoutCustomer_transactionInput = {
@@ -59969,13 +59699,13 @@ export namespace Prisma {
     weight: number
     stone_weight?: number | null
     total_weight: number
+    touchId?: number | null
     pure: number
     amount: number
     createdAt?: Date | string
     updatedAt?: Date | string
     bill: BillCreateNestedOneWithoutBillItemsInput
     qcStock: QcStockCreateNestedOneWithoutBillItemInput
-    touch?: AddTouchCreateNestedOneWithoutBillItemsInput
   }
 
   export type BillItemUncheckedCreateWithoutAddItemInput = {
@@ -60189,637 +59919,12 @@ export namespace Prisma {
     weight?: FloatFilter<"BillItem"> | number
     stone_weight?: FloatNullableFilter<"BillItem"> | number | null
     total_weight?: FloatFilter<"BillItem"> | number
-    touchId?: IntNullableFilter<"BillItem"> | number | null
+    touchId?: FloatNullableFilter<"BillItem"> | number | null
     pure?: FloatFilter<"BillItem"> | number
     amount?: FloatFilter<"BillItem"> | number
     createdAt?: DateTimeFilter<"BillItem"> | Date | string
     updatedAt?: DateTimeFilter<"BillItem"> | Date | string
     addItemId?: IntNullableFilter<"BillItem"> | number | null
-  }
-
-  export type CastingEntryCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    date: Date | string
-    given_gold: number
-    purity: number
-    final_touch: number
-    pure_value: number
-    copper: number
-    final_weight: number
-    casting_customer: AddCastingCreateNestedOneWithoutEntriesInput
-    items?: CastingItemsCreateNestedManyWithoutCastingEntryInput
-    CastiingTotalBalance?: CastiingTotalBalanceCreateNestedManyWithoutItem_entry_idInput
-  }
-
-  export type CastingEntryUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    date: Date | string
-    given_gold: number
-    purity: number
-    final_touch: number
-    pure_value: number
-    copper: number
-    final_weight: number
-    casting_customer_id: number
-    items?: CastingItemsUncheckedCreateNestedManyWithoutCastingEntryInput
-    CastiingTotalBalance?: CastiingTotalBalanceUncheckedCreateNestedManyWithoutItem_entry_idInput
-  }
-
-  export type CastingEntryCreateOrConnectWithoutTouchInput = {
-    where: CastingEntryWhereUniqueInput
-    create: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput>
-  }
-
-  export type CastingEntryCreateManyTouchInputEnvelope = {
-    data: CastingEntryCreateManyTouchInput | CastingEntryCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CastingItemsCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    item: AddItemCreateNestedOneWithoutCasting_itemsInput
-    castingEntry: CastingEntryCreateNestedOneWithoutItemsInput
-    filingEntry?: FilingEntryCreateNestedManyWithoutCastingItemInput
-    settingEntry?: SettingEntryCreateNestedManyWithoutCastingItemInput
-    buffingEntry?: BuffingEntryCreateNestedManyWithoutCastingItemInput
-    stock?: StockCreateNestedManyWithoutCastingItemInput
-    filingLotMapper?: LotFilingMapperCreateNestedManyWithoutItemIdInput
-    casting_customer: AddCastingCreateNestedOneWithoutCastingitemsInput
-  }
-
-  export type CastingItemsUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    item_id: number
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    casting_entry_id: number
-    casting_customer_id: number
-    filingEntry?: FilingEntryUncheckedCreateNestedManyWithoutCastingItemInput
-    settingEntry?: SettingEntryUncheckedCreateNestedManyWithoutCastingItemInput
-    buffingEntry?: BuffingEntryUncheckedCreateNestedManyWithoutCastingItemInput
-    stock?: StockUncheckedCreateNestedManyWithoutCastingItemInput
-    filingLotMapper?: LotFilingMapperUncheckedCreateNestedManyWithoutItemIdInput
-  }
-
-  export type CastingItemsCreateOrConnectWithoutTouchInput = {
-    where: CastingItemsWhereUniqueInput
-    create: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type CastingItemsCreateManyTouchInputEnvelope = {
-    data: CastingItemsCreateManyTouchInput | CastingItemsCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type FilingItemsCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    stone_option?: $Enums.STONEOPTION | null
-    filing_entry: FilingEntryCreateNestedOneWithoutFilingItemsInput
-    filingitem: AddItemCreateNestedOneWithoutFiling_itemsInput
-    stock?: StockCreateNestedManyWithoutFilingItemInput
-    setting_entry?: SettingEntryCreateNestedManyWithoutFilingItemsInput
-    buffing_entry?: BuffingEntryCreateNestedManyWithoutFiling_itemsInput
-    filing_wastage?: FilingWastageCreateNestedManyWithoutFiling_itemsInput
-    lot_setting_mapper?: LotSettingMapperCreateNestedManyWithoutItemIdInput
-    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutFilingItemIdInput
-    lotFilingMapperId?: LotFilingMapperCreateNestedOneWithoutFiling_itemsInput
-  }
-
-  export type FilingItemsUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    filing_entry_id: number
-    type: $Enums.CASTINGENTRYTYPE
-    filing_item_id: number
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    stone_option?: $Enums.STONEOPTION | null
-    lot_filing_mapper_id?: number | null
-    stock?: StockUncheckedCreateNestedManyWithoutFilingItemInput
-    setting_entry?: SettingEntryUncheckedCreateNestedManyWithoutFilingItemsInput
-    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutFiling_itemsInput
-    filing_wastage?: FilingWastageUncheckedCreateNestedManyWithoutFiling_itemsInput
-    lot_setting_mapper?: LotSettingMapperUncheckedCreateNestedManyWithoutItemIdInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutFilingItemIdInput
-  }
-
-  export type FilingItemsCreateOrConnectWithoutTouchInput = {
-    where: FilingItemsWhereUniqueInput
-    create: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type FilingItemsCreateManyTouchInputEnvelope = {
-    data: FilingItemsCreateManyTouchInput | FilingItemsCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type SettingItemsCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    type?: $Enums.CASTINGENTRYTYPE | null
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    item: AddItemCreateNestedOneWithoutSetting_itemsInput
-    setting_wastage?: SettingWastageCreateNestedManyWithoutSetting_itemsInput
-    buffing_entry?: BuffingEntryCreateNestedManyWithoutSetting_itemsInput
-    stock?: StockCreateNestedManyWithoutSettingItemInput
-    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutSettingItemIdInput
-    settingEntryId: SettingEntryCreateNestedOneWithoutSettingItemsInput
-  }
-
-  export type SettingItemsUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type?: $Enums.CASTINGENTRYTYPE | null
-    setting_item_id: number
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    setting_entry_id: number
-    setting_wastage?: SettingWastageUncheckedCreateNestedManyWithoutSetting_itemsInput
-    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutSetting_itemsInput
-    stock?: StockUncheckedCreateNestedManyWithoutSettingItemInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutSettingItemIdInput
-  }
-
-  export type SettingItemsCreateOrConnectWithoutTouchInput = {
-    where: SettingItemsWhereUniqueInput
-    create: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type SettingItemsCreateManyTouchInputEnvelope = {
-    data: SettingItemsCreateManyTouchInput | SettingItemsCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type BuffingItemsCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    item: AddItemCreateNestedOneWithoutBuffing_itemsInput
-    stock?: StockCreateNestedManyWithoutBuffingItemInput
-    buffing_wastage?: BuffingWastageCreateNestedManyWithoutBuffing_itemsInput
-    buffingEntryId: BuffingEntryCreateNestedOneWithoutBuffingItemsInput
-  }
-
-  export type BuffingItemsUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    buffing_item_id: number
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    buffing_entry_id: number
-    stock?: StockUncheckedCreateNestedManyWithoutBuffingItemInput
-    buffing_wastage?: BuffingWastageUncheckedCreateNestedManyWithoutBuffing_itemsInput
-  }
-
-  export type BuffingItemsCreateOrConnectWithoutTouchInput = {
-    where: BuffingItemsWhereUniqueInput
-    create: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type BuffingItemsCreateManyTouchInputEnvelope = {
-    data: BuffingItemsCreateManyTouchInput | BuffingItemsCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type StockCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    item_type?: $Enums.ITEMTYPE | null
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    castingItem?: CastingItemsCreateNestedOneWithoutStockInput
-    filingItem?: FilingItemsCreateNestedOneWithoutStockInput
-    settingItem?: SettingItemsCreateNestedOneWithoutStockInput
-    buffingItem?: BuffingItemsCreateNestedOneWithoutStockInput
-    item?: AddItemCreateNestedOneWithoutStockInput
-    casting_customer?: AddCastingCreateNestedOneWithoutStockInput
-    purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
-    customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
-  }
-
-  export type StockUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    casting_item_id?: number | null
-    filing_item_id?: number | null
-    setting_item_id?: number | null
-    buffing_item_id?: number | null
-    item_type?: $Enums.ITEMTYPE | null
-    item_id?: number | null
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    casting_customer_id?: number | null
-    purchase_id?: number | null
-    customer_transaction_id?: number | null
-  }
-
-  export type StockCreateOrConnectWithoutTouchInput = {
-    where: StockWhereUniqueInput
-    create: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput>
-  }
-
-  export type StockCreateManyTouchInputEnvelope = {
-    data: StockCreateManyTouchInput | StockCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AddPurchaseStockCreateWithoutTouchIdInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    item: $Enums.ITEMTYPE
-    weight: number
-    purity: number
-    rate: number
-    totalValue: number
-    remarks?: string | null
-    SupplierId: AddSupplierItemCreateNestedOneWithoutAddPurchaseStockInput
-    Stock?: StockCreateNestedManyWithoutPurchaseIdInput
-  }
-
-  export type AddPurchaseStockUncheckedCreateWithoutTouchIdInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    supplierId: number
-    item: $Enums.ITEMTYPE
-    weight: number
-    purity: number
-    rate: number
-    totalValue: number
-    remarks?: string | null
-    Stock?: StockUncheckedCreateNestedManyWithoutPurchaseIdInput
-  }
-
-  export type AddPurchaseStockCreateOrConnectWithoutTouchIdInput = {
-    where: AddPurchaseStockWhereUniqueInput
-    create: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput>
-  }
-
-  export type AddPurchaseStockCreateManyTouchIdInputEnvelope = {
-    data: AddPurchaseStockCreateManyTouchIdInput | AddPurchaseStockCreateManyTouchIdInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CustomerTransactionCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    date: Date | string
-    value: number
-    type: string
-    purity?: number | null
-    goldRate?: number | null
-    usedPurity?: number | null
-    customer: AddCustomerCreateNestedOneWithoutTransactionsInput
-    stock?: StockCreateNestedManyWithoutCustomer_transactionInput
-  }
-
-  export type CustomerTransactionUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    date: Date | string
-    value: number
-    type: string
-    purity?: number | null
-    goldRate?: number | null
-    customerId: number
-    usedPurity?: number | null
-    stock?: StockUncheckedCreateNestedManyWithoutCustomer_transactionInput
-  }
-
-  export type CustomerTransactionCreateOrConnectWithoutTouchInput = {
-    where: CustomerTransactionWhereUniqueInput
-    create: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput>
-  }
-
-  export type CustomerTransactionCreateManyTouchInputEnvelope = {
-    data: CustomerTransactionCreateManyTouchInput | CustomerTransactionCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type QcStockCreateWithoutTouchIdInput = {
-    createdAt: Date | string
-    updatedAt?: Date | string
-    weight: number
-    stone_weight: number
-    final_weight: number
-    purity: number
-    remarks?: string | null
-    itemId: AddItemCreateNestedOneWithoutQCStockInput
-    BillItem?: BillItemCreateNestedManyWithoutQcStockInput
-  }
-
-  export type QcStockUncheckedCreateWithoutTouchIdInput = {
-    id?: number
-    createdAt: Date | string
-    updatedAt?: Date | string
-    item_id: number
-    weight: number
-    stone_weight: number
-    final_weight: number
-    purity: number
-    remarks?: string | null
-    BillItem?: BillItemUncheckedCreateNestedManyWithoutQcStockInput
-  }
-
-  export type QcStockCreateOrConnectWithoutTouchIdInput = {
-    where: QcStockWhereUniqueInput
-    create: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput>
-  }
-
-  export type QcStockCreateManyTouchIdInputEnvelope = {
-    data: QcStockCreateManyTouchIdInput | QcStockCreateManyTouchIdInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ReceivedItemCreateWithoutTouchInput = {
-    type: $Enums.ITEMTYPE
-    date: string
-    gold_rate?: number | null
-    gold?: number | null
-    purity_weight: number
-    amount?: number | null
-    hallmark_charge?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    bill: BillCreateNestedOneWithoutReceivedItemsInput
-  }
-
-  export type ReceivedItemUncheckedCreateWithoutTouchInput = {
-    id?: number
-    bill_id: number
-    type: $Enums.ITEMTYPE
-    date: string
-    gold_rate?: number | null
-    gold?: number | null
-    purity_weight: number
-    amount?: number | null
-    hallmark_charge?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ReceivedItemCreateOrConnectWithoutTouchInput = {
-    where: ReceivedItemWhereUniqueInput
-    create: XOR<ReceivedItemCreateWithoutTouchInput, ReceivedItemUncheckedCreateWithoutTouchInput>
-  }
-
-  export type ReceivedItemCreateManyTouchInputEnvelope = {
-    data: ReceivedItemCreateManyTouchInput | ReceivedItemCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type BillItemCreateWithoutTouchInput = {
-    item_name: string
-    weight: number
-    stone_weight?: number | null
-    total_weight: number
-    pure: number
-    amount: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    bill: BillCreateNestedOneWithoutBillItemsInput
-    qcStock: QcStockCreateNestedOneWithoutBillItemInput
-    AddItem?: AddItemCreateNestedOneWithoutBillItemsInput
-  }
-
-  export type BillItemUncheckedCreateWithoutTouchInput = {
-    id?: number
-    bill_id: number
-    qc_stock_id: number
-    item_name: string
-    weight: number
-    stone_weight?: number | null
-    total_weight: number
-    pure: number
-    amount: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    addItemId?: number | null
-  }
-
-  export type BillItemCreateOrConnectWithoutTouchInput = {
-    where: BillItemWhereUniqueInput
-    create: XOR<BillItemCreateWithoutTouchInput, BillItemUncheckedCreateWithoutTouchInput>
-  }
-
-  export type BillItemCreateManyTouchInputEnvelope = {
-    data: BillItemCreateManyTouchInput | BillItemCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CastingEntryUpsertWithWhereUniqueWithoutTouchInput = {
-    where: CastingEntryWhereUniqueInput
-    update: XOR<CastingEntryUpdateWithoutTouchInput, CastingEntryUncheckedUpdateWithoutTouchInput>
-    create: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput>
-  }
-
-  export type CastingEntryUpdateWithWhereUniqueWithoutTouchInput = {
-    where: CastingEntryWhereUniqueInput
-    data: XOR<CastingEntryUpdateWithoutTouchInput, CastingEntryUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type CastingEntryUpdateManyWithWhereWithoutTouchInput = {
-    where: CastingEntryScalarWhereInput
-    data: XOR<CastingEntryUpdateManyMutationInput, CastingEntryUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type CastingItemsUpsertWithWhereUniqueWithoutTouchInput = {
-    where: CastingItemsWhereUniqueInput
-    update: XOR<CastingItemsUpdateWithoutTouchInput, CastingItemsUncheckedUpdateWithoutTouchInput>
-    create: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type CastingItemsUpdateWithWhereUniqueWithoutTouchInput = {
-    where: CastingItemsWhereUniqueInput
-    data: XOR<CastingItemsUpdateWithoutTouchInput, CastingItemsUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type CastingItemsUpdateManyWithWhereWithoutTouchInput = {
-    where: CastingItemsScalarWhereInput
-    data: XOR<CastingItemsUpdateManyMutationInput, CastingItemsUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type FilingItemsUpsertWithWhereUniqueWithoutTouchInput = {
-    where: FilingItemsWhereUniqueInput
-    update: XOR<FilingItemsUpdateWithoutTouchInput, FilingItemsUncheckedUpdateWithoutTouchInput>
-    create: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type FilingItemsUpdateWithWhereUniqueWithoutTouchInput = {
-    where: FilingItemsWhereUniqueInput
-    data: XOR<FilingItemsUpdateWithoutTouchInput, FilingItemsUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type FilingItemsUpdateManyWithWhereWithoutTouchInput = {
-    where: FilingItemsScalarWhereInput
-    data: XOR<FilingItemsUpdateManyMutationInput, FilingItemsUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type SettingItemsUpsertWithWhereUniqueWithoutTouchInput = {
-    where: SettingItemsWhereUniqueInput
-    update: XOR<SettingItemsUpdateWithoutTouchInput, SettingItemsUncheckedUpdateWithoutTouchInput>
-    create: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type SettingItemsUpdateWithWhereUniqueWithoutTouchInput = {
-    where: SettingItemsWhereUniqueInput
-    data: XOR<SettingItemsUpdateWithoutTouchInput, SettingItemsUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type SettingItemsUpdateManyWithWhereWithoutTouchInput = {
-    where: SettingItemsScalarWhereInput
-    data: XOR<SettingItemsUpdateManyMutationInput, SettingItemsUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type BuffingItemsUpsertWithWhereUniqueWithoutTouchInput = {
-    where: BuffingItemsWhereUniqueInput
-    update: XOR<BuffingItemsUpdateWithoutTouchInput, BuffingItemsUncheckedUpdateWithoutTouchInput>
-    create: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type BuffingItemsUpdateWithWhereUniqueWithoutTouchInput = {
-    where: BuffingItemsWhereUniqueInput
-    data: XOR<BuffingItemsUpdateWithoutTouchInput, BuffingItemsUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type BuffingItemsUpdateManyWithWhereWithoutTouchInput = {
-    where: BuffingItemsScalarWhereInput
-    data: XOR<BuffingItemsUpdateManyMutationInput, BuffingItemsUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type StockUpsertWithWhereUniqueWithoutTouchInput = {
-    where: StockWhereUniqueInput
-    update: XOR<StockUpdateWithoutTouchInput, StockUncheckedUpdateWithoutTouchInput>
-    create: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput>
-  }
-
-  export type StockUpdateWithWhereUniqueWithoutTouchInput = {
-    where: StockWhereUniqueInput
-    data: XOR<StockUpdateWithoutTouchInput, StockUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type StockUpdateManyWithWhereWithoutTouchInput = {
-    where: StockScalarWhereInput
-    data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput = {
-    where: AddPurchaseStockWhereUniqueInput
-    update: XOR<AddPurchaseStockUpdateWithoutTouchIdInput, AddPurchaseStockUncheckedUpdateWithoutTouchIdInput>
-    create: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput>
-  }
-
-  export type AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput = {
-    where: AddPurchaseStockWhereUniqueInput
-    data: XOR<AddPurchaseStockUpdateWithoutTouchIdInput, AddPurchaseStockUncheckedUpdateWithoutTouchIdInput>
-  }
-
-  export type AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput = {
-    where: AddPurchaseStockScalarWhereInput
-    data: XOR<AddPurchaseStockUpdateManyMutationInput, AddPurchaseStockUncheckedUpdateManyWithoutTouchIdInput>
-  }
-
-  export type CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput = {
-    where: CustomerTransactionWhereUniqueInput
-    update: XOR<CustomerTransactionUpdateWithoutTouchInput, CustomerTransactionUncheckedUpdateWithoutTouchInput>
-    create: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput>
-  }
-
-  export type CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput = {
-    where: CustomerTransactionWhereUniqueInput
-    data: XOR<CustomerTransactionUpdateWithoutTouchInput, CustomerTransactionUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type CustomerTransactionUpdateManyWithWhereWithoutTouchInput = {
-    where: CustomerTransactionScalarWhereInput
-    data: XOR<CustomerTransactionUpdateManyMutationInput, CustomerTransactionUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type QcStockUpsertWithWhereUniqueWithoutTouchIdInput = {
-    where: QcStockWhereUniqueInput
-    update: XOR<QcStockUpdateWithoutTouchIdInput, QcStockUncheckedUpdateWithoutTouchIdInput>
-    create: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput>
-  }
-
-  export type QcStockUpdateWithWhereUniqueWithoutTouchIdInput = {
-    where: QcStockWhereUniqueInput
-    data: XOR<QcStockUpdateWithoutTouchIdInput, QcStockUncheckedUpdateWithoutTouchIdInput>
-  }
-
-  export type QcStockUpdateManyWithWhereWithoutTouchIdInput = {
-    where: QcStockScalarWhereInput
-    data: XOR<QcStockUpdateManyMutationInput, QcStockUncheckedUpdateManyWithoutTouchIdInput>
-  }
-
-  export type ReceivedItemUpsertWithWhereUniqueWithoutTouchInput = {
-    where: ReceivedItemWhereUniqueInput
-    update: XOR<ReceivedItemUpdateWithoutTouchInput, ReceivedItemUncheckedUpdateWithoutTouchInput>
-    create: XOR<ReceivedItemCreateWithoutTouchInput, ReceivedItemUncheckedCreateWithoutTouchInput>
-  }
-
-  export type ReceivedItemUpdateWithWhereUniqueWithoutTouchInput = {
-    where: ReceivedItemWhereUniqueInput
-    data: XOR<ReceivedItemUpdateWithoutTouchInput, ReceivedItemUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type ReceivedItemUpdateManyWithWhereWithoutTouchInput = {
-    where: ReceivedItemScalarWhereInput
-    data: XOR<ReceivedItemUpdateManyMutationInput, ReceivedItemUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type ReceivedItemScalarWhereInput = {
-    AND?: ReceivedItemScalarWhereInput | ReceivedItemScalarWhereInput[]
-    OR?: ReceivedItemScalarWhereInput[]
-    NOT?: ReceivedItemScalarWhereInput | ReceivedItemScalarWhereInput[]
-    id?: IntFilter<"ReceivedItem"> | number
-    bill_id?: IntFilter<"ReceivedItem"> | number
-    type?: EnumITEMTYPEFilter<"ReceivedItem"> | $Enums.ITEMTYPE
-    date?: StringFilter<"ReceivedItem"> | string
-    gold_rate?: FloatNullableFilter<"ReceivedItem"> | number | null
-    gold?: FloatNullableFilter<"ReceivedItem"> | number | null
-    touchId?: IntNullableFilter<"ReceivedItem"> | number | null
-    purity_weight?: FloatFilter<"ReceivedItem"> | number
-    amount?: FloatNullableFilter<"ReceivedItem"> | number | null
-    hallmark_charge?: FloatNullableFilter<"ReceivedItem"> | number | null
-    createdAt?: DateTimeFilter<"ReceivedItem"> | Date | string
-    updatedAt?: DateTimeFilter<"ReceivedItem"> | Date | string
-  }
-
-  export type BillItemUpsertWithWhereUniqueWithoutTouchInput = {
-    where: BillItemWhereUniqueInput
-    update: XOR<BillItemUpdateWithoutTouchInput, BillItemUncheckedUpdateWithoutTouchInput>
-    create: XOR<BillItemCreateWithoutTouchInput, BillItemUncheckedCreateWithoutTouchInput>
-  }
-
-  export type BillItemUpdateWithWhereUniqueWithoutTouchInput = {
-    where: BillItemWhereUniqueInput
-    data: XOR<BillItemUpdateWithoutTouchInput, BillItemUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type BillItemUpdateManyWithWhereWithoutTouchInput = {
-    where: BillItemScalarWhereInput
-    data: XOR<BillItemUpdateManyMutationInput, BillItemUncheckedUpdateManyWithoutTouchInput>
   }
 
   export type AddItemCreateWithoutQCStockInput = {
@@ -60864,8 +59969,6 @@ export namespace Prisma {
     stock?: StockCreateNestedManyWithoutTouchInput
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
-    receivedItems?: ReceivedItemCreateNestedManyWithoutTouchInput
-    billItems?: BillItemCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchUncheckedCreateWithoutQCStockInput = {
@@ -60881,8 +59984,6 @@ export namespace Prisma {
     stock?: StockUncheckedCreateNestedManyWithoutTouchInput
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
-    receivedItems?: ReceivedItemUncheckedCreateNestedManyWithoutTouchInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchCreateOrConnectWithoutQCStockInput = {
@@ -60895,13 +59996,13 @@ export namespace Prisma {
     weight: number
     stone_weight?: number | null
     total_weight: number
+    touchId?: number | null
     pure: number
     amount: number
     createdAt?: Date | string
     updatedAt?: Date | string
     bill: BillCreateNestedOneWithoutBillItemsInput
     AddItem?: AddItemCreateNestedOneWithoutBillItemsInput
-    touch?: AddTouchCreateNestedOneWithoutBillItemsInput
   }
 
   export type BillItemUncheckedCreateWithoutQcStockInput = {
@@ -60988,8 +60089,6 @@ export namespace Prisma {
     stock?: StockUpdateManyWithoutTouchNestedInput
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
-    receivedItems?: ReceivedItemUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUpdateManyWithoutTouchNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutQCStockInput = {
@@ -61005,8 +60104,6 @@ export namespace Prisma {
     stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
-    receivedItems?: ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutTouchNestedInput
   }
 
   export type BillItemUpsertWithWhereUniqueWithoutQcStockInput = {
@@ -61037,8 +60134,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemCreateNestedManyWithoutTouchInput
-    billItems?: BillItemCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchUncheckedCreateWithoutCasting_entryInput = {
@@ -61054,8 +60149,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemUncheckedCreateNestedManyWithoutTouchInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchCreateOrConnectWithoutCasting_entryInput = {
@@ -61184,8 +60277,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUpdateManyWithoutTouchNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutCasting_entryInput = {
@@ -61201,8 +60292,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutTouchNestedInput
   }
 
   export type AddCastingUpsertWithoutEntriesInput = {
@@ -61296,8 +60385,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemCreateNestedManyWithoutTouchInput
-    billItems?: BillItemCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchUncheckedCreateWithoutCasting_itemsInput = {
@@ -61313,8 +60400,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemUncheckedCreateNestedManyWithoutTouchInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchCreateOrConnectWithoutCasting_itemsInput = {
@@ -61592,8 +60677,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUpdateManyWithoutTouchNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutCasting_itemsInput = {
@@ -61609,8 +60692,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutTouchNestedInput
   }
 
   export type AddItemUpsertWithoutCasting_itemsInput = {
@@ -63076,8 +62157,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemCreateNestedManyWithoutTouchInput
-    billItems?: BillItemCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchUncheckedCreateWithoutFiling_itemsInput = {
@@ -63093,8 +62172,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemUncheckedCreateNestedManyWithoutTouchInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchCreateOrConnectWithoutFiling_itemsInput = {
@@ -63386,8 +62463,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUpdateManyWithoutTouchNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutFiling_itemsInput = {
@@ -63403,8 +62478,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutTouchNestedInput
   }
 
   export type StockUpsertWithWhereUniqueWithoutFilingItemInput = {
@@ -64186,8 +63259,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemCreateNestedManyWithoutTouchInput
-    billItems?: BillItemCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchUncheckedCreateWithoutSetting_itemsInput = {
@@ -64203,8 +63274,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemUncheckedCreateNestedManyWithoutTouchInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchCreateOrConnectWithoutSetting_itemsInput = {
@@ -64425,8 +63494,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUpdateManyWithoutTouchNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutSetting_itemsInput = {
@@ -64442,8 +63509,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutTouchNestedInput
   }
 
   export type SettingWastageUpsertWithWhereUniqueWithoutSetting_itemsInput = {
@@ -65509,8 +64574,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemCreateNestedManyWithoutTouchInput
-    billItems?: BillItemCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchUncheckedCreateWithoutBuffing_itemsInput = {
@@ -65526,8 +64589,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemUncheckedCreateNestedManyWithoutTouchInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchCreateOrConnectWithoutBuffing_itemsInput = {
@@ -65699,8 +64760,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUpdateManyWithoutTouchNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutBuffing_itemsInput = {
@@ -65716,8 +64775,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutTouchNestedInput
   }
 
   export type StockUpsertWithWhereUniqueWithoutBuffingItemInput = {
@@ -66568,8 +65625,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemCreateNestedManyWithoutTouchInput
-    billItems?: BillItemCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchUncheckedCreateWithoutStockInput = {
@@ -66585,8 +65640,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemUncheckedCreateNestedManyWithoutTouchInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutTouchInput
   }
 
   export type AddTouchCreateOrConnectWithoutStockInput = {
@@ -66913,8 +65966,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUpdateManyWithoutTouchNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutStockInput = {
@@ -66930,8 +65981,6 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutTouchNestedInput
   }
 
   export type AddCastingUpsertWithoutStockInput = {
@@ -67139,13 +66188,13 @@ export namespace Prisma {
     weight: number
     stone_weight?: number | null
     total_weight: number
+    touchId?: number | null
     pure: number
     amount: number
     createdAt?: Date | string
     updatedAt?: Date | string
     qcStock: QcStockCreateNestedOneWithoutBillItemInput
     AddItem?: AddItemCreateNestedOneWithoutBillItemsInput
-    touch?: AddTouchCreateNestedOneWithoutBillItemsInput
   }
 
   export type BillItemUncheckedCreateWithoutBillInput = {
@@ -67178,12 +66227,12 @@ export namespace Prisma {
     date: string
     gold_rate?: number | null
     gold?: number | null
+    touchId?: number | null
     purity_weight: number
     amount?: number | null
     hallmark_charge?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    touch?: AddTouchCreateNestedOneWithoutReceivedItemsInput
   }
 
   export type ReceivedItemUncheckedCreateWithoutBillInput = {
@@ -67274,6 +66323,24 @@ export namespace Prisma {
   export type ReceivedItemUpdateManyWithWhereWithoutBillInput = {
     where: ReceivedItemScalarWhereInput
     data: XOR<ReceivedItemUpdateManyMutationInput, ReceivedItemUncheckedUpdateManyWithoutBillInput>
+  }
+
+  export type ReceivedItemScalarWhereInput = {
+    AND?: ReceivedItemScalarWhereInput | ReceivedItemScalarWhereInput[]
+    OR?: ReceivedItemScalarWhereInput[]
+    NOT?: ReceivedItemScalarWhereInput | ReceivedItemScalarWhereInput[]
+    id?: IntFilter<"ReceivedItem"> | number
+    bill_id?: IntFilter<"ReceivedItem"> | number
+    type?: EnumITEMTYPEFilter<"ReceivedItem"> | $Enums.ITEMTYPE
+    date?: StringFilter<"ReceivedItem"> | string
+    gold_rate?: FloatNullableFilter<"ReceivedItem"> | number | null
+    gold?: FloatNullableFilter<"ReceivedItem"> | number | null
+    touchId?: FloatNullableFilter<"ReceivedItem"> | number | null
+    purity_weight?: FloatFilter<"ReceivedItem"> | number
+    amount?: FloatNullableFilter<"ReceivedItem"> | number | null
+    hallmark_charge?: FloatNullableFilter<"ReceivedItem"> | number | null
+    createdAt?: DateTimeFilter<"ReceivedItem"> | Date | string
+    updatedAt?: DateTimeFilter<"ReceivedItem"> | Date | string
   }
 
   export type BillCreateWithoutBillItemsInput = {
@@ -67378,44 +66445,6 @@ export namespace Prisma {
   export type AddItemCreateOrConnectWithoutBillItemsInput = {
     where: AddItemWhereUniqueInput
     create: XOR<AddItemCreateWithoutBillItemsInput, AddItemUncheckedCreateWithoutBillItemsInput>
-  }
-
-  export type AddTouchCreateWithoutBillItemsInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    touch: number
-    casting_entry?: CastingEntryCreateNestedManyWithoutTouchInput
-    casting_items?: CastingItemsCreateNestedManyWithoutTouchInput
-    filing_items?: FilingItemsCreateNestedManyWithoutTouchInput
-    setting_items?: SettingItemsCreateNestedManyWithoutTouchInput
-    buffing_items?: BuffingItemsCreateNestedManyWithoutTouchInput
-    stock?: StockCreateNestedManyWithoutTouchInput
-    add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
-    customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
-    QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemCreateNestedManyWithoutTouchInput
-  }
-
-  export type AddTouchUncheckedCreateWithoutBillItemsInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    touch: number
-    casting_entry?: CastingEntryUncheckedCreateNestedManyWithoutTouchInput
-    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutTouchInput
-    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutTouchInput
-    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutTouchInput
-    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutTouchInput
-    stock?: StockUncheckedCreateNestedManyWithoutTouchInput
-    add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
-    customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
-    QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    receivedItems?: ReceivedItemUncheckedCreateNestedManyWithoutTouchInput
-  }
-
-  export type AddTouchCreateOrConnectWithoutBillItemsInput = {
-    where: AddTouchWhereUniqueInput
-    create: XOR<AddTouchCreateWithoutBillItemsInput, AddTouchUncheckedCreateWithoutBillItemsInput>
   }
 
   export type BillUpsertWithoutBillItemsInput = {
@@ -67540,50 +66569,6 @@ export namespace Prisma {
     QCStock?: QcStockUncheckedUpdateManyWithoutItemIdNestedInput
   }
 
-  export type AddTouchUpsertWithoutBillItemsInput = {
-    update: XOR<AddTouchUpdateWithoutBillItemsInput, AddTouchUncheckedUpdateWithoutBillItemsInput>
-    create: XOR<AddTouchCreateWithoutBillItemsInput, AddTouchUncheckedCreateWithoutBillItemsInput>
-    where?: AddTouchWhereInput
-  }
-
-  export type AddTouchUpdateToOneWithWhereWithoutBillItemsInput = {
-    where?: AddTouchWhereInput
-    data: XOR<AddTouchUpdateWithoutBillItemsInput, AddTouchUncheckedUpdateWithoutBillItemsInput>
-  }
-
-  export type AddTouchUpdateWithoutBillItemsInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
-    casting_entry?: CastingEntryUpdateManyWithoutTouchNestedInput
-    casting_items?: CastingItemsUpdateManyWithoutTouchNestedInput
-    filing_items?: FilingItemsUpdateManyWithoutTouchNestedInput
-    setting_items?: SettingItemsUpdateManyWithoutTouchNestedInput
-    buffing_items?: BuffingItemsUpdateManyWithoutTouchNestedInput
-    stock?: StockUpdateManyWithoutTouchNestedInput
-    add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
-    customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
-    QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUpdateManyWithoutTouchNestedInput
-  }
-
-  export type AddTouchUncheckedUpdateWithoutBillItemsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
-    casting_entry?: CastingEntryUncheckedUpdateManyWithoutTouchNestedInput
-    casting_items?: CastingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    filing_items?: FilingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    setting_items?: SettingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
-    add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
-    QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    receivedItems?: ReceivedItemUncheckedUpdateManyWithoutTouchNestedInput
-  }
-
   export type BillCreateWithoutReceivedItemsInput = {
     bill_no: string
     date: string
@@ -67626,44 +66611,6 @@ export namespace Prisma {
   export type BillCreateOrConnectWithoutReceivedItemsInput = {
     where: BillWhereUniqueInput
     create: XOR<BillCreateWithoutReceivedItemsInput, BillUncheckedCreateWithoutReceivedItemsInput>
-  }
-
-  export type AddTouchCreateWithoutReceivedItemsInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    touch: number
-    casting_entry?: CastingEntryCreateNestedManyWithoutTouchInput
-    casting_items?: CastingItemsCreateNestedManyWithoutTouchInput
-    filing_items?: FilingItemsCreateNestedManyWithoutTouchInput
-    setting_items?: SettingItemsCreateNestedManyWithoutTouchInput
-    buffing_items?: BuffingItemsCreateNestedManyWithoutTouchInput
-    stock?: StockCreateNestedManyWithoutTouchInput
-    add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
-    customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
-    QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    billItems?: BillItemCreateNestedManyWithoutTouchInput
-  }
-
-  export type AddTouchUncheckedCreateWithoutReceivedItemsInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    touch: number
-    casting_entry?: CastingEntryUncheckedCreateNestedManyWithoutTouchInput
-    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutTouchInput
-    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutTouchInput
-    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutTouchInput
-    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutTouchInput
-    stock?: StockUncheckedCreateNestedManyWithoutTouchInput
-    add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
-    customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
-    QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutTouchInput
-  }
-
-  export type AddTouchCreateOrConnectWithoutReceivedItemsInput = {
-    where: AddTouchWhereUniqueInput
-    create: XOR<AddTouchCreateWithoutReceivedItemsInput, AddTouchUncheckedCreateWithoutReceivedItemsInput>
   }
 
   export type BillUpsertWithoutReceivedItemsInput = {
@@ -67716,48 +66663,503 @@ export namespace Prisma {
     billItems?: BillItemUncheckedUpdateManyWithoutBillNestedInput
   }
 
-  export type AddTouchUpsertWithoutReceivedItemsInput = {
-    update: XOR<AddTouchUpdateWithoutReceivedItemsInput, AddTouchUncheckedUpdateWithoutReceivedItemsInput>
-    create: XOR<AddTouchCreateWithoutReceivedItemsInput, AddTouchUncheckedCreateWithoutReceivedItemsInput>
-    where?: AddTouchWhereInput
+  export type CastingEntryCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    date: Date | string
+    given_gold: number
+    purity: number
+    final_touch: number
+    pure_value: number
+    copper: number
+    final_weight: number
+    casting_customer: AddCastingCreateNestedOneWithoutEntriesInput
+    items?: CastingItemsCreateNestedManyWithoutCastingEntryInput
+    CastiingTotalBalance?: CastiingTotalBalanceCreateNestedManyWithoutItem_entry_idInput
   }
 
-  export type AddTouchUpdateToOneWithWhereWithoutReceivedItemsInput = {
-    where?: AddTouchWhereInput
-    data: XOR<AddTouchUpdateWithoutReceivedItemsInput, AddTouchUncheckedUpdateWithoutReceivedItemsInput>
+  export type CastingEntryUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    date: Date | string
+    given_gold: number
+    purity: number
+    final_touch: number
+    pure_value: number
+    copper: number
+    final_weight: number
+    casting_customer_id: number
+    items?: CastingItemsUncheckedCreateNestedManyWithoutCastingEntryInput
+    CastiingTotalBalance?: CastiingTotalBalanceUncheckedCreateNestedManyWithoutItem_entry_idInput
   }
 
-  export type AddTouchUpdateWithoutReceivedItemsInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
-    casting_entry?: CastingEntryUpdateManyWithoutTouchNestedInput
-    casting_items?: CastingItemsUpdateManyWithoutTouchNestedInput
-    filing_items?: FilingItemsUpdateManyWithoutTouchNestedInput
-    setting_items?: SettingItemsUpdateManyWithoutTouchNestedInput
-    buffing_items?: BuffingItemsUpdateManyWithoutTouchNestedInput
-    stock?: StockUpdateManyWithoutTouchNestedInput
-    add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
-    customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
-    QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    billItems?: BillItemUpdateManyWithoutTouchNestedInput
+  export type CastingEntryCreateOrConnectWithoutTouchInput = {
+    where: CastingEntryWhereUniqueInput
+    create: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput>
   }
 
-  export type AddTouchUncheckedUpdateWithoutReceivedItemsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
-    casting_entry?: CastingEntryUncheckedUpdateManyWithoutTouchNestedInput
-    casting_items?: CastingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    filing_items?: FilingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    setting_items?: SettingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
-    add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
-    QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutTouchNestedInput
+  export type CastingEntryCreateManyTouchInputEnvelope = {
+    data: CastingEntryCreateManyTouchInput | CastingEntryCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CastingItemsCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    item: AddItemCreateNestedOneWithoutCasting_itemsInput
+    castingEntry: CastingEntryCreateNestedOneWithoutItemsInput
+    filingEntry?: FilingEntryCreateNestedManyWithoutCastingItemInput
+    settingEntry?: SettingEntryCreateNestedManyWithoutCastingItemInput
+    buffingEntry?: BuffingEntryCreateNestedManyWithoutCastingItemInput
+    stock?: StockCreateNestedManyWithoutCastingItemInput
+    filingLotMapper?: LotFilingMapperCreateNestedManyWithoutItemIdInput
+    casting_customer: AddCastingCreateNestedOneWithoutCastingitemsInput
+  }
+
+  export type CastingItemsUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    item_id: number
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    casting_entry_id: number
+    casting_customer_id: number
+    filingEntry?: FilingEntryUncheckedCreateNestedManyWithoutCastingItemInput
+    settingEntry?: SettingEntryUncheckedCreateNestedManyWithoutCastingItemInput
+    buffingEntry?: BuffingEntryUncheckedCreateNestedManyWithoutCastingItemInput
+    stock?: StockUncheckedCreateNestedManyWithoutCastingItemInput
+    filingLotMapper?: LotFilingMapperUncheckedCreateNestedManyWithoutItemIdInput
+  }
+
+  export type CastingItemsCreateOrConnectWithoutTouchInput = {
+    where: CastingItemsWhereUniqueInput
+    create: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type CastingItemsCreateManyTouchInputEnvelope = {
+    data: CastingItemsCreateManyTouchInput | CastingItemsCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FilingItemsCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    stone_option?: $Enums.STONEOPTION | null
+    filing_entry: FilingEntryCreateNestedOneWithoutFilingItemsInput
+    filingitem: AddItemCreateNestedOneWithoutFiling_itemsInput
+    stock?: StockCreateNestedManyWithoutFilingItemInput
+    setting_entry?: SettingEntryCreateNestedManyWithoutFilingItemsInput
+    buffing_entry?: BuffingEntryCreateNestedManyWithoutFiling_itemsInput
+    filing_wastage?: FilingWastageCreateNestedManyWithoutFiling_itemsInput
+    lot_setting_mapper?: LotSettingMapperCreateNestedManyWithoutItemIdInput
+    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutFilingItemIdInput
+    lotFilingMapperId?: LotFilingMapperCreateNestedOneWithoutFiling_itemsInput
+  }
+
+  export type FilingItemsUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    filing_entry_id: number
+    type: $Enums.CASTINGENTRYTYPE
+    filing_item_id: number
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    stone_option?: $Enums.STONEOPTION | null
+    lot_filing_mapper_id?: number | null
+    stock?: StockUncheckedCreateNestedManyWithoutFilingItemInput
+    setting_entry?: SettingEntryUncheckedCreateNestedManyWithoutFilingItemsInput
+    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutFiling_itemsInput
+    filing_wastage?: FilingWastageUncheckedCreateNestedManyWithoutFiling_itemsInput
+    lot_setting_mapper?: LotSettingMapperUncheckedCreateNestedManyWithoutItemIdInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutFilingItemIdInput
+  }
+
+  export type FilingItemsCreateOrConnectWithoutTouchInput = {
+    where: FilingItemsWhereUniqueInput
+    create: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type FilingItemsCreateManyTouchInputEnvelope = {
+    data: FilingItemsCreateManyTouchInput | FilingItemsCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SettingItemsCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    type?: $Enums.CASTINGENTRYTYPE | null
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    item: AddItemCreateNestedOneWithoutSetting_itemsInput
+    setting_wastage?: SettingWastageCreateNestedManyWithoutSetting_itemsInput
+    buffing_entry?: BuffingEntryCreateNestedManyWithoutSetting_itemsInput
+    stock?: StockCreateNestedManyWithoutSettingItemInput
+    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutSettingItemIdInput
+    settingEntryId: SettingEntryCreateNestedOneWithoutSettingItemsInput
+  }
+
+  export type SettingItemsUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type?: $Enums.CASTINGENTRYTYPE | null
+    setting_item_id: number
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    setting_entry_id: number
+    setting_wastage?: SettingWastageUncheckedCreateNestedManyWithoutSetting_itemsInput
+    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutSetting_itemsInput
+    stock?: StockUncheckedCreateNestedManyWithoutSettingItemInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutSettingItemIdInput
+  }
+
+  export type SettingItemsCreateOrConnectWithoutTouchInput = {
+    where: SettingItemsWhereUniqueInput
+    create: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type SettingItemsCreateManyTouchInputEnvelope = {
+    data: SettingItemsCreateManyTouchInput | SettingItemsCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BuffingItemsCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    item: AddItemCreateNestedOneWithoutBuffing_itemsInput
+    stock?: StockCreateNestedManyWithoutBuffingItemInput
+    buffing_wastage?: BuffingWastageCreateNestedManyWithoutBuffing_itemsInput
+    buffingEntryId: BuffingEntryCreateNestedOneWithoutBuffingItemsInput
+  }
+
+  export type BuffingItemsUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    buffing_item_id: number
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    buffing_entry_id: number
+    stock?: StockUncheckedCreateNestedManyWithoutBuffingItemInput
+    buffing_wastage?: BuffingWastageUncheckedCreateNestedManyWithoutBuffing_itemsInput
+  }
+
+  export type BuffingItemsCreateOrConnectWithoutTouchInput = {
+    where: BuffingItemsWhereUniqueInput
+    create: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type BuffingItemsCreateManyTouchInputEnvelope = {
+    data: BuffingItemsCreateManyTouchInput | BuffingItemsCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StockCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    item_type?: $Enums.ITEMTYPE | null
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    castingItem?: CastingItemsCreateNestedOneWithoutStockInput
+    filingItem?: FilingItemsCreateNestedOneWithoutStockInput
+    settingItem?: SettingItemsCreateNestedOneWithoutStockInput
+    buffingItem?: BuffingItemsCreateNestedOneWithoutStockInput
+    item?: AddItemCreateNestedOneWithoutStockInput
+    casting_customer?: AddCastingCreateNestedOneWithoutStockInput
+    purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
+    customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+  }
+
+  export type StockUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    casting_item_id?: number | null
+    filing_item_id?: number | null
+    setting_item_id?: number | null
+    buffing_item_id?: number | null
+    item_type?: $Enums.ITEMTYPE | null
+    item_id?: number | null
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    casting_customer_id?: number | null
+    purchase_id?: number | null
+    customer_transaction_id?: number | null
+  }
+
+  export type StockCreateOrConnectWithoutTouchInput = {
+    where: StockWhereUniqueInput
+    create: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput>
+  }
+
+  export type StockCreateManyTouchInputEnvelope = {
+    data: StockCreateManyTouchInput | StockCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AddPurchaseStockCreateWithoutTouchIdInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    item: $Enums.ITEMTYPE
+    weight: number
+    purity: number
+    rate: number
+    totalValue: number
+    remarks?: string | null
+    SupplierId: AddSupplierItemCreateNestedOneWithoutAddPurchaseStockInput
+    Stock?: StockCreateNestedManyWithoutPurchaseIdInput
+  }
+
+  export type AddPurchaseStockUncheckedCreateWithoutTouchIdInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    supplierId: number
+    item: $Enums.ITEMTYPE
+    weight: number
+    purity: number
+    rate: number
+    totalValue: number
+    remarks?: string | null
+    Stock?: StockUncheckedCreateNestedManyWithoutPurchaseIdInput
+  }
+
+  export type AddPurchaseStockCreateOrConnectWithoutTouchIdInput = {
+    where: AddPurchaseStockWhereUniqueInput
+    create: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type AddPurchaseStockCreateManyTouchIdInputEnvelope = {
+    data: AddPurchaseStockCreateManyTouchIdInput | AddPurchaseStockCreateManyTouchIdInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerTransactionCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    date: Date | string
+    value: number
+    type: string
+    purity?: number | null
+    goldRate?: number | null
+    usedPurity?: number | null
+    customer: AddCustomerCreateNestedOneWithoutTransactionsInput
+    stock?: StockCreateNestedManyWithoutCustomer_transactionInput
+  }
+
+  export type CustomerTransactionUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    date: Date | string
+    value: number
+    type: string
+    purity?: number | null
+    goldRate?: number | null
+    customerId: number
+    usedPurity?: number | null
+    stock?: StockUncheckedCreateNestedManyWithoutCustomer_transactionInput
+  }
+
+  export type CustomerTransactionCreateOrConnectWithoutTouchInput = {
+    where: CustomerTransactionWhereUniqueInput
+    create: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput>
+  }
+
+  export type CustomerTransactionCreateManyTouchInputEnvelope = {
+    data: CustomerTransactionCreateManyTouchInput | CustomerTransactionCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QcStockCreateWithoutTouchIdInput = {
+    createdAt: Date | string
+    updatedAt?: Date | string
+    weight: number
+    stone_weight: number
+    final_weight: number
+    purity: number
+    remarks?: string | null
+    itemId: AddItemCreateNestedOneWithoutQCStockInput
+    BillItem?: BillItemCreateNestedManyWithoutQcStockInput
+  }
+
+  export type QcStockUncheckedCreateWithoutTouchIdInput = {
+    id?: number
+    createdAt: Date | string
+    updatedAt?: Date | string
+    item_id: number
+    weight: number
+    stone_weight: number
+    final_weight: number
+    purity: number
+    remarks?: string | null
+    BillItem?: BillItemUncheckedCreateNestedManyWithoutQcStockInput
+  }
+
+  export type QcStockCreateOrConnectWithoutTouchIdInput = {
+    where: QcStockWhereUniqueInput
+    create: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type QcStockCreateManyTouchIdInputEnvelope = {
+    data: QcStockCreateManyTouchIdInput | QcStockCreateManyTouchIdInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CastingEntryUpsertWithWhereUniqueWithoutTouchInput = {
+    where: CastingEntryWhereUniqueInput
+    update: XOR<CastingEntryUpdateWithoutTouchInput, CastingEntryUncheckedUpdateWithoutTouchInput>
+    create: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput>
+  }
+
+  export type CastingEntryUpdateWithWhereUniqueWithoutTouchInput = {
+    where: CastingEntryWhereUniqueInput
+    data: XOR<CastingEntryUpdateWithoutTouchInput, CastingEntryUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type CastingEntryUpdateManyWithWhereWithoutTouchInput = {
+    where: CastingEntryScalarWhereInput
+    data: XOR<CastingEntryUpdateManyMutationInput, CastingEntryUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type CastingItemsUpsertWithWhereUniqueWithoutTouchInput = {
+    where: CastingItemsWhereUniqueInput
+    update: XOR<CastingItemsUpdateWithoutTouchInput, CastingItemsUncheckedUpdateWithoutTouchInput>
+    create: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type CastingItemsUpdateWithWhereUniqueWithoutTouchInput = {
+    where: CastingItemsWhereUniqueInput
+    data: XOR<CastingItemsUpdateWithoutTouchInput, CastingItemsUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type CastingItemsUpdateManyWithWhereWithoutTouchInput = {
+    where: CastingItemsScalarWhereInput
+    data: XOR<CastingItemsUpdateManyMutationInput, CastingItemsUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type FilingItemsUpsertWithWhereUniqueWithoutTouchInput = {
+    where: FilingItemsWhereUniqueInput
+    update: XOR<FilingItemsUpdateWithoutTouchInput, FilingItemsUncheckedUpdateWithoutTouchInput>
+    create: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type FilingItemsUpdateWithWhereUniqueWithoutTouchInput = {
+    where: FilingItemsWhereUniqueInput
+    data: XOR<FilingItemsUpdateWithoutTouchInput, FilingItemsUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type FilingItemsUpdateManyWithWhereWithoutTouchInput = {
+    where: FilingItemsScalarWhereInput
+    data: XOR<FilingItemsUpdateManyMutationInput, FilingItemsUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type SettingItemsUpsertWithWhereUniqueWithoutTouchInput = {
+    where: SettingItemsWhereUniqueInput
+    update: XOR<SettingItemsUpdateWithoutTouchInput, SettingItemsUncheckedUpdateWithoutTouchInput>
+    create: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type SettingItemsUpdateWithWhereUniqueWithoutTouchInput = {
+    where: SettingItemsWhereUniqueInput
+    data: XOR<SettingItemsUpdateWithoutTouchInput, SettingItemsUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type SettingItemsUpdateManyWithWhereWithoutTouchInput = {
+    where: SettingItemsScalarWhereInput
+    data: XOR<SettingItemsUpdateManyMutationInput, SettingItemsUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type BuffingItemsUpsertWithWhereUniqueWithoutTouchInput = {
+    where: BuffingItemsWhereUniqueInput
+    update: XOR<BuffingItemsUpdateWithoutTouchInput, BuffingItemsUncheckedUpdateWithoutTouchInput>
+    create: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type BuffingItemsUpdateWithWhereUniqueWithoutTouchInput = {
+    where: BuffingItemsWhereUniqueInput
+    data: XOR<BuffingItemsUpdateWithoutTouchInput, BuffingItemsUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type BuffingItemsUpdateManyWithWhereWithoutTouchInput = {
+    where: BuffingItemsScalarWhereInput
+    data: XOR<BuffingItemsUpdateManyMutationInput, BuffingItemsUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type StockUpsertWithWhereUniqueWithoutTouchInput = {
+    where: StockWhereUniqueInput
+    update: XOR<StockUpdateWithoutTouchInput, StockUncheckedUpdateWithoutTouchInput>
+    create: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput>
+  }
+
+  export type StockUpdateWithWhereUniqueWithoutTouchInput = {
+    where: StockWhereUniqueInput
+    data: XOR<StockUpdateWithoutTouchInput, StockUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type StockUpdateManyWithWhereWithoutTouchInput = {
+    where: StockScalarWhereInput
+    data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput = {
+    where: AddPurchaseStockWhereUniqueInput
+    update: XOR<AddPurchaseStockUpdateWithoutTouchIdInput, AddPurchaseStockUncheckedUpdateWithoutTouchIdInput>
+    create: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput = {
+    where: AddPurchaseStockWhereUniqueInput
+    data: XOR<AddPurchaseStockUpdateWithoutTouchIdInput, AddPurchaseStockUncheckedUpdateWithoutTouchIdInput>
+  }
+
+  export type AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput = {
+    where: AddPurchaseStockScalarWhereInput
+    data: XOR<AddPurchaseStockUpdateManyMutationInput, AddPurchaseStockUncheckedUpdateManyWithoutTouchIdInput>
+  }
+
+  export type CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput = {
+    where: CustomerTransactionWhereUniqueInput
+    update: XOR<CustomerTransactionUpdateWithoutTouchInput, CustomerTransactionUncheckedUpdateWithoutTouchInput>
+    create: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput>
+  }
+
+  export type CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput = {
+    where: CustomerTransactionWhereUniqueInput
+    data: XOR<CustomerTransactionUpdateWithoutTouchInput, CustomerTransactionUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type CustomerTransactionUpdateManyWithWhereWithoutTouchInput = {
+    where: CustomerTransactionScalarWhereInput
+    data: XOR<CustomerTransactionUpdateManyMutationInput, CustomerTransactionUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type QcStockUpsertWithWhereUniqueWithoutTouchIdInput = {
+    where: QcStockWhereUniqueInput
+    update: XOR<QcStockUpdateWithoutTouchIdInput, QcStockUncheckedUpdateWithoutTouchIdInput>
+    create: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type QcStockUpdateWithWhereUniqueWithoutTouchIdInput = {
+    where: QcStockWhereUniqueInput
+    data: XOR<QcStockUpdateWithoutTouchIdInput, QcStockUncheckedUpdateWithoutTouchIdInput>
+  }
+
+  export type QcStockUpdateManyWithWhereWithoutTouchIdInput = {
+    where: QcStockScalarWhereInput
+    data: XOR<QcStockUpdateManyMutationInput, QcStockUncheckedUpdateManyWithoutTouchIdInput>
   }
 
   export type CustomerTransactionCreateManyCustomerInput = {
@@ -69127,13 +68529,13 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bill?: BillUpdateOneRequiredWithoutBillItemsNestedInput
     qcStock?: QcStockUpdateOneRequiredWithoutBillItemNestedInput
-    touch?: AddTouchUpdateOneWithoutBillItemsNestedInput
   }
 
   export type BillItemUncheckedUpdateWithoutAddItemInput = {
@@ -69144,7 +68546,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69159,620 +68561,11 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CastingEntryCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    date: Date | string
-    given_gold: number
-    purity: number
-    final_touch: number
-    pure_value: number
-    copper: number
-    final_weight: number
-    casting_customer_id: number
-  }
-
-  export type CastingItemsCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    item_id: number
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    casting_entry_id: number
-    casting_customer_id: number
-  }
-
-  export type FilingItemsCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    filing_entry_id: number
-    type: $Enums.CASTINGENTRYTYPE
-    filing_item_id: number
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    stone_option?: $Enums.STONEOPTION | null
-    lot_filing_mapper_id?: number | null
-  }
-
-  export type SettingItemsCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type?: $Enums.CASTINGENTRYTYPE | null
-    setting_item_id: number
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    setting_entry_id: number
-  }
-
-  export type BuffingItemsCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    buffing_item_id: number
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    buffing_entry_id: number
-  }
-
-  export type StockCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    casting_item_id?: number | null
-    filing_item_id?: number | null
-    setting_item_id?: number | null
-    buffing_item_id?: number | null
-    item_type?: $Enums.ITEMTYPE | null
-    item_id?: number | null
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    casting_customer_id?: number | null
-    purchase_id?: number | null
-    customer_transaction_id?: number | null
-  }
-
-  export type AddPurchaseStockCreateManyTouchIdInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    supplierId: number
-    item: $Enums.ITEMTYPE
-    weight: number
-    purity: number
-    rate: number
-    totalValue: number
-    remarks?: string | null
-  }
-
-  export type CustomerTransactionCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    date: Date | string
-    value: number
-    type: string
-    purity?: number | null
-    goldRate?: number | null
-    customerId: number
-    usedPurity?: number | null
-  }
-
-  export type QcStockCreateManyTouchIdInput = {
-    id?: number
-    createdAt: Date | string
-    updatedAt?: Date | string
-    item_id: number
-    weight: number
-    stone_weight: number
-    final_weight: number
-    purity: number
-    remarks?: string | null
-  }
-
-  export type ReceivedItemCreateManyTouchInput = {
-    id?: number
-    bill_id: number
-    type: $Enums.ITEMTYPE
-    date: string
-    gold_rate?: number | null
-    gold?: number | null
-    purity_weight: number
-    amount?: number | null
-    hallmark_charge?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type BillItemCreateManyTouchInput = {
-    id?: number
-    bill_id: number
-    qc_stock_id: number
-    item_name: string
-    weight: number
-    stone_weight?: number | null
-    total_weight: number
-    pure: number
-    amount: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    addItemId?: number | null
-  }
-
-  export type CastingEntryUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    given_gold?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    final_touch?: FloatFieldUpdateOperationsInput | number
-    pure_value?: FloatFieldUpdateOperationsInput | number
-    copper?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    casting_customer?: AddCastingUpdateOneRequiredWithoutEntriesNestedInput
-    items?: CastingItemsUpdateManyWithoutCastingEntryNestedInput
-    CastiingTotalBalance?: CastiingTotalBalanceUpdateManyWithoutItem_entry_idNestedInput
-  }
-
-  export type CastingEntryUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    given_gold?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    final_touch?: FloatFieldUpdateOperationsInput | number
-    pure_value?: FloatFieldUpdateOperationsInput | number
-    copper?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    casting_customer_id?: IntFieldUpdateOperationsInput | number
-    items?: CastingItemsUncheckedUpdateManyWithoutCastingEntryNestedInput
-    CastiingTotalBalance?: CastiingTotalBalanceUncheckedUpdateManyWithoutItem_entry_idNestedInput
-  }
-
-  export type CastingEntryUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    given_gold?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    final_touch?: FloatFieldUpdateOperationsInput | number
-    pure_value?: FloatFieldUpdateOperationsInput | number
-    copper?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    casting_customer_id?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type CastingItemsUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    item?: AddItemUpdateOneRequiredWithoutCasting_itemsNestedInput
-    castingEntry?: CastingEntryUpdateOneRequiredWithoutItemsNestedInput
-    filingEntry?: FilingEntryUpdateManyWithoutCastingItemNestedInput
-    settingEntry?: SettingEntryUpdateManyWithoutCastingItemNestedInput
-    buffingEntry?: BuffingEntryUpdateManyWithoutCastingItemNestedInput
-    stock?: StockUpdateManyWithoutCastingItemNestedInput
-    filingLotMapper?: LotFilingMapperUpdateManyWithoutItemIdNestedInput
-    casting_customer?: AddCastingUpdateOneRequiredWithoutCastingitemsNestedInput
-  }
-
-  export type CastingItemsUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    casting_entry_id?: IntFieldUpdateOperationsInput | number
-    casting_customer_id?: IntFieldUpdateOperationsInput | number
-    filingEntry?: FilingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
-    settingEntry?: SettingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
-    buffingEntry?: BuffingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
-    stock?: StockUncheckedUpdateManyWithoutCastingItemNestedInput
-    filingLotMapper?: LotFilingMapperUncheckedUpdateManyWithoutItemIdNestedInput
-  }
-
-  export type CastingItemsUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    casting_entry_id?: IntFieldUpdateOperationsInput | number
-    casting_customer_id?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type FilingItemsUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
-    filing_entry?: FilingEntryUpdateOneRequiredWithoutFilingItemsNestedInput
-    filingitem?: AddItemUpdateOneRequiredWithoutFiling_itemsNestedInput
-    stock?: StockUpdateManyWithoutFilingItemNestedInput
-    setting_entry?: SettingEntryUpdateManyWithoutFilingItemsNestedInput
-    buffing_entry?: BuffingEntryUpdateManyWithoutFiling_itemsNestedInput
-    filing_wastage?: FilingWastageUpdateManyWithoutFiling_itemsNestedInput
-    lot_setting_mapper?: LotSettingMapperUpdateManyWithoutItemIdNestedInput
-    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutFilingItemIdNestedInput
-    lotFilingMapperId?: LotFilingMapperUpdateOneWithoutFiling_itemsNestedInput
-  }
-
-  export type FilingItemsUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    filing_entry_id?: IntFieldUpdateOperationsInput | number
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    filing_item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
-    lot_filing_mapper_id?: NullableIntFieldUpdateOperationsInput | number | null
-    stock?: StockUncheckedUpdateManyWithoutFilingItemNestedInput
-    setting_entry?: SettingEntryUncheckedUpdateManyWithoutFilingItemsNestedInput
-    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutFiling_itemsNestedInput
-    filing_wastage?: FilingWastageUncheckedUpdateManyWithoutFiling_itemsNestedInput
-    lot_setting_mapper?: LotSettingMapperUncheckedUpdateManyWithoutItemIdNestedInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutFilingItemIdNestedInput
-  }
-
-  export type FilingItemsUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    filing_entry_id?: IntFieldUpdateOperationsInput | number
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    filing_item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
-    lot_filing_mapper_id?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type SettingItemsUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    item?: AddItemUpdateOneRequiredWithoutSetting_itemsNestedInput
-    setting_wastage?: SettingWastageUpdateManyWithoutSetting_itemsNestedInput
-    buffing_entry?: BuffingEntryUpdateManyWithoutSetting_itemsNestedInput
-    stock?: StockUpdateManyWithoutSettingItemNestedInput
-    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutSettingItemIdNestedInput
-    settingEntryId?: SettingEntryUpdateOneRequiredWithoutSettingItemsNestedInput
-  }
-
-  export type SettingItemsUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
-    setting_item_id?: IntFieldUpdateOperationsInput | number
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    setting_entry_id?: IntFieldUpdateOperationsInput | number
-    setting_wastage?: SettingWastageUncheckedUpdateManyWithoutSetting_itemsNestedInput
-    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutSetting_itemsNestedInput
-    stock?: StockUncheckedUpdateManyWithoutSettingItemNestedInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutSettingItemIdNestedInput
-  }
-
-  export type SettingItemsUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
-    setting_item_id?: IntFieldUpdateOperationsInput | number
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    setting_entry_id?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type BuffingItemsUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    item?: AddItemUpdateOneRequiredWithoutBuffing_itemsNestedInput
-    stock?: StockUpdateManyWithoutBuffingItemNestedInput
-    buffing_wastage?: BuffingWastageUpdateManyWithoutBuffing_itemsNestedInput
-    buffingEntryId?: BuffingEntryUpdateOneRequiredWithoutBuffingItemsNestedInput
-  }
-
-  export type BuffingItemsUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    buffing_item_id?: IntFieldUpdateOperationsInput | number
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    buffing_entry_id?: IntFieldUpdateOperationsInput | number
-    stock?: StockUncheckedUpdateManyWithoutBuffingItemNestedInput
-    buffing_wastage?: BuffingWastageUncheckedUpdateManyWithoutBuffing_itemsNestedInput
-  }
-
-  export type BuffingItemsUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    buffing_item_id?: IntFieldUpdateOperationsInput | number
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    buffing_entry_id?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type StockUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    castingItem?: CastingItemsUpdateOneWithoutStockNestedInput
-    filingItem?: FilingItemsUpdateOneWithoutStockNestedInput
-    settingItem?: SettingItemsUpdateOneWithoutStockNestedInput
-    buffingItem?: BuffingItemsUpdateOneWithoutStockNestedInput
-    item?: AddItemUpdateOneWithoutStockNestedInput
-    casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
-    purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
-    customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
-  }
-
-  export type StockUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
-    item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
-    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
-    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type StockUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
-    item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
-    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
-    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type AddPurchaseStockUpdateWithoutTouchIdInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
-    weight?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    rate?: FloatFieldUpdateOperationsInput | number
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    SupplierId?: AddSupplierItemUpdateOneRequiredWithoutAddPurchaseStockNestedInput
-    Stock?: StockUpdateManyWithoutPurchaseIdNestedInput
-  }
-
-  export type AddPurchaseStockUncheckedUpdateWithoutTouchIdInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supplierId?: IntFieldUpdateOperationsInput | number
-    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
-    weight?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    rate?: FloatFieldUpdateOperationsInput | number
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    Stock?: StockUncheckedUpdateManyWithoutPurchaseIdNestedInput
-  }
-
-  export type AddPurchaseStockUncheckedUpdateManyWithoutTouchIdInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supplierId?: IntFieldUpdateOperationsInput | number
-    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
-    weight?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    rate?: FloatFieldUpdateOperationsInput | number
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type CustomerTransactionUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    value?: FloatFieldUpdateOperationsInput | number
-    type?: StringFieldUpdateOperationsInput | string
-    purity?: NullableFloatFieldUpdateOperationsInput | number | null
-    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
-    customer?: AddCustomerUpdateOneRequiredWithoutTransactionsNestedInput
-    stock?: StockUpdateManyWithoutCustomer_transactionNestedInput
-  }
-
-  export type CustomerTransactionUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    value?: FloatFieldUpdateOperationsInput | number
-    type?: StringFieldUpdateOperationsInput | string
-    purity?: NullableFloatFieldUpdateOperationsInput | number | null
-    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    customerId?: IntFieldUpdateOperationsInput | number
-    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
-    stock?: StockUncheckedUpdateManyWithoutCustomer_transactionNestedInput
-  }
-
-  export type CustomerTransactionUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    value?: FloatFieldUpdateOperationsInput | number
-    type?: StringFieldUpdateOperationsInput | string
-    purity?: NullableFloatFieldUpdateOperationsInput | number | null
-    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    customerId?: IntFieldUpdateOperationsInput | number
-    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
-  }
-
-  export type QcStockUpdateWithoutTouchIdInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    stone_weight?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    itemId?: AddItemUpdateOneRequiredWithoutQCStockNestedInput
-    BillItem?: BillItemUpdateManyWithoutQcStockNestedInput
-  }
-
-  export type QcStockUncheckedUpdateWithoutTouchIdInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    stone_weight?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    BillItem?: BillItemUncheckedUpdateManyWithoutQcStockNestedInput
-  }
-
-  export type QcStockUncheckedUpdateManyWithoutTouchIdInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    stone_weight?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type ReceivedItemUpdateWithoutTouchInput = {
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
-    date?: StringFieldUpdateOperationsInput | string
-    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
-    gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    purity_weight?: FloatFieldUpdateOperationsInput | number
-    amount?: NullableFloatFieldUpdateOperationsInput | number | null
-    hallmark_charge?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    bill?: BillUpdateOneRequiredWithoutReceivedItemsNestedInput
-  }
-
-  export type ReceivedItemUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bill_id?: IntFieldUpdateOperationsInput | number
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
-    date?: StringFieldUpdateOperationsInput | string
-    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
-    gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    purity_weight?: FloatFieldUpdateOperationsInput | number
-    amount?: NullableFloatFieldUpdateOperationsInput | number | null
-    hallmark_charge?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ReceivedItemUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bill_id?: IntFieldUpdateOperationsInput | number
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
-    date?: StringFieldUpdateOperationsInput | string
-    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
-    gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    purity_weight?: FloatFieldUpdateOperationsInput | number
-    amount?: NullableFloatFieldUpdateOperationsInput | number | null
-    hallmark_charge?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type BillItemUpdateWithoutTouchInput = {
-    item_name?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_weight?: FloatFieldUpdateOperationsInput | number
-    pure?: FloatFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    bill?: BillUpdateOneRequiredWithoutBillItemsNestedInput
-    qcStock?: QcStockUpdateOneRequiredWithoutBillItemNestedInput
-    AddItem?: AddItemUpdateOneWithoutBillItemsNestedInput
-  }
-
-  export type BillItemUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bill_id?: IntFieldUpdateOperationsInput | number
-    qc_stock_id?: IntFieldUpdateOperationsInput | number
-    item_name?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_weight?: FloatFieldUpdateOperationsInput | number
-    pure?: FloatFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    addItemId?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type BillItemUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bill_id?: IntFieldUpdateOperationsInput | number
-    qc_stock_id?: IntFieldUpdateOperationsInput | number
-    item_name?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
-    total_weight?: FloatFieldUpdateOperationsInput | number
-    pure?: FloatFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    addItemId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type BillItemCreateManyQcStockInput = {
@@ -69795,13 +68588,13 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bill?: BillUpdateOneRequiredWithoutBillItemsNestedInput
     AddItem?: AddItemUpdateOneWithoutBillItemsNestedInput
-    touch?: AddTouchUpdateOneWithoutBillItemsNestedInput
   }
 
   export type BillItemUncheckedUpdateWithoutQcStockInput = {
@@ -69811,7 +68604,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69826,7 +68619,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -71652,13 +70445,13 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     qcStock?: QcStockUpdateOneRequiredWithoutBillItemNestedInput
     AddItem?: AddItemUpdateOneWithoutBillItemsNestedInput
-    touch?: AddTouchUpdateOneWithoutBillItemsNestedInput
   }
 
   export type BillItemUncheckedUpdateWithoutBillInput = {
@@ -71668,7 +70461,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -71683,7 +70476,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     total_weight?: FloatFieldUpdateOperationsInput | number
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     pure?: FloatFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -71696,12 +70489,12 @@ export namespace Prisma {
     date?: StringFieldUpdateOperationsInput | string
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     purity_weight?: FloatFieldUpdateOperationsInput | number
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark_charge?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: AddTouchUpdateOneWithoutReceivedItemsNestedInput
   }
 
   export type ReceivedItemUncheckedUpdateWithoutBillInput = {
@@ -71710,7 +70503,7 @@ export namespace Prisma {
     date?: StringFieldUpdateOperationsInput | string
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     purity_weight?: FloatFieldUpdateOperationsInput | number
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark_charge?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -71724,12 +70517,507 @@ export namespace Prisma {
     date?: StringFieldUpdateOperationsInput | string
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    touchId?: NullableFloatFieldUpdateOperationsInput | number | null
     purity_weight?: FloatFieldUpdateOperationsInput | number
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark_charge?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CastingEntryCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    date: Date | string
+    given_gold: number
+    purity: number
+    final_touch: number
+    pure_value: number
+    copper: number
+    final_weight: number
+    casting_customer_id: number
+  }
+
+  export type CastingItemsCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    item_id: number
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    casting_entry_id: number
+    casting_customer_id: number
+  }
+
+  export type FilingItemsCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    filing_entry_id: number
+    type: $Enums.CASTINGENTRYTYPE
+    filing_item_id: number
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    stone_option?: $Enums.STONEOPTION | null
+    lot_filing_mapper_id?: number | null
+  }
+
+  export type SettingItemsCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type?: $Enums.CASTINGENTRYTYPE | null
+    setting_item_id: number
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    setting_entry_id: number
+  }
+
+  export type BuffingItemsCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    buffing_item_id: number
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    buffing_entry_id: number
+  }
+
+  export type StockCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    casting_item_id?: number | null
+    filing_item_id?: number | null
+    setting_item_id?: number | null
+    buffing_item_id?: number | null
+    item_type?: $Enums.ITEMTYPE | null
+    item_id?: number | null
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    casting_customer_id?: number | null
+    purchase_id?: number | null
+    customer_transaction_id?: number | null
+  }
+
+  export type AddPurchaseStockCreateManyTouchIdInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    supplierId: number
+    item: $Enums.ITEMTYPE
+    weight: number
+    purity: number
+    rate: number
+    totalValue: number
+    remarks?: string | null
+  }
+
+  export type CustomerTransactionCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    date: Date | string
+    value: number
+    type: string
+    purity?: number | null
+    goldRate?: number | null
+    customerId: number
+    usedPurity?: number | null
+  }
+
+  export type QcStockCreateManyTouchIdInput = {
+    id?: number
+    createdAt: Date | string
+    updatedAt?: Date | string
+    item_id: number
+    weight: number
+    stone_weight: number
+    final_weight: number
+    purity: number
+    remarks?: string | null
+  }
+
+  export type CastingEntryUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    given_gold?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    final_touch?: FloatFieldUpdateOperationsInput | number
+    pure_value?: FloatFieldUpdateOperationsInput | number
+    copper?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    casting_customer?: AddCastingUpdateOneRequiredWithoutEntriesNestedInput
+    items?: CastingItemsUpdateManyWithoutCastingEntryNestedInput
+    CastiingTotalBalance?: CastiingTotalBalanceUpdateManyWithoutItem_entry_idNestedInput
+  }
+
+  export type CastingEntryUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    given_gold?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    final_touch?: FloatFieldUpdateOperationsInput | number
+    pure_value?: FloatFieldUpdateOperationsInput | number
+    copper?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    casting_customer_id?: IntFieldUpdateOperationsInput | number
+    items?: CastingItemsUncheckedUpdateManyWithoutCastingEntryNestedInput
+    CastiingTotalBalance?: CastiingTotalBalanceUncheckedUpdateManyWithoutItem_entry_idNestedInput
+  }
+
+  export type CastingEntryUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    given_gold?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    final_touch?: FloatFieldUpdateOperationsInput | number
+    pure_value?: FloatFieldUpdateOperationsInput | number
+    copper?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    casting_customer_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CastingItemsUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: AddItemUpdateOneRequiredWithoutCasting_itemsNestedInput
+    castingEntry?: CastingEntryUpdateOneRequiredWithoutItemsNestedInput
+    filingEntry?: FilingEntryUpdateManyWithoutCastingItemNestedInput
+    settingEntry?: SettingEntryUpdateManyWithoutCastingItemNestedInput
+    buffingEntry?: BuffingEntryUpdateManyWithoutCastingItemNestedInput
+    stock?: StockUpdateManyWithoutCastingItemNestedInput
+    filingLotMapper?: LotFilingMapperUpdateManyWithoutItemIdNestedInput
+    casting_customer?: AddCastingUpdateOneRequiredWithoutCastingitemsNestedInput
+  }
+
+  export type CastingItemsUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_entry_id?: IntFieldUpdateOperationsInput | number
+    casting_customer_id?: IntFieldUpdateOperationsInput | number
+    filingEntry?: FilingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
+    settingEntry?: SettingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
+    buffingEntry?: BuffingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
+    stock?: StockUncheckedUpdateManyWithoutCastingItemNestedInput
+    filingLotMapper?: LotFilingMapperUncheckedUpdateManyWithoutItemIdNestedInput
+  }
+
+  export type CastingItemsUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_entry_id?: IntFieldUpdateOperationsInput | number
+    casting_customer_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FilingItemsUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
+    filing_entry?: FilingEntryUpdateOneRequiredWithoutFilingItemsNestedInput
+    filingitem?: AddItemUpdateOneRequiredWithoutFiling_itemsNestedInput
+    stock?: StockUpdateManyWithoutFilingItemNestedInput
+    setting_entry?: SettingEntryUpdateManyWithoutFilingItemsNestedInput
+    buffing_entry?: BuffingEntryUpdateManyWithoutFiling_itemsNestedInput
+    filing_wastage?: FilingWastageUpdateManyWithoutFiling_itemsNestedInput
+    lot_setting_mapper?: LotSettingMapperUpdateManyWithoutItemIdNestedInput
+    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutFilingItemIdNestedInput
+    lotFilingMapperId?: LotFilingMapperUpdateOneWithoutFiling_itemsNestedInput
+  }
+
+  export type FilingItemsUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    filing_entry_id?: IntFieldUpdateOperationsInput | number
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    filing_item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
+    lot_filing_mapper_id?: NullableIntFieldUpdateOperationsInput | number | null
+    stock?: StockUncheckedUpdateManyWithoutFilingItemNestedInput
+    setting_entry?: SettingEntryUncheckedUpdateManyWithoutFilingItemsNestedInput
+    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutFiling_itemsNestedInput
+    filing_wastage?: FilingWastageUncheckedUpdateManyWithoutFiling_itemsNestedInput
+    lot_setting_mapper?: LotSettingMapperUncheckedUpdateManyWithoutItemIdNestedInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutFilingItemIdNestedInput
+  }
+
+  export type FilingItemsUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    filing_entry_id?: IntFieldUpdateOperationsInput | number
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    filing_item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
+    lot_filing_mapper_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type SettingItemsUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: AddItemUpdateOneRequiredWithoutSetting_itemsNestedInput
+    setting_wastage?: SettingWastageUpdateManyWithoutSetting_itemsNestedInput
+    buffing_entry?: BuffingEntryUpdateManyWithoutSetting_itemsNestedInput
+    stock?: StockUpdateManyWithoutSettingItemNestedInput
+    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutSettingItemIdNestedInput
+    settingEntryId?: SettingEntryUpdateOneRequiredWithoutSettingItemsNestedInput
+  }
+
+  export type SettingItemsUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
+    setting_item_id?: IntFieldUpdateOperationsInput | number
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    setting_entry_id?: IntFieldUpdateOperationsInput | number
+    setting_wastage?: SettingWastageUncheckedUpdateManyWithoutSetting_itemsNestedInput
+    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutSetting_itemsNestedInput
+    stock?: StockUncheckedUpdateManyWithoutSettingItemNestedInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutSettingItemIdNestedInput
+  }
+
+  export type SettingItemsUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
+    setting_item_id?: IntFieldUpdateOperationsInput | number
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    setting_entry_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BuffingItemsUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: AddItemUpdateOneRequiredWithoutBuffing_itemsNestedInput
+    stock?: StockUpdateManyWithoutBuffingItemNestedInput
+    buffing_wastage?: BuffingWastageUpdateManyWithoutBuffing_itemsNestedInput
+    buffingEntryId?: BuffingEntryUpdateOneRequiredWithoutBuffingItemsNestedInput
+  }
+
+  export type BuffingItemsUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    buffing_item_id?: IntFieldUpdateOperationsInput | number
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    buffing_entry_id?: IntFieldUpdateOperationsInput | number
+    stock?: StockUncheckedUpdateManyWithoutBuffingItemNestedInput
+    buffing_wastage?: BuffingWastageUncheckedUpdateManyWithoutBuffing_itemsNestedInput
+  }
+
+  export type BuffingItemsUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    buffing_item_id?: IntFieldUpdateOperationsInput | number
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    buffing_entry_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type StockUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    castingItem?: CastingItemsUpdateOneWithoutStockNestedInput
+    filingItem?: FilingItemsUpdateOneWithoutStockNestedInput
+    settingItem?: SettingItemsUpdateOneWithoutStockNestedInput
+    buffingItem?: BuffingItemsUpdateOneWithoutStockNestedInput
+    item?: AddItemUpdateOneWithoutStockNestedInput
+    casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
+    purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
+    customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+  }
+
+  export type StockUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type StockUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type AddPurchaseStockUpdateWithoutTouchIdInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    weight?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    SupplierId?: AddSupplierItemUpdateOneRequiredWithoutAddPurchaseStockNestedInput
+    Stock?: StockUpdateManyWithoutPurchaseIdNestedInput
+  }
+
+  export type AddPurchaseStockUncheckedUpdateWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    supplierId?: IntFieldUpdateOperationsInput | number
+    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    weight?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    Stock?: StockUncheckedUpdateManyWithoutPurchaseIdNestedInput
+  }
+
+  export type AddPurchaseStockUncheckedUpdateManyWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    supplierId?: IntFieldUpdateOperationsInput | number
+    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    weight?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CustomerTransactionUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
+    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
+    customer?: AddCustomerUpdateOneRequiredWithoutTransactionsNestedInput
+    stock?: StockUpdateManyWithoutCustomer_transactionNestedInput
+  }
+
+  export type CustomerTransactionUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
+    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    customerId?: IntFieldUpdateOperationsInput | number
+    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
+    stock?: StockUncheckedUpdateManyWithoutCustomer_transactionNestedInput
+  }
+
+  export type CustomerTransactionUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
+    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    customerId?: IntFieldUpdateOperationsInput | number
+    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type QcStockUpdateWithoutTouchIdInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    stone_weight?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    itemId?: AddItemUpdateOneRequiredWithoutQCStockNestedInput
+    BillItem?: BillItemUpdateManyWithoutQcStockNestedInput
+  }
+
+  export type QcStockUncheckedUpdateWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    stone_weight?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    BillItem?: BillItemUncheckedUpdateManyWithoutQcStockNestedInput
+  }
+
+  export type QcStockUncheckedUpdateManyWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    stone_weight?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
