@@ -176,18 +176,20 @@ export const getAllBills = async (req, res) => {
             name: true,
           },
         },
-        // billItems: true,
-        // receivedItems: true,
-        billItems:{
-          include:{
-            touch:true
-          }
-        },
-        receivedItems:{
-          include:{
-            touch: true
-          }
-        }
+        billItems: true,
+        receivedItems: true,
+
+
+        // billItems:{
+        //   include:{
+        //     touch:true
+        //   }
+        // },
+        // receivedItems:{
+        //   include:{
+        //     touch: true
+        //   }
+        // }
        
       },
       orderBy: {

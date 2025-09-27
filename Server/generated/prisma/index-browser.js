@@ -215,13 +215,6 @@ exports.Prisma.AddItemScalarFieldEnum = {
   name: 'name'
 };
 
-exports.Prisma.AddTouchScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  touch: 'touch'
-};
-
 exports.Prisma.QcStockScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -527,6 +520,13 @@ exports.Prisma.ReceivedItemScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AddTouchScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  touch: 'touch'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -662,7 +662,6 @@ exports.Prisma.ModelName = {
   AddPurchaseStock: 'AddPurchaseStock',
   CustomerTransaction: 'CustomerTransaction',
   AddItem: 'AddItem',
-  AddTouch: 'AddTouch',
   QcStock: 'QcStock',
   CastingEntry: 'CastingEntry',
   CastingItems: 'CastingItems',
@@ -687,7 +686,8 @@ exports.Prisma.ModelName = {
   Hallmark: 'Hallmark',
   Bill: 'Bill',
   BillItem: 'BillItem',
-  ReceivedItem: 'ReceivedItem'
+  ReceivedItem: 'ReceivedItem',
+  AddTouch: 'AddTouch'
 };
 
 /**

@@ -159,24 +159,24 @@ model AddItem {
   billItems     BillItem[]
 }
 
-model AddTouch {
-  id                   Int                   @id @default(autoincrement())
-  createdAt            DateTime              @default(now())
-  updatedAt            DateTime              @default(now()) @updatedAt
-  touch                Float
-  casting_entry        CastingEntry[]
-  casting_items        CastingItems[]
-  filing_items         FilingItems[]
-  setting_items        SettingItems[]
-  buffing_items        BuffingItems[]
-  stock                Stock[]
-  add_purchase_stock   AddPurchaseStock[]
-  customer_transaction CustomerTransaction[]
+// model AddTouch {
+//   id                   Int                   @id @default(autoincrement())
+//   createdAt            DateTime              @default(now())
+//   updatedAt            DateTime              @default(now()) @updatedAt
+//   touch                Float
+//   casting_entry        CastingEntry[]
+//   casting_items        CastingItems[]
+//   filing_items         FilingItems[]
+//   setting_items        SettingItems[]
+//   buffing_items        BuffingItems[]
+//   stock                Stock[]
+//   add_purchase_stock   AddPurchaseStock[]
+//   customer_transaction CustomerTransaction[]
 
-  QCStock       QcStock[]
-  receivedItems ReceivedItem[]
-  billItems     BillItem[]
-}
+//   QCStock       QcStock[]
+//   receivedItems ReceivedItem[]
+//   billItems     BillItem[]
+// }
 
 model QcStock {
   id           Int        @id @default(autoincrement())
@@ -395,9 +395,8 @@ model LotSettingMapper {
 }
 
 model SettingTotalBalance {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-
+  id                     Int          @id @default(autoincrement())
+  createdAt              DateTime     @default(now())
   receipt_weight         Float
   stone_count            Float
   stone_weight           Float
@@ -554,7 +553,7 @@ model Hallmark {
 }
 
 model Bill {
-  id               Int      @id @default(autoincrement())
+  id               Int            @id @default(autoincrement())
   customer_id      Int
   bill_no          String
   date             String
@@ -568,12 +567,11 @@ model Bill {
   pure_balance     Float
   prev_hallmark    Float
   hallmark_balance Float
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-
-  customer      AddCustomer    @relation(fields: [customer_id], references: [id])
-  billItems     BillItem[]
-  receivedItems ReceivedItem[]
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  customer         AddCustomer    @relation(fields: [customer_id], references: [id])
+  billItems        BillItem[]
+  receivedItems    ReceivedItem[]
 }
 
 model BillItem {
@@ -584,17 +582,16 @@ model BillItem {
   weight       Float
   stone_weight Float?
   total_weight Float
-  touchId      Int?
+  touchId      Float?
   pure         Float
   amount       Float
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  bill      Bill      @relation(fields: [bill_id], references: [id])
-  qcStock   QcStock   @relation(fields: [qc_stock_id], references: [id])
-  AddItem   AddItem?  @relation(fields: [addItemId], references: [id])
+  bill      Bill     @relation(fields: [bill_id], references: [id])
+  qcStock   QcStock  @relation(fields: [qc_stock_id], references: [id])
+  AddItem   AddItem? @relation(fields: [addItemId], references: [id])
   addItemId Int?
-  touch     AddTouch? @relation(fields: [touchId], references: [id])
 }
 
 model ReceivedItem {
@@ -604,13 +601,31 @@ model ReceivedItem {
   date            String
   gold_rate       Float?
   gold            Float?
-  touchId         Int?
+  touchId         Float?
   purity_weight   Float
   amount          Float?
   hallmark_charge Float?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  bill  Bill      @relation(fields: [bill_id], references: [id])
-  touch AddTouch? @relation(fields: [touchId], references: [id])
+  bill Bill @relation(fields: [bill_id], references: [id])
+}
+
+model AddTouch {
+  id                   Int                   @id @default(autoincrement())
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @default(now()) @updatedAt
+  touch                Float
+  casting_entry        CastingEntry[]
+  casting_items        CastingItems[]
+  filing_items         FilingItems[]
+  setting_items        SettingItems[]
+  buffing_items        BuffingItems[]
+  stock                Stock[]
+  add_purchase_stock   AddPurchaseStock[]
+  customer_transaction CustomerTransaction[]
+
+  QCStock QcStock[]
+  // receivedItems ReceivedItem[]
+  // billItems     BillItem[]
 }
