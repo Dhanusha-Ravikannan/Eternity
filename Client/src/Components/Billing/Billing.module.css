@@ -1,6 +1,6 @@
 .card{
-   width: 60rem;
-    padding: 2rem;
+   width: 80rem;
+    padding: 1rem;
     border-radius: 8px;
     box-shadow: 
     0 4px 8px rgba(0, 0, 0, 0.1),   
@@ -66,8 +66,9 @@
   }
 
   .tablecard{
+    margin-left: 2rem;
     width: 26rem;
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 8px;
     box-shadow: 
   0 4px 8px rgba(0, 0, 0, 0.1),   
@@ -88,11 +89,10 @@
     justify-content: space-around;
     align-items: flex-start;
     margin-top: 2rem;
-    padding: 3;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    width: 90rem;
-    margin-left: 3rem;
+    width: 93rem;
+    margin-left: 1rem;
     border-radius: 8px;
 
   }
@@ -105,11 +105,21 @@
 .billdetails{
     color: rgb(234, 35, 35);
     font-weight: bold;
-    font-size: 1.3rem;
-    margin-top: 2.5rem;
+    font-size: 1.2rem;
+    margin-top: 2rem;
  
     
 } 
+.customerCardd {
+  margin-left: 0;
+  background-color: rgb(245, 247, 249);
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #b5b5f3;
+}
 
 .customerCard {
   margin-left: 0;
@@ -140,6 +150,7 @@
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
+  width: 10rem;
 
 
 }
@@ -185,3 +196,15 @@
   flex-direction: column;
   gap: 4px;
 }
+
+.table1 th{ 
+  border: 1px solid #ccc;
+  background-color: #38383e;
+  color: white;
+
+}
+
+.table1 td{
+  border: 1px solid #ccc;
+}
+
