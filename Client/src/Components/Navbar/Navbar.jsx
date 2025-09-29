@@ -146,18 +146,7 @@ function Navbar() {
               <Link className={styles.dropdownItem} to="/customerreport">
                 Customer Report
               </Link>
-            </li>
-            {/* <li>
-              <Link className={styles.dropdownItem} to="/stockreport">
-                Stock Report
-              </Link>
-            </li> */}
-            {/* <li>
-              <Link className={styles.dropdownItem} to="/receiptreport">
-                Receipt Report
-              </Link>
-            </li>  */}
-          
+            </li>         
           </ul>
         </li>
 
@@ -169,6 +158,26 @@ function Navbar() {
             }`}
           >
             Stock
+          </Link>
+        </li> 
+        <li className={styles.navItem}>
+          <Link
+            to="/receiptvoucher"
+            className={`${styles.navLink} ${
+              isActive("/receiptvoucher") ? styles.active : ""
+            }`}
+          >
+            Receipt Voucher
+          </Link>
+        </li>
+        <li className={styles.navItem}>
+          <Link
+            to="/expensevoucher"
+            className={`${styles.navLink} ${
+              isActive("/expensevoucher") ? styles.active : ""
+            }`}
+          >
+            Expense Voucher
           </Link>
         </li>
       </ul>
