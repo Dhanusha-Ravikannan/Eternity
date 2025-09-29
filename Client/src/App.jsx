@@ -42,6 +42,8 @@ const CastingEntry = lazy(() => import("./Components/LotProcess/CastingProcess/C
 const QCStock = lazy(() => import("./Components/Master/QCStock"));
 const CustomerReport = lazy(() => import("./Components/Report/CustomerReport"));
 const TouchWisePurchaseReport = lazy(() => import("./Components/Report/TouchWisePurchaseReports"));
+const ReceiptVoucher = lazy(()=>import("./Components/Receipt Voucher/ReceiptVoucher"));
+const ExpenseVoucher = lazy(()=>import("./Components/Expense Voucher/ExpenseVoucher"))
 
 
 const Loader = () => (
@@ -102,6 +104,8 @@ const App = () => {
           <Route path="/receiptreport" element={<ReceiptReport />} />
           <Route path="/workerreport" element={<WorkerReport />} />
           <Route path="/purchasereport" element={<TouchWisePurchaseReport />} />
+          <Route path="/receiptvoucher" element={<ReceiptVoucher/>} />
+          <Route path="/expensevoucher" element={<ExpenseVoucher/>}/>
         </Routes>
       </Suspense>
     </BrowserRouter>

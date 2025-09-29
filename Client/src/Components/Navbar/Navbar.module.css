@@ -8,9 +8,6 @@
     background: linear-gradient(to right, #b88915, #b18c3c, #a94b1d);
   }
   
-  .navbarLeft {
-    flex: 1;
-  }
   
   .navbarLogo {
     height: 40px;
@@ -39,7 +36,7 @@
     padding: 8px 12px;
     border-radius: 4px;
     transition: background-color 0.3s ease;
-    font-size: 19px;
+    font-size: 1.1rem;
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   }
   
@@ -50,11 +47,6 @@
     color: white;
   }
   
-  .navbarRight {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-  }
   
   .logoutButton {
     color: white;
@@ -93,7 +85,6 @@
     background: #91720c;
     background-color: #150709;
     border-radius: 5px;
-    padding: 5px 5px;
   }
   
   .dropdownMenu {

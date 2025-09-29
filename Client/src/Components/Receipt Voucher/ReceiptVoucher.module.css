@@ -1,0 +1,133 @@
+.receiptFlex{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 0px 100px;
+    margin-top: 2rem;
+    
+}
+.receiptTitle{
+  color: #000;
+  text-align: center; 
+  margin-top: 2rem;  
+}
+.receiptLabel{
+    text-align: center;
+    font-size: 1rem;
+    color: black;
+    font-weight: 700;
+}
+.receiptSelect{
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+ .receiptInput{
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+} 
+ .delIcon{
+    font-size: x-large;
+    cursor: pointer;
+  }
+  .receiptcommanbtnn button{
+    background-color: #F5F5F5;
+    border: 1px solid black;
+     padding: 10px 16px;
+     text-align: center;
+    text-decoration: none;
+    display: inline-block;
+     font-size: 15px;
+     margin: 4px 2px;
+    cursor: pointer;
+    border-color: #25274D;
+    border-width: 2px;
+  }
+.receiptbtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+
+
+.saveReceiptbtn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.receiptTableInput,.receiptTableDate{
+    padding: 5px;
+    font-size: 1rem;
+    width: 85px;
+    border-radius: 6px;
+    background: transparent;
+  }
+.receiptTableInput{
+   border: 1px solid black;
+   vertical-align: middle;
+}
+/* Table css */
+.tableWrapper{
+    padding: 20px 100px;
+}
+.receiptTable{
+    width: 100%;
+    border-collapse: collapse; 
+}
+.receiptRow th{
+  padding: 12px;
+  border: 1px solid #0b0a0a;
+  background-color: #38383e;
+  color: antiquewhite;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-weight: bold
+
+}
+.receiptTableDate{
+  width: 70%;
+}
+.receiptbody tr td{
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #0b0a0a;
+}
+.receiptBalances {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 20px 100px;
+  padding: 15px 20px;
+  background:whitesmoke;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.receiptBalances div {
+  flex: 1;
+  text-align: center;
+  margin: 0 10px;
+  padding: 15px;
+  
+}
+
+
+.receiptBalances p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+
