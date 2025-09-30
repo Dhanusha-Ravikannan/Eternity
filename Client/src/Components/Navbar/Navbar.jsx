@@ -177,7 +177,7 @@ function Navbar() {
               isActive("/expensevoucher") ? styles.active : ""
             }`}
           >
-            Expense Voucher
+            Expense Tracker
           </Link>
         </li>
       </ul>
