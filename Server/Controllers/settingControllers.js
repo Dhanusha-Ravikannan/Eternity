@@ -6,10 +6,16 @@ const prisma = new PrismaClient();
 
 export const createSetting = async (req, res) => {
   try {
-    const { name, email, address, phoneNumber, casting_item_id } = req.body;
+    const { name, email, address, phoneNumber, casting_item_id, balance } = req.body;
 
     const newSetting = await prisma.addSetting.create({
-      data: { name, email, address, phoneNumber },
+      data: { 
+        name,
+        email, 
+        address, 
+        phoneNumber, 
+        balance 
+      },
     });
 
     const newLot = await prisma.lotInfo.create({
@@ -46,6 +52,9 @@ export const createSetting = async (req, res) => {
 export const getSetting = async (req, res) => {
     try {
       const settings = await prisma.addSetting.findMany({
+        orderBy:{
+          updatedAt:'desc'
+        },
         include: {
           lotInfo: true,
           settingMapper: {
@@ -92,11 +101,11 @@ export const getSetting = async (req, res) => {
   
 export const updateSetting = async (req,res) =>{
     const {id} = req.params;
-    const {name,email,phoneNumber,address} =req.body
+    const {name,email,phoneNumber,address,balance} =req.body
     try{
         const updated = await prisma.addSetting.update({
             where:{id:Number(id)},
-            data:{name,email,phoneNumber,address}
+            data:{name,email,phoneNumber,address,balance}
         })
         res. status(201).json(updated)
 

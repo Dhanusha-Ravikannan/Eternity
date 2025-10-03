@@ -3,10 +3,10 @@ const prisma = new PrismaClient();
 
 export const createBuffing = async (req, res) => {
   try {
-    const { name, email, address, phoneNumber, casting_item_id } = req.body;
+    const { name, email, address, phoneNumber, casting_item_id, balance } = req.body;
 
     const newBuffing = await prisma.addBuffing.create({
-      data: { name, email, address, phoneNumber },
+      data: { name, email, address, phoneNumber, balance },
     });
 
     const newLot = await prisma.lotInfo.create({
@@ -41,6 +41,9 @@ export const createBuffing = async (req, res) => {
 export const getBuffing = async (req, res) => {
   try {
     const buffings = await prisma.addBuffing.findMany({
+      orderBy:{
+        updatedAt:"desc"
+      },
       include: {
         lotInfo: true,
         buffingMapper: {
@@ -86,11 +89,11 @@ export const getBuffingById = async (req, res) => {
 
 export const updateBuffing = async (req, res) => {
   const { id } = req.params;
-  const { name, email, address, phoneNumber } = req.body;
+  const { name, email, address, phoneNumber, balance } = req.body;
   try {
     const updated = await prisma.addBuffing.update({
       where: { id: Number(id) },
-      data: { name, email, address, phoneNumber },
+      data: { name, email, address, phoneNumber, balance },
     });
     res.status(201).json(updated);
   } catch (error) {

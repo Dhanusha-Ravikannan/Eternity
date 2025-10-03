@@ -8,12 +8,14 @@ import {
   DialogActions,
   TextField,
   InputAdornment,
+  Box
 } from "@mui/material";
 import { Edit, Delete, Search } from "@mui/icons-material";
 import Master from "./MasterNavbar";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { validateCustomer } from "../../Utils/validationSchemas";
 
 function MasterSetting() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +26,7 @@ function MasterSetting() {
   const [email, setEmail] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [balance, setBalance] = useState("");
 
   const openModal = () => setIsModalOpen(true);
 
@@ -38,6 +41,7 @@ function MasterSetting() {
     setAddress("");
     setEmail("");
     setEditIndex(null);
+    setBalance("");
   };
 
   useEffect(() => {
@@ -56,117 +60,55 @@ function MasterSetting() {
 
 
   const handleSave = async () => {
-    const nameRegex = /^[A-Za-z\s]+$/;
-    const phoneRegex = /^[0-9]{7,15}$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-    const trimmedName = customerName.trim();
-    const trimmedPhone = phoneNumber.trim();
-    const trimmedEmail = email.trim();
-  
-    if (!trimmedName) {
-      toast.error("Setting member name is required");
-      return;
-    }
-    if (!nameRegex.test(trimmedName)) {
-      toast.error("Invalid name. Only letters and spaces allowed");
-      return;
-    }
-  
-    // Duplicate check for name
-    const isNameDuplicate = customers.some((cust, idx) => {
-      return cust.name.toLowerCase() === trimmedName.toLowerCase() && idx !== editIndex;
-    });
-    if (isNameDuplicate) {
-      toast.error("Setting member name already exists");
-      return;
-    }
-  
-    if (!trimmedPhone) {
-      toast.error("Phone number is required");
-      return;
-    }
-    if (!phoneRegex.test(trimmedPhone)) {
-      toast.error("Invalid phone number");
-      return;
-    }
-  
-    // Duplicate check for phone
-    const isPhoneDuplicate = customers.some((cust, idx) => {
-      return cust.phoneNumber === trimmedPhone && idx !== editIndex;
-    });
-    if (isPhoneDuplicate) {
-      toast.error("Phone number already exists");
-      return;
-    }
-  
-    // if (!address.trim()) {
-    //   toast.error("Address is required");
-    //   return;
-    // }
-  
-    if (trimmedEmail && !emailRegex.test(trimmedEmail)) {
-      toast.error("Invalid email format");
-      return;
-    }
-  
-    // Duplicate check for email (if not empty)
-    if (trimmedEmail) {
-      const isEmailDuplicate = customers.some((cust, idx) => {
-        return cust.email?.toLowerCase() === trimmedEmail.toLowerCase() && idx !== editIndex;
-      });
-      if (isEmailDuplicate) {
-        toast.error("Email already exists");
-        return;
-      }
-    }
   
     const customerData = {
-      name: trimmedName,
-      phoneNumber: trimmedPhone,
-      address: address.trim(),
-      email: trimmedEmail,
+      name: customerName.trim() || "",
+      phoneNumber: phoneNumber.trim() || "",
+      email: email.trim() || "",
+      address: address.trim() || "",
+      balance: balance.toString().trim() || "",
     };
   
+    const validation = validateCustomer(customerData, customers, editIndex);
+    if (!validation.success) {
+      toast.error(validation.error);
+      return;
+    }
+
     try {
       if (editIndex !== null) {
         const id = customers[editIndex].id;
         const response = await axios.put(
           `${BACKEND_SERVER_URL}/api/setting/${id}`,
-          customerData
+           validation.data
         );
         const updated = [...customers];
         updated[editIndex] = response.data.setting || response.data;
         setCustomers(updated);
         toast.success("Setting member updated successfully");
       } else {
-        const response = await axios.post(
-          `${BACKEND_SERVER_URL}/api/setting`,
-          customerData
-        );
-        setCustomers((prev) => [...prev, response.data.setting]);
+        const response = await axios.post(`${BACKEND_SERVER_URL}/api/setting`, validation.data );
+        setCustomers((prev) => [response.data.setting, ...prev]);
+
         toast.success("Setting member saved successfully");
       }
       closeModal();
     } catch (error) {
-      console.error(
-        "Error saving setting member:",
-        error.response?.data || error.message
-      );
+      console.error( "Error saving setting member:", error.response?.data || error.message );
       toast.error("Failed to save setting member");
     }
   };
   
-
   const handleEdit = (index) => {
     const customer = filteredCustomers[index];
     const originalIndex = customers.findIndex(
-      (c) => c.name === customer.name && c.phoneNumber === customer.phoneNumber
-    );
-    setCustomerName(customer.name);
-    setPhoneNumber(customer.phoneNumber);
-    setAddress(customer.address);
+      (c) => c.name === customer.name && c.phoneNumber === customer.phoneNumber );
+
+    setCustomerName(customer.name || "");
+    setPhoneNumber(customer.phoneNumber || "");
+    setAddress(customer.address || "");
     setEmail(customer.email || "");
+    setBalance(customer.balance !== null && customer.balance !== undefined ? customer.balance.toString() : "");
     setEditIndex(originalIndex);
     openModal();
   };
@@ -192,7 +134,8 @@ function MasterSetting() {
   };
 
   const filteredCustomers = customers.filter((customer) =>
-    customer.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    customer.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    customer.phoneNumber.includes(searchTerm)
   );
 
   return (
@@ -215,10 +158,10 @@ function MasterSetting() {
             Add Setting Member
           </Button>
           <TextField
-            placeholder="Search by Name"
+            placeholder="Search by Name or Phone"
             variant="outlined"
             size="small"
-            sx={{ marginLeft: "46rem" }}
+            sx={{ marginLeft: "55rem" }}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             InputProps={{
@@ -271,7 +214,8 @@ function MasterSetting() {
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
             />
-            <TextField
+                            <Box sx={{ display: "flex", gap: 2 }}> 
+                            <TextField
               margin="dense"
               label="Phone Number"
               type="tel"
@@ -279,6 +223,17 @@ function MasterSetting() {
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
+            
+      <TextField
+        margin="dense"
+        label="Balance"
+        type="number"
+        fullWidth
+        value={balance}
+        onChange={(e) => setBalance(e.target.value)}
+      />
+      </Box>
+        
             <TextField
               margin="dense"
               label="Email"
@@ -323,6 +278,7 @@ function MasterSetting() {
                 <th>Time</th>
                 <th>Name</th>
                 <th>Phone</th>
+                <th>Balance</th>
                 <th>Email</th>
                 <th>Address</th>
                 <th>Actions</th>
@@ -358,6 +314,7 @@ function MasterSetting() {
                       <td>{formattedUpdatedTime}</td>
                       <td>{customer.name}</td>
                       <td>{customer.phoneNumber}</td>
+                      <td>{customer.balance !== null && customer.balance !== undefined ? customer.balance : "-"}</td>
                       <td>{customer.email}</td>
                       <td>{customer.address}</td>
                       <td style={{ width: "7rem" }}>
@@ -375,8 +332,8 @@ function MasterSetting() {
                 })
               ) : (
                 <tr>
-                  <td colSpan="8" style={{ textAlign: "center" }}>
-                    Name not found
+                  <td colSpan="9" style={{ textAlign: "center" }}>
+                    Setting Member not found
                   </td>
                 </tr>
               )}

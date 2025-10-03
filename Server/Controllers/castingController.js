@@ -5,10 +5,16 @@ export const createCasting = async (req,res) =>{
 
     try{
 
-        const {name,email, phoneNumber,address} = req.body;
+        const {name,email, phoneNumber,address , balance} = req.body;
         const newCustomer = await prisma.addCasting.create(
             {
-                data:{name,email,phoneNumber,address},
+                data:{
+                    name,
+                    email,
+                    phoneNumber,
+                    address,
+                    balance: balance === "" || balance == null ? null : parseFloat(balance),
+                },
             }
         );
        
@@ -25,7 +31,11 @@ export const createCasting = async (req,res) =>{
 export const getCasting = async (req,res) =>{
 
     try{
-        const casting = await prisma.addCasting.findMany()
+        const casting = await prisma.addCasting.findMany({
+            orderBy:{
+                updatedAt:"desc"
+            }
+        })
         res.status(201).json(casting)
         console.log(casting)
     } catch (error) {
@@ -37,12 +47,18 @@ export const getCasting = async (req,res) =>{
 
 export const updateCasting = async (req,res) =>{
     const {id} = req.params;
-    const { name,email,phoneNumber,address} = req.body;
+    const { name,email,phoneNumber,address, balance} = req.body;
     try{
         const updated = await prisma.addCasting.update(
             {
                 where: {id: Number(id) },
-                data: { name,email,phoneNumber,address }
+                data: { 
+                    name,
+                    email,
+                    phoneNumber,
+                    address,
+                    balance: balance === "" || balance == null ? null : parseFloat(balance),
+                 }
             }
            
         );
