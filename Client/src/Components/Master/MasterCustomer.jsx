@@ -4,18 +4,18 @@ import axios from "axios";
 import {
   Button,
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
   TextField,
   InputAdornment,
+  Box
 } from "@mui/material";
 import { Edit, Delete, Search } from "@mui/icons-material";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import MasterNavbar from "./MasterNavbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { validateCustomer } from "../../Utils/validationSchemas";
 
 function MasterCustomer() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,135 +24,69 @@ function MasterCustomer() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
+  const [balance, setBalance] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const openModal = () => setIsModalOpen(true);
+  const nameRef = useRef();
+  const phoneRef = useRef();
+  const balanceRef = useRef();
+  const emailRef = useRef();
+  const addressRef = useRef();
 
+  const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
     clearForm();
   };
-
   const clearForm = () => {
     setCustomerName("");
     setPhoneNumber("");
     setAddress("");
     setEmail("");
+    setBalance("");
     setEditIndex(null);
   };
-
-  const nameRef = useRef();
-  const phoneRef = useRef();
-  const emailRef = useRef();
-  const addressRef = useRef();
 
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
         const response = await axios.get(`${BACKEND_SERVER_URL}/api/customers`);
-        console.log("customerr", response)
         setCustomers(response.data);
       } catch (error) {
         console.error("Error fetching customers:", error.message);
       }
     };
-
     fetchCustomers();
   }, []);
 
-
-
-
   const handleSave = async () => {
-    const nameRegex = /^[A-Za-z\s]+$/;
-    const phoneRegex = /^[0-9]{7,15}$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-    const trimmedName = customerName.trim();
-    const trimmedPhone = phoneNumber.trim();
-    const trimmedEmail = email.trim();
-  
-    // Validate name
-    if (!trimmedName) {
-      toast.error("Customer name is required");
-      return;
-    }
-    if (!nameRegex.test(trimmedName)) {
-      toast.error("Invalid name. Only letters and spaces allowed");
-      return;
-    }
-  
-    // Validate phone
-    if (!trimmedPhone) {
-      toast.error("Phone number is required");
-      return;
-    }
-    if (!phoneRegex.test(trimmedPhone)) {
-      toast.error("Invalid phone number. Only digits allowed (7 to 15 numbers)");
-      return;
-    }
-  
-    // Validate email
-    if (trimmedEmail && !emailRegex.test(trimmedEmail)) {
-      toast.error("Invalid email format");
-      return;
-    }
-  
-    // Duplicate checks
-    const isDuplicateName = customers.some(
-      (cust, idx) =>
-        cust.name.toLowerCase() === trimmedName.toLowerCase() && idx !== editIndex
-    );
-    if (isDuplicateName) {
-      toast.error("Customer name already exists");
-      return;
-    }
-  
-    const isDuplicatePhone = customers.some(
-      (cust, idx) =>
-        cust.phoneNumber === trimmedPhone && idx !== editIndex
-    );
-    if (isDuplicatePhone) {
-      toast.error("Phone number already exists");
-      return;
-    }
-  
-    const isDuplicateEmail = trimmedEmail
-      ? customers.some(
-          (cust, idx) => cust.email === trimmedEmail && idx !== editIndex
-        )
-      : false;
-    if (isDuplicateEmail) {
-      toast.error("Email already exists");
-      return;
-    }
-  
-    // Save or update
     const customerData = {
-      name: trimmedName,
-      phoneNumber: trimmedPhone,
-      address: address.trim(),
-      email: trimmedEmail,
+      name: customerName.trim() || "",
+      phoneNumber: phoneNumber.trim() || "",
+      email: email.trim() || "",
+      address: address.trim() || "",
+      balance: balance.toString().trim() || "",
     };
-  
+
+    const validation = validateCustomer(customerData, customers, editIndex);
+    if (!validation.success) {
+      toast.error(validation.error);
+      return;
+    }
+
     try {
       if (editIndex !== null) {
         const id = customers[editIndex].id;
         const response = await axios.put(
-          `${BACKEND_SERVER_URL}/api/customers/${id}`,
-          customerData
-        );
+          `${BACKEND_SERVER_URL}/api/customers/${id}`, validation.data );
         const updated = [...customers];
         updated[editIndex] = response.data;
         setCustomers(updated);
         toast.success("Customer updated successfully");
       } else {
-        const response = await axios.post(
-          `${BACKEND_SERVER_URL}/api/customers`,
-          customerData
-        );
-        setCustomers((prev) => [...prev, response.data]);
+        const response = await axios.post( `${BACKEND_SERVER_URL}/api/customers`,validation.data );
+        setCustomers((prev) => [ response.data, ...prev]);
         toast.success("Customer added successfully");
       }
       closeModal();
@@ -161,41 +95,44 @@ function MasterCustomer() {
       toast.error("Error saving customer");
     }
   };
-  
+
   const handleDelete = async (index) => {
     const customer = customers[index];
-    const confirmed = window.confirm(
-      `Are you sure you want to delete "${customer.name}"?`
-    );
-    if (!confirmed) return;
-  
+    if (!window.confirm(`Are you sure you want to delete "${customer.name}"?`)) return;
+
     try {
       await axios.delete(`${BACKEND_SERVER_URL}/api/customers/${customer.id}`);
-      const updatedCustomers = [...customers];
-      updatedCustomers.splice(index, 1);
-      setCustomers(updatedCustomers);
+      const updated = [...customers];
+      updated.splice(index, 1);
+      setCustomers(updated);
       toast.success("Customer deleted successfully");
     } catch (error) {
       console.error("Error deleting customer:", error.response?.data || error.message);
       toast.error("Error deleting customer");
     }
   };
-  
+
   const handleEdit = (index) => {
     const customer = filteredCustomers[index];
     const originalIndex = customers.findIndex(
-      (c) => c.name === customer.name && c.phoneNumber === customer.phoneNumber
+      (c) =>
+        c.name === customer.name &&
+        c.phoneNumber === customer.phoneNumber
     );
-    setCustomerName(customer.name);
-    setPhoneNumber(customer.phoneNumber);
-    setAddress(customer.address);
+
+    setCustomerName(customer.name || "");
+    setPhoneNumber(customer.phoneNumber || "");
+    setAddress(customer.address || "");
     setEmail(customer.email || "");
+    setBalance(customer.balance !== null && customer.balance !== undefined ? customer.balance.toString() : "");
     setEditIndex(originalIndex);
     openModal();
   };
 
-  const filteredCustomers = customers.filter((customer) =>
-    customer.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCustomers = customers.filter(
+    (c) =>
+      c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.phoneNumber.includes(searchTerm)
   );
 
   return (
@@ -218,12 +155,12 @@ function MasterCustomer() {
             Add Customer
           </Button>
           <TextField
-            placeholder="Search by Name"
+            placeholder="Search by Name or Phone Number"
             variant="outlined"
             size="small"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            sx={{ marginLeft: "49rem" }}
+            sx={{ marginLeft: "58rem" }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -246,170 +183,126 @@ function MasterCustomer() {
             Reset
           </Button>
         </div>
-          <Dialog
-  open={isModalOpen}
-  onClose={closeModal}
-  PaperProps={{ sx: { width: "450px", maxWidth: "90%", borderRadius:'5px' } }}>
+
+        <Dialog
+          open={isModalOpen}
+          onClose={closeModal}
+          PaperProps={{ sx: { width: "400px", maxWidth: "90%", borderRadius:'5px' } }}
+        >
           <h5 style={{ textAlign: "center", padding:'1.1rem', backgroundColor:"#F5F5F5" }}>
-          {editIndex !== null ? "Edit Casting Member" : "Add Casting Member"} </h5>
+            {editIndex !== null ? "Edit Customer Member" : "Add Customer Member"}
+          </h5>
           <DialogContent>
             <TextField
               autoFocus
               margin="dense"
               label="Customer Name"
               type="text"
-              sx={{marginTop:'0rem'}}
               fullWidth
-              autoComplete="off"
-              inputRef={nameRef}
-              onKeyDown={(e) => {
-                if (e.key === "ArrowDown" || e.key === "Enter") {
-                  phoneRef.current?.focus();
-                }
-              }}
               value={customerName}
+              inputRef={nameRef}
               onChange={(e) => setCustomerName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && phoneRef.current?.focus()}
             />
-
+                  <Box sx={{ display: "flex", gap: 2 }}>
             <TextField
               margin="dense"
               label="Phone Number"
               type="tel"
               fullWidth
-              autoComplete="off"
-              inputRef={phoneRef}
-              onKeyDown={(e) => {
-                if (e.key === "ArrowDown" || e.key === "Enter") {
-                  emailRef.current?.focus();
-                } else if (e.key === "ArrowUp") {
-                  nameRef.current?.focus();
-                }
-              }}
               value={phoneNumber}
+              inputRef={phoneRef}
               onChange={(e) => setPhoneNumber(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && balanceRef.current?.focus()}
             />
-
+            <TextField
+              margin="dense"
+              label="Balance"
+              type="number"
+              fullWidth
+              value={balance}
+              inputRef={balanceRef}
+              onChange={(e) => setBalance(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && emailRef.current?.focus()}
+            /> </Box>
             <TextField
               margin="dense"
               label="Email"
               type="email"
-              autoComplete="new-email"
-              name="newEmail"
               fullWidth
-              inputRef={emailRef}
-              onKeyDown={(e) => {
-                if (e.key === "ArrowDown" || e.key === "Enter") {
-                  addressRef.current?.focus();
-                } else if (e.key === "ArrowUp") {
-                  phoneRef.current?.focus();
-                }
-              }}
               value={email}
+              inputRef={emailRef}
               onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && addressRef.current?.focus()}
             />
-
             <TextField
               margin="dense"
               label="Address"
               type="text"
-              autoComplete="new-address"
-              name="newAddress"
               fullWidth
               multiline
               rows={4}
-              inputRef={addressRef}
-              onKeyDown={(e) => {
-                if (e.key === "ArrowUp") {
-                  emailRef.current?.focus();
-                }
-              }}
               value={address}
+              inputRef={addressRef}
               onChange={(e) => setAddress(e.target.value)}
             />
           </DialogContent>
-             <DialogActions sx={{padding:'1rem'}}>
-            <Button onClick={closeModal} color="primary" variant="outlined">Cancel</Button>
-            <Button onClick={handleSave} color="primary" variant="contained"  sx={{marginRight:'0.5rem'}}>Save</Button>
-      
+          <DialogActions sx={{ padding:'1rem' }}>
+            <Button onClick={closeModal} variant="outlined">Cancel</Button>
+            <Button onClick={handleSave} variant="contained">Save</Button>
           </DialogActions>
         </Dialog>
 
-        <div> 
         <table className={styles.purchaseTable}>
-            <thead>
-              <tr>
-                <th>S.No</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredCustomers.length > 0 ? (
-                filteredCustomers.map((customer, index) => {
-                  
-                  const updatedDateObj = customer.updatedAt ? new Date(customer.updatedAt) : null;
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Balance</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredCustomers.length > 0 ? filteredCustomers.map((c, i) => {
+              const updatedDateObj = c.updatedAt ? new Date(c.updatedAt) : null;
+              return (
+                <tr key={i} className={i % 2 === 0 ? styles.trEven : ""}>
+                  <td>{i + 1}</td>
+                  <td>{updatedDateObj?.toLocaleDateString("en-IN") || "-"}</td>
+                  <td>{updatedDateObj?.toLocaleTimeString("en-IN", {hour: "2-digit", minute: "2-digit"}) || "-"}</td>
+                  <td>{c.name}</td>
+                  <td>{c.phoneNumber}</td>
+                  <td>{c.balance ?? "-"}</td>
+                  <td>{c.email}</td>
+                  <td>{c.address}</td>
 
-                  const formattedUpdatedDate = updatedDateObj
-                    ? updatedDateObj.toLocaleDateString("en-IN", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })
-                    : "—";
-            
-                  const formattedUpdatedTime = updatedDateObj
-                    ? updatedDateObj.toLocaleTimeString("en-IN", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: true,
-                      })
-                    : "—";
-
-                  return (
-                    <tr key={index} className={index % 2 === 0 ? styles.trEven : ""}>
-                      <td>{index + 1}</td>
-                      <td>{formattedUpdatedDate}</td>
-                      <td>{formattedUpdatedTime}</td>
-                      <td>{customer.name}</td>
-                      <td>{customer.phoneNumber}</td>
-                      <td>{customer.email}</td>
-                      <td>{customer.address}</td>
-                      <td className={styles.tableActions}>
-                        <Edit
-                          onClick={() => handleEdit(index)}
-                          className={styles.actionIcon}
-                        />
-                        <Delete
-                          onClick={() => handleDelete(index)}
-                          className={styles.deleteIcon}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
-                <tr>
-                  <td colSpan="8" className={styles.centerText}>
-                    Name not found
+                  <td>
+                    <Edit onClick={() => handleEdit(i)} className={styles.actionIcon} />
+                    <Delete onClick={() => handleDelete(i)} className={styles.deleteIcon} />
                   </td>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              );
+            }) : (
+              <tr><td colSpan="9" style={{ textAlign: "center" }}>No customers found</td></tr>
+            )}
+          </tbody>
+        </table>
       </div>
 
       <ToastContainer position="top-right" autoClose={3000} />
-
-
-
     </>
   );
 }
 
 export default MasterCustomer;
+
+
+
+
+
+

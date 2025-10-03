@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import logo from '../../assets/logo.jpg';
-import backgroundImg from '../../assets/pink.jpg';
 import './Login.css'
 import { Link } from 'react-router-dom';
 import backgroundIm from '../../assets/back.jpg'

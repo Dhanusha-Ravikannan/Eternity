@@ -38,9 +38,11 @@ model AddCustomer {
   phoneNumber  String?
   address      String?
   email        String?
+  balance      Float?
   transactions CustomerTransaction[]
   bills        Bill[]
   hallmarks    Hallmark[]
+  receipt_voucher ReceiptVoucher[]
 }
 
 model AddCasting {
@@ -51,6 +53,7 @@ model AddCasting {
   phoneNumber  String?
   address      String?
   email        String?
+  balance      Float?
   entries      CastingEntry[]
   castingitems CastingItems[]
   stock        Stock[]
@@ -64,6 +67,7 @@ model AddFiling {
   phoneNumber     String?
   address         String?
   email           String?
+  balance         Float?
   filingWastages  FilingWastage[]
   filings         FilingEntry[]
   lotInfo         LotInfo[]
@@ -78,6 +82,7 @@ model AddSetting {
   phoneNumber     String?
   address         String?
   email           String?
+  balance         Float?
   settingWastages SettingWastage[]
   settings        SettingEntry[]
   settingMapper   LotSettingMapper[]
@@ -92,6 +97,7 @@ model AddBuffing {
   phoneNumber     String?
   address         String?
   email           String?
+  balance         Float?
   buffings        BuffingEntry[]
   buffingMapper   LotBuffingMapper[]
   lotInfo         LotInfo[]
@@ -158,25 +164,23 @@ model AddItem {
   QCStock       QcStock[]
   billItems     BillItem[]
 }
-
-// model AddTouch {
-//   id                   Int                   @id @default(autoincrement())
-//   createdAt            DateTime              @default(now())
-//   updatedAt            DateTime              @default(now()) @updatedAt
-//   touch                Float
-//   casting_entry        CastingEntry[]
-//   casting_items        CastingItems[]
-//   filing_items         FilingItems[]
-//   setting_items        SettingItems[]
-//   buffing_items        BuffingItems[]
-//   stock                Stock[]
-//   add_purchase_stock   AddPurchaseStock[]
-//   customer_transaction CustomerTransaction[]
-
-//   QCStock       QcStock[]
-//   receivedItems ReceivedItem[]
-//   billItems     BillItem[]
-// }
+model AddTouch {
+  id                   Int                   @id @default(autoincrement())
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @default(now()) @updatedAt
+  touch                Float
+  casting_entry        CastingEntry[]
+  casting_items        CastingItems[]
+  filing_items         FilingItems[]
+  setting_items        SettingItems[]
+  buffing_items        BuffingItems[]
+  stock                Stock[]
+  add_purchase_stock   AddPurchaseStock[]
+  customer_transaction CustomerTransaction[]
+  QCStock       QcStock[]
+  receiptVoucher ReceiptVoucher[]
+  ExpenseVoucher ExpenseVoucher[]
+}
 
 model QcStock {
   id           Int        @id @default(autoincrement())
@@ -613,22 +617,31 @@ model ReceivedItem {
 
 }
 
+model ReceiptVoucher {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-model AddTouch {
-  id                   Int                   @id @default(autoincrement())
-  createdAt            DateTime              @default(now())
-  updatedAt            DateTime              @default(now()) @updatedAt
-  touch                Float
-  casting_entry        CastingEntry[]
-  casting_items        CastingItems[]
-  filing_items         FilingItems[]
-  setting_items        SettingItems[]
-  buffing_items        BuffingItems[]
-  stock                Stock[]
-  add_purchase_stock   AddPurchaseStock[]
-  customer_transaction CustomerTransaction[]
+  customer_id Int
+  customerId AddCustomer @relation(fields: [customer_id], references: [id])
+  type ITEMTYPE
+  gold_rate Float?
+  amount Float?
+  gold Float?
+  touch_id Int 
+  touchId AddTouch @relation(fields: [touch_id], references: [id])
+  purity Float
+  hallmark Float?
+}
 
-  QCStock       QcStock[]
-  // receivedItems ReceivedItem[]
-  // billItems     BillItem[]
+model ExpenseVoucher {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  description String?
+  gold Float
+  touch_id Int 
+  touchId AddTouch @relation(fields: [touch_id], references: [id])
+  purity Float
+
 }

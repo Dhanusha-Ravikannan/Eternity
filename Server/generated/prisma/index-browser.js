@@ -127,7 +127,8 @@ exports.Prisma.AddCustomerScalarFieldEnum = {
   name: 'name',
   phoneNumber: 'phoneNumber',
   address: 'address',
-  email: 'email'
+  email: 'email',
+  balance: 'balance'
 };
 
 exports.Prisma.AddCastingScalarFieldEnum = {
@@ -137,7 +138,8 @@ exports.Prisma.AddCastingScalarFieldEnum = {
   name: 'name',
   phoneNumber: 'phoneNumber',
   address: 'address',
-  email: 'email'
+  email: 'email',
+  balance: 'balance'
 };
 
 exports.Prisma.AddFilingScalarFieldEnum = {
@@ -147,7 +149,8 @@ exports.Prisma.AddFilingScalarFieldEnum = {
   name: 'name',
   phoneNumber: 'phoneNumber',
   address: 'address',
-  email: 'email'
+  email: 'email',
+  balance: 'balance'
 };
 
 exports.Prisma.AddSettingScalarFieldEnum = {
@@ -157,7 +160,8 @@ exports.Prisma.AddSettingScalarFieldEnum = {
   name: 'name',
   phoneNumber: 'phoneNumber',
   address: 'address',
-  email: 'email'
+  email: 'email',
+  balance: 'balance'
 };
 
 exports.Prisma.AddBuffingScalarFieldEnum = {
@@ -167,7 +171,8 @@ exports.Prisma.AddBuffingScalarFieldEnum = {
   name: 'name',
   phoneNumber: 'phoneNumber',
   address: 'address',
-  email: 'email'
+  email: 'email',
+  balance: 'balance'
 };
 
 exports.Prisma.AddSupplierItemScalarFieldEnum = {
@@ -213,6 +218,13 @@ exports.Prisma.AddItemScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   name: 'name'
+};
+
+exports.Prisma.AddTouchScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  touch: 'touch'
 };
 
 exports.Prisma.QcStockScalarFieldEnum = {
@@ -520,11 +532,28 @@ exports.Prisma.ReceivedItemScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.AddTouchScalarFieldEnum = {
+exports.Prisma.ReceiptVoucherScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  touch: 'touch'
+  customer_id: 'customer_id',
+  type: 'type',
+  gold_rate: 'gold_rate',
+  amount: 'amount',
+  gold: 'gold',
+  touch_id: 'touch_id',
+  purity: 'purity',
+  hallmark: 'hallmark'
+};
+
+exports.Prisma.ExpenseVoucherScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  description: 'description',
+  gold: 'gold',
+  touch_id: 'touch_id',
+  purity: 'purity'
 };
 
 exports.Prisma.SortOrder = {
@@ -636,6 +665,10 @@ exports.Prisma.BillItemOrderByRelevanceFieldEnum = {
 exports.Prisma.ReceivedItemOrderByRelevanceFieldEnum = {
   date: 'date'
 };
+
+exports.Prisma.ExpenseVoucherOrderByRelevanceFieldEnum = {
+  description: 'description'
+};
 exports.ITEMTYPE = exports.$Enums.ITEMTYPE = {
   Gold: 'Gold',
   Silver: 'Silver',
@@ -662,6 +695,7 @@ exports.Prisma.ModelName = {
   AddPurchaseStock: 'AddPurchaseStock',
   CustomerTransaction: 'CustomerTransaction',
   AddItem: 'AddItem',
+  AddTouch: 'AddTouch',
   QcStock: 'QcStock',
   CastingEntry: 'CastingEntry',
   CastingItems: 'CastingItems',
@@ -687,7 +721,8 @@ exports.Prisma.ModelName = {
   Bill: 'Bill',
   BillItem: 'BillItem',
   ReceivedItem: 'ReceivedItem',
-  AddTouch: 'AddTouch'
+  ReceiptVoucher: 'ReceiptVoucher',
+  ExpenseVoucher: 'ExpenseVoucher'
 };
 
 /**

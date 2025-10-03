@@ -3,10 +3,18 @@ const prisma = new PrismaClient();
 
   export const createFiling = async (req, res) => {
     try {
-      const { name, email, address, phoneNumber, casting_item_id } = req.body;
+      const { name, email, address, phoneNumber, casting_item_id, balance } = req.body;
   
       const newFiling = await prisma.addFiling.create({
-        data: { name, email, address, phoneNumber },
+        data: { 
+          name,
+          email, 
+          address, 
+          phoneNumber ,
+          balance
+
+
+        },
       });
   
       const newLot = await prisma.lotInfo.create({
@@ -41,6 +49,9 @@ const prisma = new PrismaClient();
   export const getFiling = async (req, res) => {
     try {
       const filings = await prisma.addFiling.findMany({
+        orderBy:{
+          updatedAt:'desc'
+        },
         include: {
           lotInfo: true,
           lotFilingMapper: {
@@ -100,7 +111,7 @@ const prisma = new PrismaClient();
   
   export const updateFiling = async (req, res) => {
     const { id } = req.params;
-    const { name, email, address, phoneNumber } = req.body;
+    const { name, email, address, phoneNumber, balance } = req.body;
   
     try {
       const updatedFiling = await prisma.addFiling.update({
@@ -110,6 +121,7 @@ const prisma = new PrismaClient();
           email,
           address,
           phoneNumber,
+          balance
         },
       });
   

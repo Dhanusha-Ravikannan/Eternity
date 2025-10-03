@@ -8,12 +8,14 @@ import {
   DialogActions,
   TextField,
   InputAdornment,
+   Box
 } from "@mui/material";
 import { Edit, Delete, Search } from "@mui/icons-material";
 import Master from "./MasterNavbar";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { validateCustomer } from "../../Utils/validationSchemas";
 
 function MasterCasting() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +26,8 @@ function MasterCasting() {
   const [email, setEmail] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [balance, setBalance] = useState("");
+
 
   const openModal = () => setIsModalOpen(true);
 
@@ -38,6 +42,8 @@ function MasterCasting() {
     setAddress("");
     setEmail("");
     setEditIndex(null);
+    setBalance("");
+
   };
 
   useEffect(() => {
@@ -54,103 +60,32 @@ function MasterCasting() {
     fetchCustomers();
   }, []);
 
-
   const handleSave = async () => {
-    const nameRegex = /^[A-Za-z\s]+$/;
-    const phoneRegex = /^[0-9]{7,15}$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-    const trimmedName = customerName.trim();
-    const trimmedPhone = phoneNumber.trim();
-    const trimmedEmail = email.trim();
-    const trimmedAddress = address.trim();
-  
-    // Name validation
-    if (!trimmedName) {
-      toast.error("Casting member name is required");
-      return;
-    }
-    if (!nameRegex.test(trimmedName)) {
-      toast.error("Invalid name. Only letters and spaces are allowed");
-      return;
-    }
-  
-    // Phone validation
-    if (!trimmedPhone) {
-      toast.error("Phone number is required");
-      return;
-    }
-    if (!phoneRegex.test(trimmedPhone)) {
-      toast.error("Invalid phone number. Only digits allowed (7-15 numbers)");
-      return;
-    }
-  
-    // Email validation
-    if (trimmedEmail && !emailRegex.test(trimmedEmail)) {
-      toast.error("Invalid email format");
-      return;
-    }
-  
-    // Address validation
-    // if (!trimmedAddress) {
-    //   toast.error("Address is required");
-    //   return;
-    // }
-  
-    // Duplicate checks
-    const isDuplicateName = customers.some(
-      (cust, idx) =>
-        cust.name.toLowerCase() === trimmedName.toLowerCase() &&
-        idx !== editIndex
-    );
-    if (isDuplicateName) {
-      toast.error("Casting member name already exists");
-      return;
-    }
-  
-    const isDuplicatePhone = customers.some(
-      (cust, idx) =>
-        cust.phoneNumber === trimmedPhone && idx !== editIndex
-    );
-    if (isDuplicatePhone) {
-      toast.error("Phone number already exists");
-      return;
-    }
-  
-    const isDuplicateEmail = trimmedEmail
-      ? customers.some(
-          (cust, idx) => cust.email === trimmedEmail && idx !== editIndex
-        )
-      : false;
-    if (isDuplicateEmail) {
-      toast.error("Email already exists");
-      return;
-    }
-  
-    const customerData = {
-      name: trimmedName,
-      phoneNumber: trimmedPhone,
-      address: trimmedAddress,
-      email: trimmedEmail,
+    const castingData = {
+      name: customerName.trim() || "",
+      phoneNumber: phoneNumber.trim() || "",
+      email: email.trim() || "",
+      address: address.trim() || "",
+      balance: balance.toString().trim() || "",
     };
-  
+
+    const validation = validateCustomer(castingData, customers, editIndex);
+    if (!validation.success) {
+      toast.error(validation.error);
+      return;
+    }
+
     try {
       if (editIndex !== null) {
         const id = customers[editIndex].id;
-        const response = await axios.put(
-          `${BACKEND_SERVER_URL}/api/casting/${id}`,
-          customerData
-        );
+        const response = await axios.put( `${BACKEND_SERVER_URL}/api/casting/${id}`,validation.data );
         const updated = [...customers];
         updated[editIndex] = response.data;
         setCustomers(updated);
         toast.success("Casting member updated successfully");
       } else {
-        const response = await axios.post(
-          `${BACKEND_SERVER_URL}/api/casting`,
-          customerData
-        );
-        setCustomers((prev) => [...prev, response.data]);
+        const response = await axios.post( `${BACKEND_SERVER_URL}/api/casting`, validation.data );
+        setCustomers((prev) => [ response.data, ...prev]);
         toast.success("Casting member saved successfully");
       }
       closeModal();
@@ -159,16 +94,17 @@ function MasterCasting() {
       toast.error("Failed to save casting member");
     }
   };
-  
+
   const handleEdit = (index) => {
     const customer = filteredCustomers[index];
     const originalIndex = customers.findIndex(
-      (c) => c.name === customer.name && c.phoneNumber === customer.phoneNumber
-    );
-    setCustomerName(customer.name);
-    setPhoneNumber(customer.phoneNumber);
-    setAddress(customer.address);
+      (c) => c.name === customer.name && c.phoneNumber === customer.phoneNumber );
+
+    setCustomerName(customer.name || "");
+    setPhoneNumber(customer.phoneNumber || "");
+    setAddress(customer.address || "");
     setEmail(customer.email || "");
+    setBalance(customer.balance !== null && customer.balance !== undefined ? customer.balance.toString() : "");
     setEditIndex(originalIndex);
     openModal();
   };
@@ -192,7 +128,8 @@ function MasterCasting() {
   };
 
   const filteredCustomers = customers.filter((customer) =>
-    customer.name.toLowerCase().includes(searchTerm.toLowerCase())
+    customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  customer.phoneNumber.includes(searchTerm)
   );
 
   return (
@@ -216,12 +153,12 @@ function MasterCasting() {
           </Button>
 
           <TextField
-            placeholder="Search by Name"
+            placeholder="Search by Name or Phone"
             variant="outlined"
             size="small"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            sx={{ marginLeft: "45rem" }}
+            sx={{ marginLeft: "54rem" }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -246,75 +183,94 @@ function MasterCasting() {
         </div>
 
         {/* Modal */}
-        <Dialog
-          open={isModalOpen}
-          onClose={closeModal}
-          PaperProps={{
-            sx: { width: "450px", maxWidth: "90%", borderRadius: "5px" },
-          }}
-        >
-          <h5
-            style={{
-              textAlign: "center",
-              padding: "1.1rem",
-              backgroundColor: "#F5F5F5",
-            }}
-          >
-            {editIndex !== null
-              ? "Edit Casting / Melting Member"
-              : "Add Casting / Melting Member"}
-          </h5>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              label="Casting Member Name"
-              type="text"
-              fullWidth
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
-            />
-            <TextField
-              margin="dense"
-              label="Phone Number"
-              type="tel"
-              fullWidth
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-            <TextField
-              margin="dense"
-              label="Email"
-              type="email"
-              fullWidth
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              margin="dense"
-              label="Address"
-              type="text"
-              fullWidth
-              multiline
-              rows={4}
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-          </DialogContent>
-          <DialogActions sx={{ padding: "1rem" }}>
-            <Button onClick={closeModal} color="primary" variant="outlined">
-              Cancel
-            </Button>
-            <Button
-              onClick={handleSave}
-              color="primary"
-              variant="contained"
-              sx={{ marginRight: "0.5rem" }}
-            >
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
+
+<Dialog
+  open={isModalOpen}
+  onClose={closeModal}
+  PaperProps={{
+    sx: { width: "400px", maxWidth: "90%", borderRadius: "5px" },
+  }}
+>
+  <h5
+    style={{
+      textAlign: "center",
+      padding: "1.1rem",
+      backgroundColor: "#F5F5F5",
+    }}
+  >
+    {editIndex !== null
+      ? "Edit Casting / Melting Member"
+      : "Add Casting / Melting Member"}
+  </h5>
+
+  <DialogContent>
+    <TextField
+      autoFocus
+      margin="dense"
+      label="Casting Member Name"
+      type="text"
+      fullWidth
+      value={customerName}
+      onChange={(e) => setCustomerName(e.target.value)}
+    />
+
+        <Box sx={{ display: "flex", gap: 2 }}>
+    <TextField
+      margin="dense"
+      label="Phone Number"
+      type="tel"
+      fullWidth
+      value={phoneNumber}
+      onChange={(e) => setPhoneNumber(e.target.value)}
+    />
+
+
+      <TextField
+        margin="dense"
+        label="Balance"
+        type="number"
+        fullWidth
+        value={balance}
+        onChange={(e) => setBalance(e.target.value)}
+      />
+       </Box>
+      <TextField
+        margin="dense"
+        label="Email"
+        type="email"
+        fullWidth
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+   
+
+    <TextField
+      margin="dense"
+      label="Address"
+      type="text"
+      fullWidth
+      multiline
+      rows={3}
+      value={address}
+      onChange={(e) => setAddress(e.target.value)}
+    />
+  </DialogContent>
+
+  <DialogActions sx={{ padding: "1rem" }}>
+    <Button onClick={closeModal} color="primary" variant="outlined">
+      Cancel
+    </Button>
+    <Button
+      onClick={handleSave}
+      color="primary"
+      variant="contained"
+      sx={{ marginRight: "0.5rem" }}
+    >
+      Save
+    </Button>
+  </DialogActions>
+</Dialog>
+
 
         {/* Table */}
         <div className={styles.itemList}>
@@ -326,6 +282,7 @@ function MasterCasting() {
                 <th>Time</th>
                 <th>Name</th>
                 <th>Phone</th>
+                <th>Balance</th>
                 <th>Email</th>
                 <th>Address</th>
                 <th>Actions</th>
@@ -362,6 +319,7 @@ function MasterCasting() {
                       <td>{formattedUpdatedTime}</td>
                       <td>{customer.name}</td>
                       <td>{customer.phoneNumber}</td>
+                      <td>{customer.balance !== null && customer.balance !== undefined ? customer.balance : "-"}</td>
                       <td>{customer.email}</td>
                       <td>{customer.address}</td>
                       <td className={styles.tableActions}>
@@ -379,7 +337,7 @@ function MasterCasting() {
                 })
               ) : (
                 <tr>
-                  <td colSpan="8" style={{ textAlign: "center" }}>
+                  <td colSpan="9" style={{ textAlign: "center" }}>
                     Name not found
                   </td>
                 </tr>

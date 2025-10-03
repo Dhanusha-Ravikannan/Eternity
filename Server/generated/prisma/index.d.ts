@@ -59,6 +59,11 @@ export type CustomerTransaction = $Result.DefaultSelection<Prisma.$CustomerTrans
  */
 export type AddItem = $Result.DefaultSelection<Prisma.$AddItemPayload>
 /**
+ * Model AddTouch
+ * 
+ */
+export type AddTouch = $Result.DefaultSelection<Prisma.$AddTouchPayload>
+/**
  * Model QcStock
  * 
  */
@@ -184,10 +189,15 @@ export type BillItem = $Result.DefaultSelection<Prisma.$BillItemPayload>
  */
 export type ReceivedItem = $Result.DefaultSelection<Prisma.$ReceivedItemPayload>
 /**
- * Model AddTouch
+ * Model ReceiptVoucher
  * 
  */
-export type AddTouch = $Result.DefaultSelection<Prisma.$AddTouchPayload>
+export type ReceiptVoucher = $Result.DefaultSelection<Prisma.$ReceiptVoucherPayload>
+/**
+ * Model ExpenseVoucher
+ * 
+ */
+export type ExpenseVoucher = $Result.DefaultSelection<Prisma.$ExpenseVoucherPayload>
 
 /**
  * Enums
@@ -440,6 +450,16 @@ export class PrismaClient<
   get addItem(): Prisma.AddItemDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.addTouch`: Exposes CRUD operations for the **AddTouch** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AddTouches
+    * const addTouches = await prisma.addTouch.findMany()
+    * ```
+    */
+  get addTouch(): Prisma.AddTouchDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.qcStock`: Exposes CRUD operations for the **QcStock** model.
     * Example usage:
     * ```ts
@@ -690,14 +710,24 @@ export class PrismaClient<
   get receivedItem(): Prisma.ReceivedItemDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.addTouch`: Exposes CRUD operations for the **AddTouch** model.
+   * `prisma.receiptVoucher`: Exposes CRUD operations for the **ReceiptVoucher** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more AddTouches
-    * const addTouches = await prisma.addTouch.findMany()
+    * // Fetch zero or more ReceiptVouchers
+    * const receiptVouchers = await prisma.receiptVoucher.findMany()
     * ```
     */
-  get addTouch(): Prisma.AddTouchDelegate<ExtArgs, ClientOptions>;
+  get receiptVoucher(): Prisma.ReceiptVoucherDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.expenseVoucher`: Exposes CRUD operations for the **ExpenseVoucher** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ExpenseVouchers
+    * const expenseVouchers = await prisma.expenseVoucher.findMany()
+    * ```
+    */
+  get expenseVoucher(): Prisma.ExpenseVoucherDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1147,6 +1177,7 @@ export namespace Prisma {
     AddPurchaseStock: 'AddPurchaseStock',
     CustomerTransaction: 'CustomerTransaction',
     AddItem: 'AddItem',
+    AddTouch: 'AddTouch',
     QcStock: 'QcStock',
     CastingEntry: 'CastingEntry',
     CastingItems: 'CastingItems',
@@ -1172,7 +1203,8 @@ export namespace Prisma {
     Bill: 'Bill',
     BillItem: 'BillItem',
     ReceivedItem: 'ReceivedItem',
-    AddTouch: 'AddTouch'
+    ReceiptVoucher: 'ReceiptVoucher',
+    ExpenseVoucher: 'ExpenseVoucher'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1191,7 +1223,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "addCustomer" | "addCasting" | "addFiling" | "addSetting" | "addBuffing" | "addSupplierItem" | "addPurchaseStock" | "customerTransaction" | "addItem" | "qcStock" | "castingEntry" | "castingItems" | "castiingTotalBalance" | "lotInfo" | "filingEntry" | "lotFilingMapper" | "filingItems" | "filingTotalBalance" | "filingWastage" | "settingEntry" | "settingItems" | "lotSettingMapper" | "settingTotalBalance" | "settingWastage" | "buffingEntry" | "buffingItems" | "buffingTotalBalance" | "lotBuffingMapper" | "buffingWastage" | "stock" | "hallmark" | "bill" | "billItem" | "receivedItem" | "addTouch"
+      modelProps: "addCustomer" | "addCasting" | "addFiling" | "addSetting" | "addBuffing" | "addSupplierItem" | "addPurchaseStock" | "customerTransaction" | "addItem" | "addTouch" | "qcStock" | "castingEntry" | "castingItems" | "castiingTotalBalance" | "lotInfo" | "filingEntry" | "lotFilingMapper" | "filingItems" | "filingTotalBalance" | "filingWastage" | "settingEntry" | "settingItems" | "lotSettingMapper" | "settingTotalBalance" | "settingWastage" | "buffingEntry" | "buffingItems" | "buffingTotalBalance" | "lotBuffingMapper" | "buffingWastage" | "stock" | "hallmark" | "bill" | "billItem" | "receivedItem" | "receiptVoucher" | "expenseVoucher"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1786,6 +1818,72 @@ export namespace Prisma {
           count: {
             args: Prisma.AddItemCountArgs<ExtArgs>
             result: $Utils.Optional<AddItemCountAggregateOutputType> | number
+          }
+        }
+      }
+      AddTouch: {
+        payload: Prisma.$AddTouchPayload<ExtArgs>
+        fields: Prisma.AddTouchFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AddTouchFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AddTouchFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          findFirst: {
+            args: Prisma.AddTouchFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AddTouchFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          findMany: {
+            args: Prisma.AddTouchFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>[]
+          }
+          create: {
+            args: Prisma.AddTouchCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          createMany: {
+            args: Prisma.AddTouchCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AddTouchDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          update: {
+            args: Prisma.AddTouchUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          deleteMany: {
+            args: Prisma.AddTouchDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AddTouchUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AddTouchUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+          }
+          aggregate: {
+            args: Prisma.AddTouchAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAddTouch>
+          }
+          groupBy: {
+            args: Prisma.AddTouchGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AddTouchGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AddTouchCountArgs<ExtArgs>
+            result: $Utils.Optional<AddTouchCountAggregateOutputType> | number
           }
         }
       }
@@ -3439,69 +3537,135 @@ export namespace Prisma {
           }
         }
       }
-      AddTouch: {
-        payload: Prisma.$AddTouchPayload<ExtArgs>
-        fields: Prisma.AddTouchFieldRefs
+      ReceiptVoucher: {
+        payload: Prisma.$ReceiptVoucherPayload<ExtArgs>
+        fields: Prisma.ReceiptVoucherFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.AddTouchFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload> | null
+            args: Prisma.ReceiptVoucherFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReceiptVoucherPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.AddTouchFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+            args: Prisma.ReceiptVoucherFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReceiptVoucherPayload>
           }
           findFirst: {
-            args: Prisma.AddTouchFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload> | null
+            args: Prisma.ReceiptVoucherFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReceiptVoucherPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.AddTouchFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+            args: Prisma.ReceiptVoucherFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReceiptVoucherPayload>
           }
           findMany: {
-            args: Prisma.AddTouchFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>[]
+            args: Prisma.ReceiptVoucherFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReceiptVoucherPayload>[]
           }
           create: {
-            args: Prisma.AddTouchCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+            args: Prisma.ReceiptVoucherCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReceiptVoucherPayload>
           }
           createMany: {
-            args: Prisma.AddTouchCreateManyArgs<ExtArgs>
+            args: Prisma.ReceiptVoucherCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           delete: {
-            args: Prisma.AddTouchDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+            args: Prisma.ReceiptVoucherDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReceiptVoucherPayload>
           }
           update: {
-            args: Prisma.AddTouchUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+            args: Prisma.ReceiptVoucherUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReceiptVoucherPayload>
           }
           deleteMany: {
-            args: Prisma.AddTouchDeleteManyArgs<ExtArgs>
+            args: Prisma.ReceiptVoucherDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.AddTouchUpdateManyArgs<ExtArgs>
+            args: Prisma.ReceiptVoucherUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           upsert: {
-            args: Prisma.AddTouchUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AddTouchPayload>
+            args: Prisma.ReceiptVoucherUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReceiptVoucherPayload>
           }
           aggregate: {
-            args: Prisma.AddTouchAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAddTouch>
+            args: Prisma.ReceiptVoucherAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReceiptVoucher>
           }
           groupBy: {
-            args: Prisma.AddTouchGroupByArgs<ExtArgs>
-            result: $Utils.Optional<AddTouchGroupByOutputType>[]
+            args: Prisma.ReceiptVoucherGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReceiptVoucherGroupByOutputType>[]
           }
           count: {
-            args: Prisma.AddTouchCountArgs<ExtArgs>
-            result: $Utils.Optional<AddTouchCountAggregateOutputType> | number
+            args: Prisma.ReceiptVoucherCountArgs<ExtArgs>
+            result: $Utils.Optional<ReceiptVoucherCountAggregateOutputType> | number
+          }
+        }
+      }
+      ExpenseVoucher: {
+        payload: Prisma.$ExpenseVoucherPayload<ExtArgs>
+        fields: Prisma.ExpenseVoucherFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExpenseVoucherFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpenseVoucherPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExpenseVoucherFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpenseVoucherPayload>
+          }
+          findFirst: {
+            args: Prisma.ExpenseVoucherFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpenseVoucherPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExpenseVoucherFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpenseVoucherPayload>
+          }
+          findMany: {
+            args: Prisma.ExpenseVoucherFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpenseVoucherPayload>[]
+          }
+          create: {
+            args: Prisma.ExpenseVoucherCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpenseVoucherPayload>
+          }
+          createMany: {
+            args: Prisma.ExpenseVoucherCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ExpenseVoucherDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpenseVoucherPayload>
+          }
+          update: {
+            args: Prisma.ExpenseVoucherUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpenseVoucherPayload>
+          }
+          deleteMany: {
+            args: Prisma.ExpenseVoucherDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExpenseVoucherUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ExpenseVoucherUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpenseVoucherPayload>
+          }
+          aggregate: {
+            args: Prisma.ExpenseVoucherAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExpenseVoucher>
+          }
+          groupBy: {
+            args: Prisma.ExpenseVoucherGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExpenseVoucherGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExpenseVoucherCountArgs<ExtArgs>
+            result: $Utils.Optional<ExpenseVoucherCountAggregateOutputType> | number
           }
         }
       }
@@ -3610,6 +3774,7 @@ export namespace Prisma {
     addPurchaseStock?: AddPurchaseStockOmit
     customerTransaction?: CustomerTransactionOmit
     addItem?: AddItemOmit
+    addTouch?: AddTouchOmit
     qcStock?: QcStockOmit
     castingEntry?: CastingEntryOmit
     castingItems?: CastingItemsOmit
@@ -3635,7 +3800,8 @@ export namespace Prisma {
     bill?: BillOmit
     billItem?: BillItemOmit
     receivedItem?: ReceivedItemOmit
-    addTouch?: AddTouchOmit
+    receiptVoucher?: ReceiptVoucherOmit
+    expenseVoucher?: ExpenseVoucherOmit
   }
 
   /* Types for Logging */
@@ -3719,12 +3885,14 @@ export namespace Prisma {
     transactions: number
     bills: number
     hallmarks: number
+    receipt_voucher: number
   }
 
   export type AddCustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     transactions?: boolean | AddCustomerCountOutputTypeCountTransactionsArgs
     bills?: boolean | AddCustomerCountOutputTypeCountBillsArgs
     hallmarks?: boolean | AddCustomerCountOutputTypeCountHallmarksArgs
+    receipt_voucher?: boolean | AddCustomerCountOutputTypeCountReceipt_voucherArgs
   }
 
   // Custom InputTypes
@@ -3757,6 +3925,13 @@ export namespace Prisma {
    */
   export type AddCustomerCountOutputTypeCountHallmarksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: HallmarkWhereInput
+  }
+
+  /**
+   * AddCustomerCountOutputType without action
+   */
+  export type AddCustomerCountOutputTypeCountReceipt_voucherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReceiptVoucherWhereInput
   }
 
 
@@ -4158,6 +4333,127 @@ export namespace Prisma {
    */
   export type AddItemCountOutputTypeCountBillItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BillItemWhereInput
+  }
+
+
+  /**
+   * Count Type AddTouchCountOutputType
+   */
+
+  export type AddTouchCountOutputType = {
+    casting_entry: number
+    casting_items: number
+    filing_items: number
+    setting_items: number
+    buffing_items: number
+    stock: number
+    add_purchase_stock: number
+    customer_transaction: number
+    QCStock: number
+    receiptVoucher: number
+    ExpenseVoucher: number
+  }
+
+  export type AddTouchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    casting_entry?: boolean | AddTouchCountOutputTypeCountCasting_entryArgs
+    casting_items?: boolean | AddTouchCountOutputTypeCountCasting_itemsArgs
+    filing_items?: boolean | AddTouchCountOutputTypeCountFiling_itemsArgs
+    setting_items?: boolean | AddTouchCountOutputTypeCountSetting_itemsArgs
+    buffing_items?: boolean | AddTouchCountOutputTypeCountBuffing_itemsArgs
+    stock?: boolean | AddTouchCountOutputTypeCountStockArgs
+    add_purchase_stock?: boolean | AddTouchCountOutputTypeCountAdd_purchase_stockArgs
+    customer_transaction?: boolean | AddTouchCountOutputTypeCountCustomer_transactionArgs
+    QCStock?: boolean | AddTouchCountOutputTypeCountQCStockArgs
+    receiptVoucher?: boolean | AddTouchCountOutputTypeCountReceiptVoucherArgs
+    ExpenseVoucher?: boolean | AddTouchCountOutputTypeCountExpenseVoucherArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouchCountOutputType
+     */
+    select?: AddTouchCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountCasting_entryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CastingEntryWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountCasting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CastingItemsWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountFiling_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FilingItemsWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountSetting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SettingItemsWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountBuffing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BuffingItemsWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountAdd_purchase_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddPurchaseStockWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountCustomer_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerTransactionWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountQCStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QcStockWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountReceiptVoucherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReceiptVoucherWhereInput
+  }
+
+  /**
+   * AddTouchCountOutputType without action
+   */
+  export type AddTouchCountOutputTypeCountExpenseVoucherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExpenseVoucherWhereInput
   }
 
 
@@ -4888,109 +5184,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type AddTouchCountOutputType
-   */
-
-  export type AddTouchCountOutputType = {
-    casting_entry: number
-    casting_items: number
-    filing_items: number
-    setting_items: number
-    buffing_items: number
-    stock: number
-    add_purchase_stock: number
-    customer_transaction: number
-    QCStock: number
-  }
-
-  export type AddTouchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    casting_entry?: boolean | AddTouchCountOutputTypeCountCasting_entryArgs
-    casting_items?: boolean | AddTouchCountOutputTypeCountCasting_itemsArgs
-    filing_items?: boolean | AddTouchCountOutputTypeCountFiling_itemsArgs
-    setting_items?: boolean | AddTouchCountOutputTypeCountSetting_itemsArgs
-    buffing_items?: boolean | AddTouchCountOutputTypeCountBuffing_itemsArgs
-    stock?: boolean | AddTouchCountOutputTypeCountStockArgs
-    add_purchase_stock?: boolean | AddTouchCountOutputTypeCountAdd_purchase_stockArgs
-    customer_transaction?: boolean | AddTouchCountOutputTypeCountCustomer_transactionArgs
-    QCStock?: boolean | AddTouchCountOutputTypeCountQCStockArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouchCountOutputType
-     */
-    select?: AddTouchCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountCasting_entryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CastingEntryWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountCasting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CastingItemsWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountFiling_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FilingItemsWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountSetting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SettingItemsWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountBuffing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BuffingItemsWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StockWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountAdd_purchase_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AddPurchaseStockWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountCustomer_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CustomerTransactionWhereInput
-  }
-
-  /**
-   * AddTouchCountOutputType without action
-   */
-  export type AddTouchCountOutputTypeCountQCStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: QcStockWhereInput
-  }
-
-
-  /**
    * Models
    */
 
@@ -5008,10 +5201,12 @@ export namespace Prisma {
 
   export type AddCustomerAvgAggregateOutputType = {
     id: number | null
+    balance: number | null
   }
 
   export type AddCustomerSumAggregateOutputType = {
     id: number | null
+    balance: number | null
   }
 
   export type AddCustomerMinAggregateOutputType = {
@@ -5022,6 +5217,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
   }
 
   export type AddCustomerMaxAggregateOutputType = {
@@ -5032,6 +5228,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
   }
 
   export type AddCustomerCountAggregateOutputType = {
@@ -5042,16 +5239,19 @@ export namespace Prisma {
     phoneNumber: number
     address: number
     email: number
+    balance: number
     _all: number
   }
 
 
   export type AddCustomerAvgAggregateInputType = {
     id?: true
+    balance?: true
   }
 
   export type AddCustomerSumAggregateInputType = {
     id?: true
+    balance?: true
   }
 
   export type AddCustomerMinAggregateInputType = {
@@ -5062,6 +5262,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
   }
 
   export type AddCustomerMaxAggregateInputType = {
@@ -5072,6 +5273,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
   }
 
   export type AddCustomerCountAggregateInputType = {
@@ -5082,6 +5284,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
     _all?: true
   }
 
@@ -5179,6 +5382,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
     _count: AddCustomerCountAggregateOutputType | null
     _avg: AddCustomerAvgAggregateOutputType | null
     _sum: AddCustomerSumAggregateOutputType | null
@@ -5208,9 +5412,11 @@ export namespace Prisma {
     phoneNumber?: boolean
     address?: boolean
     email?: boolean
+    balance?: boolean
     transactions?: boolean | AddCustomer$transactionsArgs<ExtArgs>
     bills?: boolean | AddCustomer$billsArgs<ExtArgs>
     hallmarks?: boolean | AddCustomer$hallmarksArgs<ExtArgs>
+    receipt_voucher?: boolean | AddCustomer$receipt_voucherArgs<ExtArgs>
     _count?: boolean | AddCustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["addCustomer"]>
 
@@ -5224,13 +5430,15 @@ export namespace Prisma {
     phoneNumber?: boolean
     address?: boolean
     email?: boolean
+    balance?: boolean
   }
 
-  export type AddCustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email", ExtArgs["result"]["addCustomer"]>
+  export type AddCustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email" | "balance", ExtArgs["result"]["addCustomer"]>
   export type AddCustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     transactions?: boolean | AddCustomer$transactionsArgs<ExtArgs>
     bills?: boolean | AddCustomer$billsArgs<ExtArgs>
     hallmarks?: boolean | AddCustomer$hallmarksArgs<ExtArgs>
+    receipt_voucher?: boolean | AddCustomer$receipt_voucherArgs<ExtArgs>
     _count?: boolean | AddCustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5240,6 +5448,7 @@ export namespace Prisma {
       transactions: Prisma.$CustomerTransactionPayload<ExtArgs>[]
       bills: Prisma.$BillPayload<ExtArgs>[]
       hallmarks: Prisma.$HallmarkPayload<ExtArgs>[]
+      receipt_voucher: Prisma.$ReceiptVoucherPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5249,6 +5458,7 @@ export namespace Prisma {
       phoneNumber: string | null
       address: string | null
       email: string | null
+      balance: number | null
     }, ExtArgs["result"]["addCustomer"]>
     composites: {}
   }
@@ -5592,6 +5802,7 @@ export namespace Prisma {
     transactions<T extends AddCustomer$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, AddCustomer$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bills<T extends AddCustomer$billsArgs<ExtArgs> = {}>(args?: Subset<T, AddCustomer$billsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hallmarks<T extends AddCustomer$hallmarksArgs<ExtArgs> = {}>(args?: Subset<T, AddCustomer$hallmarksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HallmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    receipt_voucher<T extends AddCustomer$receipt_voucherArgs<ExtArgs> = {}>(args?: Subset<T, AddCustomer$receipt_voucherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5628,6 +5839,7 @@ export namespace Prisma {
     readonly phoneNumber: FieldRef<"AddCustomer", 'String'>
     readonly address: FieldRef<"AddCustomer", 'String'>
     readonly email: FieldRef<"AddCustomer", 'String'>
+    readonly balance: FieldRef<"AddCustomer", 'Float'>
   }
     
 
@@ -6043,6 +6255,30 @@ export namespace Prisma {
   }
 
   /**
+   * AddCustomer.receipt_voucher
+   */
+  export type AddCustomer$receipt_voucherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReceiptVoucher
+     */
+    select?: ReceiptVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReceiptVoucher
+     */
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReceiptVoucherInclude<ExtArgs> | null
+    where?: ReceiptVoucherWhereInput
+    orderBy?: ReceiptVoucherOrderByWithRelationInput | ReceiptVoucherOrderByWithRelationInput[]
+    cursor?: ReceiptVoucherWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReceiptVoucherScalarFieldEnum | ReceiptVoucherScalarFieldEnum[]
+  }
+
+  /**
    * AddCustomer without action
    */
   export type AddCustomerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6075,10 +6311,12 @@ export namespace Prisma {
 
   export type AddCastingAvgAggregateOutputType = {
     id: number | null
+    balance: number | null
   }
 
   export type AddCastingSumAggregateOutputType = {
     id: number | null
+    balance: number | null
   }
 
   export type AddCastingMinAggregateOutputType = {
@@ -6089,6 +6327,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
   }
 
   export type AddCastingMaxAggregateOutputType = {
@@ -6099,6 +6338,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
   }
 
   export type AddCastingCountAggregateOutputType = {
@@ -6109,16 +6349,19 @@ export namespace Prisma {
     phoneNumber: number
     address: number
     email: number
+    balance: number
     _all: number
   }
 
 
   export type AddCastingAvgAggregateInputType = {
     id?: true
+    balance?: true
   }
 
   export type AddCastingSumAggregateInputType = {
     id?: true
+    balance?: true
   }
 
   export type AddCastingMinAggregateInputType = {
@@ -6129,6 +6372,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
   }
 
   export type AddCastingMaxAggregateInputType = {
@@ -6139,6 +6383,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
   }
 
   export type AddCastingCountAggregateInputType = {
@@ -6149,6 +6394,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
     _all?: true
   }
 
@@ -6246,6 +6492,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
     _count: AddCastingCountAggregateOutputType | null
     _avg: AddCastingAvgAggregateOutputType | null
     _sum: AddCastingSumAggregateOutputType | null
@@ -6275,6 +6522,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     address?: boolean
     email?: boolean
+    balance?: boolean
     entries?: boolean | AddCasting$entriesArgs<ExtArgs>
     castingitems?: boolean | AddCasting$castingitemsArgs<ExtArgs>
     stock?: boolean | AddCasting$stockArgs<ExtArgs>
@@ -6291,9 +6539,10 @@ export namespace Prisma {
     phoneNumber?: boolean
     address?: boolean
     email?: boolean
+    balance?: boolean
   }
 
-  export type AddCastingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email", ExtArgs["result"]["addCasting"]>
+  export type AddCastingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email" | "balance", ExtArgs["result"]["addCasting"]>
   export type AddCastingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     entries?: boolean | AddCasting$entriesArgs<ExtArgs>
     castingitems?: boolean | AddCasting$castingitemsArgs<ExtArgs>
@@ -6316,6 +6565,7 @@ export namespace Prisma {
       phoneNumber: string | null
       address: string | null
       email: string | null
+      balance: number | null
     }, ExtArgs["result"]["addCasting"]>
     composites: {}
   }
@@ -6695,6 +6945,7 @@ export namespace Prisma {
     readonly phoneNumber: FieldRef<"AddCasting", 'String'>
     readonly address: FieldRef<"AddCasting", 'String'>
     readonly email: FieldRef<"AddCasting", 'String'>
+    readonly balance: FieldRef<"AddCasting", 'Float'>
   }
     
 
@@ -7142,10 +7393,12 @@ export namespace Prisma {
 
   export type AddFilingAvgAggregateOutputType = {
     id: number | null
+    balance: number | null
   }
 
   export type AddFilingSumAggregateOutputType = {
     id: number | null
+    balance: number | null
   }
 
   export type AddFilingMinAggregateOutputType = {
@@ -7156,6 +7409,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
   }
 
   export type AddFilingMaxAggregateOutputType = {
@@ -7166,6 +7420,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
   }
 
   export type AddFilingCountAggregateOutputType = {
@@ -7176,16 +7431,19 @@ export namespace Prisma {
     phoneNumber: number
     address: number
     email: number
+    balance: number
     _all: number
   }
 
 
   export type AddFilingAvgAggregateInputType = {
     id?: true
+    balance?: true
   }
 
   export type AddFilingSumAggregateInputType = {
     id?: true
+    balance?: true
   }
 
   export type AddFilingMinAggregateInputType = {
@@ -7196,6 +7454,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
   }
 
   export type AddFilingMaxAggregateInputType = {
@@ -7206,6 +7465,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
   }
 
   export type AddFilingCountAggregateInputType = {
@@ -7216,6 +7476,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
     _all?: true
   }
 
@@ -7313,6 +7574,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
     _count: AddFilingCountAggregateOutputType | null
     _avg: AddFilingAvgAggregateOutputType | null
     _sum: AddFilingSumAggregateOutputType | null
@@ -7342,6 +7604,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     address?: boolean
     email?: boolean
+    balance?: boolean
     filingWastages?: boolean | AddFiling$filingWastagesArgs<ExtArgs>
     filings?: boolean | AddFiling$filingsArgs<ExtArgs>
     lotInfo?: boolean | AddFiling$lotInfoArgs<ExtArgs>
@@ -7359,9 +7622,10 @@ export namespace Prisma {
     phoneNumber?: boolean
     address?: boolean
     email?: boolean
+    balance?: boolean
   }
 
-  export type AddFilingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email", ExtArgs["result"]["addFiling"]>
+  export type AddFilingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email" | "balance", ExtArgs["result"]["addFiling"]>
   export type AddFilingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     filingWastages?: boolean | AddFiling$filingWastagesArgs<ExtArgs>
     filings?: boolean | AddFiling$filingsArgs<ExtArgs>
@@ -7386,6 +7650,7 @@ export namespace Prisma {
       phoneNumber: string | null
       address: string | null
       email: string | null
+      balance: number | null
     }, ExtArgs["result"]["addFiling"]>
     composites: {}
   }
@@ -7766,6 +8031,7 @@ export namespace Prisma {
     readonly phoneNumber: FieldRef<"AddFiling", 'String'>
     readonly address: FieldRef<"AddFiling", 'String'>
     readonly email: FieldRef<"AddFiling", 'String'>
+    readonly balance: FieldRef<"AddFiling", 'Float'>
   }
     
 
@@ -8237,10 +8503,12 @@ export namespace Prisma {
 
   export type AddSettingAvgAggregateOutputType = {
     id: number | null
+    balance: number | null
   }
 
   export type AddSettingSumAggregateOutputType = {
     id: number | null
+    balance: number | null
   }
 
   export type AddSettingMinAggregateOutputType = {
@@ -8251,6 +8519,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
   }
 
   export type AddSettingMaxAggregateOutputType = {
@@ -8261,6 +8530,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
   }
 
   export type AddSettingCountAggregateOutputType = {
@@ -8271,16 +8541,19 @@ export namespace Prisma {
     phoneNumber: number
     address: number
     email: number
+    balance: number
     _all: number
   }
 
 
   export type AddSettingAvgAggregateInputType = {
     id?: true
+    balance?: true
   }
 
   export type AddSettingSumAggregateInputType = {
     id?: true
+    balance?: true
   }
 
   export type AddSettingMinAggregateInputType = {
@@ -8291,6 +8564,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
   }
 
   export type AddSettingMaxAggregateInputType = {
@@ -8301,6 +8575,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
   }
 
   export type AddSettingCountAggregateInputType = {
@@ -8311,6 +8586,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
     _all?: true
   }
 
@@ -8408,6 +8684,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
     _count: AddSettingCountAggregateOutputType | null
     _avg: AddSettingAvgAggregateOutputType | null
     _sum: AddSettingSumAggregateOutputType | null
@@ -8437,6 +8714,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     address?: boolean
     email?: boolean
+    balance?: boolean
     settingWastages?: boolean | AddSetting$settingWastagesArgs<ExtArgs>
     settings?: boolean | AddSetting$settingsArgs<ExtArgs>
     settingMapper?: boolean | AddSetting$settingMapperArgs<ExtArgs>
@@ -8454,9 +8732,10 @@ export namespace Prisma {
     phoneNumber?: boolean
     address?: boolean
     email?: boolean
+    balance?: boolean
   }
 
-  export type AddSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email", ExtArgs["result"]["addSetting"]>
+  export type AddSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email" | "balance", ExtArgs["result"]["addSetting"]>
   export type AddSettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     settingWastages?: boolean | AddSetting$settingWastagesArgs<ExtArgs>
     settings?: boolean | AddSetting$settingsArgs<ExtArgs>
@@ -8481,6 +8760,7 @@ export namespace Prisma {
       phoneNumber: string | null
       address: string | null
       email: string | null
+      balance: number | null
     }, ExtArgs["result"]["addSetting"]>
     composites: {}
   }
@@ -8861,6 +9141,7 @@ export namespace Prisma {
     readonly phoneNumber: FieldRef<"AddSetting", 'String'>
     readonly address: FieldRef<"AddSetting", 'String'>
     readonly email: FieldRef<"AddSetting", 'String'>
+    readonly balance: FieldRef<"AddSetting", 'Float'>
   }
     
 
@@ -9332,10 +9613,12 @@ export namespace Prisma {
 
   export type AddBuffingAvgAggregateOutputType = {
     id: number | null
+    balance: number | null
   }
 
   export type AddBuffingSumAggregateOutputType = {
     id: number | null
+    balance: number | null
   }
 
   export type AddBuffingMinAggregateOutputType = {
@@ -9346,6 +9629,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
   }
 
   export type AddBuffingMaxAggregateOutputType = {
@@ -9356,6 +9640,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
   }
 
   export type AddBuffingCountAggregateOutputType = {
@@ -9366,16 +9651,19 @@ export namespace Prisma {
     phoneNumber: number
     address: number
     email: number
+    balance: number
     _all: number
   }
 
 
   export type AddBuffingAvgAggregateInputType = {
     id?: true
+    balance?: true
   }
 
   export type AddBuffingSumAggregateInputType = {
     id?: true
+    balance?: true
   }
 
   export type AddBuffingMinAggregateInputType = {
@@ -9386,6 +9674,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
   }
 
   export type AddBuffingMaxAggregateInputType = {
@@ -9396,6 +9685,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
   }
 
   export type AddBuffingCountAggregateInputType = {
@@ -9406,6 +9696,7 @@ export namespace Prisma {
     phoneNumber?: true
     address?: true
     email?: true
+    balance?: true
     _all?: true
   }
 
@@ -9503,6 +9794,7 @@ export namespace Prisma {
     phoneNumber: string | null
     address: string | null
     email: string | null
+    balance: number | null
     _count: AddBuffingCountAggregateOutputType | null
     _avg: AddBuffingAvgAggregateOutputType | null
     _sum: AddBuffingSumAggregateOutputType | null
@@ -9532,6 +9824,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     address?: boolean
     email?: boolean
+    balance?: boolean
     buffings?: boolean | AddBuffing$buffingsArgs<ExtArgs>
     buffingMapper?: boolean | AddBuffing$buffingMapperArgs<ExtArgs>
     lotInfo?: boolean | AddBuffing$lotInfoArgs<ExtArgs>
@@ -9549,9 +9842,10 @@ export namespace Prisma {
     phoneNumber?: boolean
     address?: boolean
     email?: boolean
+    balance?: boolean
   }
 
-  export type AddBuffingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email", ExtArgs["result"]["addBuffing"]>
+  export type AddBuffingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email" | "balance", ExtArgs["result"]["addBuffing"]>
   export type AddBuffingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     buffings?: boolean | AddBuffing$buffingsArgs<ExtArgs>
     buffingMapper?: boolean | AddBuffing$buffingMapperArgs<ExtArgs>
@@ -9576,6 +9870,7 @@ export namespace Prisma {
       phoneNumber: string | null
       address: string | null
       email: string | null
+      balance: number | null
     }, ExtArgs["result"]["addBuffing"]>
     composites: {}
   }
@@ -9956,6 +10251,7 @@ export namespace Prisma {
     readonly phoneNumber: FieldRef<"AddBuffing", 'String'>
     readonly address: FieldRef<"AddBuffing", 'String'>
     readonly email: FieldRef<"AddBuffing", 'String'>
+    readonly balance: FieldRef<"AddBuffing", 'Float'>
   }
     
 
@@ -14760,6 +15056,1268 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AddItemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AddTouch
+   */
+
+  export type AggregateAddTouch = {
+    _count: AddTouchCountAggregateOutputType | null
+    _avg: AddTouchAvgAggregateOutputType | null
+    _sum: AddTouchSumAggregateOutputType | null
+    _min: AddTouchMinAggregateOutputType | null
+    _max: AddTouchMaxAggregateOutputType | null
+  }
+
+  export type AddTouchAvgAggregateOutputType = {
+    id: number | null
+    touch: number | null
+  }
+
+  export type AddTouchSumAggregateOutputType = {
+    id: number | null
+    touch: number | null
+  }
+
+  export type AddTouchMinAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    touch: number | null
+  }
+
+  export type AddTouchMaxAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    touch: number | null
+  }
+
+  export type AddTouchCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    touch: number
+    _all: number
+  }
+
+
+  export type AddTouchAvgAggregateInputType = {
+    id?: true
+    touch?: true
+  }
+
+  export type AddTouchSumAggregateInputType = {
+    id?: true
+    touch?: true
+  }
+
+  export type AddTouchMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    touch?: true
+  }
+
+  export type AddTouchMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    touch?: true
+  }
+
+  export type AddTouchCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    touch?: true
+    _all?: true
+  }
+
+  export type AddTouchAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AddTouch to aggregate.
+     */
+    where?: AddTouchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AddTouches to fetch.
+     */
+    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AddTouchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AddTouches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AddTouches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AddTouches
+    **/
+    _count?: true | AddTouchCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AddTouchAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AddTouchSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AddTouchMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AddTouchMaxAggregateInputType
+  }
+
+  export type GetAddTouchAggregateType<T extends AddTouchAggregateArgs> = {
+        [P in keyof T & keyof AggregateAddTouch]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAddTouch[P]>
+      : GetScalarType<T[P], AggregateAddTouch[P]>
+  }
+
+
+
+
+  export type AddTouchGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddTouchWhereInput
+    orderBy?: AddTouchOrderByWithAggregationInput | AddTouchOrderByWithAggregationInput[]
+    by: AddTouchScalarFieldEnum[] | AddTouchScalarFieldEnum
+    having?: AddTouchScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AddTouchCountAggregateInputType | true
+    _avg?: AddTouchAvgAggregateInputType
+    _sum?: AddTouchSumAggregateInputType
+    _min?: AddTouchMinAggregateInputType
+    _max?: AddTouchMaxAggregateInputType
+  }
+
+  export type AddTouchGroupByOutputType = {
+    id: number
+    createdAt: Date
+    updatedAt: Date
+    touch: number
+    _count: AddTouchCountAggregateOutputType | null
+    _avg: AddTouchAvgAggregateOutputType | null
+    _sum: AddTouchSumAggregateOutputType | null
+    _min: AddTouchMinAggregateOutputType | null
+    _max: AddTouchMaxAggregateOutputType | null
+  }
+
+  type GetAddTouchGroupByPayload<T extends AddTouchGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AddTouchGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AddTouchGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AddTouchGroupByOutputType[P]>
+            : GetScalarType<T[P], AddTouchGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AddTouchSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    touch?: boolean
+    casting_entry?: boolean | AddTouch$casting_entryArgs<ExtArgs>
+    casting_items?: boolean | AddTouch$casting_itemsArgs<ExtArgs>
+    filing_items?: boolean | AddTouch$filing_itemsArgs<ExtArgs>
+    setting_items?: boolean | AddTouch$setting_itemsArgs<ExtArgs>
+    buffing_items?: boolean | AddTouch$buffing_itemsArgs<ExtArgs>
+    stock?: boolean | AddTouch$stockArgs<ExtArgs>
+    add_purchase_stock?: boolean | AddTouch$add_purchase_stockArgs<ExtArgs>
+    customer_transaction?: boolean | AddTouch$customer_transactionArgs<ExtArgs>
+    QCStock?: boolean | AddTouch$QCStockArgs<ExtArgs>
+    receiptVoucher?: boolean | AddTouch$receiptVoucherArgs<ExtArgs>
+    ExpenseVoucher?: boolean | AddTouch$ExpenseVoucherArgs<ExtArgs>
+    _count?: boolean | AddTouchCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["addTouch"]>
+
+
+
+  export type AddTouchSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    touch?: boolean
+  }
+
+  export type AddTouchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "touch", ExtArgs["result"]["addTouch"]>
+  export type AddTouchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    casting_entry?: boolean | AddTouch$casting_entryArgs<ExtArgs>
+    casting_items?: boolean | AddTouch$casting_itemsArgs<ExtArgs>
+    filing_items?: boolean | AddTouch$filing_itemsArgs<ExtArgs>
+    setting_items?: boolean | AddTouch$setting_itemsArgs<ExtArgs>
+    buffing_items?: boolean | AddTouch$buffing_itemsArgs<ExtArgs>
+    stock?: boolean | AddTouch$stockArgs<ExtArgs>
+    add_purchase_stock?: boolean | AddTouch$add_purchase_stockArgs<ExtArgs>
+    customer_transaction?: boolean | AddTouch$customer_transactionArgs<ExtArgs>
+    QCStock?: boolean | AddTouch$QCStockArgs<ExtArgs>
+    receiptVoucher?: boolean | AddTouch$receiptVoucherArgs<ExtArgs>
+    ExpenseVoucher?: boolean | AddTouch$ExpenseVoucherArgs<ExtArgs>
+    _count?: boolean | AddTouchCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $AddTouchPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AddTouch"
+    objects: {
+      casting_entry: Prisma.$CastingEntryPayload<ExtArgs>[]
+      casting_items: Prisma.$CastingItemsPayload<ExtArgs>[]
+      filing_items: Prisma.$FilingItemsPayload<ExtArgs>[]
+      setting_items: Prisma.$SettingItemsPayload<ExtArgs>[]
+      buffing_items: Prisma.$BuffingItemsPayload<ExtArgs>[]
+      stock: Prisma.$StockPayload<ExtArgs>[]
+      add_purchase_stock: Prisma.$AddPurchaseStockPayload<ExtArgs>[]
+      customer_transaction: Prisma.$CustomerTransactionPayload<ExtArgs>[]
+      QCStock: Prisma.$QcStockPayload<ExtArgs>[]
+      receiptVoucher: Prisma.$ReceiptVoucherPayload<ExtArgs>[]
+      ExpenseVoucher: Prisma.$ExpenseVoucherPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      createdAt: Date
+      updatedAt: Date
+      touch: number
+    }, ExtArgs["result"]["addTouch"]>
+    composites: {}
+  }
+
+  type AddTouchGetPayload<S extends boolean | null | undefined | AddTouchDefaultArgs> = $Result.GetResult<Prisma.$AddTouchPayload, S>
+
+  type AddTouchCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AddTouchFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AddTouchCountAggregateInputType | true
+    }
+
+  export interface AddTouchDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AddTouch'], meta: { name: 'AddTouch' } }
+    /**
+     * Find zero or one AddTouch that matches the filter.
+     * @param {AddTouchFindUniqueArgs} args - Arguments to find a AddTouch
+     * @example
+     * // Get one AddTouch
+     * const addTouch = await prisma.addTouch.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AddTouchFindUniqueArgs>(args: SelectSubset<T, AddTouchFindUniqueArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AddTouch that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AddTouchFindUniqueOrThrowArgs} args - Arguments to find a AddTouch
+     * @example
+     * // Get one AddTouch
+     * const addTouch = await prisma.addTouch.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AddTouchFindUniqueOrThrowArgs>(args: SelectSubset<T, AddTouchFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AddTouch that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchFindFirstArgs} args - Arguments to find a AddTouch
+     * @example
+     * // Get one AddTouch
+     * const addTouch = await prisma.addTouch.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AddTouchFindFirstArgs>(args?: SelectSubset<T, AddTouchFindFirstArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AddTouch that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchFindFirstOrThrowArgs} args - Arguments to find a AddTouch
+     * @example
+     * // Get one AddTouch
+     * const addTouch = await prisma.addTouch.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AddTouchFindFirstOrThrowArgs>(args?: SelectSubset<T, AddTouchFindFirstOrThrowArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AddTouches that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AddTouches
+     * const addTouches = await prisma.addTouch.findMany()
+     * 
+     * // Get first 10 AddTouches
+     * const addTouches = await prisma.addTouch.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const addTouchWithIdOnly = await prisma.addTouch.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AddTouchFindManyArgs>(args?: SelectSubset<T, AddTouchFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AddTouch.
+     * @param {AddTouchCreateArgs} args - Arguments to create a AddTouch.
+     * @example
+     * // Create one AddTouch
+     * const AddTouch = await prisma.addTouch.create({
+     *   data: {
+     *     // ... data to create a AddTouch
+     *   }
+     * })
+     * 
+     */
+    create<T extends AddTouchCreateArgs>(args: SelectSubset<T, AddTouchCreateArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AddTouches.
+     * @param {AddTouchCreateManyArgs} args - Arguments to create many AddTouches.
+     * @example
+     * // Create many AddTouches
+     * const addTouch = await prisma.addTouch.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AddTouchCreateManyArgs>(args?: SelectSubset<T, AddTouchCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a AddTouch.
+     * @param {AddTouchDeleteArgs} args - Arguments to delete one AddTouch.
+     * @example
+     * // Delete one AddTouch
+     * const AddTouch = await prisma.addTouch.delete({
+     *   where: {
+     *     // ... filter to delete one AddTouch
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AddTouchDeleteArgs>(args: SelectSubset<T, AddTouchDeleteArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AddTouch.
+     * @param {AddTouchUpdateArgs} args - Arguments to update one AddTouch.
+     * @example
+     * // Update one AddTouch
+     * const addTouch = await prisma.addTouch.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AddTouchUpdateArgs>(args: SelectSubset<T, AddTouchUpdateArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AddTouches.
+     * @param {AddTouchDeleteManyArgs} args - Arguments to filter AddTouches to delete.
+     * @example
+     * // Delete a few AddTouches
+     * const { count } = await prisma.addTouch.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AddTouchDeleteManyArgs>(args?: SelectSubset<T, AddTouchDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AddTouches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AddTouches
+     * const addTouch = await prisma.addTouch.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AddTouchUpdateManyArgs>(args: SelectSubset<T, AddTouchUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AddTouch.
+     * @param {AddTouchUpsertArgs} args - Arguments to update or create a AddTouch.
+     * @example
+     * // Update or create a AddTouch
+     * const addTouch = await prisma.addTouch.upsert({
+     *   create: {
+     *     // ... data to create a AddTouch
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AddTouch we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AddTouchUpsertArgs>(args: SelectSubset<T, AddTouchUpsertArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AddTouches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchCountArgs} args - Arguments to filter AddTouches to count.
+     * @example
+     * // Count the number of AddTouches
+     * const count = await prisma.addTouch.count({
+     *   where: {
+     *     // ... the filter for the AddTouches we want to count
+     *   }
+     * })
+    **/
+    count<T extends AddTouchCountArgs>(
+      args?: Subset<T, AddTouchCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AddTouchCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AddTouch.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AddTouchAggregateArgs>(args: Subset<T, AddTouchAggregateArgs>): Prisma.PrismaPromise<GetAddTouchAggregateType<T>>
+
+    /**
+     * Group by AddTouch.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddTouchGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AddTouchGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AddTouchGroupByArgs['orderBy'] }
+        : { orderBy?: AddTouchGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AddTouchGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAddTouchGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AddTouch model
+   */
+  readonly fields: AddTouchFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AddTouch.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AddTouchClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    casting_entry<T extends AddTouch$casting_entryArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$casting_entryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CastingEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    casting_items<T extends AddTouch$casting_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$casting_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CastingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    filing_items<T extends AddTouch$filing_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$filing_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    setting_items<T extends AddTouch$setting_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$setting_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SettingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    buffing_items<T extends AddTouch$buffing_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$buffing_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BuffingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    stock<T extends AddTouch$stockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    add_purchase_stock<T extends AddTouch$add_purchase_stockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$add_purchase_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddPurchaseStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customer_transaction<T extends AddTouch$customer_transactionArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$customer_transactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    QCStock<T extends AddTouch$QCStockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$QCStockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QcStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    receiptVoucher<T extends AddTouch$receiptVoucherArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$receiptVoucherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ExpenseVoucher<T extends AddTouch$ExpenseVoucherArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$ExpenseVoucherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpenseVoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AddTouch model
+   */
+  interface AddTouchFieldRefs {
+    readonly id: FieldRef<"AddTouch", 'Int'>
+    readonly createdAt: FieldRef<"AddTouch", 'DateTime'>
+    readonly updatedAt: FieldRef<"AddTouch", 'DateTime'>
+    readonly touch: FieldRef<"AddTouch", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AddTouch findUnique
+   */
+  export type AddTouchFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter, which AddTouch to fetch.
+     */
+    where: AddTouchWhereUniqueInput
+  }
+
+  /**
+   * AddTouch findUniqueOrThrow
+   */
+  export type AddTouchFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter, which AddTouch to fetch.
+     */
+    where: AddTouchWhereUniqueInput
+  }
+
+  /**
+   * AddTouch findFirst
+   */
+  export type AddTouchFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter, which AddTouch to fetch.
+     */
+    where?: AddTouchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AddTouches to fetch.
+     */
+    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AddTouches.
+     */
+    cursor?: AddTouchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AddTouches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AddTouches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AddTouches.
+     */
+    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch findFirstOrThrow
+   */
+  export type AddTouchFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter, which AddTouch to fetch.
+     */
+    where?: AddTouchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AddTouches to fetch.
+     */
+    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AddTouches.
+     */
+    cursor?: AddTouchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AddTouches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AddTouches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AddTouches.
+     */
+    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch findMany
+   */
+  export type AddTouchFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter, which AddTouches to fetch.
+     */
+    where?: AddTouchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AddTouches to fetch.
+     */
+    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AddTouches.
+     */
+    cursor?: AddTouchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AddTouches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AddTouches.
+     */
+    skip?: number
+    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch create
+   */
+  export type AddTouchCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AddTouch.
+     */
+    data: XOR<AddTouchCreateInput, AddTouchUncheckedCreateInput>
+  }
+
+  /**
+   * AddTouch createMany
+   */
+  export type AddTouchCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AddTouches.
+     */
+    data: AddTouchCreateManyInput | AddTouchCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AddTouch update
+   */
+  export type AddTouchUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AddTouch.
+     */
+    data: XOR<AddTouchUpdateInput, AddTouchUncheckedUpdateInput>
+    /**
+     * Choose, which AddTouch to update.
+     */
+    where: AddTouchWhereUniqueInput
+  }
+
+  /**
+   * AddTouch updateMany
+   */
+  export type AddTouchUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AddTouches.
+     */
+    data: XOR<AddTouchUpdateManyMutationInput, AddTouchUncheckedUpdateManyInput>
+    /**
+     * Filter which AddTouches to update
+     */
+    where?: AddTouchWhereInput
+    /**
+     * Limit how many AddTouches to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AddTouch upsert
+   */
+  export type AddTouchUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AddTouch to update in case it exists.
+     */
+    where: AddTouchWhereUniqueInput
+    /**
+     * In case the AddTouch found by the `where` argument doesn't exist, create a new AddTouch with this data.
+     */
+    create: XOR<AddTouchCreateInput, AddTouchUncheckedCreateInput>
+    /**
+     * In case the AddTouch was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AddTouchUpdateInput, AddTouchUncheckedUpdateInput>
+  }
+
+  /**
+   * AddTouch delete
+   */
+  export type AddTouchDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    /**
+     * Filter which AddTouch to delete.
+     */
+    where: AddTouchWhereUniqueInput
+  }
+
+  /**
+   * AddTouch deleteMany
+   */
+  export type AddTouchDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AddTouches to delete
+     */
+    where?: AddTouchWhereInput
+    /**
+     * Limit how many AddTouches to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AddTouch.casting_entry
+   */
+  export type AddTouch$casting_entryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CastingEntry
+     */
+    select?: CastingEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CastingEntry
+     */
+    omit?: CastingEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CastingEntryInclude<ExtArgs> | null
+    where?: CastingEntryWhereInput
+    orderBy?: CastingEntryOrderByWithRelationInput | CastingEntryOrderByWithRelationInput[]
+    cursor?: CastingEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CastingEntryScalarFieldEnum | CastingEntryScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.casting_items
+   */
+  export type AddTouch$casting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CastingItems
+     */
+    select?: CastingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CastingItems
+     */
+    omit?: CastingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CastingItemsInclude<ExtArgs> | null
+    where?: CastingItemsWhereInput
+    orderBy?: CastingItemsOrderByWithRelationInput | CastingItemsOrderByWithRelationInput[]
+    cursor?: CastingItemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CastingItemsScalarFieldEnum | CastingItemsScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.filing_items
+   */
+  export type AddTouch$filing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FilingItems
+     */
+    select?: FilingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FilingItems
+     */
+    omit?: FilingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FilingItemsInclude<ExtArgs> | null
+    where?: FilingItemsWhereInput
+    orderBy?: FilingItemsOrderByWithRelationInput | FilingItemsOrderByWithRelationInput[]
+    cursor?: FilingItemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FilingItemsScalarFieldEnum | FilingItemsScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.setting_items
+   */
+  export type AddTouch$setting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SettingItems
+     */
+    select?: SettingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SettingItems
+     */
+    omit?: SettingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SettingItemsInclude<ExtArgs> | null
+    where?: SettingItemsWhereInput
+    orderBy?: SettingItemsOrderByWithRelationInput | SettingItemsOrderByWithRelationInput[]
+    cursor?: SettingItemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SettingItemsScalarFieldEnum | SettingItemsScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.buffing_items
+   */
+  export type AddTouch$buffing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuffingItems
+     */
+    select?: BuffingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BuffingItems
+     */
+    omit?: BuffingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BuffingItemsInclude<ExtArgs> | null
+    where?: BuffingItemsWhereInput
+    orderBy?: BuffingItemsOrderByWithRelationInput | BuffingItemsOrderByWithRelationInput[]
+    cursor?: BuffingItemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BuffingItemsScalarFieldEnum | BuffingItemsScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.stock
+   */
+  export type AddTouch$stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    where?: StockWhereInput
+    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
+    cursor?: StockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.add_purchase_stock
+   */
+  export type AddTouch$add_purchase_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddPurchaseStock
+     */
+    select?: AddPurchaseStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddPurchaseStock
+     */
+    omit?: AddPurchaseStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddPurchaseStockInclude<ExtArgs> | null
+    where?: AddPurchaseStockWhereInput
+    orderBy?: AddPurchaseStockOrderByWithRelationInput | AddPurchaseStockOrderByWithRelationInput[]
+    cursor?: AddPurchaseStockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AddPurchaseStockScalarFieldEnum | AddPurchaseStockScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.customer_transaction
+   */
+  export type AddTouch$customer_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerTransaction
+     */
+    select?: CustomerTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerTransaction
+     */
+    omit?: CustomerTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerTransactionInclude<ExtArgs> | null
+    where?: CustomerTransactionWhereInput
+    orderBy?: CustomerTransactionOrderByWithRelationInput | CustomerTransactionOrderByWithRelationInput[]
+    cursor?: CustomerTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerTransactionScalarFieldEnum | CustomerTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.QCStock
+   */
+  export type AddTouch$QCStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QcStock
+     */
+    select?: QcStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QcStock
+     */
+    omit?: QcStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QcStockInclude<ExtArgs> | null
+    where?: QcStockWhereInput
+    orderBy?: QcStockOrderByWithRelationInput | QcStockOrderByWithRelationInput[]
+    cursor?: QcStockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QcStockScalarFieldEnum | QcStockScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.receiptVoucher
+   */
+  export type AddTouch$receiptVoucherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReceiptVoucher
+     */
+    select?: ReceiptVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReceiptVoucher
+     */
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReceiptVoucherInclude<ExtArgs> | null
+    where?: ReceiptVoucherWhereInput
+    orderBy?: ReceiptVoucherOrderByWithRelationInput | ReceiptVoucherOrderByWithRelationInput[]
+    cursor?: ReceiptVoucherWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReceiptVoucherScalarFieldEnum | ReceiptVoucherScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch.ExpenseVoucher
+   */
+  export type AddTouch$ExpenseVoucherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExpenseVoucher
+     */
+    select?: ExpenseVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExpenseVoucher
+     */
+    omit?: ExpenseVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseVoucherInclude<ExtArgs> | null
+    where?: ExpenseVoucherWhereInput
+    orderBy?: ExpenseVoucherOrderByWithRelationInput | ExpenseVoucherOrderByWithRelationInput[]
+    cursor?: ExpenseVoucherWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExpenseVoucherScalarFieldEnum | ExpenseVoucherScalarFieldEnum[]
+  }
+
+  /**
+   * AddTouch without action
+   */
+  export type AddTouchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
   }
 
 
@@ -42469,389 +44027,460 @@ export namespace Prisma {
 
 
   /**
-   * Model AddTouch
+   * Model ReceiptVoucher
    */
 
-  export type AggregateAddTouch = {
-    _count: AddTouchCountAggregateOutputType | null
-    _avg: AddTouchAvgAggregateOutputType | null
-    _sum: AddTouchSumAggregateOutputType | null
-    _min: AddTouchMinAggregateOutputType | null
-    _max: AddTouchMaxAggregateOutputType | null
+  export type AggregateReceiptVoucher = {
+    _count: ReceiptVoucherCountAggregateOutputType | null
+    _avg: ReceiptVoucherAvgAggregateOutputType | null
+    _sum: ReceiptVoucherSumAggregateOutputType | null
+    _min: ReceiptVoucherMinAggregateOutputType | null
+    _max: ReceiptVoucherMaxAggregateOutputType | null
   }
 
-  export type AddTouchAvgAggregateOutputType = {
+  export type ReceiptVoucherAvgAggregateOutputType = {
     id: number | null
-    touch: number | null
+    customer_id: number | null
+    gold_rate: number | null
+    amount: number | null
+    gold: number | null
+    touch_id: number | null
+    purity: number | null
+    hallmark: number | null
   }
 
-  export type AddTouchSumAggregateOutputType = {
+  export type ReceiptVoucherSumAggregateOutputType = {
     id: number | null
-    touch: number | null
+    customer_id: number | null
+    gold_rate: number | null
+    amount: number | null
+    gold: number | null
+    touch_id: number | null
+    purity: number | null
+    hallmark: number | null
   }
 
-  export type AddTouchMinAggregateOutputType = {
+  export type ReceiptVoucherMinAggregateOutputType = {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
-    touch: number | null
+    customer_id: number | null
+    type: $Enums.ITEMTYPE | null
+    gold_rate: number | null
+    amount: number | null
+    gold: number | null
+    touch_id: number | null
+    purity: number | null
+    hallmark: number | null
   }
 
-  export type AddTouchMaxAggregateOutputType = {
+  export type ReceiptVoucherMaxAggregateOutputType = {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
-    touch: number | null
+    customer_id: number | null
+    type: $Enums.ITEMTYPE | null
+    gold_rate: number | null
+    amount: number | null
+    gold: number | null
+    touch_id: number | null
+    purity: number | null
+    hallmark: number | null
   }
 
-  export type AddTouchCountAggregateOutputType = {
+  export type ReceiptVoucherCountAggregateOutputType = {
     id: number
     createdAt: number
     updatedAt: number
-    touch: number
+    customer_id: number
+    type: number
+    gold_rate: number
+    amount: number
+    gold: number
+    touch_id: number
+    purity: number
+    hallmark: number
     _all: number
   }
 
 
-  export type AddTouchAvgAggregateInputType = {
+  export type ReceiptVoucherAvgAggregateInputType = {
     id?: true
-    touch?: true
+    customer_id?: true
+    gold_rate?: true
+    amount?: true
+    gold?: true
+    touch_id?: true
+    purity?: true
+    hallmark?: true
   }
 
-  export type AddTouchSumAggregateInputType = {
+  export type ReceiptVoucherSumAggregateInputType = {
     id?: true
-    touch?: true
+    customer_id?: true
+    gold_rate?: true
+    amount?: true
+    gold?: true
+    touch_id?: true
+    purity?: true
+    hallmark?: true
   }
 
-  export type AddTouchMinAggregateInputType = {
+  export type ReceiptVoucherMinAggregateInputType = {
     id?: true
     createdAt?: true
     updatedAt?: true
-    touch?: true
+    customer_id?: true
+    type?: true
+    gold_rate?: true
+    amount?: true
+    gold?: true
+    touch_id?: true
+    purity?: true
+    hallmark?: true
   }
 
-  export type AddTouchMaxAggregateInputType = {
+  export type ReceiptVoucherMaxAggregateInputType = {
     id?: true
     createdAt?: true
     updatedAt?: true
-    touch?: true
+    customer_id?: true
+    type?: true
+    gold_rate?: true
+    amount?: true
+    gold?: true
+    touch_id?: true
+    purity?: true
+    hallmark?: true
   }
 
-  export type AddTouchCountAggregateInputType = {
+  export type ReceiptVoucherCountAggregateInputType = {
     id?: true
     createdAt?: true
     updatedAt?: true
-    touch?: true
+    customer_id?: true
+    type?: true
+    gold_rate?: true
+    amount?: true
+    gold?: true
+    touch_id?: true
+    purity?: true
+    hallmark?: true
     _all?: true
   }
 
-  export type AddTouchAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which AddTouch to aggregate.
+     * Filter which ReceiptVoucher to aggregate.
      */
-    where?: AddTouchWhereInput
+    where?: ReceiptVoucherWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of AddTouches to fetch.
+     * Determine the order of ReceiptVouchers to fetch.
      */
-    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    orderBy?: ReceiptVoucherOrderByWithRelationInput | ReceiptVoucherOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: AddTouchWhereUniqueInput
+    cursor?: ReceiptVoucherWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` AddTouches from the position of the cursor.
+     * Take `±n` ReceiptVouchers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` AddTouches.
+     * Skip the first `n` ReceiptVouchers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned AddTouches
+     * Count returned ReceiptVouchers
     **/
-    _count?: true | AddTouchCountAggregateInputType
+    _count?: true | ReceiptVoucherCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: AddTouchAvgAggregateInputType
+    _avg?: ReceiptVoucherAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: AddTouchSumAggregateInputType
+    _sum?: ReceiptVoucherSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: AddTouchMinAggregateInputType
+    _min?: ReceiptVoucherMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: AddTouchMaxAggregateInputType
+    _max?: ReceiptVoucherMaxAggregateInputType
   }
 
-  export type GetAddTouchAggregateType<T extends AddTouchAggregateArgs> = {
-        [P in keyof T & keyof AggregateAddTouch]: P extends '_count' | 'count'
+  export type GetReceiptVoucherAggregateType<T extends ReceiptVoucherAggregateArgs> = {
+        [P in keyof T & keyof AggregateReceiptVoucher]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateAddTouch[P]>
-      : GetScalarType<T[P], AggregateAddTouch[P]>
+        : GetScalarType<T[P], AggregateReceiptVoucher[P]>
+      : GetScalarType<T[P], AggregateReceiptVoucher[P]>
   }
 
 
 
 
-  export type AddTouchGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AddTouchWhereInput
-    orderBy?: AddTouchOrderByWithAggregationInput | AddTouchOrderByWithAggregationInput[]
-    by: AddTouchScalarFieldEnum[] | AddTouchScalarFieldEnum
-    having?: AddTouchScalarWhereWithAggregatesInput
+  export type ReceiptVoucherGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReceiptVoucherWhereInput
+    orderBy?: ReceiptVoucherOrderByWithAggregationInput | ReceiptVoucherOrderByWithAggregationInput[]
+    by: ReceiptVoucherScalarFieldEnum[] | ReceiptVoucherScalarFieldEnum
+    having?: ReceiptVoucherScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: AddTouchCountAggregateInputType | true
-    _avg?: AddTouchAvgAggregateInputType
-    _sum?: AddTouchSumAggregateInputType
-    _min?: AddTouchMinAggregateInputType
-    _max?: AddTouchMaxAggregateInputType
+    _count?: ReceiptVoucherCountAggregateInputType | true
+    _avg?: ReceiptVoucherAvgAggregateInputType
+    _sum?: ReceiptVoucherSumAggregateInputType
+    _min?: ReceiptVoucherMinAggregateInputType
+    _max?: ReceiptVoucherMaxAggregateInputType
   }
 
-  export type AddTouchGroupByOutputType = {
+  export type ReceiptVoucherGroupByOutputType = {
     id: number
     createdAt: Date
     updatedAt: Date
-    touch: number
-    _count: AddTouchCountAggregateOutputType | null
-    _avg: AddTouchAvgAggregateOutputType | null
-    _sum: AddTouchSumAggregateOutputType | null
-    _min: AddTouchMinAggregateOutputType | null
-    _max: AddTouchMaxAggregateOutputType | null
+    customer_id: number
+    type: $Enums.ITEMTYPE
+    gold_rate: number | null
+    amount: number | null
+    gold: number | null
+    touch_id: number
+    purity: number
+    hallmark: number | null
+    _count: ReceiptVoucherCountAggregateOutputType | null
+    _avg: ReceiptVoucherAvgAggregateOutputType | null
+    _sum: ReceiptVoucherSumAggregateOutputType | null
+    _min: ReceiptVoucherMinAggregateOutputType | null
+    _max: ReceiptVoucherMaxAggregateOutputType | null
   }
 
-  type GetAddTouchGroupByPayload<T extends AddTouchGroupByArgs> = Prisma.PrismaPromise<
+  type GetReceiptVoucherGroupByPayload<T extends ReceiptVoucherGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<AddTouchGroupByOutputType, T['by']> &
+      PickEnumerable<ReceiptVoucherGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof AddTouchGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof ReceiptVoucherGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], AddTouchGroupByOutputType[P]>
-            : GetScalarType<T[P], AddTouchGroupByOutputType[P]>
+              : GetScalarType<T[P], ReceiptVoucherGroupByOutputType[P]>
+            : GetScalarType<T[P], ReceiptVoucherGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type AddTouchSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ReceiptVoucherSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    touch?: boolean
-    casting_entry?: boolean | AddTouch$casting_entryArgs<ExtArgs>
-    casting_items?: boolean | AddTouch$casting_itemsArgs<ExtArgs>
-    filing_items?: boolean | AddTouch$filing_itemsArgs<ExtArgs>
-    setting_items?: boolean | AddTouch$setting_itemsArgs<ExtArgs>
-    buffing_items?: boolean | AddTouch$buffing_itemsArgs<ExtArgs>
-    stock?: boolean | AddTouch$stockArgs<ExtArgs>
-    add_purchase_stock?: boolean | AddTouch$add_purchase_stockArgs<ExtArgs>
-    customer_transaction?: boolean | AddTouch$customer_transactionArgs<ExtArgs>
-    QCStock?: boolean | AddTouch$QCStockArgs<ExtArgs>
-    _count?: boolean | AddTouchCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["addTouch"]>
+    customer_id?: boolean
+    type?: boolean
+    gold_rate?: boolean
+    amount?: boolean
+    gold?: boolean
+    touch_id?: boolean
+    purity?: boolean
+    hallmark?: boolean
+    customerId?: boolean | AddCustomerDefaultArgs<ExtArgs>
+    touchId?: boolean | AddTouchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["receiptVoucher"]>
 
 
 
-  export type AddTouchSelectScalar = {
+  export type ReceiptVoucherSelectScalar = {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    touch?: boolean
+    customer_id?: boolean
+    type?: boolean
+    gold_rate?: boolean
+    amount?: boolean
+    gold?: boolean
+    touch_id?: boolean
+    purity?: boolean
+    hallmark?: boolean
   }
 
-  export type AddTouchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "touch", ExtArgs["result"]["addTouch"]>
-  export type AddTouchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    casting_entry?: boolean | AddTouch$casting_entryArgs<ExtArgs>
-    casting_items?: boolean | AddTouch$casting_itemsArgs<ExtArgs>
-    filing_items?: boolean | AddTouch$filing_itemsArgs<ExtArgs>
-    setting_items?: boolean | AddTouch$setting_itemsArgs<ExtArgs>
-    buffing_items?: boolean | AddTouch$buffing_itemsArgs<ExtArgs>
-    stock?: boolean | AddTouch$stockArgs<ExtArgs>
-    add_purchase_stock?: boolean | AddTouch$add_purchase_stockArgs<ExtArgs>
-    customer_transaction?: boolean | AddTouch$customer_transactionArgs<ExtArgs>
-    QCStock?: boolean | AddTouch$QCStockArgs<ExtArgs>
-    _count?: boolean | AddTouchCountOutputTypeDefaultArgs<ExtArgs>
+  export type ReceiptVoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "customer_id" | "type" | "gold_rate" | "amount" | "gold" | "touch_id" | "purity" | "hallmark", ExtArgs["result"]["receiptVoucher"]>
+  export type ReceiptVoucherInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customerId?: boolean | AddCustomerDefaultArgs<ExtArgs>
+    touchId?: boolean | AddTouchDefaultArgs<ExtArgs>
   }
 
-  export type $AddTouchPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "AddTouch"
+  export type $ReceiptVoucherPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ReceiptVoucher"
     objects: {
-      casting_entry: Prisma.$CastingEntryPayload<ExtArgs>[]
-      casting_items: Prisma.$CastingItemsPayload<ExtArgs>[]
-      filing_items: Prisma.$FilingItemsPayload<ExtArgs>[]
-      setting_items: Prisma.$SettingItemsPayload<ExtArgs>[]
-      buffing_items: Prisma.$BuffingItemsPayload<ExtArgs>[]
-      stock: Prisma.$StockPayload<ExtArgs>[]
-      add_purchase_stock: Prisma.$AddPurchaseStockPayload<ExtArgs>[]
-      customer_transaction: Prisma.$CustomerTransactionPayload<ExtArgs>[]
-      QCStock: Prisma.$QcStockPayload<ExtArgs>[]
+      customerId: Prisma.$AddCustomerPayload<ExtArgs>
+      touchId: Prisma.$AddTouchPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       createdAt: Date
       updatedAt: Date
-      touch: number
-    }, ExtArgs["result"]["addTouch"]>
+      customer_id: number
+      type: $Enums.ITEMTYPE
+      gold_rate: number | null
+      amount: number | null
+      gold: number | null
+      touch_id: number
+      purity: number
+      hallmark: number | null
+    }, ExtArgs["result"]["receiptVoucher"]>
     composites: {}
   }
 
-  type AddTouchGetPayload<S extends boolean | null | undefined | AddTouchDefaultArgs> = $Result.GetResult<Prisma.$AddTouchPayload, S>
+  type ReceiptVoucherGetPayload<S extends boolean | null | undefined | ReceiptVoucherDefaultArgs> = $Result.GetResult<Prisma.$ReceiptVoucherPayload, S>
 
-  type AddTouchCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<AddTouchFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AddTouchCountAggregateInputType | true
+  type ReceiptVoucherCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ReceiptVoucherFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ReceiptVoucherCountAggregateInputType | true
     }
 
-  export interface AddTouchDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AddTouch'], meta: { name: 'AddTouch' } }
+  export interface ReceiptVoucherDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ReceiptVoucher'], meta: { name: 'ReceiptVoucher' } }
     /**
-     * Find zero or one AddTouch that matches the filter.
-     * @param {AddTouchFindUniqueArgs} args - Arguments to find a AddTouch
+     * Find zero or one ReceiptVoucher that matches the filter.
+     * @param {ReceiptVoucherFindUniqueArgs} args - Arguments to find a ReceiptVoucher
      * @example
-     * // Get one AddTouch
-     * const addTouch = await prisma.addTouch.findUnique({
+     * // Get one ReceiptVoucher
+     * const receiptVoucher = await prisma.receiptVoucher.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends AddTouchFindUniqueArgs>(args: SelectSubset<T, AddTouchFindUniqueArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends ReceiptVoucherFindUniqueArgs>(args: SelectSubset<T, ReceiptVoucherFindUniqueArgs<ExtArgs>>): Prisma__ReceiptVoucherClient<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one AddTouch that matches the filter or throw an error with `error.code='P2025'`
+     * Find one ReceiptVoucher that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {AddTouchFindUniqueOrThrowArgs} args - Arguments to find a AddTouch
+     * @param {ReceiptVoucherFindUniqueOrThrowArgs} args - Arguments to find a ReceiptVoucher
      * @example
-     * // Get one AddTouch
-     * const addTouch = await prisma.addTouch.findUniqueOrThrow({
+     * // Get one ReceiptVoucher
+     * const receiptVoucher = await prisma.receiptVoucher.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends AddTouchFindUniqueOrThrowArgs>(args: SelectSubset<T, AddTouchFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends ReceiptVoucherFindUniqueOrThrowArgs>(args: SelectSubset<T, ReceiptVoucherFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReceiptVoucherClient<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first AddTouch that matches the filter.
+     * Find the first ReceiptVoucher that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchFindFirstArgs} args - Arguments to find a AddTouch
+     * @param {ReceiptVoucherFindFirstArgs} args - Arguments to find a ReceiptVoucher
      * @example
-     * // Get one AddTouch
-     * const addTouch = await prisma.addTouch.findFirst({
+     * // Get one ReceiptVoucher
+     * const receiptVoucher = await prisma.receiptVoucher.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends AddTouchFindFirstArgs>(args?: SelectSubset<T, AddTouchFindFirstArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends ReceiptVoucherFindFirstArgs>(args?: SelectSubset<T, ReceiptVoucherFindFirstArgs<ExtArgs>>): Prisma__ReceiptVoucherClient<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first AddTouch that matches the filter or
+     * Find the first ReceiptVoucher that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchFindFirstOrThrowArgs} args - Arguments to find a AddTouch
+     * @param {ReceiptVoucherFindFirstOrThrowArgs} args - Arguments to find a ReceiptVoucher
      * @example
-     * // Get one AddTouch
-     * const addTouch = await prisma.addTouch.findFirstOrThrow({
+     * // Get one ReceiptVoucher
+     * const receiptVoucher = await prisma.receiptVoucher.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends AddTouchFindFirstOrThrowArgs>(args?: SelectSubset<T, AddTouchFindFirstOrThrowArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends ReceiptVoucherFindFirstOrThrowArgs>(args?: SelectSubset<T, ReceiptVoucherFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReceiptVoucherClient<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more AddTouches that matches the filter.
+     * Find zero or more ReceiptVouchers that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {ReceiptVoucherFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all AddTouches
-     * const addTouches = await prisma.addTouch.findMany()
+     * // Get all ReceiptVouchers
+     * const receiptVouchers = await prisma.receiptVoucher.findMany()
      * 
-     * // Get first 10 AddTouches
-     * const addTouches = await prisma.addTouch.findMany({ take: 10 })
+     * // Get first 10 ReceiptVouchers
+     * const receiptVouchers = await prisma.receiptVoucher.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const addTouchWithIdOnly = await prisma.addTouch.findMany({ select: { id: true } })
+     * const receiptVoucherWithIdOnly = await prisma.receiptVoucher.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends AddTouchFindManyArgs>(args?: SelectSubset<T, AddTouchFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends ReceiptVoucherFindManyArgs>(args?: SelectSubset<T, ReceiptVoucherFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a AddTouch.
-     * @param {AddTouchCreateArgs} args - Arguments to create a AddTouch.
+     * Create a ReceiptVoucher.
+     * @param {ReceiptVoucherCreateArgs} args - Arguments to create a ReceiptVoucher.
      * @example
-     * // Create one AddTouch
-     * const AddTouch = await prisma.addTouch.create({
+     * // Create one ReceiptVoucher
+     * const ReceiptVoucher = await prisma.receiptVoucher.create({
      *   data: {
-     *     // ... data to create a AddTouch
+     *     // ... data to create a ReceiptVoucher
      *   }
      * })
      * 
      */
-    create<T extends AddTouchCreateArgs>(args: SelectSubset<T, AddTouchCreateArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends ReceiptVoucherCreateArgs>(args: SelectSubset<T, ReceiptVoucherCreateArgs<ExtArgs>>): Prisma__ReceiptVoucherClient<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many AddTouches.
-     * @param {AddTouchCreateManyArgs} args - Arguments to create many AddTouches.
+     * Create many ReceiptVouchers.
+     * @param {ReceiptVoucherCreateManyArgs} args - Arguments to create many ReceiptVouchers.
      * @example
-     * // Create many AddTouches
-     * const addTouch = await prisma.addTouch.createMany({
+     * // Create many ReceiptVouchers
+     * const receiptVoucher = await prisma.receiptVoucher.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends AddTouchCreateManyArgs>(args?: SelectSubset<T, AddTouchCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends ReceiptVoucherCreateManyArgs>(args?: SelectSubset<T, ReceiptVoucherCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a AddTouch.
-     * @param {AddTouchDeleteArgs} args - Arguments to delete one AddTouch.
+     * Delete a ReceiptVoucher.
+     * @param {ReceiptVoucherDeleteArgs} args - Arguments to delete one ReceiptVoucher.
      * @example
-     * // Delete one AddTouch
-     * const AddTouch = await prisma.addTouch.delete({
+     * // Delete one ReceiptVoucher
+     * const ReceiptVoucher = await prisma.receiptVoucher.delete({
      *   where: {
-     *     // ... filter to delete one AddTouch
+     *     // ... filter to delete one ReceiptVoucher
      *   }
      * })
      * 
      */
-    delete<T extends AddTouchDeleteArgs>(args: SelectSubset<T, AddTouchDeleteArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends ReceiptVoucherDeleteArgs>(args: SelectSubset<T, ReceiptVoucherDeleteArgs<ExtArgs>>): Prisma__ReceiptVoucherClient<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one AddTouch.
-     * @param {AddTouchUpdateArgs} args - Arguments to update one AddTouch.
+     * Update one ReceiptVoucher.
+     * @param {ReceiptVoucherUpdateArgs} args - Arguments to update one ReceiptVoucher.
      * @example
-     * // Update one AddTouch
-     * const addTouch = await prisma.addTouch.update({
+     * // Update one ReceiptVoucher
+     * const receiptVoucher = await prisma.receiptVoucher.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -42861,30 +44490,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends AddTouchUpdateArgs>(args: SelectSubset<T, AddTouchUpdateArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends ReceiptVoucherUpdateArgs>(args: SelectSubset<T, ReceiptVoucherUpdateArgs<ExtArgs>>): Prisma__ReceiptVoucherClient<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more AddTouches.
-     * @param {AddTouchDeleteManyArgs} args - Arguments to filter AddTouches to delete.
+     * Delete zero or more ReceiptVouchers.
+     * @param {ReceiptVoucherDeleteManyArgs} args - Arguments to filter ReceiptVouchers to delete.
      * @example
-     * // Delete a few AddTouches
-     * const { count } = await prisma.addTouch.deleteMany({
+     * // Delete a few ReceiptVouchers
+     * const { count } = await prisma.receiptVoucher.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends AddTouchDeleteManyArgs>(args?: SelectSubset<T, AddTouchDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends ReceiptVoucherDeleteManyArgs>(args?: SelectSubset<T, ReceiptVoucherDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more AddTouches.
+     * Update zero or more ReceiptVouchers.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {ReceiptVoucherUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many AddTouches
-     * const addTouch = await prisma.addTouch.updateMany({
+     * // Update many ReceiptVouchers
+     * const receiptVoucher = await prisma.receiptVoucher.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -42894,56 +44523,56 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends AddTouchUpdateManyArgs>(args: SelectSubset<T, AddTouchUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends ReceiptVoucherUpdateManyArgs>(args: SelectSubset<T, ReceiptVoucherUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one AddTouch.
-     * @param {AddTouchUpsertArgs} args - Arguments to update or create a AddTouch.
+     * Create or update one ReceiptVoucher.
+     * @param {ReceiptVoucherUpsertArgs} args - Arguments to update or create a ReceiptVoucher.
      * @example
-     * // Update or create a AddTouch
-     * const addTouch = await prisma.addTouch.upsert({
+     * // Update or create a ReceiptVoucher
+     * const receiptVoucher = await prisma.receiptVoucher.upsert({
      *   create: {
-     *     // ... data to create a AddTouch
+     *     // ... data to create a ReceiptVoucher
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the AddTouch we want to update
+     *     // ... the filter for the ReceiptVoucher we want to update
      *   }
      * })
      */
-    upsert<T extends AddTouchUpsertArgs>(args: SelectSubset<T, AddTouchUpsertArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends ReceiptVoucherUpsertArgs>(args: SelectSubset<T, ReceiptVoucherUpsertArgs<ExtArgs>>): Prisma__ReceiptVoucherClient<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of AddTouches.
+     * Count the number of ReceiptVouchers.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchCountArgs} args - Arguments to filter AddTouches to count.
+     * @param {ReceiptVoucherCountArgs} args - Arguments to filter ReceiptVouchers to count.
      * @example
-     * // Count the number of AddTouches
-     * const count = await prisma.addTouch.count({
+     * // Count the number of ReceiptVouchers
+     * const count = await prisma.receiptVoucher.count({
      *   where: {
-     *     // ... the filter for the AddTouches we want to count
+     *     // ... the filter for the ReceiptVouchers we want to count
      *   }
      * })
     **/
-    count<T extends AddTouchCountArgs>(
-      args?: Subset<T, AddTouchCountArgs>,
+    count<T extends ReceiptVoucherCountArgs>(
+      args?: Subset<T, ReceiptVoucherCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], AddTouchCountAggregateOutputType>
+          : GetScalarType<T['select'], ReceiptVoucherCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a AddTouch.
+     * Allows you to perform aggregations operations on a ReceiptVoucher.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {ReceiptVoucherAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -42963,13 +44592,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends AddTouchAggregateArgs>(args: Subset<T, AddTouchAggregateArgs>): Prisma.PrismaPromise<GetAddTouchAggregateType<T>>
+    aggregate<T extends ReceiptVoucherAggregateArgs>(args: Subset<T, ReceiptVoucherAggregateArgs>): Prisma.PrismaPromise<GetReceiptVoucherAggregateType<T>>
 
     /**
-     * Group by AddTouch.
+     * Group by ReceiptVoucher.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AddTouchGroupByArgs} args - Group by arguments.
+     * @param {ReceiptVoucherGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -42984,14 +44613,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends AddTouchGroupByArgs,
+      T extends ReceiptVoucherGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: AddTouchGroupByArgs['orderBy'] }
-        : { orderBy?: AddTouchGroupByArgs['orderBy'] },
+        ? { orderBy: ReceiptVoucherGroupByArgs['orderBy'] }
+        : { orderBy?: ReceiptVoucherGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -43040,30 +44669,23 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, AddTouchGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAddTouchGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, ReceiptVoucherGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReceiptVoucherGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the AddTouch model
+   * Fields of the ReceiptVoucher model
    */
-  readonly fields: AddTouchFieldRefs;
+  readonly fields: ReceiptVoucherFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for AddTouch.
+   * The delegate class that acts as a "Promise-like" for ReceiptVoucher.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__AddTouchClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__ReceiptVoucherClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    casting_entry<T extends AddTouch$casting_entryArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$casting_entryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CastingEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    casting_items<T extends AddTouch$casting_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$casting_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CastingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    filing_items<T extends AddTouch$filing_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$filing_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    setting_items<T extends AddTouch$setting_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$setting_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SettingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    buffing_items<T extends AddTouch$buffing_itemsArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$buffing_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BuffingItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    stock<T extends AddTouch$stockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    add_purchase_stock<T extends AddTouch$add_purchase_stockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$add_purchase_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddPurchaseStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    customer_transaction<T extends AddTouch$customer_transactionArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$customer_transactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    QCStock<T extends AddTouch$QCStockArgs<ExtArgs> = {}>(args?: Subset<T, AddTouch$QCStockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QcStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customerId<T extends AddCustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddCustomerDefaultArgs<ExtArgs>>): Prisma__AddCustomerClient<$Result.GetResult<Prisma.$AddCustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    touchId<T extends AddTouchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddTouchDefaultArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -43090,587 +44712,1375 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the AddTouch model
+   * Fields of the ReceiptVoucher model
    */
-  interface AddTouchFieldRefs {
-    readonly id: FieldRef<"AddTouch", 'Int'>
-    readonly createdAt: FieldRef<"AddTouch", 'DateTime'>
-    readonly updatedAt: FieldRef<"AddTouch", 'DateTime'>
-    readonly touch: FieldRef<"AddTouch", 'Float'>
+  interface ReceiptVoucherFieldRefs {
+    readonly id: FieldRef<"ReceiptVoucher", 'Int'>
+    readonly createdAt: FieldRef<"ReceiptVoucher", 'DateTime'>
+    readonly updatedAt: FieldRef<"ReceiptVoucher", 'DateTime'>
+    readonly customer_id: FieldRef<"ReceiptVoucher", 'Int'>
+    readonly type: FieldRef<"ReceiptVoucher", 'ITEMTYPE'>
+    readonly gold_rate: FieldRef<"ReceiptVoucher", 'Float'>
+    readonly amount: FieldRef<"ReceiptVoucher", 'Float'>
+    readonly gold: FieldRef<"ReceiptVoucher", 'Float'>
+    readonly touch_id: FieldRef<"ReceiptVoucher", 'Int'>
+    readonly purity: FieldRef<"ReceiptVoucher", 'Float'>
+    readonly hallmark: FieldRef<"ReceiptVoucher", 'Float'>
   }
     
 
   // Custom InputTypes
   /**
-   * AddTouch findUnique
+   * ReceiptVoucher findUnique
    */
-  export type AddTouchFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AddTouch
+     * Select specific fields to fetch from the ReceiptVoucher
      */
-    select?: AddTouchSelect<ExtArgs> | null
+    select?: ReceiptVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AddTouch
+     * Omit specific fields from the ReceiptVoucher
      */
-    omit?: AddTouchOmit<ExtArgs> | null
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AddTouchInclude<ExtArgs> | null
+    include?: ReceiptVoucherInclude<ExtArgs> | null
     /**
-     * Filter, which AddTouch to fetch.
+     * Filter, which ReceiptVoucher to fetch.
      */
-    where: AddTouchWhereUniqueInput
+    where: ReceiptVoucherWhereUniqueInput
   }
 
   /**
-   * AddTouch findUniqueOrThrow
+   * ReceiptVoucher findUniqueOrThrow
    */
-  export type AddTouchFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AddTouch
+     * Select specific fields to fetch from the ReceiptVoucher
      */
-    select?: AddTouchSelect<ExtArgs> | null
+    select?: ReceiptVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AddTouch
+     * Omit specific fields from the ReceiptVoucher
      */
-    omit?: AddTouchOmit<ExtArgs> | null
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AddTouchInclude<ExtArgs> | null
+    include?: ReceiptVoucherInclude<ExtArgs> | null
     /**
-     * Filter, which AddTouch to fetch.
+     * Filter, which ReceiptVoucher to fetch.
      */
-    where: AddTouchWhereUniqueInput
+    where: ReceiptVoucherWhereUniqueInput
   }
 
   /**
-   * AddTouch findFirst
+   * ReceiptVoucher findFirst
    */
-  export type AddTouchFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AddTouch
+     * Select specific fields to fetch from the ReceiptVoucher
      */
-    select?: AddTouchSelect<ExtArgs> | null
+    select?: ReceiptVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AddTouch
+     * Omit specific fields from the ReceiptVoucher
      */
-    omit?: AddTouchOmit<ExtArgs> | null
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AddTouchInclude<ExtArgs> | null
+    include?: ReceiptVoucherInclude<ExtArgs> | null
     /**
-     * Filter, which AddTouch to fetch.
+     * Filter, which ReceiptVoucher to fetch.
      */
-    where?: AddTouchWhereInput
+    where?: ReceiptVoucherWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of AddTouches to fetch.
+     * Determine the order of ReceiptVouchers to fetch.
      */
-    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    orderBy?: ReceiptVoucherOrderByWithRelationInput | ReceiptVoucherOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for AddTouches.
+     * Sets the position for searching for ReceiptVouchers.
      */
-    cursor?: AddTouchWhereUniqueInput
+    cursor?: ReceiptVoucherWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` AddTouches from the position of the cursor.
+     * Take `±n` ReceiptVouchers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` AddTouches.
+     * Skip the first `n` ReceiptVouchers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of AddTouches.
+     * Filter by unique combinations of ReceiptVouchers.
      */
-    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
+    distinct?: ReceiptVoucherScalarFieldEnum | ReceiptVoucherScalarFieldEnum[]
   }
 
   /**
-   * AddTouch findFirstOrThrow
+   * ReceiptVoucher findFirstOrThrow
    */
-  export type AddTouchFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AddTouch
+     * Select specific fields to fetch from the ReceiptVoucher
      */
-    select?: AddTouchSelect<ExtArgs> | null
+    select?: ReceiptVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AddTouch
+     * Omit specific fields from the ReceiptVoucher
      */
-    omit?: AddTouchOmit<ExtArgs> | null
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AddTouchInclude<ExtArgs> | null
+    include?: ReceiptVoucherInclude<ExtArgs> | null
     /**
-     * Filter, which AddTouch to fetch.
+     * Filter, which ReceiptVoucher to fetch.
      */
-    where?: AddTouchWhereInput
+    where?: ReceiptVoucherWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of AddTouches to fetch.
+     * Determine the order of ReceiptVouchers to fetch.
      */
-    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    orderBy?: ReceiptVoucherOrderByWithRelationInput | ReceiptVoucherOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for AddTouches.
+     * Sets the position for searching for ReceiptVouchers.
      */
-    cursor?: AddTouchWhereUniqueInput
+    cursor?: ReceiptVoucherWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` AddTouches from the position of the cursor.
+     * Take `±n` ReceiptVouchers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` AddTouches.
+     * Skip the first `n` ReceiptVouchers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of AddTouches.
+     * Filter by unique combinations of ReceiptVouchers.
      */
-    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
+    distinct?: ReceiptVoucherScalarFieldEnum | ReceiptVoucherScalarFieldEnum[]
   }
 
   /**
-   * AddTouch findMany
+   * ReceiptVoucher findMany
    */
-  export type AddTouchFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AddTouch
+     * Select specific fields to fetch from the ReceiptVoucher
      */
-    select?: AddTouchSelect<ExtArgs> | null
+    select?: ReceiptVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AddTouch
+     * Omit specific fields from the ReceiptVoucher
      */
-    omit?: AddTouchOmit<ExtArgs> | null
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AddTouchInclude<ExtArgs> | null
+    include?: ReceiptVoucherInclude<ExtArgs> | null
     /**
-     * Filter, which AddTouches to fetch.
+     * Filter, which ReceiptVouchers to fetch.
      */
-    where?: AddTouchWhereInput
+    where?: ReceiptVoucherWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of AddTouches to fetch.
+     * Determine the order of ReceiptVouchers to fetch.
      */
-    orderBy?: AddTouchOrderByWithRelationInput | AddTouchOrderByWithRelationInput[]
+    orderBy?: ReceiptVoucherOrderByWithRelationInput | ReceiptVoucherOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing AddTouches.
+     * Sets the position for listing ReceiptVouchers.
      */
-    cursor?: AddTouchWhereUniqueInput
+    cursor?: ReceiptVoucherWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` AddTouches from the position of the cursor.
+     * Take `±n` ReceiptVouchers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` AddTouches.
+     * Skip the first `n` ReceiptVouchers.
      */
     skip?: number
-    distinct?: AddTouchScalarFieldEnum | AddTouchScalarFieldEnum[]
+    distinct?: ReceiptVoucherScalarFieldEnum | ReceiptVoucherScalarFieldEnum[]
   }
 
   /**
-   * AddTouch create
+   * ReceiptVoucher create
    */
-  export type AddTouchCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AddTouch
+     * Select specific fields to fetch from the ReceiptVoucher
      */
-    select?: AddTouchSelect<ExtArgs> | null
+    select?: ReceiptVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AddTouch
+     * Omit specific fields from the ReceiptVoucher
      */
-    omit?: AddTouchOmit<ExtArgs> | null
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AddTouchInclude<ExtArgs> | null
+    include?: ReceiptVoucherInclude<ExtArgs> | null
     /**
-     * The data needed to create a AddTouch.
+     * The data needed to create a ReceiptVoucher.
      */
-    data: XOR<AddTouchCreateInput, AddTouchUncheckedCreateInput>
+    data: XOR<ReceiptVoucherCreateInput, ReceiptVoucherUncheckedCreateInput>
   }
 
   /**
-   * AddTouch createMany
+   * ReceiptVoucher createMany
    */
-  export type AddTouchCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many AddTouches.
+     * The data used to create many ReceiptVouchers.
      */
-    data: AddTouchCreateManyInput | AddTouchCreateManyInput[]
+    data: ReceiptVoucherCreateManyInput | ReceiptVoucherCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * AddTouch update
+   * ReceiptVoucher update
    */
-  export type AddTouchUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AddTouch
+     * Select specific fields to fetch from the ReceiptVoucher
      */
-    select?: AddTouchSelect<ExtArgs> | null
+    select?: ReceiptVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AddTouch
+     * Omit specific fields from the ReceiptVoucher
      */
-    omit?: AddTouchOmit<ExtArgs> | null
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AddTouchInclude<ExtArgs> | null
+    include?: ReceiptVoucherInclude<ExtArgs> | null
     /**
-     * The data needed to update a AddTouch.
+     * The data needed to update a ReceiptVoucher.
      */
-    data: XOR<AddTouchUpdateInput, AddTouchUncheckedUpdateInput>
+    data: XOR<ReceiptVoucherUpdateInput, ReceiptVoucherUncheckedUpdateInput>
     /**
-     * Choose, which AddTouch to update.
+     * Choose, which ReceiptVoucher to update.
      */
-    where: AddTouchWhereUniqueInput
+    where: ReceiptVoucherWhereUniqueInput
   }
 
   /**
-   * AddTouch updateMany
+   * ReceiptVoucher updateMany
    */
-  export type AddTouchUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update AddTouches.
+     * The data used to update ReceiptVouchers.
      */
-    data: XOR<AddTouchUpdateManyMutationInput, AddTouchUncheckedUpdateManyInput>
+    data: XOR<ReceiptVoucherUpdateManyMutationInput, ReceiptVoucherUncheckedUpdateManyInput>
     /**
-     * Filter which AddTouches to update
+     * Filter which ReceiptVouchers to update
      */
-    where?: AddTouchWhereInput
+    where?: ReceiptVoucherWhereInput
     /**
-     * Limit how many AddTouches to update.
+     * Limit how many ReceiptVouchers to update.
      */
     limit?: number
   }
 
   /**
-   * AddTouch upsert
+   * ReceiptVoucher upsert
    */
-  export type AddTouchUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AddTouch
+     * Select specific fields to fetch from the ReceiptVoucher
      */
-    select?: AddTouchSelect<ExtArgs> | null
+    select?: ReceiptVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AddTouch
+     * Omit specific fields from the ReceiptVoucher
      */
-    omit?: AddTouchOmit<ExtArgs> | null
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AddTouchInclude<ExtArgs> | null
+    include?: ReceiptVoucherInclude<ExtArgs> | null
     /**
-     * The filter to search for the AddTouch to update in case it exists.
+     * The filter to search for the ReceiptVoucher to update in case it exists.
      */
-    where: AddTouchWhereUniqueInput
+    where: ReceiptVoucherWhereUniqueInput
     /**
-     * In case the AddTouch found by the `where` argument doesn't exist, create a new AddTouch with this data.
+     * In case the ReceiptVoucher found by the `where` argument doesn't exist, create a new ReceiptVoucher with this data.
      */
-    create: XOR<AddTouchCreateInput, AddTouchUncheckedCreateInput>
+    create: XOR<ReceiptVoucherCreateInput, ReceiptVoucherUncheckedCreateInput>
     /**
-     * In case the AddTouch was found with the provided `where` argument, update it with this data.
+     * In case the ReceiptVoucher was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<AddTouchUpdateInput, AddTouchUncheckedUpdateInput>
+    update: XOR<ReceiptVoucherUpdateInput, ReceiptVoucherUncheckedUpdateInput>
   }
 
   /**
-   * AddTouch delete
+   * ReceiptVoucher delete
    */
-  export type AddTouchDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AddTouch
+     * Select specific fields to fetch from the ReceiptVoucher
      */
-    select?: AddTouchSelect<ExtArgs> | null
+    select?: ReceiptVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AddTouch
+     * Omit specific fields from the ReceiptVoucher
      */
-    omit?: AddTouchOmit<ExtArgs> | null
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AddTouchInclude<ExtArgs> | null
+    include?: ReceiptVoucherInclude<ExtArgs> | null
     /**
-     * Filter which AddTouch to delete.
+     * Filter which ReceiptVoucher to delete.
      */
-    where: AddTouchWhereUniqueInput
+    where: ReceiptVoucherWhereUniqueInput
   }
 
   /**
-   * AddTouch deleteMany
+   * ReceiptVoucher deleteMany
    */
-  export type AddTouchDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which AddTouches to delete
+     * Filter which ReceiptVouchers to delete
      */
-    where?: AddTouchWhereInput
+    where?: ReceiptVoucherWhereInput
     /**
-     * Limit how many AddTouches to delete.
+     * Limit how many ReceiptVouchers to delete.
      */
     limit?: number
   }
 
   /**
-   * AddTouch.casting_entry
+   * ReceiptVoucher without action
    */
-  export type AddTouch$casting_entryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ReceiptVoucherDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CastingEntry
+     * Select specific fields to fetch from the ReceiptVoucher
      */
-    select?: CastingEntrySelect<ExtArgs> | null
+    select?: ReceiptVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CastingEntry
+     * Omit specific fields from the ReceiptVoucher
      */
-    omit?: CastingEntryOmit<ExtArgs> | null
+    omit?: ReceiptVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CastingEntryInclude<ExtArgs> | null
-    where?: CastingEntryWhereInput
-    orderBy?: CastingEntryOrderByWithRelationInput | CastingEntryOrderByWithRelationInput[]
-    cursor?: CastingEntryWhereUniqueInput
+    include?: ReceiptVoucherInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ExpenseVoucher
+   */
+
+  export type AggregateExpenseVoucher = {
+    _count: ExpenseVoucherCountAggregateOutputType | null
+    _avg: ExpenseVoucherAvgAggregateOutputType | null
+    _sum: ExpenseVoucherSumAggregateOutputType | null
+    _min: ExpenseVoucherMinAggregateOutputType | null
+    _max: ExpenseVoucherMaxAggregateOutputType | null
+  }
+
+  export type ExpenseVoucherAvgAggregateOutputType = {
+    id: number | null
+    gold: number | null
+    touch_id: number | null
+    purity: number | null
+  }
+
+  export type ExpenseVoucherSumAggregateOutputType = {
+    id: number | null
+    gold: number | null
+    touch_id: number | null
+    purity: number | null
+  }
+
+  export type ExpenseVoucherMinAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    description: string | null
+    gold: number | null
+    touch_id: number | null
+    purity: number | null
+  }
+
+  export type ExpenseVoucherMaxAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    description: string | null
+    gold: number | null
+    touch_id: number | null
+    purity: number | null
+  }
+
+  export type ExpenseVoucherCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    description: number
+    gold: number
+    touch_id: number
+    purity: number
+    _all: number
+  }
+
+
+  export type ExpenseVoucherAvgAggregateInputType = {
+    id?: true
+    gold?: true
+    touch_id?: true
+    purity?: true
+  }
+
+  export type ExpenseVoucherSumAggregateInputType = {
+    id?: true
+    gold?: true
+    touch_id?: true
+    purity?: true
+  }
+
+  export type ExpenseVoucherMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    description?: true
+    gold?: true
+    touch_id?: true
+    purity?: true
+  }
+
+  export type ExpenseVoucherMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    description?: true
+    gold?: true
+    touch_id?: true
+    purity?: true
+  }
+
+  export type ExpenseVoucherCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    description?: true
+    gold?: true
+    touch_id?: true
+    purity?: true
+    _all?: true
+  }
+
+  export type ExpenseVoucherAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExpenseVoucher to aggregate.
+     */
+    where?: ExpenseVoucherWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExpenseVouchers to fetch.
+     */
+    orderBy?: ExpenseVoucherOrderByWithRelationInput | ExpenseVoucherOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExpenseVoucherWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExpenseVouchers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExpenseVouchers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ExpenseVouchers
+    **/
+    _count?: true | ExpenseVoucherCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ExpenseVoucherAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ExpenseVoucherSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExpenseVoucherMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExpenseVoucherMaxAggregateInputType
+  }
+
+  export type GetExpenseVoucherAggregateType<T extends ExpenseVoucherAggregateArgs> = {
+        [P in keyof T & keyof AggregateExpenseVoucher]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExpenseVoucher[P]>
+      : GetScalarType<T[P], AggregateExpenseVoucher[P]>
+  }
+
+
+
+
+  export type ExpenseVoucherGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExpenseVoucherWhereInput
+    orderBy?: ExpenseVoucherOrderByWithAggregationInput | ExpenseVoucherOrderByWithAggregationInput[]
+    by: ExpenseVoucherScalarFieldEnum[] | ExpenseVoucherScalarFieldEnum
+    having?: ExpenseVoucherScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    distinct?: CastingEntryScalarFieldEnum | CastingEntryScalarFieldEnum[]
+    _count?: ExpenseVoucherCountAggregateInputType | true
+    _avg?: ExpenseVoucherAvgAggregateInputType
+    _sum?: ExpenseVoucherSumAggregateInputType
+    _min?: ExpenseVoucherMinAggregateInputType
+    _max?: ExpenseVoucherMaxAggregateInputType
+  }
+
+  export type ExpenseVoucherGroupByOutputType = {
+    id: number
+    createdAt: Date
+    updatedAt: Date
+    description: string | null
+    gold: number
+    touch_id: number
+    purity: number
+    _count: ExpenseVoucherCountAggregateOutputType | null
+    _avg: ExpenseVoucherAvgAggregateOutputType | null
+    _sum: ExpenseVoucherSumAggregateOutputType | null
+    _min: ExpenseVoucherMinAggregateOutputType | null
+    _max: ExpenseVoucherMaxAggregateOutputType | null
+  }
+
+  type GetExpenseVoucherGroupByPayload<T extends ExpenseVoucherGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExpenseVoucherGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExpenseVoucherGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExpenseVoucherGroupByOutputType[P]>
+            : GetScalarType<T[P], ExpenseVoucherGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExpenseVoucherSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    description?: boolean
+    gold?: boolean
+    touch_id?: boolean
+    purity?: boolean
+    touchId?: boolean | AddTouchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["expenseVoucher"]>
+
+
+
+  export type ExpenseVoucherSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    description?: boolean
+    gold?: boolean
+    touch_id?: boolean
+    purity?: boolean
+  }
+
+  export type ExpenseVoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "description" | "gold" | "touch_id" | "purity", ExtArgs["result"]["expenseVoucher"]>
+  export type ExpenseVoucherInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    touchId?: boolean | AddTouchDefaultArgs<ExtArgs>
+  }
+
+  export type $ExpenseVoucherPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ExpenseVoucher"
+    objects: {
+      touchId: Prisma.$AddTouchPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      createdAt: Date
+      updatedAt: Date
+      description: string | null
+      gold: number
+      touch_id: number
+      purity: number
+    }, ExtArgs["result"]["expenseVoucher"]>
+    composites: {}
+  }
+
+  type ExpenseVoucherGetPayload<S extends boolean | null | undefined | ExpenseVoucherDefaultArgs> = $Result.GetResult<Prisma.$ExpenseVoucherPayload, S>
+
+  type ExpenseVoucherCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExpenseVoucherFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExpenseVoucherCountAggregateInputType | true
+    }
+
+  export interface ExpenseVoucherDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ExpenseVoucher'], meta: { name: 'ExpenseVoucher' } }
+    /**
+     * Find zero or one ExpenseVoucher that matches the filter.
+     * @param {ExpenseVoucherFindUniqueArgs} args - Arguments to find a ExpenseVoucher
+     * @example
+     * // Get one ExpenseVoucher
+     * const expenseVoucher = await prisma.expenseVoucher.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExpenseVoucherFindUniqueArgs>(args: SelectSubset<T, ExpenseVoucherFindUniqueArgs<ExtArgs>>): Prisma__ExpenseVoucherClient<$Result.GetResult<Prisma.$ExpenseVoucherPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ExpenseVoucher that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExpenseVoucherFindUniqueOrThrowArgs} args - Arguments to find a ExpenseVoucher
+     * @example
+     * // Get one ExpenseVoucher
+     * const expenseVoucher = await prisma.expenseVoucher.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExpenseVoucherFindUniqueOrThrowArgs>(args: SelectSubset<T, ExpenseVoucherFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExpenseVoucherClient<$Result.GetResult<Prisma.$ExpenseVoucherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExpenseVoucher that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseVoucherFindFirstArgs} args - Arguments to find a ExpenseVoucher
+     * @example
+     * // Get one ExpenseVoucher
+     * const expenseVoucher = await prisma.expenseVoucher.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExpenseVoucherFindFirstArgs>(args?: SelectSubset<T, ExpenseVoucherFindFirstArgs<ExtArgs>>): Prisma__ExpenseVoucherClient<$Result.GetResult<Prisma.$ExpenseVoucherPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExpenseVoucher that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseVoucherFindFirstOrThrowArgs} args - Arguments to find a ExpenseVoucher
+     * @example
+     * // Get one ExpenseVoucher
+     * const expenseVoucher = await prisma.expenseVoucher.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExpenseVoucherFindFirstOrThrowArgs>(args?: SelectSubset<T, ExpenseVoucherFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExpenseVoucherClient<$Result.GetResult<Prisma.$ExpenseVoucherPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ExpenseVouchers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseVoucherFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ExpenseVouchers
+     * const expenseVouchers = await prisma.expenseVoucher.findMany()
+     * 
+     * // Get first 10 ExpenseVouchers
+     * const expenseVouchers = await prisma.expenseVoucher.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const expenseVoucherWithIdOnly = await prisma.expenseVoucher.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ExpenseVoucherFindManyArgs>(args?: SelectSubset<T, ExpenseVoucherFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpenseVoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ExpenseVoucher.
+     * @param {ExpenseVoucherCreateArgs} args - Arguments to create a ExpenseVoucher.
+     * @example
+     * // Create one ExpenseVoucher
+     * const ExpenseVoucher = await prisma.expenseVoucher.create({
+     *   data: {
+     *     // ... data to create a ExpenseVoucher
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExpenseVoucherCreateArgs>(args: SelectSubset<T, ExpenseVoucherCreateArgs<ExtArgs>>): Prisma__ExpenseVoucherClient<$Result.GetResult<Prisma.$ExpenseVoucherPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ExpenseVouchers.
+     * @param {ExpenseVoucherCreateManyArgs} args - Arguments to create many ExpenseVouchers.
+     * @example
+     * // Create many ExpenseVouchers
+     * const expenseVoucher = await prisma.expenseVoucher.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExpenseVoucherCreateManyArgs>(args?: SelectSubset<T, ExpenseVoucherCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ExpenseVoucher.
+     * @param {ExpenseVoucherDeleteArgs} args - Arguments to delete one ExpenseVoucher.
+     * @example
+     * // Delete one ExpenseVoucher
+     * const ExpenseVoucher = await prisma.expenseVoucher.delete({
+     *   where: {
+     *     // ... filter to delete one ExpenseVoucher
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExpenseVoucherDeleteArgs>(args: SelectSubset<T, ExpenseVoucherDeleteArgs<ExtArgs>>): Prisma__ExpenseVoucherClient<$Result.GetResult<Prisma.$ExpenseVoucherPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ExpenseVoucher.
+     * @param {ExpenseVoucherUpdateArgs} args - Arguments to update one ExpenseVoucher.
+     * @example
+     * // Update one ExpenseVoucher
+     * const expenseVoucher = await prisma.expenseVoucher.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExpenseVoucherUpdateArgs>(args: SelectSubset<T, ExpenseVoucherUpdateArgs<ExtArgs>>): Prisma__ExpenseVoucherClient<$Result.GetResult<Prisma.$ExpenseVoucherPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ExpenseVouchers.
+     * @param {ExpenseVoucherDeleteManyArgs} args - Arguments to filter ExpenseVouchers to delete.
+     * @example
+     * // Delete a few ExpenseVouchers
+     * const { count } = await prisma.expenseVoucher.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExpenseVoucherDeleteManyArgs>(args?: SelectSubset<T, ExpenseVoucherDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExpenseVouchers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseVoucherUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ExpenseVouchers
+     * const expenseVoucher = await prisma.expenseVoucher.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExpenseVoucherUpdateManyArgs>(args: SelectSubset<T, ExpenseVoucherUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ExpenseVoucher.
+     * @param {ExpenseVoucherUpsertArgs} args - Arguments to update or create a ExpenseVoucher.
+     * @example
+     * // Update or create a ExpenseVoucher
+     * const expenseVoucher = await prisma.expenseVoucher.upsert({
+     *   create: {
+     *     // ... data to create a ExpenseVoucher
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ExpenseVoucher we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExpenseVoucherUpsertArgs>(args: SelectSubset<T, ExpenseVoucherUpsertArgs<ExtArgs>>): Prisma__ExpenseVoucherClient<$Result.GetResult<Prisma.$ExpenseVoucherPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ExpenseVouchers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseVoucherCountArgs} args - Arguments to filter ExpenseVouchers to count.
+     * @example
+     * // Count the number of ExpenseVouchers
+     * const count = await prisma.expenseVoucher.count({
+     *   where: {
+     *     // ... the filter for the ExpenseVouchers we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExpenseVoucherCountArgs>(
+      args?: Subset<T, ExpenseVoucherCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExpenseVoucherCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ExpenseVoucher.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseVoucherAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExpenseVoucherAggregateArgs>(args: Subset<T, ExpenseVoucherAggregateArgs>): Prisma.PrismaPromise<GetExpenseVoucherAggregateType<T>>
+
+    /**
+     * Group by ExpenseVoucher.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseVoucherGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExpenseVoucherGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExpenseVoucherGroupByArgs['orderBy'] }
+        : { orderBy?: ExpenseVoucherGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExpenseVoucherGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExpenseVoucherGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ExpenseVoucher model
+   */
+  readonly fields: ExpenseVoucherFieldRefs;
   }
 
   /**
-   * AddTouch.casting_items
+   * The delegate class that acts as a "Promise-like" for ExpenseVoucher.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export type AddTouch$casting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export interface Prisma__ExpenseVoucherClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    touchId<T extends AddTouchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddTouchDefaultArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
-     * Select specific fields to fetch from the CastingItems
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
      */
-    select?: CastingItemsSelect<ExtArgs> | null
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
     /**
-     * Omit specific fields from the CastingItems
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
      */
-    omit?: CastingItemsOmit<ExtArgs> | null
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ExpenseVoucher model
+   */
+  interface ExpenseVoucherFieldRefs {
+    readonly id: FieldRef<"ExpenseVoucher", 'Int'>
+    readonly createdAt: FieldRef<"ExpenseVoucher", 'DateTime'>
+    readonly updatedAt: FieldRef<"ExpenseVoucher", 'DateTime'>
+    readonly description: FieldRef<"ExpenseVoucher", 'String'>
+    readonly gold: FieldRef<"ExpenseVoucher", 'Float'>
+    readonly touch_id: FieldRef<"ExpenseVoucher", 'Int'>
+    readonly purity: FieldRef<"ExpenseVoucher", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ExpenseVoucher findUnique
+   */
+  export type ExpenseVoucherFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExpenseVoucher
+     */
+    select?: ExpenseVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExpenseVoucher
+     */
+    omit?: ExpenseVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CastingItemsInclude<ExtArgs> | null
-    where?: CastingItemsWhereInput
-    orderBy?: CastingItemsOrderByWithRelationInput | CastingItemsOrderByWithRelationInput[]
-    cursor?: CastingItemsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CastingItemsScalarFieldEnum | CastingItemsScalarFieldEnum[]
+    include?: ExpenseVoucherInclude<ExtArgs> | null
+    /**
+     * Filter, which ExpenseVoucher to fetch.
+     */
+    where: ExpenseVoucherWhereUniqueInput
   }
 
   /**
-   * AddTouch.filing_items
+   * ExpenseVoucher findUniqueOrThrow
    */
-  export type AddTouch$filing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ExpenseVoucherFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FilingItems
+     * Select specific fields to fetch from the ExpenseVoucher
      */
-    select?: FilingItemsSelect<ExtArgs> | null
+    select?: ExpenseVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FilingItems
+     * Omit specific fields from the ExpenseVoucher
      */
-    omit?: FilingItemsOmit<ExtArgs> | null
+    omit?: ExpenseVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FilingItemsInclude<ExtArgs> | null
-    where?: FilingItemsWhereInput
-    orderBy?: FilingItemsOrderByWithRelationInput | FilingItemsOrderByWithRelationInput[]
-    cursor?: FilingItemsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: FilingItemsScalarFieldEnum | FilingItemsScalarFieldEnum[]
+    include?: ExpenseVoucherInclude<ExtArgs> | null
+    /**
+     * Filter, which ExpenseVoucher to fetch.
+     */
+    where: ExpenseVoucherWhereUniqueInput
   }
 
   /**
-   * AddTouch.setting_items
+   * ExpenseVoucher findFirst
    */
-  export type AddTouch$setting_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ExpenseVoucherFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SettingItems
+     * Select specific fields to fetch from the ExpenseVoucher
      */
-    select?: SettingItemsSelect<ExtArgs> | null
+    select?: ExpenseVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the SettingItems
+     * Omit specific fields from the ExpenseVoucher
      */
-    omit?: SettingItemsOmit<ExtArgs> | null
+    omit?: ExpenseVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SettingItemsInclude<ExtArgs> | null
-    where?: SettingItemsWhereInput
-    orderBy?: SettingItemsOrderByWithRelationInput | SettingItemsOrderByWithRelationInput[]
-    cursor?: SettingItemsWhereUniqueInput
+    include?: ExpenseVoucherInclude<ExtArgs> | null
+    /**
+     * Filter, which ExpenseVoucher to fetch.
+     */
+    where?: ExpenseVoucherWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExpenseVouchers to fetch.
+     */
+    orderBy?: ExpenseVoucherOrderByWithRelationInput | ExpenseVoucherOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExpenseVouchers.
+     */
+    cursor?: ExpenseVoucherWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExpenseVouchers from the position of the cursor.
+     */
     take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExpenseVouchers.
+     */
     skip?: number
-    distinct?: SettingItemsScalarFieldEnum | SettingItemsScalarFieldEnum[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExpenseVouchers.
+     */
+    distinct?: ExpenseVoucherScalarFieldEnum | ExpenseVoucherScalarFieldEnum[]
   }
 
   /**
-   * AddTouch.buffing_items
+   * ExpenseVoucher findFirstOrThrow
    */
-  export type AddTouch$buffing_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ExpenseVoucherFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the BuffingItems
+     * Select specific fields to fetch from the ExpenseVoucher
      */
-    select?: BuffingItemsSelect<ExtArgs> | null
+    select?: ExpenseVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the BuffingItems
+     * Omit specific fields from the ExpenseVoucher
      */
-    omit?: BuffingItemsOmit<ExtArgs> | null
+    omit?: ExpenseVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: BuffingItemsInclude<ExtArgs> | null
-    where?: BuffingItemsWhereInput
-    orderBy?: BuffingItemsOrderByWithRelationInput | BuffingItemsOrderByWithRelationInput[]
-    cursor?: BuffingItemsWhereUniqueInput
+    include?: ExpenseVoucherInclude<ExtArgs> | null
+    /**
+     * Filter, which ExpenseVoucher to fetch.
+     */
+    where?: ExpenseVoucherWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExpenseVouchers to fetch.
+     */
+    orderBy?: ExpenseVoucherOrderByWithRelationInput | ExpenseVoucherOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExpenseVouchers.
+     */
+    cursor?: ExpenseVoucherWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExpenseVouchers from the position of the cursor.
+     */
     take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExpenseVouchers.
+     */
     skip?: number
-    distinct?: BuffingItemsScalarFieldEnum | BuffingItemsScalarFieldEnum[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExpenseVouchers.
+     */
+    distinct?: ExpenseVoucherScalarFieldEnum | ExpenseVoucherScalarFieldEnum[]
   }
 
   /**
-   * AddTouch.stock
+   * ExpenseVoucher findMany
    */
-  export type AddTouch$stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ExpenseVoucherFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Stock
+     * Select specific fields to fetch from the ExpenseVoucher
      */
-    select?: StockSelect<ExtArgs> | null
+    select?: ExpenseVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Stock
+     * Omit specific fields from the ExpenseVoucher
      */
-    omit?: StockOmit<ExtArgs> | null
+    omit?: ExpenseVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StockInclude<ExtArgs> | null
-    where?: StockWhereInput
-    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
-    cursor?: StockWhereUniqueInput
+    include?: ExpenseVoucherInclude<ExtArgs> | null
+    /**
+     * Filter, which ExpenseVouchers to fetch.
+     */
+    where?: ExpenseVoucherWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExpenseVouchers to fetch.
+     */
+    orderBy?: ExpenseVoucherOrderByWithRelationInput | ExpenseVoucherOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ExpenseVouchers.
+     */
+    cursor?: ExpenseVoucherWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExpenseVouchers from the position of the cursor.
+     */
     take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExpenseVouchers.
+     */
     skip?: number
-    distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
+    distinct?: ExpenseVoucherScalarFieldEnum | ExpenseVoucherScalarFieldEnum[]
   }
 
   /**
-   * AddTouch.add_purchase_stock
+   * ExpenseVoucher create
    */
-  export type AddTouch$add_purchase_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ExpenseVoucherCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AddPurchaseStock
+     * Select specific fields to fetch from the ExpenseVoucher
      */
-    select?: AddPurchaseStockSelect<ExtArgs> | null
+    select?: ExpenseVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AddPurchaseStock
+     * Omit specific fields from the ExpenseVoucher
      */
-    omit?: AddPurchaseStockOmit<ExtArgs> | null
+    omit?: ExpenseVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AddPurchaseStockInclude<ExtArgs> | null
-    where?: AddPurchaseStockWhereInput
-    orderBy?: AddPurchaseStockOrderByWithRelationInput | AddPurchaseStockOrderByWithRelationInput[]
-    cursor?: AddPurchaseStockWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AddPurchaseStockScalarFieldEnum | AddPurchaseStockScalarFieldEnum[]
+    include?: ExpenseVoucherInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ExpenseVoucher.
+     */
+    data: XOR<ExpenseVoucherCreateInput, ExpenseVoucherUncheckedCreateInput>
   }
 
   /**
-   * AddTouch.customer_transaction
+   * ExpenseVoucher createMany
    */
-  export type AddTouch$customer_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ExpenseVoucherCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CustomerTransaction
+     * The data used to create many ExpenseVouchers.
      */
-    select?: CustomerTransactionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CustomerTransaction
-     */
-    omit?: CustomerTransactionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CustomerTransactionInclude<ExtArgs> | null
-    where?: CustomerTransactionWhereInput
-    orderBy?: CustomerTransactionOrderByWithRelationInput | CustomerTransactionOrderByWithRelationInput[]
-    cursor?: CustomerTransactionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CustomerTransactionScalarFieldEnum | CustomerTransactionScalarFieldEnum[]
+    data: ExpenseVoucherCreateManyInput | ExpenseVoucherCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
-   * AddTouch.QCStock
+   * ExpenseVoucher update
    */
-  export type AddTouch$QCStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ExpenseVoucherUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the QcStock
+     * Select specific fields to fetch from the ExpenseVoucher
      */
-    select?: QcStockSelect<ExtArgs> | null
+    select?: ExpenseVoucherSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the QcStock
+     * Omit specific fields from the ExpenseVoucher
      */
-    omit?: QcStockOmit<ExtArgs> | null
+    omit?: ExpenseVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: QcStockInclude<ExtArgs> | null
-    where?: QcStockWhereInput
-    orderBy?: QcStockOrderByWithRelationInput | QcStockOrderByWithRelationInput[]
-    cursor?: QcStockWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: QcStockScalarFieldEnum | QcStockScalarFieldEnum[]
+    include?: ExpenseVoucherInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ExpenseVoucher.
+     */
+    data: XOR<ExpenseVoucherUpdateInput, ExpenseVoucherUncheckedUpdateInput>
+    /**
+     * Choose, which ExpenseVoucher to update.
+     */
+    where: ExpenseVoucherWhereUniqueInput
   }
 
   /**
-   * AddTouch without action
+   * ExpenseVoucher updateMany
    */
-  export type AddTouchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ExpenseVoucherUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AddTouch
+     * The data used to update ExpenseVouchers.
      */
-    select?: AddTouchSelect<ExtArgs> | null
+    data: XOR<ExpenseVoucherUpdateManyMutationInput, ExpenseVoucherUncheckedUpdateManyInput>
     /**
-     * Omit specific fields from the AddTouch
+     * Filter which ExpenseVouchers to update
      */
-    omit?: AddTouchOmit<ExtArgs> | null
+    where?: ExpenseVoucherWhereInput
+    /**
+     * Limit how many ExpenseVouchers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExpenseVoucher upsert
+   */
+  export type ExpenseVoucherUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExpenseVoucher
+     */
+    select?: ExpenseVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExpenseVoucher
+     */
+    omit?: ExpenseVoucherOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AddTouchInclude<ExtArgs> | null
+    include?: ExpenseVoucherInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ExpenseVoucher to update in case it exists.
+     */
+    where: ExpenseVoucherWhereUniqueInput
+    /**
+     * In case the ExpenseVoucher found by the `where` argument doesn't exist, create a new ExpenseVoucher with this data.
+     */
+    create: XOR<ExpenseVoucherCreateInput, ExpenseVoucherUncheckedCreateInput>
+    /**
+     * In case the ExpenseVoucher was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExpenseVoucherUpdateInput, ExpenseVoucherUncheckedUpdateInput>
+  }
+
+  /**
+   * ExpenseVoucher delete
+   */
+  export type ExpenseVoucherDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExpenseVoucher
+     */
+    select?: ExpenseVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExpenseVoucher
+     */
+    omit?: ExpenseVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseVoucherInclude<ExtArgs> | null
+    /**
+     * Filter which ExpenseVoucher to delete.
+     */
+    where: ExpenseVoucherWhereUniqueInput
+  }
+
+  /**
+   * ExpenseVoucher deleteMany
+   */
+  export type ExpenseVoucherDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExpenseVouchers to delete
+     */
+    where?: ExpenseVoucherWhereInput
+    /**
+     * Limit how many ExpenseVouchers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExpenseVoucher without action
+   */
+  export type ExpenseVoucherDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExpenseVoucher
+     */
+    select?: ExpenseVoucherSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExpenseVoucher
+     */
+    omit?: ExpenseVoucherOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseVoucherInclude<ExtArgs> | null
   }
 
 
@@ -43695,7 +46105,8 @@ export namespace Prisma {
     name: 'name',
     phoneNumber: 'phoneNumber',
     address: 'address',
-    email: 'email'
+    email: 'email',
+    balance: 'balance'
   };
 
   export type AddCustomerScalarFieldEnum = (typeof AddCustomerScalarFieldEnum)[keyof typeof AddCustomerScalarFieldEnum]
@@ -43708,7 +46119,8 @@ export namespace Prisma {
     name: 'name',
     phoneNumber: 'phoneNumber',
     address: 'address',
-    email: 'email'
+    email: 'email',
+    balance: 'balance'
   };
 
   export type AddCastingScalarFieldEnum = (typeof AddCastingScalarFieldEnum)[keyof typeof AddCastingScalarFieldEnum]
@@ -43721,7 +46133,8 @@ export namespace Prisma {
     name: 'name',
     phoneNumber: 'phoneNumber',
     address: 'address',
-    email: 'email'
+    email: 'email',
+    balance: 'balance'
   };
 
   export type AddFilingScalarFieldEnum = (typeof AddFilingScalarFieldEnum)[keyof typeof AddFilingScalarFieldEnum]
@@ -43734,7 +46147,8 @@ export namespace Prisma {
     name: 'name',
     phoneNumber: 'phoneNumber',
     address: 'address',
-    email: 'email'
+    email: 'email',
+    balance: 'balance'
   };
 
   export type AddSettingScalarFieldEnum = (typeof AddSettingScalarFieldEnum)[keyof typeof AddSettingScalarFieldEnum]
@@ -43747,7 +46161,8 @@ export namespace Prisma {
     name: 'name',
     phoneNumber: 'phoneNumber',
     address: 'address',
-    email: 'email'
+    email: 'email',
+    balance: 'balance'
   };
 
   export type AddBuffingScalarFieldEnum = (typeof AddBuffingScalarFieldEnum)[keyof typeof AddBuffingScalarFieldEnum]
@@ -43808,6 +46223,16 @@ export namespace Prisma {
   };
 
   export type AddItemScalarFieldEnum = (typeof AddItemScalarFieldEnum)[keyof typeof AddItemScalarFieldEnum]
+
+
+  export const AddTouchScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    touch: 'touch'
+  };
+
+  export type AddTouchScalarFieldEnum = (typeof AddTouchScalarFieldEnum)[keyof typeof AddTouchScalarFieldEnum]
 
 
   export const QcStockScalarFieldEnum: {
@@ -44190,14 +46615,34 @@ export namespace Prisma {
   export type ReceivedItemScalarFieldEnum = (typeof ReceivedItemScalarFieldEnum)[keyof typeof ReceivedItemScalarFieldEnum]
 
 
-  export const AddTouchScalarFieldEnum: {
+  export const ReceiptVoucherScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    touch: 'touch'
+    customer_id: 'customer_id',
+    type: 'type',
+    gold_rate: 'gold_rate',
+    amount: 'amount',
+    gold: 'gold',
+    touch_id: 'touch_id',
+    purity: 'purity',
+    hallmark: 'hallmark'
   };
 
-  export type AddTouchScalarFieldEnum = (typeof AddTouchScalarFieldEnum)[keyof typeof AddTouchScalarFieldEnum]
+  export type ReceiptVoucherScalarFieldEnum = (typeof ReceiptVoucherScalarFieldEnum)[keyof typeof ReceiptVoucherScalarFieldEnum]
+
+
+  export const ExpenseVoucherScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    description: 'description',
+    gold: 'gold',
+    touch_id: 'touch_id',
+    purity: 'purity'
+  };
+
+  export type ExpenseVoucherScalarFieldEnum = (typeof ExpenseVoucherScalarFieldEnum)[keyof typeof ExpenseVoucherScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -44376,6 +46821,13 @@ export namespace Prisma {
   export type ReceivedItemOrderByRelevanceFieldEnum = (typeof ReceivedItemOrderByRelevanceFieldEnum)[keyof typeof ReceivedItemOrderByRelevanceFieldEnum]
 
 
+  export const ExpenseVoucherOrderByRelevanceFieldEnum: {
+    description: 'description'
+  };
+
+  export type ExpenseVoucherOrderByRelevanceFieldEnum = (typeof ExpenseVoucherOrderByRelevanceFieldEnum)[keyof typeof ExpenseVoucherOrderByRelevanceFieldEnum]
+
+
   /**
    * Field references
    */
@@ -44403,16 +46855,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'ITEMTYPE'
+   * Reference to a field of type 'Float'
    */
-  export type EnumITEMTYPEFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ITEMTYPE'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'ITEMTYPE'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+  export type EnumITEMTYPEFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ITEMTYPE'>
     
 
 
@@ -44451,9 +46903,11 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"AddCustomer"> | string | null
     address?: StringNullableFilter<"AddCustomer"> | string | null
     email?: StringNullableFilter<"AddCustomer"> | string | null
+    balance?: FloatNullableFilter<"AddCustomer"> | number | null
     transactions?: CustomerTransactionListRelationFilter
     bills?: BillListRelationFilter
     hallmarks?: HallmarkListRelationFilter
+    receipt_voucher?: ReceiptVoucherListRelationFilter
   }
 
   export type AddCustomerOrderByWithRelationInput = {
@@ -44464,9 +46918,11 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    balance?: SortOrderInput | SortOrder
     transactions?: CustomerTransactionOrderByRelationAggregateInput
     bills?: BillOrderByRelationAggregateInput
     hallmarks?: HallmarkOrderByRelationAggregateInput
+    receipt_voucher?: ReceiptVoucherOrderByRelationAggregateInput
     _relevance?: AddCustomerOrderByRelevanceInput
   }
 
@@ -44481,9 +46937,11 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"AddCustomer"> | string | null
     address?: StringNullableFilter<"AddCustomer"> | string | null
     email?: StringNullableFilter<"AddCustomer"> | string | null
+    balance?: FloatNullableFilter<"AddCustomer"> | number | null
     transactions?: CustomerTransactionListRelationFilter
     bills?: BillListRelationFilter
     hallmarks?: HallmarkListRelationFilter
+    receipt_voucher?: ReceiptVoucherListRelationFilter
   }, "id">
 
   export type AddCustomerOrderByWithAggregationInput = {
@@ -44494,6 +46952,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    balance?: SortOrderInput | SortOrder
     _count?: AddCustomerCountOrderByAggregateInput
     _avg?: AddCustomerAvgOrderByAggregateInput
     _max?: AddCustomerMaxOrderByAggregateInput
@@ -44512,6 +46971,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableWithAggregatesFilter<"AddCustomer"> | string | null
     address?: StringNullableWithAggregatesFilter<"AddCustomer"> | string | null
     email?: StringNullableWithAggregatesFilter<"AddCustomer"> | string | null
+    balance?: FloatNullableWithAggregatesFilter<"AddCustomer"> | number | null
   }
 
   export type AddCastingWhereInput = {
@@ -44525,6 +46985,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"AddCasting"> | string | null
     address?: StringNullableFilter<"AddCasting"> | string | null
     email?: StringNullableFilter<"AddCasting"> | string | null
+    balance?: FloatNullableFilter<"AddCasting"> | number | null
     entries?: CastingEntryListRelationFilter
     castingitems?: CastingItemsListRelationFilter
     stock?: StockListRelationFilter
@@ -44538,6 +46999,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    balance?: SortOrderInput | SortOrder
     entries?: CastingEntryOrderByRelationAggregateInput
     castingitems?: CastingItemsOrderByRelationAggregateInput
     stock?: StockOrderByRelationAggregateInput
@@ -44555,6 +47017,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"AddCasting"> | string | null
     address?: StringNullableFilter<"AddCasting"> | string | null
     email?: StringNullableFilter<"AddCasting"> | string | null
+    balance?: FloatNullableFilter<"AddCasting"> | number | null
     entries?: CastingEntryListRelationFilter
     castingitems?: CastingItemsListRelationFilter
     stock?: StockListRelationFilter
@@ -44568,6 +47031,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    balance?: SortOrderInput | SortOrder
     _count?: AddCastingCountOrderByAggregateInput
     _avg?: AddCastingAvgOrderByAggregateInput
     _max?: AddCastingMaxOrderByAggregateInput
@@ -44586,6 +47050,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableWithAggregatesFilter<"AddCasting"> | string | null
     address?: StringNullableWithAggregatesFilter<"AddCasting"> | string | null
     email?: StringNullableWithAggregatesFilter<"AddCasting"> | string | null
+    balance?: FloatNullableWithAggregatesFilter<"AddCasting"> | number | null
   }
 
   export type AddFilingWhereInput = {
@@ -44599,6 +47064,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"AddFiling"> | string | null
     address?: StringNullableFilter<"AddFiling"> | string | null
     email?: StringNullableFilter<"AddFiling"> | string | null
+    balance?: FloatNullableFilter<"AddFiling"> | number | null
     filingWastages?: FilingWastageListRelationFilter
     filings?: FilingEntryListRelationFilter
     lotInfo?: LotInfoListRelationFilter
@@ -44613,6 +47079,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    balance?: SortOrderInput | SortOrder
     filingWastages?: FilingWastageOrderByRelationAggregateInput
     filings?: FilingEntryOrderByRelationAggregateInput
     lotInfo?: LotInfoOrderByRelationAggregateInput
@@ -44631,6 +47098,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"AddFiling"> | string | null
     address?: StringNullableFilter<"AddFiling"> | string | null
     email?: StringNullableFilter<"AddFiling"> | string | null
+    balance?: FloatNullableFilter<"AddFiling"> | number | null
     filingWastages?: FilingWastageListRelationFilter
     filings?: FilingEntryListRelationFilter
     lotInfo?: LotInfoListRelationFilter
@@ -44645,6 +47113,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    balance?: SortOrderInput | SortOrder
     _count?: AddFilingCountOrderByAggregateInput
     _avg?: AddFilingAvgOrderByAggregateInput
     _max?: AddFilingMaxOrderByAggregateInput
@@ -44663,6 +47132,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableWithAggregatesFilter<"AddFiling"> | string | null
     address?: StringNullableWithAggregatesFilter<"AddFiling"> | string | null
     email?: StringNullableWithAggregatesFilter<"AddFiling"> | string | null
+    balance?: FloatNullableWithAggregatesFilter<"AddFiling"> | number | null
   }
 
   export type AddSettingWhereInput = {
@@ -44676,6 +47146,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"AddSetting"> | string | null
     address?: StringNullableFilter<"AddSetting"> | string | null
     email?: StringNullableFilter<"AddSetting"> | string | null
+    balance?: FloatNullableFilter<"AddSetting"> | number | null
     settingWastages?: SettingWastageListRelationFilter
     settings?: SettingEntryListRelationFilter
     settingMapper?: LotSettingMapperListRelationFilter
@@ -44690,6 +47161,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    balance?: SortOrderInput | SortOrder
     settingWastages?: SettingWastageOrderByRelationAggregateInput
     settings?: SettingEntryOrderByRelationAggregateInput
     settingMapper?: LotSettingMapperOrderByRelationAggregateInput
@@ -44708,6 +47180,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"AddSetting"> | string | null
     address?: StringNullableFilter<"AddSetting"> | string | null
     email?: StringNullableFilter<"AddSetting"> | string | null
+    balance?: FloatNullableFilter<"AddSetting"> | number | null
     settingWastages?: SettingWastageListRelationFilter
     settings?: SettingEntryListRelationFilter
     settingMapper?: LotSettingMapperListRelationFilter
@@ -44722,6 +47195,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    balance?: SortOrderInput | SortOrder
     _count?: AddSettingCountOrderByAggregateInput
     _avg?: AddSettingAvgOrderByAggregateInput
     _max?: AddSettingMaxOrderByAggregateInput
@@ -44740,6 +47214,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableWithAggregatesFilter<"AddSetting"> | string | null
     address?: StringNullableWithAggregatesFilter<"AddSetting"> | string | null
     email?: StringNullableWithAggregatesFilter<"AddSetting"> | string | null
+    balance?: FloatNullableWithAggregatesFilter<"AddSetting"> | number | null
   }
 
   export type AddBuffingWhereInput = {
@@ -44753,6 +47228,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"AddBuffing"> | string | null
     address?: StringNullableFilter<"AddBuffing"> | string | null
     email?: StringNullableFilter<"AddBuffing"> | string | null
+    balance?: FloatNullableFilter<"AddBuffing"> | number | null
     buffings?: BuffingEntryListRelationFilter
     buffingMapper?: LotBuffingMapperListRelationFilter
     lotInfo?: LotInfoListRelationFilter
@@ -44767,6 +47243,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    balance?: SortOrderInput | SortOrder
     buffings?: BuffingEntryOrderByRelationAggregateInput
     buffingMapper?: LotBuffingMapperOrderByRelationAggregateInput
     lotInfo?: LotInfoOrderByRelationAggregateInput
@@ -44785,6 +47262,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableFilter<"AddBuffing"> | string | null
     address?: StringNullableFilter<"AddBuffing"> | string | null
     email?: StringNullableFilter<"AddBuffing"> | string | null
+    balance?: FloatNullableFilter<"AddBuffing"> | number | null
     buffings?: BuffingEntryListRelationFilter
     buffingMapper?: LotBuffingMapperListRelationFilter
     lotInfo?: LotInfoListRelationFilter
@@ -44799,6 +47277,7 @@ export namespace Prisma {
     phoneNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    balance?: SortOrderInput | SortOrder
     _count?: AddBuffingCountOrderByAggregateInput
     _avg?: AddBuffingAvgOrderByAggregateInput
     _max?: AddBuffingMaxOrderByAggregateInput
@@ -44817,6 +47296,7 @@ export namespace Prisma {
     phoneNumber?: StringNullableWithAggregatesFilter<"AddBuffing"> | string | null
     address?: StringNullableWithAggregatesFilter<"AddBuffing"> | string | null
     email?: StringNullableWithAggregatesFilter<"AddBuffing"> | string | null
+    balance?: FloatNullableWithAggregatesFilter<"AddBuffing"> | number | null
   }
 
   export type AddSupplierItemWhereInput = {
@@ -45144,6 +47624,88 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"AddItem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AddItem"> | Date | string
     name?: StringWithAggregatesFilter<"AddItem"> | string
+  }
+
+  export type AddTouchWhereInput = {
+    AND?: AddTouchWhereInput | AddTouchWhereInput[]
+    OR?: AddTouchWhereInput[]
+    NOT?: AddTouchWhereInput | AddTouchWhereInput[]
+    id?: IntFilter<"AddTouch"> | number
+    createdAt?: DateTimeFilter<"AddTouch"> | Date | string
+    updatedAt?: DateTimeFilter<"AddTouch"> | Date | string
+    touch?: FloatFilter<"AddTouch"> | number
+    casting_entry?: CastingEntryListRelationFilter
+    casting_items?: CastingItemsListRelationFilter
+    filing_items?: FilingItemsListRelationFilter
+    setting_items?: SettingItemsListRelationFilter
+    buffing_items?: BuffingItemsListRelationFilter
+    stock?: StockListRelationFilter
+    add_purchase_stock?: AddPurchaseStockListRelationFilter
+    customer_transaction?: CustomerTransactionListRelationFilter
+    QCStock?: QcStockListRelationFilter
+    receiptVoucher?: ReceiptVoucherListRelationFilter
+    ExpenseVoucher?: ExpenseVoucherListRelationFilter
+  }
+
+  export type AddTouchOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    touch?: SortOrder
+    casting_entry?: CastingEntryOrderByRelationAggregateInput
+    casting_items?: CastingItemsOrderByRelationAggregateInput
+    filing_items?: FilingItemsOrderByRelationAggregateInput
+    setting_items?: SettingItemsOrderByRelationAggregateInput
+    buffing_items?: BuffingItemsOrderByRelationAggregateInput
+    stock?: StockOrderByRelationAggregateInput
+    add_purchase_stock?: AddPurchaseStockOrderByRelationAggregateInput
+    customer_transaction?: CustomerTransactionOrderByRelationAggregateInput
+    QCStock?: QcStockOrderByRelationAggregateInput
+    receiptVoucher?: ReceiptVoucherOrderByRelationAggregateInput
+    ExpenseVoucher?: ExpenseVoucherOrderByRelationAggregateInput
+  }
+
+  export type AddTouchWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AddTouchWhereInput | AddTouchWhereInput[]
+    OR?: AddTouchWhereInput[]
+    NOT?: AddTouchWhereInput | AddTouchWhereInput[]
+    createdAt?: DateTimeFilter<"AddTouch"> | Date | string
+    updatedAt?: DateTimeFilter<"AddTouch"> | Date | string
+    touch?: FloatFilter<"AddTouch"> | number
+    casting_entry?: CastingEntryListRelationFilter
+    casting_items?: CastingItemsListRelationFilter
+    filing_items?: FilingItemsListRelationFilter
+    setting_items?: SettingItemsListRelationFilter
+    buffing_items?: BuffingItemsListRelationFilter
+    stock?: StockListRelationFilter
+    add_purchase_stock?: AddPurchaseStockListRelationFilter
+    customer_transaction?: CustomerTransactionListRelationFilter
+    QCStock?: QcStockListRelationFilter
+    receiptVoucher?: ReceiptVoucherListRelationFilter
+    ExpenseVoucher?: ExpenseVoucherListRelationFilter
+  }, "id">
+
+  export type AddTouchOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    touch?: SortOrder
+    _count?: AddTouchCountOrderByAggregateInput
+    _avg?: AddTouchAvgOrderByAggregateInput
+    _max?: AddTouchMaxOrderByAggregateInput
+    _min?: AddTouchMinOrderByAggregateInput
+    _sum?: AddTouchSumOrderByAggregateInput
+  }
+
+  export type AddTouchScalarWhereWithAggregatesInput = {
+    AND?: AddTouchScalarWhereWithAggregatesInput | AddTouchScalarWhereWithAggregatesInput[]
+    OR?: AddTouchScalarWhereWithAggregatesInput[]
+    NOT?: AddTouchScalarWhereWithAggregatesInput | AddTouchScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AddTouch"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"AddTouch"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AddTouch"> | Date | string
+    touch?: FloatWithAggregatesFilter<"AddTouch"> | number
   }
 
   export type QcStockWhereInput = {
@@ -47359,80 +49921,162 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"ReceivedItem"> | Date | string
   }
 
-  export type AddTouchWhereInput = {
-    AND?: AddTouchWhereInput | AddTouchWhereInput[]
-    OR?: AddTouchWhereInput[]
-    NOT?: AddTouchWhereInput | AddTouchWhereInput[]
-    id?: IntFilter<"AddTouch"> | number
-    createdAt?: DateTimeFilter<"AddTouch"> | Date | string
-    updatedAt?: DateTimeFilter<"AddTouch"> | Date | string
-    touch?: FloatFilter<"AddTouch"> | number
-    casting_entry?: CastingEntryListRelationFilter
-    casting_items?: CastingItemsListRelationFilter
-    filing_items?: FilingItemsListRelationFilter
-    setting_items?: SettingItemsListRelationFilter
-    buffing_items?: BuffingItemsListRelationFilter
-    stock?: StockListRelationFilter
-    add_purchase_stock?: AddPurchaseStockListRelationFilter
-    customer_transaction?: CustomerTransactionListRelationFilter
-    QCStock?: QcStockListRelationFilter
+  export type ReceiptVoucherWhereInput = {
+    AND?: ReceiptVoucherWhereInput | ReceiptVoucherWhereInput[]
+    OR?: ReceiptVoucherWhereInput[]
+    NOT?: ReceiptVoucherWhereInput | ReceiptVoucherWhereInput[]
+    id?: IntFilter<"ReceiptVoucher"> | number
+    createdAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
+    updatedAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
+    customer_id?: IntFilter<"ReceiptVoucher"> | number
+    type?: EnumITEMTYPEFilter<"ReceiptVoucher"> | $Enums.ITEMTYPE
+    gold_rate?: FloatNullableFilter<"ReceiptVoucher"> | number | null
+    amount?: FloatNullableFilter<"ReceiptVoucher"> | number | null
+    gold?: FloatNullableFilter<"ReceiptVoucher"> | number | null
+    touch_id?: IntFilter<"ReceiptVoucher"> | number
+    purity?: FloatFilter<"ReceiptVoucher"> | number
+    hallmark?: FloatNullableFilter<"ReceiptVoucher"> | number | null
+    customerId?: XOR<AddCustomerScalarRelationFilter, AddCustomerWhereInput>
+    touchId?: XOR<AddTouchScalarRelationFilter, AddTouchWhereInput>
   }
 
-  export type AddTouchOrderByWithRelationInput = {
+  export type ReceiptVoucherOrderByWithRelationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    touch?: SortOrder
-    casting_entry?: CastingEntryOrderByRelationAggregateInput
-    casting_items?: CastingItemsOrderByRelationAggregateInput
-    filing_items?: FilingItemsOrderByRelationAggregateInput
-    setting_items?: SettingItemsOrderByRelationAggregateInput
-    buffing_items?: BuffingItemsOrderByRelationAggregateInput
-    stock?: StockOrderByRelationAggregateInput
-    add_purchase_stock?: AddPurchaseStockOrderByRelationAggregateInput
-    customer_transaction?: CustomerTransactionOrderByRelationAggregateInput
-    QCStock?: QcStockOrderByRelationAggregateInput
+    customer_id?: SortOrder
+    type?: SortOrder
+    gold_rate?: SortOrderInput | SortOrder
+    amount?: SortOrderInput | SortOrder
+    gold?: SortOrderInput | SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+    hallmark?: SortOrderInput | SortOrder
+    customerId?: AddCustomerOrderByWithRelationInput
+    touchId?: AddTouchOrderByWithRelationInput
   }
 
-  export type AddTouchWhereUniqueInput = Prisma.AtLeast<{
+  export type ReceiptVoucherWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    AND?: AddTouchWhereInput | AddTouchWhereInput[]
-    OR?: AddTouchWhereInput[]
-    NOT?: AddTouchWhereInput | AddTouchWhereInput[]
-    createdAt?: DateTimeFilter<"AddTouch"> | Date | string
-    updatedAt?: DateTimeFilter<"AddTouch"> | Date | string
-    touch?: FloatFilter<"AddTouch"> | number
-    casting_entry?: CastingEntryListRelationFilter
-    casting_items?: CastingItemsListRelationFilter
-    filing_items?: FilingItemsListRelationFilter
-    setting_items?: SettingItemsListRelationFilter
-    buffing_items?: BuffingItemsListRelationFilter
-    stock?: StockListRelationFilter
-    add_purchase_stock?: AddPurchaseStockListRelationFilter
-    customer_transaction?: CustomerTransactionListRelationFilter
-    QCStock?: QcStockListRelationFilter
+    AND?: ReceiptVoucherWhereInput | ReceiptVoucherWhereInput[]
+    OR?: ReceiptVoucherWhereInput[]
+    NOT?: ReceiptVoucherWhereInput | ReceiptVoucherWhereInput[]
+    createdAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
+    updatedAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
+    customer_id?: IntFilter<"ReceiptVoucher"> | number
+    type?: EnumITEMTYPEFilter<"ReceiptVoucher"> | $Enums.ITEMTYPE
+    gold_rate?: FloatNullableFilter<"ReceiptVoucher"> | number | null
+    amount?: FloatNullableFilter<"ReceiptVoucher"> | number | null
+    gold?: FloatNullableFilter<"ReceiptVoucher"> | number | null
+    touch_id?: IntFilter<"ReceiptVoucher"> | number
+    purity?: FloatFilter<"ReceiptVoucher"> | number
+    hallmark?: FloatNullableFilter<"ReceiptVoucher"> | number | null
+    customerId?: XOR<AddCustomerScalarRelationFilter, AddCustomerWhereInput>
+    touchId?: XOR<AddTouchScalarRelationFilter, AddTouchWhereInput>
   }, "id">
 
-  export type AddTouchOrderByWithAggregationInput = {
+  export type ReceiptVoucherOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    touch?: SortOrder
-    _count?: AddTouchCountOrderByAggregateInput
-    _avg?: AddTouchAvgOrderByAggregateInput
-    _max?: AddTouchMaxOrderByAggregateInput
-    _min?: AddTouchMinOrderByAggregateInput
-    _sum?: AddTouchSumOrderByAggregateInput
+    customer_id?: SortOrder
+    type?: SortOrder
+    gold_rate?: SortOrderInput | SortOrder
+    amount?: SortOrderInput | SortOrder
+    gold?: SortOrderInput | SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+    hallmark?: SortOrderInput | SortOrder
+    _count?: ReceiptVoucherCountOrderByAggregateInput
+    _avg?: ReceiptVoucherAvgOrderByAggregateInput
+    _max?: ReceiptVoucherMaxOrderByAggregateInput
+    _min?: ReceiptVoucherMinOrderByAggregateInput
+    _sum?: ReceiptVoucherSumOrderByAggregateInput
   }
 
-  export type AddTouchScalarWhereWithAggregatesInput = {
-    AND?: AddTouchScalarWhereWithAggregatesInput | AddTouchScalarWhereWithAggregatesInput[]
-    OR?: AddTouchScalarWhereWithAggregatesInput[]
-    NOT?: AddTouchScalarWhereWithAggregatesInput | AddTouchScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"AddTouch"> | number
-    createdAt?: DateTimeWithAggregatesFilter<"AddTouch"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"AddTouch"> | Date | string
-    touch?: FloatWithAggregatesFilter<"AddTouch"> | number
+  export type ReceiptVoucherScalarWhereWithAggregatesInput = {
+    AND?: ReceiptVoucherScalarWhereWithAggregatesInput | ReceiptVoucherScalarWhereWithAggregatesInput[]
+    OR?: ReceiptVoucherScalarWhereWithAggregatesInput[]
+    NOT?: ReceiptVoucherScalarWhereWithAggregatesInput | ReceiptVoucherScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ReceiptVoucher"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"ReceiptVoucher"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ReceiptVoucher"> | Date | string
+    customer_id?: IntWithAggregatesFilter<"ReceiptVoucher"> | number
+    type?: EnumITEMTYPEWithAggregatesFilter<"ReceiptVoucher"> | $Enums.ITEMTYPE
+    gold_rate?: FloatNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
+    amount?: FloatNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
+    gold?: FloatNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
+    touch_id?: IntWithAggregatesFilter<"ReceiptVoucher"> | number
+    purity?: FloatWithAggregatesFilter<"ReceiptVoucher"> | number
+    hallmark?: FloatNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
+  }
+
+  export type ExpenseVoucherWhereInput = {
+    AND?: ExpenseVoucherWhereInput | ExpenseVoucherWhereInput[]
+    OR?: ExpenseVoucherWhereInput[]
+    NOT?: ExpenseVoucherWhereInput | ExpenseVoucherWhereInput[]
+    id?: IntFilter<"ExpenseVoucher"> | number
+    createdAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
+    updatedAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
+    description?: StringNullableFilter<"ExpenseVoucher"> | string | null
+    gold?: FloatFilter<"ExpenseVoucher"> | number
+    touch_id?: IntFilter<"ExpenseVoucher"> | number
+    purity?: FloatFilter<"ExpenseVoucher"> | number
+    touchId?: XOR<AddTouchScalarRelationFilter, AddTouchWhereInput>
+  }
+
+  export type ExpenseVoucherOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    description?: SortOrderInput | SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+    touchId?: AddTouchOrderByWithRelationInput
+    _relevance?: ExpenseVoucherOrderByRelevanceInput
+  }
+
+  export type ExpenseVoucherWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ExpenseVoucherWhereInput | ExpenseVoucherWhereInput[]
+    OR?: ExpenseVoucherWhereInput[]
+    NOT?: ExpenseVoucherWhereInput | ExpenseVoucherWhereInput[]
+    createdAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
+    updatedAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
+    description?: StringNullableFilter<"ExpenseVoucher"> | string | null
+    gold?: FloatFilter<"ExpenseVoucher"> | number
+    touch_id?: IntFilter<"ExpenseVoucher"> | number
+    purity?: FloatFilter<"ExpenseVoucher"> | number
+    touchId?: XOR<AddTouchScalarRelationFilter, AddTouchWhereInput>
+  }, "id">
+
+  export type ExpenseVoucherOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    description?: SortOrderInput | SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+    _count?: ExpenseVoucherCountOrderByAggregateInput
+    _avg?: ExpenseVoucherAvgOrderByAggregateInput
+    _max?: ExpenseVoucherMaxOrderByAggregateInput
+    _min?: ExpenseVoucherMinOrderByAggregateInput
+    _sum?: ExpenseVoucherSumOrderByAggregateInput
+  }
+
+  export type ExpenseVoucherScalarWhereWithAggregatesInput = {
+    AND?: ExpenseVoucherScalarWhereWithAggregatesInput | ExpenseVoucherScalarWhereWithAggregatesInput[]
+    OR?: ExpenseVoucherScalarWhereWithAggregatesInput[]
+    NOT?: ExpenseVoucherScalarWhereWithAggregatesInput | ExpenseVoucherScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ExpenseVoucher"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"ExpenseVoucher"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ExpenseVoucher"> | Date | string
+    description?: StringNullableWithAggregatesFilter<"ExpenseVoucher"> | string | null
+    gold?: FloatWithAggregatesFilter<"ExpenseVoucher"> | number
+    touch_id?: IntWithAggregatesFilter<"ExpenseVoucher"> | number
+    purity?: FloatWithAggregatesFilter<"ExpenseVoucher"> | number
   }
 
   export type AddCustomerCreateInput = {
@@ -47442,9 +50086,11 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
     bills?: BillCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
   }
 
   export type AddCustomerUncheckedCreateInput = {
@@ -47455,9 +50101,11 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
     bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
   }
 
   export type AddCustomerUpdateInput = {
@@ -47467,9 +50115,11 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
     bills?: BillUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
   }
 
   export type AddCustomerUncheckedUpdateInput = {
@@ -47480,9 +50130,11 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
     bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
   }
 
   export type AddCustomerCreateManyInput = {
@@ -47493,6 +50145,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
   }
 
   export type AddCustomerUpdateManyMutationInput = {
@@ -47502,6 +50155,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddCustomerUncheckedUpdateManyInput = {
@@ -47512,6 +50166,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddCastingCreateInput = {
@@ -47521,6 +50176,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     entries?: CastingEntryCreateNestedManyWithoutCasting_customerInput
     castingitems?: CastingItemsCreateNestedManyWithoutCasting_customerInput
     stock?: StockCreateNestedManyWithoutCasting_customerInput
@@ -47534,6 +50190,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     entries?: CastingEntryUncheckedCreateNestedManyWithoutCasting_customerInput
     castingitems?: CastingItemsUncheckedCreateNestedManyWithoutCasting_customerInput
     stock?: StockUncheckedCreateNestedManyWithoutCasting_customerInput
@@ -47546,6 +50203,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     entries?: CastingEntryUpdateManyWithoutCasting_customerNestedInput
     castingitems?: CastingItemsUpdateManyWithoutCasting_customerNestedInput
     stock?: StockUpdateManyWithoutCasting_customerNestedInput
@@ -47559,6 +50217,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     entries?: CastingEntryUncheckedUpdateManyWithoutCasting_customerNestedInput
     castingitems?: CastingItemsUncheckedUpdateManyWithoutCasting_customerNestedInput
     stock?: StockUncheckedUpdateManyWithoutCasting_customerNestedInput
@@ -47572,6 +50231,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
   }
 
   export type AddCastingUpdateManyMutationInput = {
@@ -47581,6 +50241,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddCastingUncheckedUpdateManyInput = {
@@ -47591,6 +50252,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddFilingCreateInput = {
@@ -47600,6 +50262,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     filingWastages?: FilingWastageCreateNestedManyWithoutFilingPersonIdInput
     filings?: FilingEntryCreateNestedManyWithoutFiling_personInput
     lotInfo?: LotInfoCreateNestedManyWithoutFilingCustomerIdInput
@@ -47614,6 +50277,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     filingWastages?: FilingWastageUncheckedCreateNestedManyWithoutFilingPersonIdInput
     filings?: FilingEntryUncheckedCreateNestedManyWithoutFiling_personInput
     lotInfo?: LotInfoUncheckedCreateNestedManyWithoutFilingCustomerIdInput
@@ -47627,6 +50291,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     filingWastages?: FilingWastageUpdateManyWithoutFilingPersonIdNestedInput
     filings?: FilingEntryUpdateManyWithoutFiling_personNestedInput
     lotInfo?: LotInfoUpdateManyWithoutFilingCustomerIdNestedInput
@@ -47641,6 +50306,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     filingWastages?: FilingWastageUncheckedUpdateManyWithoutFilingPersonIdNestedInput
     filings?: FilingEntryUncheckedUpdateManyWithoutFiling_personNestedInput
     lotInfo?: LotInfoUncheckedUpdateManyWithoutFilingCustomerIdNestedInput
@@ -47655,6 +50321,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
   }
 
   export type AddFilingUpdateManyMutationInput = {
@@ -47664,6 +50331,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddFilingUncheckedUpdateManyInput = {
@@ -47674,6 +50342,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddSettingCreateInput = {
@@ -47683,6 +50352,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     settingWastages?: SettingWastageCreateNestedManyWithoutSettingPersonIdInput
     settings?: SettingEntryCreateNestedManyWithoutSetting_personInput
     settingMapper?: LotSettingMapperCreateNestedManyWithoutSettingIdInput
@@ -47697,6 +50367,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     settingWastages?: SettingWastageUncheckedCreateNestedManyWithoutSettingPersonIdInput
     settings?: SettingEntryUncheckedCreateNestedManyWithoutSetting_personInput
     settingMapper?: LotSettingMapperUncheckedCreateNestedManyWithoutSettingIdInput
@@ -47710,6 +50381,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     settingWastages?: SettingWastageUpdateManyWithoutSettingPersonIdNestedInput
     settings?: SettingEntryUpdateManyWithoutSetting_personNestedInput
     settingMapper?: LotSettingMapperUpdateManyWithoutSettingIdNestedInput
@@ -47724,6 +50396,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     settingWastages?: SettingWastageUncheckedUpdateManyWithoutSettingPersonIdNestedInput
     settings?: SettingEntryUncheckedUpdateManyWithoutSetting_personNestedInput
     settingMapper?: LotSettingMapperUncheckedUpdateManyWithoutSettingIdNestedInput
@@ -47738,6 +50411,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
   }
 
   export type AddSettingUpdateManyMutationInput = {
@@ -47747,6 +50421,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddSettingUncheckedUpdateManyInput = {
@@ -47757,6 +50432,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddBuffingCreateInput = {
@@ -47766,6 +50442,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     buffings?: BuffingEntryCreateNestedManyWithoutBuffing_personInput
     buffingMapper?: LotBuffingMapperCreateNestedManyWithoutBuffingIdInput
     lotInfo?: LotInfoCreateNestedManyWithoutBuffingCustomerIdInput
@@ -47780,6 +50457,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     buffings?: BuffingEntryUncheckedCreateNestedManyWithoutBuffing_personInput
     buffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutBuffingIdInput
     lotInfo?: LotInfoUncheckedCreateNestedManyWithoutBuffingCustomerIdInput
@@ -47793,6 +50471,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     buffings?: BuffingEntryUpdateManyWithoutBuffing_personNestedInput
     buffingMapper?: LotBuffingMapperUpdateManyWithoutBuffingIdNestedInput
     lotInfo?: LotInfoUpdateManyWithoutBuffingCustomerIdNestedInput
@@ -47807,6 +50486,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     buffings?: BuffingEntryUncheckedUpdateManyWithoutBuffing_personNestedInput
     buffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutBuffingIdNestedInput
     lotInfo?: LotInfoUncheckedUpdateManyWithoutBuffingCustomerIdNestedInput
@@ -47821,6 +50501,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
   }
 
   export type AddBuffingUpdateManyMutationInput = {
@@ -47830,6 +50511,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddBuffingUncheckedUpdateManyInput = {
@@ -47840,6 +50522,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddSupplierItemCreateInput = {
@@ -48179,6 +50862,96 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AddTouchCreateInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    touch: number
+    casting_entry?: CastingEntryCreateNestedManyWithoutTouchInput
+    casting_items?: CastingItemsCreateNestedManyWithoutTouchInput
+    filing_items?: FilingItemsCreateNestedManyWithoutTouchInput
+    setting_items?: SettingItemsCreateNestedManyWithoutTouchInput
+    buffing_items?: BuffingItemsCreateNestedManyWithoutTouchInput
+    stock?: StockCreateNestedManyWithoutTouchInput
+    add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
+    customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
+    QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
+  }
+
+  export type AddTouchUncheckedCreateInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    touch: number
+    casting_entry?: CastingEntryUncheckedCreateNestedManyWithoutTouchInput
+    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutTouchInput
+    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutTouchInput
+    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutTouchInput
+    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutTouchInput
+    stock?: StockUncheckedCreateNestedManyWithoutTouchInput
+    add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
+    customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
+    QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+  }
+
+  export type AddTouchUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+    casting_entry?: CastingEntryUpdateManyWithoutTouchNestedInput
+    casting_items?: CastingItemsUpdateManyWithoutTouchNestedInput
+    filing_items?: FilingItemsUpdateManyWithoutTouchNestedInput
+    setting_items?: SettingItemsUpdateManyWithoutTouchNestedInput
+    buffing_items?: BuffingItemsUpdateManyWithoutTouchNestedInput
+    stock?: StockUpdateManyWithoutTouchNestedInput
+    add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
+    customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
+    QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
+  }
+
+  export type AddTouchUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+    casting_entry?: CastingEntryUncheckedUpdateManyWithoutTouchNestedInput
+    casting_items?: CastingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    filing_items?: FilingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    setting_items?: SettingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
+    add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
+    QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+  }
+
+  export type AddTouchCreateManyInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    touch: number
+  }
+
+  export type AddTouchUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AddTouchUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
   }
 
   export type QcStockCreateInput = {
@@ -50355,86 +53128,163 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AddTouchCreateInput = {
+  export type ReceiptVoucherCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    touch: number
-    casting_entry?: CastingEntryCreateNestedManyWithoutTouchInput
-    casting_items?: CastingItemsCreateNestedManyWithoutTouchInput
-    filing_items?: FilingItemsCreateNestedManyWithoutTouchInput
-    setting_items?: SettingItemsCreateNestedManyWithoutTouchInput
-    buffing_items?: BuffingItemsCreateNestedManyWithoutTouchInput
-    stock?: StockCreateNestedManyWithoutTouchInput
-    add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
-    customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
-    QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    type: $Enums.ITEMTYPE
+    gold_rate?: number | null
+    amount?: number | null
+    gold?: number | null
+    purity: number
+    hallmark?: number | null
+    customerId: AddCustomerCreateNestedOneWithoutReceipt_voucherInput
+    touchId: AddTouchCreateNestedOneWithoutReceiptVoucherInput
   }
 
-  export type AddTouchUncheckedCreateInput = {
+  export type ReceiptVoucherUncheckedCreateInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    touch: number
-    casting_entry?: CastingEntryUncheckedCreateNestedManyWithoutTouchInput
-    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutTouchInput
-    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutTouchInput
-    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutTouchInput
-    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutTouchInput
-    stock?: StockUncheckedCreateNestedManyWithoutTouchInput
-    add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
-    customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
-    QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    customer_id: number
+    type: $Enums.ITEMTYPE
+    gold_rate?: number | null
+    amount?: number | null
+    gold?: number | null
+    touch_id: number
+    purity: number
+    hallmark?: number | null
   }
 
-  export type AddTouchUpdateInput = {
+  export type ReceiptVoucherUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
-    casting_entry?: CastingEntryUpdateManyWithoutTouchNestedInput
-    casting_items?: CastingItemsUpdateManyWithoutTouchNestedInput
-    filing_items?: FilingItemsUpdateManyWithoutTouchNestedInput
-    setting_items?: SettingItemsUpdateManyWithoutTouchNestedInput
-    buffing_items?: BuffingItemsUpdateManyWithoutTouchNestedInput
-    stock?: StockUpdateManyWithoutTouchNestedInput
-    add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
-    customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
-    QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    purity?: FloatFieldUpdateOperationsInput | number
+    hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
+    customerId?: AddCustomerUpdateOneRequiredWithoutReceipt_voucherNestedInput
+    touchId?: AddTouchUpdateOneRequiredWithoutReceiptVoucherNestedInput
   }
 
-  export type AddTouchUncheckedUpdateInput = {
+  export type ReceiptVoucherUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
-    casting_entry?: CastingEntryUncheckedUpdateManyWithoutTouchNestedInput
-    casting_items?: CastingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    filing_items?: FilingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    setting_items?: SettingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
-    add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
-    QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    customer_id?: IntFieldUpdateOperationsInput | number
+    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    touch_id?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
-  export type AddTouchCreateManyInput = {
+  export type ReceiptVoucherCreateManyInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    touch: number
+    customer_id: number
+    type: $Enums.ITEMTYPE
+    gold_rate?: number | null
+    amount?: number | null
+    gold?: number | null
+    touch_id: number
+    purity: number
+    hallmark?: number | null
   }
 
-  export type AddTouchUpdateManyMutationInput = {
+  export type ReceiptVoucherUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
+    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    purity?: FloatFieldUpdateOperationsInput | number
+    hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
-  export type AddTouchUncheckedUpdateManyInput = {
+  export type ReceiptVoucherUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
+    customer_id?: IntFieldUpdateOperationsInput | number
+    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    touch_id?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type ExpenseVoucherCreateInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    description?: string | null
+    gold: number
+    purity: number
+    touchId: AddTouchCreateNestedOneWithoutExpenseVoucherInput
+  }
+
+  export type ExpenseVoucherUncheckedCreateInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    description?: string | null
+    gold: number
+    touch_id: number
+    purity: number
+  }
+
+  export type ExpenseVoucherUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gold?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    touchId?: AddTouchUpdateOneRequiredWithoutExpenseVoucherNestedInput
+  }
+
+  export type ExpenseVoucherUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gold?: FloatFieldUpdateOperationsInput | number
+    touch_id?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type ExpenseVoucherCreateManyInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    description?: string | null
+    gold: number
+    touch_id: number
+    purity: number
+  }
+
+  export type ExpenseVoucherUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gold?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type ExpenseVoucherUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gold?: FloatFieldUpdateOperationsInput | number
+    touch_id?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -50489,6 +53339,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type CustomerTransactionListRelationFilter = {
     every?: CustomerTransactionWhereInput
     some?: CustomerTransactionWhereInput
@@ -50505,6 +53366,12 @@ export namespace Prisma {
     every?: HallmarkWhereInput
     some?: HallmarkWhereInput
     none?: HallmarkWhereInput
+  }
+
+  export type ReceiptVoucherListRelationFilter = {
+    every?: ReceiptVoucherWhereInput
+    some?: ReceiptVoucherWhereInput
+    none?: ReceiptVoucherWhereInput
   }
 
   export type SortOrderInput = {
@@ -50524,6 +53391,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ReceiptVoucherOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type AddCustomerOrderByRelevanceInput = {
     fields: AddCustomerOrderByRelevanceFieldEnum | AddCustomerOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -50538,10 +53409,12 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddCustomerAvgOrderByAggregateInput = {
     id?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddCustomerMaxOrderByAggregateInput = {
@@ -50552,6 +53425,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddCustomerMinOrderByAggregateInput = {
@@ -50562,10 +53436,12 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddCustomerSumOrderByAggregateInput = {
     id?: SortOrder
+    balance?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -50634,6 +53510,22 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type CastingEntryListRelationFilter = {
     every?: CastingEntryWhereInput
     some?: CastingEntryWhereInput
@@ -50678,10 +53570,12 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddCastingAvgOrderByAggregateInput = {
     id?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddCastingMaxOrderByAggregateInput = {
@@ -50692,6 +53586,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddCastingMinOrderByAggregateInput = {
@@ -50702,10 +53597,12 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddCastingSumOrderByAggregateInput = {
     id?: SortOrder
+    balance?: SortOrder
   }
 
   export type FilingWastageListRelationFilter = {
@@ -50762,10 +53659,12 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddFilingAvgOrderByAggregateInput = {
     id?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddFilingMaxOrderByAggregateInput = {
@@ -50776,6 +53675,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddFilingMinOrderByAggregateInput = {
@@ -50786,10 +53686,12 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddFilingSumOrderByAggregateInput = {
     id?: SortOrder
+    balance?: SortOrder
   }
 
   export type SettingWastageListRelationFilter = {
@@ -50836,10 +53738,12 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddSettingAvgOrderByAggregateInput = {
     id?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddSettingMaxOrderByAggregateInput = {
@@ -50850,6 +53754,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddSettingMinOrderByAggregateInput = {
@@ -50860,10 +53765,12 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddSettingSumOrderByAggregateInput = {
     id?: SortOrder
+    balance?: SortOrder
   }
 
   export type BuffingEntryListRelationFilter = {
@@ -50910,10 +53817,12 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddBuffingAvgOrderByAggregateInput = {
     id?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddBuffingMaxOrderByAggregateInput = {
@@ -50924,6 +53833,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddBuffingMinOrderByAggregateInput = {
@@ -50934,10 +53844,12 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     address?: SortOrder
     email?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddBuffingSumOrderByAggregateInput = {
     id?: SortOrder
+    balance?: SortOrder
   }
 
   export type AddPurchaseStockListRelationFilter = {
@@ -51127,17 +54039,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type AddCustomerScalarRelationFilter = {
     is?: AddCustomerWhereInput
     isNot?: AddCustomerWhereInput
@@ -51232,22 +54133,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
   export type FilingItemsListRelationFilter = {
     every?: FilingItemsWhereInput
     some?: FilingItemsWhereInput
@@ -51331,6 +54216,47 @@ export namespace Prisma {
 
   export type AddItemSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type ExpenseVoucherListRelationFilter = {
+    every?: ExpenseVoucherWhereInput
+    some?: ExpenseVoucherWhereInput
+    none?: ExpenseVoucherWhereInput
+  }
+
+  export type ExpenseVoucherOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AddTouchCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    touch?: SortOrder
+  }
+
+  export type AddTouchAvgOrderByAggregateInput = {
+    id?: SortOrder
+    touch?: SortOrder
+  }
+
+  export type AddTouchMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    touch?: SortOrder
+  }
+
+  export type AddTouchMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    touch?: SortOrder
+  }
+
+  export type AddTouchSumOrderByAggregateInput = {
+    id?: SortOrder
+    touch?: SortOrder
   }
 
   export type AddItemScalarRelationFilter = {
@@ -53083,35 +56009,118 @@ export namespace Prisma {
     hallmark_charge?: SortOrder
   }
 
-  export type AddTouchCountOrderByAggregateInput = {
+  export type ReceiptVoucherCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    touch?: SortOrder
+    customer_id?: SortOrder
+    type?: SortOrder
+    gold_rate?: SortOrder
+    amount?: SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+    hallmark?: SortOrder
   }
 
-  export type AddTouchAvgOrderByAggregateInput = {
+  export type ReceiptVoucherAvgOrderByAggregateInput = {
     id?: SortOrder
-    touch?: SortOrder
+    customer_id?: SortOrder
+    gold_rate?: SortOrder
+    amount?: SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+    hallmark?: SortOrder
   }
 
-  export type AddTouchMaxOrderByAggregateInput = {
+  export type ReceiptVoucherMaxOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    touch?: SortOrder
+    customer_id?: SortOrder
+    type?: SortOrder
+    gold_rate?: SortOrder
+    amount?: SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+    hallmark?: SortOrder
   }
 
-  export type AddTouchMinOrderByAggregateInput = {
+  export type ReceiptVoucherMinOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    touch?: SortOrder
+    customer_id?: SortOrder
+    type?: SortOrder
+    gold_rate?: SortOrder
+    amount?: SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+    hallmark?: SortOrder
   }
 
-  export type AddTouchSumOrderByAggregateInput = {
+  export type ReceiptVoucherSumOrderByAggregateInput = {
     id?: SortOrder
-    touch?: SortOrder
+    customer_id?: SortOrder
+    gold_rate?: SortOrder
+    amount?: SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+    hallmark?: SortOrder
+  }
+
+  export type ExpenseVoucherOrderByRelevanceInput = {
+    fields: ExpenseVoucherOrderByRelevanceFieldEnum | ExpenseVoucherOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type ExpenseVoucherCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    description?: SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+  }
+
+  export type ExpenseVoucherAvgOrderByAggregateInput = {
+    id?: SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+  }
+
+  export type ExpenseVoucherMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    description?: SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+  }
+
+  export type ExpenseVoucherMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    description?: SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
+  }
+
+  export type ExpenseVoucherSumOrderByAggregateInput = {
+    id?: SortOrder
+    gold?: SortOrder
+    touch_id?: SortOrder
+    purity?: SortOrder
   }
 
   export type CustomerTransactionCreateNestedManyWithoutCustomerInput = {
@@ -53135,6 +56144,13 @@ export namespace Prisma {
     connect?: HallmarkWhereUniqueInput | HallmarkWhereUniqueInput[]
   }
 
+  export type ReceiptVoucherCreateNestedManyWithoutCustomerIdInput = {
+    create?: XOR<ReceiptVoucherCreateWithoutCustomerIdInput, ReceiptVoucherUncheckedCreateWithoutCustomerIdInput> | ReceiptVoucherCreateWithoutCustomerIdInput[] | ReceiptVoucherUncheckedCreateWithoutCustomerIdInput[]
+    connectOrCreate?: ReceiptVoucherCreateOrConnectWithoutCustomerIdInput | ReceiptVoucherCreateOrConnectWithoutCustomerIdInput[]
+    createMany?: ReceiptVoucherCreateManyCustomerIdInputEnvelope
+    connect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+  }
+
   export type CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<CustomerTransactionCreateWithoutCustomerInput, CustomerTransactionUncheckedCreateWithoutCustomerInput> | CustomerTransactionCreateWithoutCustomerInput[] | CustomerTransactionUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerTransactionCreateOrConnectWithoutCustomerInput | CustomerTransactionCreateOrConnectWithoutCustomerInput[]
@@ -53156,6 +56172,13 @@ export namespace Prisma {
     connect?: HallmarkWhereUniqueInput | HallmarkWhereUniqueInput[]
   }
 
+  export type ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput = {
+    create?: XOR<ReceiptVoucherCreateWithoutCustomerIdInput, ReceiptVoucherUncheckedCreateWithoutCustomerIdInput> | ReceiptVoucherCreateWithoutCustomerIdInput[] | ReceiptVoucherUncheckedCreateWithoutCustomerIdInput[]
+    connectOrCreate?: ReceiptVoucherCreateOrConnectWithoutCustomerIdInput | ReceiptVoucherCreateOrConnectWithoutCustomerIdInput[]
+    createMany?: ReceiptVoucherCreateManyCustomerIdInputEnvelope
+    connect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -53166,6 +56189,14 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type CustomerTransactionUpdateManyWithoutCustomerNestedInput = {
@@ -53208,6 +56239,20 @@ export namespace Prisma {
     update?: HallmarkUpdateWithWhereUniqueWithoutCustomerInput | HallmarkUpdateWithWhereUniqueWithoutCustomerInput[]
     updateMany?: HallmarkUpdateManyWithWhereWithoutCustomerInput | HallmarkUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: HallmarkScalarWhereInput | HallmarkScalarWhereInput[]
+  }
+
+  export type ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput = {
+    create?: XOR<ReceiptVoucherCreateWithoutCustomerIdInput, ReceiptVoucherUncheckedCreateWithoutCustomerIdInput> | ReceiptVoucherCreateWithoutCustomerIdInput[] | ReceiptVoucherUncheckedCreateWithoutCustomerIdInput[]
+    connectOrCreate?: ReceiptVoucherCreateOrConnectWithoutCustomerIdInput | ReceiptVoucherCreateOrConnectWithoutCustomerIdInput[]
+    upsert?: ReceiptVoucherUpsertWithWhereUniqueWithoutCustomerIdInput | ReceiptVoucherUpsertWithWhereUniqueWithoutCustomerIdInput[]
+    createMany?: ReceiptVoucherCreateManyCustomerIdInputEnvelope
+    set?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    disconnect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    delete?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    connect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    update?: ReceiptVoucherUpdateWithWhereUniqueWithoutCustomerIdInput | ReceiptVoucherUpdateWithWhereUniqueWithoutCustomerIdInput[]
+    updateMany?: ReceiptVoucherUpdateManyWithWhereWithoutCustomerIdInput | ReceiptVoucherUpdateManyWithWhereWithoutCustomerIdInput[]
+    deleteMany?: ReceiptVoucherScalarWhereInput | ReceiptVoucherScalarWhereInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -53258,6 +56303,20 @@ export namespace Prisma {
     update?: HallmarkUpdateWithWhereUniqueWithoutCustomerInput | HallmarkUpdateWithWhereUniqueWithoutCustomerInput[]
     updateMany?: HallmarkUpdateManyWithWhereWithoutCustomerInput | HallmarkUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: HallmarkScalarWhereInput | HallmarkScalarWhereInput[]
+  }
+
+  export type ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput = {
+    create?: XOR<ReceiptVoucherCreateWithoutCustomerIdInput, ReceiptVoucherUncheckedCreateWithoutCustomerIdInput> | ReceiptVoucherCreateWithoutCustomerIdInput[] | ReceiptVoucherUncheckedCreateWithoutCustomerIdInput[]
+    connectOrCreate?: ReceiptVoucherCreateOrConnectWithoutCustomerIdInput | ReceiptVoucherCreateOrConnectWithoutCustomerIdInput[]
+    upsert?: ReceiptVoucherUpsertWithWhereUniqueWithoutCustomerIdInput | ReceiptVoucherUpsertWithWhereUniqueWithoutCustomerIdInput[]
+    createMany?: ReceiptVoucherCreateManyCustomerIdInputEnvelope
+    set?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    disconnect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    delete?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    connect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    update?: ReceiptVoucherUpdateWithWhereUniqueWithoutCustomerIdInput | ReceiptVoucherUpdateWithWhereUniqueWithoutCustomerIdInput[]
+    updateMany?: ReceiptVoucherUpdateManyWithWhereWithoutCustomerIdInput | ReceiptVoucherUpdateManyWithWhereWithoutCustomerIdInput[]
+    deleteMany?: ReceiptVoucherScalarWhereInput | ReceiptVoucherScalarWhereInput[]
   }
 
   export type CastingEntryCreateNestedManyWithoutCasting_customerInput = {
@@ -54040,14 +57099,6 @@ export namespace Prisma {
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
   }
 
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type AddCustomerUpdateOneRequiredWithoutTransactionsNestedInput = {
     create?: XOR<AddCustomerCreateWithoutTransactionsInput, AddCustomerUncheckedCreateWithoutTransactionsInput>
     connectOrCreate?: AddCustomerCreateOrConnectWithoutTransactionsInput
@@ -54394,6 +57445,468 @@ export namespace Prisma {
     update?: BillItemUpdateWithWhereUniqueWithoutAddItemInput | BillItemUpdateWithWhereUniqueWithoutAddItemInput[]
     updateMany?: BillItemUpdateManyWithWhereWithoutAddItemInput | BillItemUpdateManyWithWhereWithoutAddItemInput[]
     deleteMany?: BillItemScalarWhereInput | BillItemScalarWhereInput[]
+  }
+
+  export type CastingEntryCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
+    createMany?: CastingEntryCreateManyTouchInputEnvelope
+    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+  }
+
+  export type CastingItemsCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: CastingItemsCreateManyTouchInputEnvelope
+    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+  }
+
+  export type FilingItemsCreateNestedManyWithoutTouchInput = {
+    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: FilingItemsCreateManyTouchInputEnvelope
+    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+  }
+
+  export type SettingItemsCreateNestedManyWithoutTouchInput = {
+    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: SettingItemsCreateManyTouchInputEnvelope
+    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+  }
+
+  export type BuffingItemsCreateNestedManyWithoutTouchInput = {
+    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: BuffingItemsCreateManyTouchInputEnvelope
+    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+  }
+
+  export type StockCreateNestedManyWithoutTouchInput = {
+    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
+    createMany?: StockCreateManyTouchInputEnvelope
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+  }
+
+  export type AddPurchaseStockCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
+    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
+    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+  }
+
+  export type CustomerTransactionCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
+    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
+    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+  }
+
+  export type QcStockCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
+    createMany?: QcStockCreateManyTouchIdInputEnvelope
+    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+  }
+
+  export type ReceiptVoucherCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<ReceiptVoucherCreateWithoutTouchIdInput, ReceiptVoucherUncheckedCreateWithoutTouchIdInput> | ReceiptVoucherCreateWithoutTouchIdInput[] | ReceiptVoucherUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: ReceiptVoucherCreateOrConnectWithoutTouchIdInput | ReceiptVoucherCreateOrConnectWithoutTouchIdInput[]
+    createMany?: ReceiptVoucherCreateManyTouchIdInputEnvelope
+    connect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+  }
+
+  export type ExpenseVoucherCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<ExpenseVoucherCreateWithoutTouchIdInput, ExpenseVoucherUncheckedCreateWithoutTouchIdInput> | ExpenseVoucherCreateWithoutTouchIdInput[] | ExpenseVoucherUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: ExpenseVoucherCreateOrConnectWithoutTouchIdInput | ExpenseVoucherCreateOrConnectWithoutTouchIdInput[]
+    createMany?: ExpenseVoucherCreateManyTouchIdInputEnvelope
+    connect?: ExpenseVoucherWhereUniqueInput | ExpenseVoucherWhereUniqueInput[]
+  }
+
+  export type CastingEntryUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
+    createMany?: CastingEntryCreateManyTouchInputEnvelope
+    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+  }
+
+  export type CastingItemsUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: CastingItemsCreateManyTouchInputEnvelope
+    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+  }
+
+  export type FilingItemsUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: FilingItemsCreateManyTouchInputEnvelope
+    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+  }
+
+  export type SettingItemsUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: SettingItemsCreateManyTouchInputEnvelope
+    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+  }
+
+  export type BuffingItemsUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
+    createMany?: BuffingItemsCreateManyTouchInputEnvelope
+    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+  }
+
+  export type StockUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
+    createMany?: StockCreateManyTouchInputEnvelope
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+  }
+
+  export type AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
+    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
+    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+  }
+
+  export type CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput = {
+    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
+    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
+    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+  }
+
+  export type QcStockUncheckedCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
+    createMany?: QcStockCreateManyTouchIdInputEnvelope
+    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+  }
+
+  export type ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<ReceiptVoucherCreateWithoutTouchIdInput, ReceiptVoucherUncheckedCreateWithoutTouchIdInput> | ReceiptVoucherCreateWithoutTouchIdInput[] | ReceiptVoucherUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: ReceiptVoucherCreateOrConnectWithoutTouchIdInput | ReceiptVoucherCreateOrConnectWithoutTouchIdInput[]
+    createMany?: ReceiptVoucherCreateManyTouchIdInputEnvelope
+    connect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+  }
+
+  export type ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput = {
+    create?: XOR<ExpenseVoucherCreateWithoutTouchIdInput, ExpenseVoucherUncheckedCreateWithoutTouchIdInput> | ExpenseVoucherCreateWithoutTouchIdInput[] | ExpenseVoucherUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: ExpenseVoucherCreateOrConnectWithoutTouchIdInput | ExpenseVoucherCreateOrConnectWithoutTouchIdInput[]
+    createMany?: ExpenseVoucherCreateManyTouchIdInputEnvelope
+    connect?: ExpenseVoucherWhereUniqueInput | ExpenseVoucherWhereUniqueInput[]
+  }
+
+  export type CastingEntryUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
+    upsert?: CastingEntryUpsertWithWhereUniqueWithoutTouchInput | CastingEntryUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CastingEntryCreateManyTouchInputEnvelope
+    set?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    disconnect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    delete?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    update?: CastingEntryUpdateWithWhereUniqueWithoutTouchInput | CastingEntryUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CastingEntryUpdateManyWithWhereWithoutTouchInput | CastingEntryUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CastingEntryScalarWhereInput | CastingEntryScalarWhereInput[]
+  }
+
+  export type CastingItemsUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: CastingItemsUpsertWithWhereUniqueWithoutTouchInput | CastingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CastingItemsCreateManyTouchInputEnvelope
+    set?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    disconnect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    delete?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    update?: CastingItemsUpdateWithWhereUniqueWithoutTouchInput | CastingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CastingItemsUpdateManyWithWhereWithoutTouchInput | CastingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CastingItemsScalarWhereInput | CastingItemsScalarWhereInput[]
+  }
+
+  export type FilingItemsUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: FilingItemsUpsertWithWhereUniqueWithoutTouchInput | FilingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: FilingItemsCreateManyTouchInputEnvelope
+    set?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    disconnect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    delete?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    update?: FilingItemsUpdateWithWhereUniqueWithoutTouchInput | FilingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: FilingItemsUpdateManyWithWhereWithoutTouchInput | FilingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: FilingItemsScalarWhereInput | FilingItemsScalarWhereInput[]
+  }
+
+  export type SettingItemsUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: SettingItemsUpsertWithWhereUniqueWithoutTouchInput | SettingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: SettingItemsCreateManyTouchInputEnvelope
+    set?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    disconnect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    delete?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    update?: SettingItemsUpdateWithWhereUniqueWithoutTouchInput | SettingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: SettingItemsUpdateManyWithWhereWithoutTouchInput | SettingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: SettingItemsScalarWhereInput | SettingItemsScalarWhereInput[]
+  }
+
+  export type BuffingItemsUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: BuffingItemsUpsertWithWhereUniqueWithoutTouchInput | BuffingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: BuffingItemsCreateManyTouchInputEnvelope
+    set?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    disconnect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    delete?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    update?: BuffingItemsUpdateWithWhereUniqueWithoutTouchInput | BuffingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: BuffingItemsUpdateManyWithWhereWithoutTouchInput | BuffingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: BuffingItemsScalarWhereInput | BuffingItemsScalarWhereInput[]
+  }
+
+  export type StockUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
+    upsert?: StockUpsertWithWhereUniqueWithoutTouchInput | StockUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: StockCreateManyTouchInputEnvelope
+    set?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    disconnect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    delete?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    update?: StockUpdateWithWhereUniqueWithoutTouchInput | StockUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: StockUpdateManyWithWhereWithoutTouchInput | StockUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
+  }
+
+  export type AddPurchaseStockUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
+    upsert?: AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
+    set?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    disconnect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    delete?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    update?: AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput | AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: AddPurchaseStockScalarWhereInput | AddPurchaseStockScalarWhereInput[]
+  }
+
+  export type CustomerTransactionUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
+    upsert?: CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput | CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
+    set?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    disconnect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    delete?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    update?: CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput | CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CustomerTransactionUpdateManyWithWhereWithoutTouchInput | CustomerTransactionUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CustomerTransactionScalarWhereInput | CustomerTransactionScalarWhereInput[]
+  }
+
+  export type QcStockUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
+    upsert?: QcStockUpsertWithWhereUniqueWithoutTouchIdInput | QcStockUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: QcStockCreateManyTouchIdInputEnvelope
+    set?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    disconnect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    delete?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    update?: QcStockUpdateWithWhereUniqueWithoutTouchIdInput | QcStockUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: QcStockUpdateManyWithWhereWithoutTouchIdInput | QcStockUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: QcStockScalarWhereInput | QcStockScalarWhereInput[]
+  }
+
+  export type ReceiptVoucherUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<ReceiptVoucherCreateWithoutTouchIdInput, ReceiptVoucherUncheckedCreateWithoutTouchIdInput> | ReceiptVoucherCreateWithoutTouchIdInput[] | ReceiptVoucherUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: ReceiptVoucherCreateOrConnectWithoutTouchIdInput | ReceiptVoucherCreateOrConnectWithoutTouchIdInput[]
+    upsert?: ReceiptVoucherUpsertWithWhereUniqueWithoutTouchIdInput | ReceiptVoucherUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: ReceiptVoucherCreateManyTouchIdInputEnvelope
+    set?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    disconnect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    delete?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    connect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    update?: ReceiptVoucherUpdateWithWhereUniqueWithoutTouchIdInput | ReceiptVoucherUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: ReceiptVoucherUpdateManyWithWhereWithoutTouchIdInput | ReceiptVoucherUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: ReceiptVoucherScalarWhereInput | ReceiptVoucherScalarWhereInput[]
+  }
+
+  export type ExpenseVoucherUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<ExpenseVoucherCreateWithoutTouchIdInput, ExpenseVoucherUncheckedCreateWithoutTouchIdInput> | ExpenseVoucherCreateWithoutTouchIdInput[] | ExpenseVoucherUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: ExpenseVoucherCreateOrConnectWithoutTouchIdInput | ExpenseVoucherCreateOrConnectWithoutTouchIdInput[]
+    upsert?: ExpenseVoucherUpsertWithWhereUniqueWithoutTouchIdInput | ExpenseVoucherUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: ExpenseVoucherCreateManyTouchIdInputEnvelope
+    set?: ExpenseVoucherWhereUniqueInput | ExpenseVoucherWhereUniqueInput[]
+    disconnect?: ExpenseVoucherWhereUniqueInput | ExpenseVoucherWhereUniqueInput[]
+    delete?: ExpenseVoucherWhereUniqueInput | ExpenseVoucherWhereUniqueInput[]
+    connect?: ExpenseVoucherWhereUniqueInput | ExpenseVoucherWhereUniqueInput[]
+    update?: ExpenseVoucherUpdateWithWhereUniqueWithoutTouchIdInput | ExpenseVoucherUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: ExpenseVoucherUpdateManyWithWhereWithoutTouchIdInput | ExpenseVoucherUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: ExpenseVoucherScalarWhereInput | ExpenseVoucherScalarWhereInput[]
+  }
+
+  export type CastingEntryUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
+    upsert?: CastingEntryUpsertWithWhereUniqueWithoutTouchInput | CastingEntryUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CastingEntryCreateManyTouchInputEnvelope
+    set?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    disconnect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    delete?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+    update?: CastingEntryUpdateWithWhereUniqueWithoutTouchInput | CastingEntryUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CastingEntryUpdateManyWithWhereWithoutTouchInput | CastingEntryUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CastingEntryScalarWhereInput | CastingEntryScalarWhereInput[]
+  }
+
+  export type CastingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: CastingItemsUpsertWithWhereUniqueWithoutTouchInput | CastingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CastingItemsCreateManyTouchInputEnvelope
+    set?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    disconnect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    delete?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+    update?: CastingItemsUpdateWithWhereUniqueWithoutTouchInput | CastingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CastingItemsUpdateManyWithWhereWithoutTouchInput | CastingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CastingItemsScalarWhereInput | CastingItemsScalarWhereInput[]
+  }
+
+  export type FilingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: FilingItemsUpsertWithWhereUniqueWithoutTouchInput | FilingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: FilingItemsCreateManyTouchInputEnvelope
+    set?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    disconnect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    delete?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+    update?: FilingItemsUpdateWithWhereUniqueWithoutTouchInput | FilingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: FilingItemsUpdateManyWithWhereWithoutTouchInput | FilingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: FilingItemsScalarWhereInput | FilingItemsScalarWhereInput[]
+  }
+
+  export type SettingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: SettingItemsUpsertWithWhereUniqueWithoutTouchInput | SettingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: SettingItemsCreateManyTouchInputEnvelope
+    set?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    disconnect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    delete?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+    update?: SettingItemsUpdateWithWhereUniqueWithoutTouchInput | SettingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: SettingItemsUpdateManyWithWhereWithoutTouchInput | SettingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: SettingItemsScalarWhereInput | SettingItemsScalarWhereInput[]
+  }
+
+  export type BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
+    upsert?: BuffingItemsUpsertWithWhereUniqueWithoutTouchInput | BuffingItemsUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: BuffingItemsCreateManyTouchInputEnvelope
+    set?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    disconnect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    delete?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+    update?: BuffingItemsUpdateWithWhereUniqueWithoutTouchInput | BuffingItemsUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: BuffingItemsUpdateManyWithWhereWithoutTouchInput | BuffingItemsUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: BuffingItemsScalarWhereInput | BuffingItemsScalarWhereInput[]
+  }
+
+  export type StockUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
+    upsert?: StockUpsertWithWhereUniqueWithoutTouchInput | StockUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: StockCreateManyTouchInputEnvelope
+    set?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    disconnect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    delete?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    update?: StockUpdateWithWhereUniqueWithoutTouchInput | StockUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: StockUpdateManyWithWhereWithoutTouchInput | StockUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
+  }
+
+  export type AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
+    upsert?: AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
+    set?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    disconnect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    delete?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
+    update?: AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput | AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: AddPurchaseStockScalarWhereInput | AddPurchaseStockScalarWhereInput[]
+  }
+
+  export type CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput = {
+    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
+    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
+    upsert?: CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput | CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput[]
+    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
+    set?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    disconnect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    delete?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
+    update?: CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput | CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput[]
+    updateMany?: CustomerTransactionUpdateManyWithWhereWithoutTouchInput | CustomerTransactionUpdateManyWithWhereWithoutTouchInput[]
+    deleteMany?: CustomerTransactionScalarWhereInput | CustomerTransactionScalarWhereInput[]
+  }
+
+  export type QcStockUncheckedUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
+    upsert?: QcStockUpsertWithWhereUniqueWithoutTouchIdInput | QcStockUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: QcStockCreateManyTouchIdInputEnvelope
+    set?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    disconnect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    delete?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
+    update?: QcStockUpdateWithWhereUniqueWithoutTouchIdInput | QcStockUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: QcStockUpdateManyWithWhereWithoutTouchIdInput | QcStockUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: QcStockScalarWhereInput | QcStockScalarWhereInput[]
+  }
+
+  export type ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<ReceiptVoucherCreateWithoutTouchIdInput, ReceiptVoucherUncheckedCreateWithoutTouchIdInput> | ReceiptVoucherCreateWithoutTouchIdInput[] | ReceiptVoucherUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: ReceiptVoucherCreateOrConnectWithoutTouchIdInput | ReceiptVoucherCreateOrConnectWithoutTouchIdInput[]
+    upsert?: ReceiptVoucherUpsertWithWhereUniqueWithoutTouchIdInput | ReceiptVoucherUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: ReceiptVoucherCreateManyTouchIdInputEnvelope
+    set?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    disconnect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    delete?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    connect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+    update?: ReceiptVoucherUpdateWithWhereUniqueWithoutTouchIdInput | ReceiptVoucherUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: ReceiptVoucherUpdateManyWithWhereWithoutTouchIdInput | ReceiptVoucherUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: ReceiptVoucherScalarWhereInput | ReceiptVoucherScalarWhereInput[]
+  }
+
+  export type ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput = {
+    create?: XOR<ExpenseVoucherCreateWithoutTouchIdInput, ExpenseVoucherUncheckedCreateWithoutTouchIdInput> | ExpenseVoucherCreateWithoutTouchIdInput[] | ExpenseVoucherUncheckedCreateWithoutTouchIdInput[]
+    connectOrCreate?: ExpenseVoucherCreateOrConnectWithoutTouchIdInput | ExpenseVoucherCreateOrConnectWithoutTouchIdInput[]
+    upsert?: ExpenseVoucherUpsertWithWhereUniqueWithoutTouchIdInput | ExpenseVoucherUpsertWithWhereUniqueWithoutTouchIdInput[]
+    createMany?: ExpenseVoucherCreateManyTouchIdInputEnvelope
+    set?: ExpenseVoucherWhereUniqueInput | ExpenseVoucherWhereUniqueInput[]
+    disconnect?: ExpenseVoucherWhereUniqueInput | ExpenseVoucherWhereUniqueInput[]
+    delete?: ExpenseVoucherWhereUniqueInput | ExpenseVoucherWhereUniqueInput[]
+    connect?: ExpenseVoucherWhereUniqueInput | ExpenseVoucherWhereUniqueInput[]
+    update?: ExpenseVoucherUpdateWithWhereUniqueWithoutTouchIdInput | ExpenseVoucherUpdateWithWhereUniqueWithoutTouchIdInput[]
+    updateMany?: ExpenseVoucherUpdateManyWithWhereWithoutTouchIdInput | ExpenseVoucherUpdateManyWithWhereWithoutTouchIdInput[]
+    deleteMany?: ExpenseVoucherScalarWhereInput | ExpenseVoucherScalarWhereInput[]
   }
 
   export type AddItemCreateNestedOneWithoutQCStockInput = {
@@ -57172,382 +60685,46 @@ export namespace Prisma {
     update?: XOR<XOR<BillUpdateToOneWithWhereWithoutReceivedItemsInput, BillUpdateWithoutReceivedItemsInput>, BillUncheckedUpdateWithoutReceivedItemsInput>
   }
 
-  export type CastingEntryCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
-    createMany?: CastingEntryCreateManyTouchInputEnvelope
-    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
+  export type AddCustomerCreateNestedOneWithoutReceipt_voucherInput = {
+    create?: XOR<AddCustomerCreateWithoutReceipt_voucherInput, AddCustomerUncheckedCreateWithoutReceipt_voucherInput>
+    connectOrCreate?: AddCustomerCreateOrConnectWithoutReceipt_voucherInput
+    connect?: AddCustomerWhereUniqueInput
   }
 
-  export type CastingItemsCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: CastingItemsCreateManyTouchInputEnvelope
-    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
+  export type AddTouchCreateNestedOneWithoutReceiptVoucherInput = {
+    create?: XOR<AddTouchCreateWithoutReceiptVoucherInput, AddTouchUncheckedCreateWithoutReceiptVoucherInput>
+    connectOrCreate?: AddTouchCreateOrConnectWithoutReceiptVoucherInput
+    connect?: AddTouchWhereUniqueInput
   }
 
-  export type FilingItemsCreateNestedManyWithoutTouchInput = {
-    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: FilingItemsCreateManyTouchInputEnvelope
-    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
+  export type AddCustomerUpdateOneRequiredWithoutReceipt_voucherNestedInput = {
+    create?: XOR<AddCustomerCreateWithoutReceipt_voucherInput, AddCustomerUncheckedCreateWithoutReceipt_voucherInput>
+    connectOrCreate?: AddCustomerCreateOrConnectWithoutReceipt_voucherInput
+    upsert?: AddCustomerUpsertWithoutReceipt_voucherInput
+    connect?: AddCustomerWhereUniqueInput
+    update?: XOR<XOR<AddCustomerUpdateToOneWithWhereWithoutReceipt_voucherInput, AddCustomerUpdateWithoutReceipt_voucherInput>, AddCustomerUncheckedUpdateWithoutReceipt_voucherInput>
   }
 
-  export type SettingItemsCreateNestedManyWithoutTouchInput = {
-    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: SettingItemsCreateManyTouchInputEnvelope
-    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
+  export type AddTouchUpdateOneRequiredWithoutReceiptVoucherNestedInput = {
+    create?: XOR<AddTouchCreateWithoutReceiptVoucherInput, AddTouchUncheckedCreateWithoutReceiptVoucherInput>
+    connectOrCreate?: AddTouchCreateOrConnectWithoutReceiptVoucherInput
+    upsert?: AddTouchUpsertWithoutReceiptVoucherInput
+    connect?: AddTouchWhereUniqueInput
+    update?: XOR<XOR<AddTouchUpdateToOneWithWhereWithoutReceiptVoucherInput, AddTouchUpdateWithoutReceiptVoucherInput>, AddTouchUncheckedUpdateWithoutReceiptVoucherInput>
   }
 
-  export type BuffingItemsCreateNestedManyWithoutTouchInput = {
-    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: BuffingItemsCreateManyTouchInputEnvelope
-    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
+  export type AddTouchCreateNestedOneWithoutExpenseVoucherInput = {
+    create?: XOR<AddTouchCreateWithoutExpenseVoucherInput, AddTouchUncheckedCreateWithoutExpenseVoucherInput>
+    connectOrCreate?: AddTouchCreateOrConnectWithoutExpenseVoucherInput
+    connect?: AddTouchWhereUniqueInput
   }
 
-  export type StockCreateNestedManyWithoutTouchInput = {
-    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
-    createMany?: StockCreateManyTouchInputEnvelope
-    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-  }
-
-  export type AddPurchaseStockCreateNestedManyWithoutTouchIdInput = {
-    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
-    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
-    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-  }
-
-  export type CustomerTransactionCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
-    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
-    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-  }
-
-  export type QcStockCreateNestedManyWithoutTouchIdInput = {
-    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
-    createMany?: QcStockCreateManyTouchIdInputEnvelope
-    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-  }
-
-  export type CastingEntryUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
-    createMany?: CastingEntryCreateManyTouchInputEnvelope
-    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-  }
-
-  export type CastingItemsUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: CastingItemsCreateManyTouchInputEnvelope
-    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-  }
-
-  export type FilingItemsUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: FilingItemsCreateManyTouchInputEnvelope
-    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-  }
-
-  export type SettingItemsUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: SettingItemsCreateManyTouchInputEnvelope
-    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-  }
-
-  export type BuffingItemsUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
-    createMany?: BuffingItemsCreateManyTouchInputEnvelope
-    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-  }
-
-  export type StockUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
-    createMany?: StockCreateManyTouchInputEnvelope
-    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-  }
-
-  export type AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput = {
-    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
-    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
-    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-  }
-
-  export type CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput = {
-    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
-    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
-    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-  }
-
-  export type QcStockUncheckedCreateNestedManyWithoutTouchIdInput = {
-    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
-    createMany?: QcStockCreateManyTouchIdInputEnvelope
-    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-  }
-
-  export type CastingEntryUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
-    upsert?: CastingEntryUpsertWithWhereUniqueWithoutTouchInput | CastingEntryUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CastingEntryCreateManyTouchInputEnvelope
-    set?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    disconnect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    delete?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    update?: CastingEntryUpdateWithWhereUniqueWithoutTouchInput | CastingEntryUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CastingEntryUpdateManyWithWhereWithoutTouchInput | CastingEntryUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CastingEntryScalarWhereInput | CastingEntryScalarWhereInput[]
-  }
-
-  export type CastingItemsUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: CastingItemsUpsertWithWhereUniqueWithoutTouchInput | CastingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CastingItemsCreateManyTouchInputEnvelope
-    set?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    disconnect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    delete?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    update?: CastingItemsUpdateWithWhereUniqueWithoutTouchInput | CastingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CastingItemsUpdateManyWithWhereWithoutTouchInput | CastingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CastingItemsScalarWhereInput | CastingItemsScalarWhereInput[]
-  }
-
-  export type FilingItemsUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: FilingItemsUpsertWithWhereUniqueWithoutTouchInput | FilingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: FilingItemsCreateManyTouchInputEnvelope
-    set?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    disconnect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    delete?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    update?: FilingItemsUpdateWithWhereUniqueWithoutTouchInput | FilingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: FilingItemsUpdateManyWithWhereWithoutTouchInput | FilingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: FilingItemsScalarWhereInput | FilingItemsScalarWhereInput[]
-  }
-
-  export type SettingItemsUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: SettingItemsUpsertWithWhereUniqueWithoutTouchInput | SettingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: SettingItemsCreateManyTouchInputEnvelope
-    set?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    disconnect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    delete?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    update?: SettingItemsUpdateWithWhereUniqueWithoutTouchInput | SettingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: SettingItemsUpdateManyWithWhereWithoutTouchInput | SettingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: SettingItemsScalarWhereInput | SettingItemsScalarWhereInput[]
-  }
-
-  export type BuffingItemsUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: BuffingItemsUpsertWithWhereUniqueWithoutTouchInput | BuffingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: BuffingItemsCreateManyTouchInputEnvelope
-    set?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    disconnect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    delete?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    update?: BuffingItemsUpdateWithWhereUniqueWithoutTouchInput | BuffingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: BuffingItemsUpdateManyWithWhereWithoutTouchInput | BuffingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: BuffingItemsScalarWhereInput | BuffingItemsScalarWhereInput[]
-  }
-
-  export type StockUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
-    upsert?: StockUpsertWithWhereUniqueWithoutTouchInput | StockUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: StockCreateManyTouchInputEnvelope
-    set?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    disconnect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    delete?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    update?: StockUpdateWithWhereUniqueWithoutTouchInput | StockUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: StockUpdateManyWithWhereWithoutTouchInput | StockUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
-  }
-
-  export type AddPurchaseStockUpdateManyWithoutTouchIdNestedInput = {
-    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
-    upsert?: AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput[]
-    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
-    set?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    disconnect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    delete?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    update?: AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput[]
-    updateMany?: AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput | AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput[]
-    deleteMany?: AddPurchaseStockScalarWhereInput | AddPurchaseStockScalarWhereInput[]
-  }
-
-  export type CustomerTransactionUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
-    upsert?: CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput | CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
-    set?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    disconnect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    delete?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    update?: CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput | CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CustomerTransactionUpdateManyWithWhereWithoutTouchInput | CustomerTransactionUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CustomerTransactionScalarWhereInput | CustomerTransactionScalarWhereInput[]
-  }
-
-  export type QcStockUpdateManyWithoutTouchIdNestedInput = {
-    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
-    upsert?: QcStockUpsertWithWhereUniqueWithoutTouchIdInput | QcStockUpsertWithWhereUniqueWithoutTouchIdInput[]
-    createMany?: QcStockCreateManyTouchIdInputEnvelope
-    set?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    disconnect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    delete?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    update?: QcStockUpdateWithWhereUniqueWithoutTouchIdInput | QcStockUpdateWithWhereUniqueWithoutTouchIdInput[]
-    updateMany?: QcStockUpdateManyWithWhereWithoutTouchIdInput | QcStockUpdateManyWithWhereWithoutTouchIdInput[]
-    deleteMany?: QcStockScalarWhereInput | QcStockScalarWhereInput[]
-  }
-
-  export type CastingEntryUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput> | CastingEntryCreateWithoutTouchInput[] | CastingEntryUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingEntryCreateOrConnectWithoutTouchInput | CastingEntryCreateOrConnectWithoutTouchInput[]
-    upsert?: CastingEntryUpsertWithWhereUniqueWithoutTouchInput | CastingEntryUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CastingEntryCreateManyTouchInputEnvelope
-    set?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    disconnect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    delete?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    connect?: CastingEntryWhereUniqueInput | CastingEntryWhereUniqueInput[]
-    update?: CastingEntryUpdateWithWhereUniqueWithoutTouchInput | CastingEntryUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CastingEntryUpdateManyWithWhereWithoutTouchInput | CastingEntryUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CastingEntryScalarWhereInput | CastingEntryScalarWhereInput[]
-  }
-
-  export type CastingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput> | CastingItemsCreateWithoutTouchInput[] | CastingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CastingItemsCreateOrConnectWithoutTouchInput | CastingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: CastingItemsUpsertWithWhereUniqueWithoutTouchInput | CastingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CastingItemsCreateManyTouchInputEnvelope
-    set?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    disconnect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    delete?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    connect?: CastingItemsWhereUniqueInput | CastingItemsWhereUniqueInput[]
-    update?: CastingItemsUpdateWithWhereUniqueWithoutTouchInput | CastingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CastingItemsUpdateManyWithWhereWithoutTouchInput | CastingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CastingItemsScalarWhereInput | CastingItemsScalarWhereInput[]
-  }
-
-  export type FilingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput> | FilingItemsCreateWithoutTouchInput[] | FilingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: FilingItemsCreateOrConnectWithoutTouchInput | FilingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: FilingItemsUpsertWithWhereUniqueWithoutTouchInput | FilingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: FilingItemsCreateManyTouchInputEnvelope
-    set?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    disconnect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    delete?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    connect?: FilingItemsWhereUniqueInput | FilingItemsWhereUniqueInput[]
-    update?: FilingItemsUpdateWithWhereUniqueWithoutTouchInput | FilingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: FilingItemsUpdateManyWithWhereWithoutTouchInput | FilingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: FilingItemsScalarWhereInput | FilingItemsScalarWhereInput[]
-  }
-
-  export type SettingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput> | SettingItemsCreateWithoutTouchInput[] | SettingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: SettingItemsCreateOrConnectWithoutTouchInput | SettingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: SettingItemsUpsertWithWhereUniqueWithoutTouchInput | SettingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: SettingItemsCreateManyTouchInputEnvelope
-    set?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    disconnect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    delete?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    connect?: SettingItemsWhereUniqueInput | SettingItemsWhereUniqueInput[]
-    update?: SettingItemsUpdateWithWhereUniqueWithoutTouchInput | SettingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: SettingItemsUpdateManyWithWhereWithoutTouchInput | SettingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: SettingItemsScalarWhereInput | SettingItemsScalarWhereInput[]
-  }
-
-  export type BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput> | BuffingItemsCreateWithoutTouchInput[] | BuffingItemsUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: BuffingItemsCreateOrConnectWithoutTouchInput | BuffingItemsCreateOrConnectWithoutTouchInput[]
-    upsert?: BuffingItemsUpsertWithWhereUniqueWithoutTouchInput | BuffingItemsUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: BuffingItemsCreateManyTouchInputEnvelope
-    set?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    disconnect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    delete?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    connect?: BuffingItemsWhereUniqueInput | BuffingItemsWhereUniqueInput[]
-    update?: BuffingItemsUpdateWithWhereUniqueWithoutTouchInput | BuffingItemsUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: BuffingItemsUpdateManyWithWhereWithoutTouchInput | BuffingItemsUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: BuffingItemsScalarWhereInput | BuffingItemsScalarWhereInput[]
-  }
-
-  export type StockUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput> | StockCreateWithoutTouchInput[] | StockUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: StockCreateOrConnectWithoutTouchInput | StockCreateOrConnectWithoutTouchInput[]
-    upsert?: StockUpsertWithWhereUniqueWithoutTouchInput | StockUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: StockCreateManyTouchInputEnvelope
-    set?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    disconnect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    delete?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
-    update?: StockUpdateWithWhereUniqueWithoutTouchInput | StockUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: StockUpdateManyWithWhereWithoutTouchInput | StockUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
-  }
-
-  export type AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput = {
-    create?: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput> | AddPurchaseStockCreateWithoutTouchIdInput[] | AddPurchaseStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutTouchIdInput | AddPurchaseStockCreateOrConnectWithoutTouchIdInput[]
-    upsert?: AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput[]
-    createMany?: AddPurchaseStockCreateManyTouchIdInputEnvelope
-    set?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    disconnect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    delete?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    connect?: AddPurchaseStockWhereUniqueInput | AddPurchaseStockWhereUniqueInput[]
-    update?: AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput | AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput[]
-    updateMany?: AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput | AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput[]
-    deleteMany?: AddPurchaseStockScalarWhereInput | AddPurchaseStockScalarWhereInput[]
-  }
-
-  export type CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput = {
-    create?: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput> | CustomerTransactionCreateWithoutTouchInput[] | CustomerTransactionUncheckedCreateWithoutTouchInput[]
-    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutTouchInput | CustomerTransactionCreateOrConnectWithoutTouchInput[]
-    upsert?: CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput | CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput[]
-    createMany?: CustomerTransactionCreateManyTouchInputEnvelope
-    set?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    disconnect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    delete?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    connect?: CustomerTransactionWhereUniqueInput | CustomerTransactionWhereUniqueInput[]
-    update?: CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput | CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput[]
-    updateMany?: CustomerTransactionUpdateManyWithWhereWithoutTouchInput | CustomerTransactionUpdateManyWithWhereWithoutTouchInput[]
-    deleteMany?: CustomerTransactionScalarWhereInput | CustomerTransactionScalarWhereInput[]
-  }
-
-  export type QcStockUncheckedUpdateManyWithoutTouchIdNestedInput = {
-    create?: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput> | QcStockCreateWithoutTouchIdInput[] | QcStockUncheckedCreateWithoutTouchIdInput[]
-    connectOrCreate?: QcStockCreateOrConnectWithoutTouchIdInput | QcStockCreateOrConnectWithoutTouchIdInput[]
-    upsert?: QcStockUpsertWithWhereUniqueWithoutTouchIdInput | QcStockUpsertWithWhereUniqueWithoutTouchIdInput[]
-    createMany?: QcStockCreateManyTouchIdInputEnvelope
-    set?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    disconnect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    delete?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    connect?: QcStockWhereUniqueInput | QcStockWhereUniqueInput[]
-    update?: QcStockUpdateWithWhereUniqueWithoutTouchIdInput | QcStockUpdateWithWhereUniqueWithoutTouchIdInput[]
-    updateMany?: QcStockUpdateManyWithWhereWithoutTouchIdInput | QcStockUpdateManyWithWhereWithoutTouchIdInput[]
-    deleteMany?: QcStockScalarWhereInput | QcStockScalarWhereInput[]
+  export type AddTouchUpdateOneRequiredWithoutExpenseVoucherNestedInput = {
+    create?: XOR<AddTouchCreateWithoutExpenseVoucherInput, AddTouchUncheckedCreateWithoutExpenseVoucherInput>
+    connectOrCreate?: AddTouchCreateOrConnectWithoutExpenseVoucherInput
+    upsert?: AddTouchUpsertWithoutExpenseVoucherInput
+    connect?: AddTouchWhereUniqueInput
+    update?: XOR<XOR<AddTouchUpdateToOneWithWhereWithoutExpenseVoucherInput, AddTouchUpdateWithoutExpenseVoucherInput>, AddTouchUncheckedUpdateWithoutExpenseVoucherInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -57600,6 +60777,17 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -57690,6 +60878,22 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumITEMTYPEFilter<$PrismaModel = never> = {
     equals?: $Enums.ITEMTYPE | EnumITEMTYPEFieldRefInput<$PrismaModel>
     in?: $Enums.ITEMTYPE[]
@@ -57723,17 +60927,6 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -57748,22 +60941,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumCASTINGENTRYTYPEFilter<$PrismaModel = never> = {
@@ -57956,6 +61133,41 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ReceiptVoucherCreateWithoutCustomerIdInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.ITEMTYPE
+    gold_rate?: number | null
+    amount?: number | null
+    gold?: number | null
+    purity: number
+    hallmark?: number | null
+    touchId: AddTouchCreateNestedOneWithoutReceiptVoucherInput
+  }
+
+  export type ReceiptVoucherUncheckedCreateWithoutCustomerIdInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.ITEMTYPE
+    gold_rate?: number | null
+    amount?: number | null
+    gold?: number | null
+    touch_id: number
+    purity: number
+    hallmark?: number | null
+  }
+
+  export type ReceiptVoucherCreateOrConnectWithoutCustomerIdInput = {
+    where: ReceiptVoucherWhereUniqueInput
+    create: XOR<ReceiptVoucherCreateWithoutCustomerIdInput, ReceiptVoucherUncheckedCreateWithoutCustomerIdInput>
+  }
+
+  export type ReceiptVoucherCreateManyCustomerIdInputEnvelope = {
+    data: ReceiptVoucherCreateManyCustomerIdInput | ReceiptVoucherCreateManyCustomerIdInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CustomerTransactionUpsertWithWhereUniqueWithoutCustomerInput = {
     where: CustomerTransactionWhereUniqueInput
     update: XOR<CustomerTransactionUpdateWithoutCustomerInput, CustomerTransactionUncheckedUpdateWithoutCustomerInput>
@@ -58052,6 +61264,39 @@ export namespace Prisma {
     balance?: FloatFilter<"Hallmark"> | number
     createdAt?: DateTimeFilter<"Hallmark"> | Date | string
     updatedAt?: DateTimeFilter<"Hallmark"> | Date | string
+  }
+
+  export type ReceiptVoucherUpsertWithWhereUniqueWithoutCustomerIdInput = {
+    where: ReceiptVoucherWhereUniqueInput
+    update: XOR<ReceiptVoucherUpdateWithoutCustomerIdInput, ReceiptVoucherUncheckedUpdateWithoutCustomerIdInput>
+    create: XOR<ReceiptVoucherCreateWithoutCustomerIdInput, ReceiptVoucherUncheckedCreateWithoutCustomerIdInput>
+  }
+
+  export type ReceiptVoucherUpdateWithWhereUniqueWithoutCustomerIdInput = {
+    where: ReceiptVoucherWhereUniqueInput
+    data: XOR<ReceiptVoucherUpdateWithoutCustomerIdInput, ReceiptVoucherUncheckedUpdateWithoutCustomerIdInput>
+  }
+
+  export type ReceiptVoucherUpdateManyWithWhereWithoutCustomerIdInput = {
+    where: ReceiptVoucherScalarWhereInput
+    data: XOR<ReceiptVoucherUpdateManyMutationInput, ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdInput>
+  }
+
+  export type ReceiptVoucherScalarWhereInput = {
+    AND?: ReceiptVoucherScalarWhereInput | ReceiptVoucherScalarWhereInput[]
+    OR?: ReceiptVoucherScalarWhereInput[]
+    NOT?: ReceiptVoucherScalarWhereInput | ReceiptVoucherScalarWhereInput[]
+    id?: IntFilter<"ReceiptVoucher"> | number
+    createdAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
+    updatedAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
+    customer_id?: IntFilter<"ReceiptVoucher"> | number
+    type?: EnumITEMTYPEFilter<"ReceiptVoucher"> | $Enums.ITEMTYPE
+    gold_rate?: FloatNullableFilter<"ReceiptVoucher"> | number | null
+    amount?: FloatNullableFilter<"ReceiptVoucher"> | number | null
+    gold?: FloatNullableFilter<"ReceiptVoucher"> | number | null
+    touch_id?: IntFilter<"ReceiptVoucher"> | number
+    purity?: FloatFilter<"ReceiptVoucher"> | number
+    hallmark?: FloatNullableFilter<"ReceiptVoucher"> | number | null
   }
 
   export type CastingEntryCreateWithoutCasting_customerInput = {
@@ -59106,6 +62351,8 @@ export namespace Prisma {
     stock?: StockCreateNestedManyWithoutTouchInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchUncheckedCreateWithoutAdd_purchase_stockInput = {
@@ -59121,6 +62368,8 @@ export namespace Prisma {
     stock?: StockUncheckedCreateNestedManyWithoutTouchInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchCreateOrConnectWithoutAdd_purchase_stockInput = {
@@ -59224,6 +62473,8 @@ export namespace Prisma {
     stock?: StockUpdateManyWithoutTouchNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutAdd_purchase_stockInput = {
@@ -59239,6 +62490,8 @@ export namespace Prisma {
     stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
   }
 
   export type StockUpsertWithWhereUniqueWithoutPurchaseIdInput = {
@@ -59264,8 +62517,10 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     bills?: BillCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
   }
 
   export type AddCustomerUncheckedCreateWithoutTransactionsInput = {
@@ -59276,8 +62531,10 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
   }
 
   export type AddCustomerCreateOrConnectWithoutTransactionsInput = {
@@ -59297,6 +62554,8 @@ export namespace Prisma {
     stock?: StockCreateNestedManyWithoutTouchInput
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchUncheckedCreateWithoutCustomer_transactionInput = {
@@ -59312,6 +62571,8 @@ export namespace Prisma {
     stock?: StockUncheckedCreateNestedManyWithoutTouchInput
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchCreateOrConnectWithoutCustomer_transactionInput = {
@@ -59380,8 +62641,10 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     bills?: BillUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
   }
 
   export type AddCustomerUncheckedUpdateWithoutTransactionsInput = {
@@ -59392,8 +62655,10 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
   }
 
   export type AddTouchUpsertWithoutCustomer_transactionInput = {
@@ -59419,6 +62684,8 @@ export namespace Prisma {
     stock?: StockUpdateManyWithoutTouchNestedInput
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutCustomer_transactionInput = {
@@ -59434,6 +62701,8 @@ export namespace Prisma {
     stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
   }
 
   export type StockUpsertWithWhereUniqueWithoutCustomer_transactionInput = {
@@ -59927,6 +63196,612 @@ export namespace Prisma {
     addItemId?: IntNullableFilter<"BillItem"> | number | null
   }
 
+  export type CastingEntryCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    date: Date | string
+    given_gold: number
+    purity: number
+    final_touch: number
+    pure_value: number
+    copper: number
+    final_weight: number
+    casting_customer: AddCastingCreateNestedOneWithoutEntriesInput
+    items?: CastingItemsCreateNestedManyWithoutCastingEntryInput
+    CastiingTotalBalance?: CastiingTotalBalanceCreateNestedManyWithoutItem_entry_idInput
+  }
+
+  export type CastingEntryUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    date: Date | string
+    given_gold: number
+    purity: number
+    final_touch: number
+    pure_value: number
+    copper: number
+    final_weight: number
+    casting_customer_id: number
+    items?: CastingItemsUncheckedCreateNestedManyWithoutCastingEntryInput
+    CastiingTotalBalance?: CastiingTotalBalanceUncheckedCreateNestedManyWithoutItem_entry_idInput
+  }
+
+  export type CastingEntryCreateOrConnectWithoutTouchInput = {
+    where: CastingEntryWhereUniqueInput
+    create: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput>
+  }
+
+  export type CastingEntryCreateManyTouchInputEnvelope = {
+    data: CastingEntryCreateManyTouchInput | CastingEntryCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CastingItemsCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    item: AddItemCreateNestedOneWithoutCasting_itemsInput
+    castingEntry: CastingEntryCreateNestedOneWithoutItemsInput
+    filingEntry?: FilingEntryCreateNestedManyWithoutCastingItemInput
+    settingEntry?: SettingEntryCreateNestedManyWithoutCastingItemInput
+    buffingEntry?: BuffingEntryCreateNestedManyWithoutCastingItemInput
+    stock?: StockCreateNestedManyWithoutCastingItemInput
+    filingLotMapper?: LotFilingMapperCreateNestedManyWithoutItemIdInput
+    casting_customer: AddCastingCreateNestedOneWithoutCastingitemsInput
+  }
+
+  export type CastingItemsUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    item_id: number
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    casting_entry_id: number
+    casting_customer_id: number
+    filingEntry?: FilingEntryUncheckedCreateNestedManyWithoutCastingItemInput
+    settingEntry?: SettingEntryUncheckedCreateNestedManyWithoutCastingItemInput
+    buffingEntry?: BuffingEntryUncheckedCreateNestedManyWithoutCastingItemInput
+    stock?: StockUncheckedCreateNestedManyWithoutCastingItemInput
+    filingLotMapper?: LotFilingMapperUncheckedCreateNestedManyWithoutItemIdInput
+  }
+
+  export type CastingItemsCreateOrConnectWithoutTouchInput = {
+    where: CastingItemsWhereUniqueInput
+    create: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type CastingItemsCreateManyTouchInputEnvelope = {
+    data: CastingItemsCreateManyTouchInput | CastingItemsCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FilingItemsCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    stone_option?: $Enums.STONEOPTION | null
+    filing_entry: FilingEntryCreateNestedOneWithoutFilingItemsInput
+    filingitem: AddItemCreateNestedOneWithoutFiling_itemsInput
+    stock?: StockCreateNestedManyWithoutFilingItemInput
+    setting_entry?: SettingEntryCreateNestedManyWithoutFilingItemsInput
+    buffing_entry?: BuffingEntryCreateNestedManyWithoutFiling_itemsInput
+    filing_wastage?: FilingWastageCreateNestedManyWithoutFiling_itemsInput
+    lot_setting_mapper?: LotSettingMapperCreateNestedManyWithoutItemIdInput
+    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutFilingItemIdInput
+    lotFilingMapperId?: LotFilingMapperCreateNestedOneWithoutFiling_itemsInput
+  }
+
+  export type FilingItemsUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    filing_entry_id: number
+    type: $Enums.CASTINGENTRYTYPE
+    filing_item_id: number
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    stone_option?: $Enums.STONEOPTION | null
+    lot_filing_mapper_id?: number | null
+    stock?: StockUncheckedCreateNestedManyWithoutFilingItemInput
+    setting_entry?: SettingEntryUncheckedCreateNestedManyWithoutFilingItemsInput
+    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutFiling_itemsInput
+    filing_wastage?: FilingWastageUncheckedCreateNestedManyWithoutFiling_itemsInput
+    lot_setting_mapper?: LotSettingMapperUncheckedCreateNestedManyWithoutItemIdInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutFilingItemIdInput
+  }
+
+  export type FilingItemsCreateOrConnectWithoutTouchInput = {
+    where: FilingItemsWhereUniqueInput
+    create: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type FilingItemsCreateManyTouchInputEnvelope = {
+    data: FilingItemsCreateManyTouchInput | FilingItemsCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SettingItemsCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    type?: $Enums.CASTINGENTRYTYPE | null
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    item: AddItemCreateNestedOneWithoutSetting_itemsInput
+    setting_wastage?: SettingWastageCreateNestedManyWithoutSetting_itemsInput
+    buffing_entry?: BuffingEntryCreateNestedManyWithoutSetting_itemsInput
+    stock?: StockCreateNestedManyWithoutSettingItemInput
+    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutSettingItemIdInput
+    settingEntryId: SettingEntryCreateNestedOneWithoutSettingItemsInput
+  }
+
+  export type SettingItemsUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type?: $Enums.CASTINGENTRYTYPE | null
+    setting_item_id: number
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    setting_entry_id: number
+    setting_wastage?: SettingWastageUncheckedCreateNestedManyWithoutSetting_itemsInput
+    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutSetting_itemsInput
+    stock?: StockUncheckedCreateNestedManyWithoutSettingItemInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutSettingItemIdInput
+  }
+
+  export type SettingItemsCreateOrConnectWithoutTouchInput = {
+    where: SettingItemsWhereUniqueInput
+    create: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type SettingItemsCreateManyTouchInputEnvelope = {
+    data: SettingItemsCreateManyTouchInput | SettingItemsCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BuffingItemsCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    item: AddItemCreateNestedOneWithoutBuffing_itemsInput
+    stock?: StockCreateNestedManyWithoutBuffingItemInput
+    buffing_wastage?: BuffingWastageCreateNestedManyWithoutBuffing_itemsInput
+    buffingEntryId: BuffingEntryCreateNestedOneWithoutBuffingItemsInput
+  }
+
+  export type BuffingItemsUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    buffing_item_id: number
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    buffing_entry_id: number
+    stock?: StockUncheckedCreateNestedManyWithoutBuffingItemInput
+    buffing_wastage?: BuffingWastageUncheckedCreateNestedManyWithoutBuffing_itemsInput
+  }
+
+  export type BuffingItemsCreateOrConnectWithoutTouchInput = {
+    where: BuffingItemsWhereUniqueInput
+    create: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type BuffingItemsCreateManyTouchInputEnvelope = {
+    data: BuffingItemsCreateManyTouchInput | BuffingItemsCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StockCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    item_type?: $Enums.ITEMTYPE | null
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    castingItem?: CastingItemsCreateNestedOneWithoutStockInput
+    filingItem?: FilingItemsCreateNestedOneWithoutStockInput
+    settingItem?: SettingItemsCreateNestedOneWithoutStockInput
+    buffingItem?: BuffingItemsCreateNestedOneWithoutStockInput
+    item?: AddItemCreateNestedOneWithoutStockInput
+    casting_customer?: AddCastingCreateNestedOneWithoutStockInput
+    purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
+    customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+  }
+
+  export type StockUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    casting_item_id?: number | null
+    filing_item_id?: number | null
+    setting_item_id?: number | null
+    buffing_item_id?: number | null
+    item_type?: $Enums.ITEMTYPE | null
+    item_id?: number | null
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    casting_customer_id?: number | null
+    purchase_id?: number | null
+    customer_transaction_id?: number | null
+  }
+
+  export type StockCreateOrConnectWithoutTouchInput = {
+    where: StockWhereUniqueInput
+    create: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput>
+  }
+
+  export type StockCreateManyTouchInputEnvelope = {
+    data: StockCreateManyTouchInput | StockCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AddPurchaseStockCreateWithoutTouchIdInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    item: $Enums.ITEMTYPE
+    weight: number
+    purity: number
+    rate: number
+    totalValue: number
+    remarks?: string | null
+    SupplierId: AddSupplierItemCreateNestedOneWithoutAddPurchaseStockInput
+    Stock?: StockCreateNestedManyWithoutPurchaseIdInput
+  }
+
+  export type AddPurchaseStockUncheckedCreateWithoutTouchIdInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    supplierId: number
+    item: $Enums.ITEMTYPE
+    weight: number
+    purity: number
+    rate: number
+    totalValue: number
+    remarks?: string | null
+    Stock?: StockUncheckedCreateNestedManyWithoutPurchaseIdInput
+  }
+
+  export type AddPurchaseStockCreateOrConnectWithoutTouchIdInput = {
+    where: AddPurchaseStockWhereUniqueInput
+    create: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type AddPurchaseStockCreateManyTouchIdInputEnvelope = {
+    data: AddPurchaseStockCreateManyTouchIdInput | AddPurchaseStockCreateManyTouchIdInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerTransactionCreateWithoutTouchInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    date: Date | string
+    value: number
+    type: string
+    purity?: number | null
+    goldRate?: number | null
+    usedPurity?: number | null
+    customer: AddCustomerCreateNestedOneWithoutTransactionsInput
+    stock?: StockCreateNestedManyWithoutCustomer_transactionInput
+  }
+
+  export type CustomerTransactionUncheckedCreateWithoutTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    date: Date | string
+    value: number
+    type: string
+    purity?: number | null
+    goldRate?: number | null
+    customerId: number
+    usedPurity?: number | null
+    stock?: StockUncheckedCreateNestedManyWithoutCustomer_transactionInput
+  }
+
+  export type CustomerTransactionCreateOrConnectWithoutTouchInput = {
+    where: CustomerTransactionWhereUniqueInput
+    create: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput>
+  }
+
+  export type CustomerTransactionCreateManyTouchInputEnvelope = {
+    data: CustomerTransactionCreateManyTouchInput | CustomerTransactionCreateManyTouchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QcStockCreateWithoutTouchIdInput = {
+    createdAt: Date | string
+    updatedAt?: Date | string
+    weight: number
+    stone_weight: number
+    final_weight: number
+    purity: number
+    remarks?: string | null
+    itemId: AddItemCreateNestedOneWithoutQCStockInput
+    BillItem?: BillItemCreateNestedManyWithoutQcStockInput
+  }
+
+  export type QcStockUncheckedCreateWithoutTouchIdInput = {
+    id?: number
+    createdAt: Date | string
+    updatedAt?: Date | string
+    item_id: number
+    weight: number
+    stone_weight: number
+    final_weight: number
+    purity: number
+    remarks?: string | null
+    BillItem?: BillItemUncheckedCreateNestedManyWithoutQcStockInput
+  }
+
+  export type QcStockCreateOrConnectWithoutTouchIdInput = {
+    where: QcStockWhereUniqueInput
+    create: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type QcStockCreateManyTouchIdInputEnvelope = {
+    data: QcStockCreateManyTouchIdInput | QcStockCreateManyTouchIdInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ReceiptVoucherCreateWithoutTouchIdInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.ITEMTYPE
+    gold_rate?: number | null
+    amount?: number | null
+    gold?: number | null
+    purity: number
+    hallmark?: number | null
+    customerId: AddCustomerCreateNestedOneWithoutReceipt_voucherInput
+  }
+
+  export type ReceiptVoucherUncheckedCreateWithoutTouchIdInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer_id: number
+    type: $Enums.ITEMTYPE
+    gold_rate?: number | null
+    amount?: number | null
+    gold?: number | null
+    purity: number
+    hallmark?: number | null
+  }
+
+  export type ReceiptVoucherCreateOrConnectWithoutTouchIdInput = {
+    where: ReceiptVoucherWhereUniqueInput
+    create: XOR<ReceiptVoucherCreateWithoutTouchIdInput, ReceiptVoucherUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type ReceiptVoucherCreateManyTouchIdInputEnvelope = {
+    data: ReceiptVoucherCreateManyTouchIdInput | ReceiptVoucherCreateManyTouchIdInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ExpenseVoucherCreateWithoutTouchIdInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    description?: string | null
+    gold: number
+    purity: number
+  }
+
+  export type ExpenseVoucherUncheckedCreateWithoutTouchIdInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    description?: string | null
+    gold: number
+    purity: number
+  }
+
+  export type ExpenseVoucherCreateOrConnectWithoutTouchIdInput = {
+    where: ExpenseVoucherWhereUniqueInput
+    create: XOR<ExpenseVoucherCreateWithoutTouchIdInput, ExpenseVoucherUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type ExpenseVoucherCreateManyTouchIdInputEnvelope = {
+    data: ExpenseVoucherCreateManyTouchIdInput | ExpenseVoucherCreateManyTouchIdInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CastingEntryUpsertWithWhereUniqueWithoutTouchInput = {
+    where: CastingEntryWhereUniqueInput
+    update: XOR<CastingEntryUpdateWithoutTouchInput, CastingEntryUncheckedUpdateWithoutTouchInput>
+    create: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput>
+  }
+
+  export type CastingEntryUpdateWithWhereUniqueWithoutTouchInput = {
+    where: CastingEntryWhereUniqueInput
+    data: XOR<CastingEntryUpdateWithoutTouchInput, CastingEntryUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type CastingEntryUpdateManyWithWhereWithoutTouchInput = {
+    where: CastingEntryScalarWhereInput
+    data: XOR<CastingEntryUpdateManyMutationInput, CastingEntryUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type CastingItemsUpsertWithWhereUniqueWithoutTouchInput = {
+    where: CastingItemsWhereUniqueInput
+    update: XOR<CastingItemsUpdateWithoutTouchInput, CastingItemsUncheckedUpdateWithoutTouchInput>
+    create: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type CastingItemsUpdateWithWhereUniqueWithoutTouchInput = {
+    where: CastingItemsWhereUniqueInput
+    data: XOR<CastingItemsUpdateWithoutTouchInput, CastingItemsUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type CastingItemsUpdateManyWithWhereWithoutTouchInput = {
+    where: CastingItemsScalarWhereInput
+    data: XOR<CastingItemsUpdateManyMutationInput, CastingItemsUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type FilingItemsUpsertWithWhereUniqueWithoutTouchInput = {
+    where: FilingItemsWhereUniqueInput
+    update: XOR<FilingItemsUpdateWithoutTouchInput, FilingItemsUncheckedUpdateWithoutTouchInput>
+    create: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type FilingItemsUpdateWithWhereUniqueWithoutTouchInput = {
+    where: FilingItemsWhereUniqueInput
+    data: XOR<FilingItemsUpdateWithoutTouchInput, FilingItemsUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type FilingItemsUpdateManyWithWhereWithoutTouchInput = {
+    where: FilingItemsScalarWhereInput
+    data: XOR<FilingItemsUpdateManyMutationInput, FilingItemsUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type SettingItemsUpsertWithWhereUniqueWithoutTouchInput = {
+    where: SettingItemsWhereUniqueInput
+    update: XOR<SettingItemsUpdateWithoutTouchInput, SettingItemsUncheckedUpdateWithoutTouchInput>
+    create: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type SettingItemsUpdateWithWhereUniqueWithoutTouchInput = {
+    where: SettingItemsWhereUniqueInput
+    data: XOR<SettingItemsUpdateWithoutTouchInput, SettingItemsUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type SettingItemsUpdateManyWithWhereWithoutTouchInput = {
+    where: SettingItemsScalarWhereInput
+    data: XOR<SettingItemsUpdateManyMutationInput, SettingItemsUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type BuffingItemsUpsertWithWhereUniqueWithoutTouchInput = {
+    where: BuffingItemsWhereUniqueInput
+    update: XOR<BuffingItemsUpdateWithoutTouchInput, BuffingItemsUncheckedUpdateWithoutTouchInput>
+    create: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput>
+  }
+
+  export type BuffingItemsUpdateWithWhereUniqueWithoutTouchInput = {
+    where: BuffingItemsWhereUniqueInput
+    data: XOR<BuffingItemsUpdateWithoutTouchInput, BuffingItemsUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type BuffingItemsUpdateManyWithWhereWithoutTouchInput = {
+    where: BuffingItemsScalarWhereInput
+    data: XOR<BuffingItemsUpdateManyMutationInput, BuffingItemsUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type StockUpsertWithWhereUniqueWithoutTouchInput = {
+    where: StockWhereUniqueInput
+    update: XOR<StockUpdateWithoutTouchInput, StockUncheckedUpdateWithoutTouchInput>
+    create: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput>
+  }
+
+  export type StockUpdateWithWhereUniqueWithoutTouchInput = {
+    where: StockWhereUniqueInput
+    data: XOR<StockUpdateWithoutTouchInput, StockUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type StockUpdateManyWithWhereWithoutTouchInput = {
+    where: StockScalarWhereInput
+    data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput = {
+    where: AddPurchaseStockWhereUniqueInput
+    update: XOR<AddPurchaseStockUpdateWithoutTouchIdInput, AddPurchaseStockUncheckedUpdateWithoutTouchIdInput>
+    create: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput = {
+    where: AddPurchaseStockWhereUniqueInput
+    data: XOR<AddPurchaseStockUpdateWithoutTouchIdInput, AddPurchaseStockUncheckedUpdateWithoutTouchIdInput>
+  }
+
+  export type AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput = {
+    where: AddPurchaseStockScalarWhereInput
+    data: XOR<AddPurchaseStockUpdateManyMutationInput, AddPurchaseStockUncheckedUpdateManyWithoutTouchIdInput>
+  }
+
+  export type CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput = {
+    where: CustomerTransactionWhereUniqueInput
+    update: XOR<CustomerTransactionUpdateWithoutTouchInput, CustomerTransactionUncheckedUpdateWithoutTouchInput>
+    create: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput>
+  }
+
+  export type CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput = {
+    where: CustomerTransactionWhereUniqueInput
+    data: XOR<CustomerTransactionUpdateWithoutTouchInput, CustomerTransactionUncheckedUpdateWithoutTouchInput>
+  }
+
+  export type CustomerTransactionUpdateManyWithWhereWithoutTouchInput = {
+    where: CustomerTransactionScalarWhereInput
+    data: XOR<CustomerTransactionUpdateManyMutationInput, CustomerTransactionUncheckedUpdateManyWithoutTouchInput>
+  }
+
+  export type QcStockUpsertWithWhereUniqueWithoutTouchIdInput = {
+    where: QcStockWhereUniqueInput
+    update: XOR<QcStockUpdateWithoutTouchIdInput, QcStockUncheckedUpdateWithoutTouchIdInput>
+    create: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type QcStockUpdateWithWhereUniqueWithoutTouchIdInput = {
+    where: QcStockWhereUniqueInput
+    data: XOR<QcStockUpdateWithoutTouchIdInput, QcStockUncheckedUpdateWithoutTouchIdInput>
+  }
+
+  export type QcStockUpdateManyWithWhereWithoutTouchIdInput = {
+    where: QcStockScalarWhereInput
+    data: XOR<QcStockUpdateManyMutationInput, QcStockUncheckedUpdateManyWithoutTouchIdInput>
+  }
+
+  export type ReceiptVoucherUpsertWithWhereUniqueWithoutTouchIdInput = {
+    where: ReceiptVoucherWhereUniqueInput
+    update: XOR<ReceiptVoucherUpdateWithoutTouchIdInput, ReceiptVoucherUncheckedUpdateWithoutTouchIdInput>
+    create: XOR<ReceiptVoucherCreateWithoutTouchIdInput, ReceiptVoucherUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type ReceiptVoucherUpdateWithWhereUniqueWithoutTouchIdInput = {
+    where: ReceiptVoucherWhereUniqueInput
+    data: XOR<ReceiptVoucherUpdateWithoutTouchIdInput, ReceiptVoucherUncheckedUpdateWithoutTouchIdInput>
+  }
+
+  export type ReceiptVoucherUpdateManyWithWhereWithoutTouchIdInput = {
+    where: ReceiptVoucherScalarWhereInput
+    data: XOR<ReceiptVoucherUpdateManyMutationInput, ReceiptVoucherUncheckedUpdateManyWithoutTouchIdInput>
+  }
+
+  export type ExpenseVoucherUpsertWithWhereUniqueWithoutTouchIdInput = {
+    where: ExpenseVoucherWhereUniqueInput
+    update: XOR<ExpenseVoucherUpdateWithoutTouchIdInput, ExpenseVoucherUncheckedUpdateWithoutTouchIdInput>
+    create: XOR<ExpenseVoucherCreateWithoutTouchIdInput, ExpenseVoucherUncheckedCreateWithoutTouchIdInput>
+  }
+
+  export type ExpenseVoucherUpdateWithWhereUniqueWithoutTouchIdInput = {
+    where: ExpenseVoucherWhereUniqueInput
+    data: XOR<ExpenseVoucherUpdateWithoutTouchIdInput, ExpenseVoucherUncheckedUpdateWithoutTouchIdInput>
+  }
+
+  export type ExpenseVoucherUpdateManyWithWhereWithoutTouchIdInput = {
+    where: ExpenseVoucherScalarWhereInput
+    data: XOR<ExpenseVoucherUpdateManyMutationInput, ExpenseVoucherUncheckedUpdateManyWithoutTouchIdInput>
+  }
+
+  export type ExpenseVoucherScalarWhereInput = {
+    AND?: ExpenseVoucherScalarWhereInput | ExpenseVoucherScalarWhereInput[]
+    OR?: ExpenseVoucherScalarWhereInput[]
+    NOT?: ExpenseVoucherScalarWhereInput | ExpenseVoucherScalarWhereInput[]
+    id?: IntFilter<"ExpenseVoucher"> | number
+    createdAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
+    updatedAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
+    description?: StringNullableFilter<"ExpenseVoucher"> | string | null
+    gold?: FloatFilter<"ExpenseVoucher"> | number
+    touch_id?: IntFilter<"ExpenseVoucher"> | number
+    purity?: FloatFilter<"ExpenseVoucher"> | number
+  }
+
   export type AddItemCreateWithoutQCStockInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -59969,6 +63844,8 @@ export namespace Prisma {
     stock?: StockCreateNestedManyWithoutTouchInput
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchUncheckedCreateWithoutQCStockInput = {
@@ -59984,6 +63861,8 @@ export namespace Prisma {
     stock?: StockUncheckedCreateNestedManyWithoutTouchInput
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchCreateOrConnectWithoutQCStockInput = {
@@ -60089,6 +63968,8 @@ export namespace Prisma {
     stock?: StockUpdateManyWithoutTouchNestedInput
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutQCStockInput = {
@@ -60104,6 +63985,8 @@ export namespace Prisma {
     stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
   }
 
   export type BillItemUpsertWithWhereUniqueWithoutQcStockInput = {
@@ -60134,6 +64017,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchUncheckedCreateWithoutCasting_entryInput = {
@@ -60149,6 +64034,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchCreateOrConnectWithoutCasting_entryInput = {
@@ -60163,6 +64050,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     castingitems?: CastingItemsCreateNestedManyWithoutCasting_customerInput
     stock?: StockCreateNestedManyWithoutCasting_customerInput
   }
@@ -60175,6 +64063,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     castingitems?: CastingItemsUncheckedCreateNestedManyWithoutCasting_customerInput
     stock?: StockUncheckedCreateNestedManyWithoutCasting_customerInput
   }
@@ -60277,6 +64166,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutCasting_entryInput = {
@@ -60292,6 +64183,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddCastingUpsertWithoutEntriesInput = {
@@ -60312,6 +64205,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     castingitems?: CastingItemsUpdateManyWithoutCasting_customerNestedInput
     stock?: StockUpdateManyWithoutCasting_customerNestedInput
   }
@@ -60324,6 +64218,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     castingitems?: CastingItemsUncheckedUpdateManyWithoutCasting_customerNestedInput
     stock?: StockUncheckedUpdateManyWithoutCasting_customerNestedInput
   }
@@ -60385,6 +64280,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchUncheckedCreateWithoutCasting_itemsInput = {
@@ -60400,6 +64297,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchCreateOrConnectWithoutCasting_itemsInput = {
@@ -60633,6 +64532,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     entries?: CastingEntryCreateNestedManyWithoutCasting_customerInput
     stock?: StockCreateNestedManyWithoutCasting_customerInput
   }
@@ -60645,6 +64545,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     entries?: CastingEntryUncheckedCreateNestedManyWithoutCasting_customerInput
     stock?: StockUncheckedCreateNestedManyWithoutCasting_customerInput
   }
@@ -60677,6 +64578,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutCasting_itemsInput = {
@@ -60692,6 +64595,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddItemUpsertWithoutCasting_itemsInput = {
@@ -60868,6 +64773,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     entries?: CastingEntryUpdateManyWithoutCasting_customerNestedInput
     stock?: StockUpdateManyWithoutCasting_customerNestedInput
   }
@@ -60880,6 +64786,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     entries?: CastingEntryUncheckedUpdateManyWithoutCasting_customerNestedInput
     stock?: StockUncheckedUpdateManyWithoutCasting_customerNestedInput
   }
@@ -60965,6 +64872,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     filingWastages?: FilingWastageCreateNestedManyWithoutFilingPersonIdInput
     filings?: FilingEntryCreateNestedManyWithoutFiling_personInput
     lotFilingMapper?: LotFilingMapperCreateNestedManyWithoutFilingIdInput
@@ -60978,6 +64886,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     filingWastages?: FilingWastageUncheckedCreateNestedManyWithoutFilingPersonIdInput
     filings?: FilingEntryUncheckedCreateNestedManyWithoutFiling_personInput
     lotFilingMapper?: LotFilingMapperUncheckedCreateNestedManyWithoutFilingIdInput
@@ -60995,6 +64904,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     settingWastages?: SettingWastageCreateNestedManyWithoutSettingPersonIdInput
     settings?: SettingEntryCreateNestedManyWithoutSetting_personInput
     settingMapper?: LotSettingMapperCreateNestedManyWithoutSettingIdInput
@@ -61008,6 +64918,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     settingWastages?: SettingWastageUncheckedCreateNestedManyWithoutSettingPersonIdInput
     settings?: SettingEntryUncheckedCreateNestedManyWithoutSetting_personInput
     settingMapper?: LotSettingMapperUncheckedCreateNestedManyWithoutSettingIdInput
@@ -61025,6 +64936,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     buffings?: BuffingEntryCreateNestedManyWithoutBuffing_personInput
     buffingMapper?: LotBuffingMapperCreateNestedManyWithoutBuffingIdInput
     buffingWastages?: BuffingWastageCreateNestedManyWithoutBuffingPersonIdInput
@@ -61038,6 +64950,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     buffings?: BuffingEntryUncheckedCreateNestedManyWithoutBuffing_personInput
     buffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutBuffingIdInput
     buffingWastages?: BuffingWastageUncheckedCreateNestedManyWithoutBuffingPersonIdInput
@@ -61262,6 +65175,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     filingWastages?: FilingWastageUpdateManyWithoutFilingPersonIdNestedInput
     filings?: FilingEntryUpdateManyWithoutFiling_personNestedInput
     lotFilingMapper?: LotFilingMapperUpdateManyWithoutFilingIdNestedInput
@@ -61275,6 +65189,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     filingWastages?: FilingWastageUncheckedUpdateManyWithoutFilingPersonIdNestedInput
     filings?: FilingEntryUncheckedUpdateManyWithoutFiling_personNestedInput
     lotFilingMapper?: LotFilingMapperUncheckedUpdateManyWithoutFilingIdNestedInput
@@ -61298,6 +65213,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     settingWastages?: SettingWastageUpdateManyWithoutSettingPersonIdNestedInput
     settings?: SettingEntryUpdateManyWithoutSetting_personNestedInput
     settingMapper?: LotSettingMapperUpdateManyWithoutSettingIdNestedInput
@@ -61311,6 +65227,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     settingWastages?: SettingWastageUncheckedUpdateManyWithoutSettingPersonIdNestedInput
     settings?: SettingEntryUncheckedUpdateManyWithoutSetting_personNestedInput
     settingMapper?: LotSettingMapperUncheckedUpdateManyWithoutSettingIdNestedInput
@@ -61334,6 +65251,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     buffings?: BuffingEntryUpdateManyWithoutBuffing_personNestedInput
     buffingMapper?: LotBuffingMapperUpdateManyWithoutBuffingIdNestedInput
     buffingWastages?: BuffingWastageUpdateManyWithoutBuffingPersonIdNestedInput
@@ -61347,6 +65265,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     buffings?: BuffingEntryUncheckedUpdateManyWithoutBuffing_personNestedInput
     buffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutBuffingIdNestedInput
     buffingWastages?: BuffingWastageUncheckedUpdateManyWithoutBuffingPersonIdNestedInput
@@ -61455,6 +65374,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     filingWastages?: FilingWastageCreateNestedManyWithoutFilingPersonIdInput
     lotInfo?: LotInfoCreateNestedManyWithoutFilingCustomerIdInput
     lotFilingMapper?: LotFilingMapperCreateNestedManyWithoutFilingIdInput
@@ -61468,6 +65388,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     filingWastages?: FilingWastageUncheckedCreateNestedManyWithoutFilingPersonIdInput
     lotInfo?: LotInfoUncheckedCreateNestedManyWithoutFilingCustomerIdInput
     lotFilingMapper?: LotFilingMapperUncheckedCreateNestedManyWithoutFilingIdInput
@@ -61637,6 +65558,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     filingWastages?: FilingWastageUpdateManyWithoutFilingPersonIdNestedInput
     lotInfo?: LotInfoUpdateManyWithoutFilingCustomerIdNestedInput
     lotFilingMapper?: LotFilingMapperUpdateManyWithoutFilingIdNestedInput
@@ -61650,6 +65572,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     filingWastages?: FilingWastageUncheckedUpdateManyWithoutFilingPersonIdNestedInput
     lotInfo?: LotInfoUncheckedUpdateManyWithoutFilingCustomerIdNestedInput
     lotFilingMapper?: LotFilingMapperUncheckedUpdateManyWithoutFilingIdNestedInput
@@ -61769,6 +65692,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     filingWastages?: FilingWastageCreateNestedManyWithoutFilingPersonIdInput
     filings?: FilingEntryCreateNestedManyWithoutFiling_personInput
     lotInfo?: LotInfoCreateNestedManyWithoutFilingCustomerIdInput
@@ -61782,6 +65706,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     filingWastages?: FilingWastageUncheckedCreateNestedManyWithoutFilingPersonIdInput
     filings?: FilingEntryUncheckedCreateNestedManyWithoutFiling_personInput
     lotInfo?: LotInfoUncheckedCreateNestedManyWithoutFilingCustomerIdInput
@@ -61949,6 +65874,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     filingWastages?: FilingWastageUpdateManyWithoutFilingPersonIdNestedInput
     filings?: FilingEntryUpdateManyWithoutFiling_personNestedInput
     lotInfo?: LotInfoUpdateManyWithoutFilingCustomerIdNestedInput
@@ -61962,6 +65888,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     filingWastages?: FilingWastageUncheckedUpdateManyWithoutFilingPersonIdNestedInput
     filings?: FilingEntryUncheckedUpdateManyWithoutFiling_personNestedInput
     lotInfo?: LotInfoUncheckedUpdateManyWithoutFilingCustomerIdNestedInput
@@ -62157,6 +66084,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchUncheckedCreateWithoutFiling_itemsInput = {
@@ -62172,6 +66101,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchCreateOrConnectWithoutFiling_itemsInput = {
@@ -62463,6 +66394,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutFiling_itemsInput = {
@@ -62478,6 +66411,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
   }
 
   export type StockUpsertWithWhereUniqueWithoutFilingItemInput = {
@@ -62659,6 +66594,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     filings?: FilingEntryCreateNestedManyWithoutFiling_personInput
     lotInfo?: LotInfoCreateNestedManyWithoutFilingCustomerIdInput
     lotFilingMapper?: LotFilingMapperCreateNestedManyWithoutFilingIdInput
@@ -62672,6 +66608,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     filings?: FilingEntryUncheckedCreateNestedManyWithoutFiling_personInput
     lotInfo?: LotInfoUncheckedCreateNestedManyWithoutFilingCustomerIdInput
     lotFilingMapper?: LotFilingMapperUncheckedCreateNestedManyWithoutFilingIdInput
@@ -62774,6 +66711,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     filings?: FilingEntryUpdateManyWithoutFiling_personNestedInput
     lotInfo?: LotInfoUpdateManyWithoutFilingCustomerIdNestedInput
     lotFilingMapper?: LotFilingMapperUpdateManyWithoutFilingIdNestedInput
@@ -62787,6 +66725,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     filings?: FilingEntryUncheckedUpdateManyWithoutFiling_personNestedInput
     lotInfo?: LotInfoUncheckedUpdateManyWithoutFilingCustomerIdNestedInput
     lotFilingMapper?: LotFilingMapperUncheckedUpdateManyWithoutFilingIdNestedInput
@@ -62853,6 +66792,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     settingWastages?: SettingWastageCreateNestedManyWithoutSettingPersonIdInput
     settingMapper?: LotSettingMapperCreateNestedManyWithoutSettingIdInput
     lotInfo?: LotInfoCreateNestedManyWithoutSettingCustomerIdInput
@@ -62866,6 +66806,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     settingWastages?: SettingWastageUncheckedCreateNestedManyWithoutSettingPersonIdInput
     settingMapper?: LotSettingMapperUncheckedCreateNestedManyWithoutSettingIdInput
     lotInfo?: LotInfoUncheckedCreateNestedManyWithoutSettingCustomerIdInput
@@ -63073,6 +67014,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     settingWastages?: SettingWastageUpdateManyWithoutSettingPersonIdNestedInput
     settingMapper?: LotSettingMapperUpdateManyWithoutSettingIdNestedInput
     lotInfo?: LotInfoUpdateManyWithoutSettingCustomerIdNestedInput
@@ -63086,6 +67028,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     settingWastages?: SettingWastageUncheckedUpdateManyWithoutSettingPersonIdNestedInput
     settingMapper?: LotSettingMapperUncheckedUpdateManyWithoutSettingIdNestedInput
     lotInfo?: LotInfoUncheckedUpdateManyWithoutSettingCustomerIdNestedInput
@@ -63259,6 +67202,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchUncheckedCreateWithoutSetting_itemsInput = {
@@ -63274,6 +67219,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchCreateOrConnectWithoutSetting_itemsInput = {
@@ -63494,6 +67441,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutSetting_itemsInput = {
@@ -63509,6 +67458,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
   }
 
   export type SettingWastageUpsertWithWhereUniqueWithoutSetting_itemsInput = {
@@ -63612,6 +67563,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     settingWastages?: SettingWastageCreateNestedManyWithoutSettingPersonIdInput
     settings?: SettingEntryCreateNestedManyWithoutSetting_personInput
     lotInfo?: LotInfoCreateNestedManyWithoutSettingCustomerIdInput
@@ -63625,6 +67577,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     settingWastages?: SettingWastageUncheckedCreateNestedManyWithoutSettingPersonIdInput
     settings?: SettingEntryUncheckedCreateNestedManyWithoutSetting_personInput
     lotInfo?: LotInfoUncheckedCreateNestedManyWithoutSettingCustomerIdInput
@@ -63751,6 +67704,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     settingWastages?: SettingWastageUpdateManyWithoutSettingPersonIdNestedInput
     settings?: SettingEntryUpdateManyWithoutSetting_personNestedInput
     lotInfo?: LotInfoUpdateManyWithoutSettingCustomerIdNestedInput
@@ -63764,6 +67718,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     settingWastages?: SettingWastageUncheckedUpdateManyWithoutSettingPersonIdNestedInput
     settings?: SettingEntryUncheckedUpdateManyWithoutSetting_personNestedInput
     lotInfo?: LotInfoUncheckedUpdateManyWithoutSettingCustomerIdNestedInput
@@ -63946,6 +67901,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     settings?: SettingEntryCreateNestedManyWithoutSetting_personInput
     settingMapper?: LotSettingMapperCreateNestedManyWithoutSettingIdInput
     lotInfo?: LotInfoCreateNestedManyWithoutSettingCustomerIdInput
@@ -63959,6 +67915,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     settings?: SettingEntryUncheckedCreateNestedManyWithoutSetting_personInput
     settingMapper?: LotSettingMapperUncheckedCreateNestedManyWithoutSettingIdInput
     lotInfo?: LotInfoUncheckedCreateNestedManyWithoutSettingCustomerIdInput
@@ -64053,6 +68010,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     settings?: SettingEntryUpdateManyWithoutSetting_personNestedInput
     settingMapper?: LotSettingMapperUpdateManyWithoutSettingIdNestedInput
     lotInfo?: LotInfoUpdateManyWithoutSettingCustomerIdNestedInput
@@ -64066,6 +68024,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     settings?: SettingEntryUncheckedUpdateManyWithoutSetting_personNestedInput
     settingMapper?: LotSettingMapperUncheckedUpdateManyWithoutSettingIdNestedInput
     lotInfo?: LotInfoUncheckedUpdateManyWithoutSettingCustomerIdNestedInput
@@ -64132,6 +68091,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     buffingMapper?: LotBuffingMapperCreateNestedManyWithoutBuffingIdInput
     lotInfo?: LotInfoCreateNestedManyWithoutBuffingCustomerIdInput
     buffingWastages?: BuffingWastageCreateNestedManyWithoutBuffingPersonIdInput
@@ -64145,6 +68105,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     buffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutBuffingIdInput
     lotInfo?: LotInfoUncheckedCreateNestedManyWithoutBuffingCustomerIdInput
     buffingWastages?: BuffingWastageUncheckedCreateNestedManyWithoutBuffingPersonIdInput
@@ -64376,6 +68337,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     buffingMapper?: LotBuffingMapperUpdateManyWithoutBuffingIdNestedInput
     lotInfo?: LotInfoUpdateManyWithoutBuffingCustomerIdNestedInput
     buffingWastages?: BuffingWastageUpdateManyWithoutBuffingPersonIdNestedInput
@@ -64389,6 +68351,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     buffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutBuffingIdNestedInput
     lotInfo?: LotInfoUncheckedUpdateManyWithoutBuffingCustomerIdNestedInput
     buffingWastages?: BuffingWastageUncheckedUpdateManyWithoutBuffingPersonIdNestedInput
@@ -64574,6 +68537,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchUncheckedCreateWithoutBuffing_itemsInput = {
@@ -64589,6 +68554,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchCreateOrConnectWithoutBuffing_itemsInput = {
@@ -64760,6 +68727,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutBuffing_itemsInput = {
@@ -64775,6 +68744,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
   }
 
   export type StockUpsertWithWhereUniqueWithoutBuffingItemInput = {
@@ -64906,6 +68877,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     buffings?: BuffingEntryCreateNestedManyWithoutBuffing_personInput
     lotInfo?: LotInfoCreateNestedManyWithoutBuffingCustomerIdInput
     buffingWastages?: BuffingWastageCreateNestedManyWithoutBuffingPersonIdInput
@@ -64919,6 +68891,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     buffings?: BuffingEntryUncheckedCreateNestedManyWithoutBuffing_personInput
     lotInfo?: LotInfoUncheckedCreateNestedManyWithoutBuffingCustomerIdInput
     buffingWastages?: BuffingWastageUncheckedCreateNestedManyWithoutBuffingPersonIdInput
@@ -65081,6 +69054,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     buffings?: BuffingEntryUpdateManyWithoutBuffing_personNestedInput
     lotInfo?: LotInfoUpdateManyWithoutBuffingCustomerIdNestedInput
     buffingWastages?: BuffingWastageUpdateManyWithoutBuffingPersonIdNestedInput
@@ -65094,6 +69068,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     buffings?: BuffingEntryUncheckedUpdateManyWithoutBuffing_personNestedInput
     lotInfo?: LotInfoUncheckedUpdateManyWithoutBuffingCustomerIdNestedInput
     buffingWastages?: BuffingWastageUncheckedUpdateManyWithoutBuffingPersonIdNestedInput
@@ -65264,6 +69239,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     buffings?: BuffingEntryCreateNestedManyWithoutBuffing_personInput
     buffingMapper?: LotBuffingMapperCreateNestedManyWithoutBuffingIdInput
     lotInfo?: LotInfoCreateNestedManyWithoutBuffingCustomerIdInput
@@ -65277,6 +69253,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     buffings?: BuffingEntryUncheckedCreateNestedManyWithoutBuffing_personInput
     buffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutBuffingIdInput
     lotInfo?: LotInfoUncheckedCreateNestedManyWithoutBuffingCustomerIdInput
@@ -65367,6 +69344,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     buffings?: BuffingEntryUpdateManyWithoutBuffing_personNestedInput
     buffingMapper?: LotBuffingMapperUpdateManyWithoutBuffingIdNestedInput
     lotInfo?: LotInfoUpdateManyWithoutBuffingCustomerIdNestedInput
@@ -65380,6 +69358,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     buffings?: BuffingEntryUncheckedUpdateManyWithoutBuffing_personNestedInput
     buffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutBuffingIdNestedInput
     lotInfo?: LotInfoUncheckedUpdateManyWithoutBuffingCustomerIdNestedInput
@@ -65625,6 +69604,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
     QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchUncheckedCreateWithoutStockInput = {
@@ -65640,6 +69621,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
     customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
     QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
   }
 
   export type AddTouchCreateOrConnectWithoutStockInput = {
@@ -65654,6 +69637,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     entries?: CastingEntryCreateNestedManyWithoutCasting_customerInput
     castingitems?: CastingItemsCreateNestedManyWithoutCasting_customerInput
   }
@@ -65666,6 +69650,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     entries?: CastingEntryUncheckedCreateNestedManyWithoutCasting_customerInput
     castingitems?: CastingItemsUncheckedCreateNestedManyWithoutCasting_customerInput
   }
@@ -65966,6 +69951,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddTouchUncheckedUpdateWithoutStockInput = {
@@ -65981,6 +69968,8 @@ export namespace Prisma {
     add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
   }
 
   export type AddCastingUpsertWithoutStockInput = {
@@ -66001,6 +69990,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     entries?: CastingEntryUpdateManyWithoutCasting_customerNestedInput
     castingitems?: CastingItemsUpdateManyWithoutCasting_customerNestedInput
   }
@@ -66013,6 +70003,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     entries?: CastingEntryUncheckedUpdateManyWithoutCasting_customerNestedInput
     castingitems?: CastingItemsUncheckedUpdateManyWithoutCasting_customerNestedInput
   }
@@ -66100,8 +70091,10 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
     bills?: BillCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
   }
 
   export type AddCustomerUncheckedCreateWithoutHallmarksInput = {
@@ -66112,8 +70105,10 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
     bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
   }
 
   export type AddCustomerCreateOrConnectWithoutHallmarksInput = {
@@ -66139,8 +70134,10 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
     bills?: BillUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
   }
 
   export type AddCustomerUncheckedUpdateWithoutHallmarksInput = {
@@ -66151,8 +70148,10 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
     bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
   }
 
   export type AddCustomerCreateWithoutBillsInput = {
@@ -66162,8 +70161,10 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
   }
 
   export type AddCustomerUncheckedCreateWithoutBillsInput = {
@@ -66174,8 +70175,10 @@ export namespace Prisma {
     phoneNumber?: string | null
     address?: string | null
     email?: string | null
+    balance?: number | null
     transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
   }
 
   export type AddCustomerCreateOrConnectWithoutBillsInput = {
@@ -66277,8 +70280,10 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
   }
 
   export type AddCustomerUncheckedUpdateWithoutBillsInput = {
@@ -66289,8 +70294,10 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
   }
 
   export type BillItemUpsertWithWhereUniqueWithoutBillInput = {
@@ -66663,503 +70670,238 @@ export namespace Prisma {
     billItems?: BillItemUncheckedUpdateManyWithoutBillNestedInput
   }
 
-  export type CastingEntryCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    date: Date | string
-    given_gold: number
-    purity: number
-    final_touch: number
-    pure_value: number
-    copper: number
-    final_weight: number
-    casting_customer: AddCastingCreateNestedOneWithoutEntriesInput
-    items?: CastingItemsCreateNestedManyWithoutCastingEntryInput
-    CastiingTotalBalance?: CastiingTotalBalanceCreateNestedManyWithoutItem_entry_idInput
-  }
-
-  export type CastingEntryUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    date: Date | string
-    given_gold: number
-    purity: number
-    final_touch: number
-    pure_value: number
-    copper: number
-    final_weight: number
-    casting_customer_id: number
-    items?: CastingItemsUncheckedCreateNestedManyWithoutCastingEntryInput
-    CastiingTotalBalance?: CastiingTotalBalanceUncheckedCreateNestedManyWithoutItem_entry_idInput
-  }
-
-  export type CastingEntryCreateOrConnectWithoutTouchInput = {
-    where: CastingEntryWhereUniqueInput
-    create: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput>
-  }
-
-  export type CastingEntryCreateManyTouchInputEnvelope = {
-    data: CastingEntryCreateManyTouchInput | CastingEntryCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CastingItemsCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    item: AddItemCreateNestedOneWithoutCasting_itemsInput
-    castingEntry: CastingEntryCreateNestedOneWithoutItemsInput
-    filingEntry?: FilingEntryCreateNestedManyWithoutCastingItemInput
-    settingEntry?: SettingEntryCreateNestedManyWithoutCastingItemInput
-    buffingEntry?: BuffingEntryCreateNestedManyWithoutCastingItemInput
-    stock?: StockCreateNestedManyWithoutCastingItemInput
-    filingLotMapper?: LotFilingMapperCreateNestedManyWithoutItemIdInput
-    casting_customer: AddCastingCreateNestedOneWithoutCastingitemsInput
-  }
-
-  export type CastingItemsUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    item_id: number
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    casting_entry_id: number
-    casting_customer_id: number
-    filingEntry?: FilingEntryUncheckedCreateNestedManyWithoutCastingItemInput
-    settingEntry?: SettingEntryUncheckedCreateNestedManyWithoutCastingItemInput
-    buffingEntry?: BuffingEntryUncheckedCreateNestedManyWithoutCastingItemInput
-    stock?: StockUncheckedCreateNestedManyWithoutCastingItemInput
-    filingLotMapper?: LotFilingMapperUncheckedCreateNestedManyWithoutItemIdInput
-  }
-
-  export type CastingItemsCreateOrConnectWithoutTouchInput = {
-    where: CastingItemsWhereUniqueInput
-    create: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type CastingItemsCreateManyTouchInputEnvelope = {
-    data: CastingItemsCreateManyTouchInput | CastingItemsCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type FilingItemsCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    stone_option?: $Enums.STONEOPTION | null
-    filing_entry: FilingEntryCreateNestedOneWithoutFilingItemsInput
-    filingitem: AddItemCreateNestedOneWithoutFiling_itemsInput
-    stock?: StockCreateNestedManyWithoutFilingItemInput
-    setting_entry?: SettingEntryCreateNestedManyWithoutFilingItemsInput
-    buffing_entry?: BuffingEntryCreateNestedManyWithoutFiling_itemsInput
-    filing_wastage?: FilingWastageCreateNestedManyWithoutFiling_itemsInput
-    lot_setting_mapper?: LotSettingMapperCreateNestedManyWithoutItemIdInput
-    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutFilingItemIdInput
-    lotFilingMapperId?: LotFilingMapperCreateNestedOneWithoutFiling_itemsInput
-  }
-
-  export type FilingItemsUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    filing_entry_id: number
-    type: $Enums.CASTINGENTRYTYPE
-    filing_item_id: number
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    stone_option?: $Enums.STONEOPTION | null
-    lot_filing_mapper_id?: number | null
-    stock?: StockUncheckedCreateNestedManyWithoutFilingItemInput
-    setting_entry?: SettingEntryUncheckedCreateNestedManyWithoutFilingItemsInput
-    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutFiling_itemsInput
-    filing_wastage?: FilingWastageUncheckedCreateNestedManyWithoutFiling_itemsInput
-    lot_setting_mapper?: LotSettingMapperUncheckedCreateNestedManyWithoutItemIdInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutFilingItemIdInput
-  }
-
-  export type FilingItemsCreateOrConnectWithoutTouchInput = {
-    where: FilingItemsWhereUniqueInput
-    create: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type FilingItemsCreateManyTouchInputEnvelope = {
-    data: FilingItemsCreateManyTouchInput | FilingItemsCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type SettingItemsCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    type?: $Enums.CASTINGENTRYTYPE | null
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    item: AddItemCreateNestedOneWithoutSetting_itemsInput
-    setting_wastage?: SettingWastageCreateNestedManyWithoutSetting_itemsInput
-    buffing_entry?: BuffingEntryCreateNestedManyWithoutSetting_itemsInput
-    stock?: StockCreateNestedManyWithoutSettingItemInput
-    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutSettingItemIdInput
-    settingEntryId: SettingEntryCreateNestedOneWithoutSettingItemsInput
-  }
-
-  export type SettingItemsUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type?: $Enums.CASTINGENTRYTYPE | null
-    setting_item_id: number
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    setting_entry_id: number
-    setting_wastage?: SettingWastageUncheckedCreateNestedManyWithoutSetting_itemsInput
-    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutSetting_itemsInput
-    stock?: StockUncheckedCreateNestedManyWithoutSettingItemInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutSettingItemIdInput
-  }
-
-  export type SettingItemsCreateOrConnectWithoutTouchInput = {
-    where: SettingItemsWhereUniqueInput
-    create: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type SettingItemsCreateManyTouchInputEnvelope = {
-    data: SettingItemsCreateManyTouchInput | SettingItemsCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type BuffingItemsCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    item: AddItemCreateNestedOneWithoutBuffing_itemsInput
-    stock?: StockCreateNestedManyWithoutBuffingItemInput
-    buffing_wastage?: BuffingWastageCreateNestedManyWithoutBuffing_itemsInput
-    buffingEntryId: BuffingEntryCreateNestedOneWithoutBuffingItemsInput
-  }
-
-  export type BuffingItemsUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    buffing_item_id: number
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    buffing_entry_id: number
-    stock?: StockUncheckedCreateNestedManyWithoutBuffingItemInput
-    buffing_wastage?: BuffingWastageUncheckedCreateNestedManyWithoutBuffing_itemsInput
-  }
-
-  export type BuffingItemsCreateOrConnectWithoutTouchInput = {
-    where: BuffingItemsWhereUniqueInput
-    create: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type BuffingItemsCreateManyTouchInputEnvelope = {
-    data: BuffingItemsCreateManyTouchInput | BuffingItemsCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type StockCreateWithoutTouchInput = {
-    createdAt?: Date | string
-    item_type?: $Enums.ITEMTYPE | null
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    castingItem?: CastingItemsCreateNestedOneWithoutStockInput
-    filingItem?: FilingItemsCreateNestedOneWithoutStockInput
-    settingItem?: SettingItemsCreateNestedOneWithoutStockInput
-    buffingItem?: BuffingItemsCreateNestedOneWithoutStockInput
-    item?: AddItemCreateNestedOneWithoutStockInput
-    casting_customer?: AddCastingCreateNestedOneWithoutStockInput
-    purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
-    customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
-  }
-
-  export type StockUncheckedCreateWithoutTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    casting_item_id?: number | null
-    filing_item_id?: number | null
-    setting_item_id?: number | null
-    buffing_item_id?: number | null
-    item_type?: $Enums.ITEMTYPE | null
-    item_id?: number | null
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    casting_customer_id?: number | null
-    purchase_id?: number | null
-    customer_transaction_id?: number | null
-  }
-
-  export type StockCreateOrConnectWithoutTouchInput = {
-    where: StockWhereUniqueInput
-    create: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput>
-  }
-
-  export type StockCreateManyTouchInputEnvelope = {
-    data: StockCreateManyTouchInput | StockCreateManyTouchInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AddPurchaseStockCreateWithoutTouchIdInput = {
+  export type AddCustomerCreateWithoutReceipt_voucherInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    item: $Enums.ITEMTYPE
-    weight: number
-    purity: number
-    rate: number
-    totalValue: number
-    remarks?: string | null
-    SupplierId: AddSupplierItemCreateNestedOneWithoutAddPurchaseStockInput
-    Stock?: StockCreateNestedManyWithoutPurchaseIdInput
+    name: string
+    phoneNumber?: string | null
+    address?: string | null
+    email?: string | null
+    balance?: number | null
+    transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
+    bills?: BillCreateNestedManyWithoutCustomerInput
+    hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
   }
 
-  export type AddPurchaseStockUncheckedCreateWithoutTouchIdInput = {
+  export type AddCustomerUncheckedCreateWithoutReceipt_voucherInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    supplierId: number
-    item: $Enums.ITEMTYPE
-    weight: number
-    purity: number
-    rate: number
-    totalValue: number
-    remarks?: string | null
-    Stock?: StockUncheckedCreateNestedManyWithoutPurchaseIdInput
+    name: string
+    phoneNumber?: string | null
+    address?: string | null
+    email?: string | null
+    balance?: number | null
+    transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+    bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
+    hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
   }
 
-  export type AddPurchaseStockCreateOrConnectWithoutTouchIdInput = {
-    where: AddPurchaseStockWhereUniqueInput
-    create: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput>
+  export type AddCustomerCreateOrConnectWithoutReceipt_voucherInput = {
+    where: AddCustomerWhereUniqueInput
+    create: XOR<AddCustomerCreateWithoutReceipt_voucherInput, AddCustomerUncheckedCreateWithoutReceipt_voucherInput>
   }
 
-  export type AddPurchaseStockCreateManyTouchIdInputEnvelope = {
-    data: AddPurchaseStockCreateManyTouchIdInput | AddPurchaseStockCreateManyTouchIdInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CustomerTransactionCreateWithoutTouchInput = {
+  export type AddTouchCreateWithoutReceiptVoucherInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    date: Date | string
-    value: number
-    type: string
-    purity?: number | null
-    goldRate?: number | null
-    usedPurity?: number | null
-    customer: AddCustomerCreateNestedOneWithoutTransactionsInput
-    stock?: StockCreateNestedManyWithoutCustomer_transactionInput
+    touch: number
+    casting_entry?: CastingEntryCreateNestedManyWithoutTouchInput
+    casting_items?: CastingItemsCreateNestedManyWithoutTouchInput
+    filing_items?: FilingItemsCreateNestedManyWithoutTouchInput
+    setting_items?: SettingItemsCreateNestedManyWithoutTouchInput
+    buffing_items?: BuffingItemsCreateNestedManyWithoutTouchInput
+    stock?: StockCreateNestedManyWithoutTouchInput
+    add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
+    customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
+    QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
   }
 
-  export type CustomerTransactionUncheckedCreateWithoutTouchInput = {
+  export type AddTouchUncheckedCreateWithoutReceiptVoucherInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    date: Date | string
-    value: number
-    type: string
-    purity?: number | null
-    goldRate?: number | null
-    customerId: number
-    usedPurity?: number | null
-    stock?: StockUncheckedCreateNestedManyWithoutCustomer_transactionInput
+    touch: number
+    casting_entry?: CastingEntryUncheckedCreateNestedManyWithoutTouchInput
+    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutTouchInput
+    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutTouchInput
+    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutTouchInput
+    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutTouchInput
+    stock?: StockUncheckedCreateNestedManyWithoutTouchInput
+    add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
+    customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
+    QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
   }
 
-  export type CustomerTransactionCreateOrConnectWithoutTouchInput = {
-    where: CustomerTransactionWhereUniqueInput
-    create: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput>
+  export type AddTouchCreateOrConnectWithoutReceiptVoucherInput = {
+    where: AddTouchWhereUniqueInput
+    create: XOR<AddTouchCreateWithoutReceiptVoucherInput, AddTouchUncheckedCreateWithoutReceiptVoucherInput>
   }
 
-  export type CustomerTransactionCreateManyTouchInputEnvelope = {
-    data: CustomerTransactionCreateManyTouchInput | CustomerTransactionCreateManyTouchInput[]
-    skipDuplicates?: boolean
+  export type AddCustomerUpsertWithoutReceipt_voucherInput = {
+    update: XOR<AddCustomerUpdateWithoutReceipt_voucherInput, AddCustomerUncheckedUpdateWithoutReceipt_voucherInput>
+    create: XOR<AddCustomerCreateWithoutReceipt_voucherInput, AddCustomerUncheckedCreateWithoutReceipt_voucherInput>
+    where?: AddCustomerWhereInput
   }
 
-  export type QcStockCreateWithoutTouchIdInput = {
-    createdAt: Date | string
+  export type AddCustomerUpdateToOneWithWhereWithoutReceipt_voucherInput = {
+    where?: AddCustomerWhereInput
+    data: XOR<AddCustomerUpdateWithoutReceipt_voucherInput, AddCustomerUncheckedUpdateWithoutReceipt_voucherInput>
+  }
+
+  export type AddCustomerUpdateWithoutReceipt_voucherInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
+    bills?: BillUpdateManyWithoutCustomerNestedInput
+    hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type AddCustomerUncheckedUpdateWithoutReceipt_voucherInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+    bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
+    hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type AddTouchUpsertWithoutReceiptVoucherInput = {
+    update: XOR<AddTouchUpdateWithoutReceiptVoucherInput, AddTouchUncheckedUpdateWithoutReceiptVoucherInput>
+    create: XOR<AddTouchCreateWithoutReceiptVoucherInput, AddTouchUncheckedCreateWithoutReceiptVoucherInput>
+    where?: AddTouchWhereInput
+  }
+
+  export type AddTouchUpdateToOneWithWhereWithoutReceiptVoucherInput = {
+    where?: AddTouchWhereInput
+    data: XOR<AddTouchUpdateWithoutReceiptVoucherInput, AddTouchUncheckedUpdateWithoutReceiptVoucherInput>
+  }
+
+  export type AddTouchUpdateWithoutReceiptVoucherInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+    casting_entry?: CastingEntryUpdateManyWithoutTouchNestedInput
+    casting_items?: CastingItemsUpdateManyWithoutTouchNestedInput
+    filing_items?: FilingItemsUpdateManyWithoutTouchNestedInput
+    setting_items?: SettingItemsUpdateManyWithoutTouchNestedInput
+    buffing_items?: BuffingItemsUpdateManyWithoutTouchNestedInput
+    stock?: StockUpdateManyWithoutTouchNestedInput
+    add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
+    customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
+    QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
+  }
+
+  export type AddTouchUncheckedUpdateWithoutReceiptVoucherInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+    casting_entry?: CastingEntryUncheckedUpdateManyWithoutTouchNestedInput
+    casting_items?: CastingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    filing_items?: FilingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    setting_items?: SettingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
+    add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
+    QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+  }
+
+  export type AddTouchCreateWithoutExpenseVoucherInput = {
+    createdAt?: Date | string
     updatedAt?: Date | string
-    weight: number
-    stone_weight: number
-    final_weight: number
-    purity: number
-    remarks?: string | null
-    itemId: AddItemCreateNestedOneWithoutQCStockInput
-    BillItem?: BillItemCreateNestedManyWithoutQcStockInput
+    touch: number
+    casting_entry?: CastingEntryCreateNestedManyWithoutTouchInput
+    casting_items?: CastingItemsCreateNestedManyWithoutTouchInput
+    filing_items?: FilingItemsCreateNestedManyWithoutTouchInput
+    setting_items?: SettingItemsCreateNestedManyWithoutTouchInput
+    buffing_items?: BuffingItemsCreateNestedManyWithoutTouchInput
+    stock?: StockCreateNestedManyWithoutTouchInput
+    add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
+    customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
+    QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
   }
 
-  export type QcStockUncheckedCreateWithoutTouchIdInput = {
+  export type AddTouchUncheckedCreateWithoutExpenseVoucherInput = {
     id?: number
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
-    item_id: number
-    weight: number
-    stone_weight: number
-    final_weight: number
-    purity: number
-    remarks?: string | null
-    BillItem?: BillItemUncheckedCreateNestedManyWithoutQcStockInput
+    touch: number
+    casting_entry?: CastingEntryUncheckedCreateNestedManyWithoutTouchInput
+    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutTouchInput
+    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutTouchInput
+    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutTouchInput
+    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutTouchInput
+    stock?: StockUncheckedCreateNestedManyWithoutTouchInput
+    add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
+    customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
+    QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
   }
 
-  export type QcStockCreateOrConnectWithoutTouchIdInput = {
-    where: QcStockWhereUniqueInput
-    create: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput>
+  export type AddTouchCreateOrConnectWithoutExpenseVoucherInput = {
+    where: AddTouchWhereUniqueInput
+    create: XOR<AddTouchCreateWithoutExpenseVoucherInput, AddTouchUncheckedCreateWithoutExpenseVoucherInput>
   }
 
-  export type QcStockCreateManyTouchIdInputEnvelope = {
-    data: QcStockCreateManyTouchIdInput | QcStockCreateManyTouchIdInput[]
-    skipDuplicates?: boolean
+  export type AddTouchUpsertWithoutExpenseVoucherInput = {
+    update: XOR<AddTouchUpdateWithoutExpenseVoucherInput, AddTouchUncheckedUpdateWithoutExpenseVoucherInput>
+    create: XOR<AddTouchCreateWithoutExpenseVoucherInput, AddTouchUncheckedCreateWithoutExpenseVoucherInput>
+    where?: AddTouchWhereInput
   }
 
-  export type CastingEntryUpsertWithWhereUniqueWithoutTouchInput = {
-    where: CastingEntryWhereUniqueInput
-    update: XOR<CastingEntryUpdateWithoutTouchInput, CastingEntryUncheckedUpdateWithoutTouchInput>
-    create: XOR<CastingEntryCreateWithoutTouchInput, CastingEntryUncheckedCreateWithoutTouchInput>
+  export type AddTouchUpdateToOneWithWhereWithoutExpenseVoucherInput = {
+    where?: AddTouchWhereInput
+    data: XOR<AddTouchUpdateWithoutExpenseVoucherInput, AddTouchUncheckedUpdateWithoutExpenseVoucherInput>
   }
 
-  export type CastingEntryUpdateWithWhereUniqueWithoutTouchInput = {
-    where: CastingEntryWhereUniqueInput
-    data: XOR<CastingEntryUpdateWithoutTouchInput, CastingEntryUncheckedUpdateWithoutTouchInput>
+  export type AddTouchUpdateWithoutExpenseVoucherInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+    casting_entry?: CastingEntryUpdateManyWithoutTouchNestedInput
+    casting_items?: CastingItemsUpdateManyWithoutTouchNestedInput
+    filing_items?: FilingItemsUpdateManyWithoutTouchNestedInput
+    setting_items?: SettingItemsUpdateManyWithoutTouchNestedInput
+    buffing_items?: BuffingItemsUpdateManyWithoutTouchNestedInput
+    stock?: StockUpdateManyWithoutTouchNestedInput
+    add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
+    customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
+    QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
   }
 
-  export type CastingEntryUpdateManyWithWhereWithoutTouchInput = {
-    where: CastingEntryScalarWhereInput
-    data: XOR<CastingEntryUpdateManyMutationInput, CastingEntryUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type CastingItemsUpsertWithWhereUniqueWithoutTouchInput = {
-    where: CastingItemsWhereUniqueInput
-    update: XOR<CastingItemsUpdateWithoutTouchInput, CastingItemsUncheckedUpdateWithoutTouchInput>
-    create: XOR<CastingItemsCreateWithoutTouchInput, CastingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type CastingItemsUpdateWithWhereUniqueWithoutTouchInput = {
-    where: CastingItemsWhereUniqueInput
-    data: XOR<CastingItemsUpdateWithoutTouchInput, CastingItemsUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type CastingItemsUpdateManyWithWhereWithoutTouchInput = {
-    where: CastingItemsScalarWhereInput
-    data: XOR<CastingItemsUpdateManyMutationInput, CastingItemsUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type FilingItemsUpsertWithWhereUniqueWithoutTouchInput = {
-    where: FilingItemsWhereUniqueInput
-    update: XOR<FilingItemsUpdateWithoutTouchInput, FilingItemsUncheckedUpdateWithoutTouchInput>
-    create: XOR<FilingItemsCreateWithoutTouchInput, FilingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type FilingItemsUpdateWithWhereUniqueWithoutTouchInput = {
-    where: FilingItemsWhereUniqueInput
-    data: XOR<FilingItemsUpdateWithoutTouchInput, FilingItemsUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type FilingItemsUpdateManyWithWhereWithoutTouchInput = {
-    where: FilingItemsScalarWhereInput
-    data: XOR<FilingItemsUpdateManyMutationInput, FilingItemsUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type SettingItemsUpsertWithWhereUniqueWithoutTouchInput = {
-    where: SettingItemsWhereUniqueInput
-    update: XOR<SettingItemsUpdateWithoutTouchInput, SettingItemsUncheckedUpdateWithoutTouchInput>
-    create: XOR<SettingItemsCreateWithoutTouchInput, SettingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type SettingItemsUpdateWithWhereUniqueWithoutTouchInput = {
-    where: SettingItemsWhereUniqueInput
-    data: XOR<SettingItemsUpdateWithoutTouchInput, SettingItemsUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type SettingItemsUpdateManyWithWhereWithoutTouchInput = {
-    where: SettingItemsScalarWhereInput
-    data: XOR<SettingItemsUpdateManyMutationInput, SettingItemsUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type BuffingItemsUpsertWithWhereUniqueWithoutTouchInput = {
-    where: BuffingItemsWhereUniqueInput
-    update: XOR<BuffingItemsUpdateWithoutTouchInput, BuffingItemsUncheckedUpdateWithoutTouchInput>
-    create: XOR<BuffingItemsCreateWithoutTouchInput, BuffingItemsUncheckedCreateWithoutTouchInput>
-  }
-
-  export type BuffingItemsUpdateWithWhereUniqueWithoutTouchInput = {
-    where: BuffingItemsWhereUniqueInput
-    data: XOR<BuffingItemsUpdateWithoutTouchInput, BuffingItemsUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type BuffingItemsUpdateManyWithWhereWithoutTouchInput = {
-    where: BuffingItemsScalarWhereInput
-    data: XOR<BuffingItemsUpdateManyMutationInput, BuffingItemsUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type StockUpsertWithWhereUniqueWithoutTouchInput = {
-    where: StockWhereUniqueInput
-    update: XOR<StockUpdateWithoutTouchInput, StockUncheckedUpdateWithoutTouchInput>
-    create: XOR<StockCreateWithoutTouchInput, StockUncheckedCreateWithoutTouchInput>
-  }
-
-  export type StockUpdateWithWhereUniqueWithoutTouchInput = {
-    where: StockWhereUniqueInput
-    data: XOR<StockUpdateWithoutTouchInput, StockUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type StockUpdateManyWithWhereWithoutTouchInput = {
-    where: StockScalarWhereInput
-    data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type AddPurchaseStockUpsertWithWhereUniqueWithoutTouchIdInput = {
-    where: AddPurchaseStockWhereUniqueInput
-    update: XOR<AddPurchaseStockUpdateWithoutTouchIdInput, AddPurchaseStockUncheckedUpdateWithoutTouchIdInput>
-    create: XOR<AddPurchaseStockCreateWithoutTouchIdInput, AddPurchaseStockUncheckedCreateWithoutTouchIdInput>
-  }
-
-  export type AddPurchaseStockUpdateWithWhereUniqueWithoutTouchIdInput = {
-    where: AddPurchaseStockWhereUniqueInput
-    data: XOR<AddPurchaseStockUpdateWithoutTouchIdInput, AddPurchaseStockUncheckedUpdateWithoutTouchIdInput>
-  }
-
-  export type AddPurchaseStockUpdateManyWithWhereWithoutTouchIdInput = {
-    where: AddPurchaseStockScalarWhereInput
-    data: XOR<AddPurchaseStockUpdateManyMutationInput, AddPurchaseStockUncheckedUpdateManyWithoutTouchIdInput>
-  }
-
-  export type CustomerTransactionUpsertWithWhereUniqueWithoutTouchInput = {
-    where: CustomerTransactionWhereUniqueInput
-    update: XOR<CustomerTransactionUpdateWithoutTouchInput, CustomerTransactionUncheckedUpdateWithoutTouchInput>
-    create: XOR<CustomerTransactionCreateWithoutTouchInput, CustomerTransactionUncheckedCreateWithoutTouchInput>
-  }
-
-  export type CustomerTransactionUpdateWithWhereUniqueWithoutTouchInput = {
-    where: CustomerTransactionWhereUniqueInput
-    data: XOR<CustomerTransactionUpdateWithoutTouchInput, CustomerTransactionUncheckedUpdateWithoutTouchInput>
-  }
-
-  export type CustomerTransactionUpdateManyWithWhereWithoutTouchInput = {
-    where: CustomerTransactionScalarWhereInput
-    data: XOR<CustomerTransactionUpdateManyMutationInput, CustomerTransactionUncheckedUpdateManyWithoutTouchInput>
-  }
-
-  export type QcStockUpsertWithWhereUniqueWithoutTouchIdInput = {
-    where: QcStockWhereUniqueInput
-    update: XOR<QcStockUpdateWithoutTouchIdInput, QcStockUncheckedUpdateWithoutTouchIdInput>
-    create: XOR<QcStockCreateWithoutTouchIdInput, QcStockUncheckedCreateWithoutTouchIdInput>
-  }
-
-  export type QcStockUpdateWithWhereUniqueWithoutTouchIdInput = {
-    where: QcStockWhereUniqueInput
-    data: XOR<QcStockUpdateWithoutTouchIdInput, QcStockUncheckedUpdateWithoutTouchIdInput>
-  }
-
-  export type QcStockUpdateManyWithWhereWithoutTouchIdInput = {
-    where: QcStockScalarWhereInput
-    data: XOR<QcStockUpdateManyMutationInput, QcStockUncheckedUpdateManyWithoutTouchIdInput>
+  export type AddTouchUncheckedUpdateWithoutExpenseVoucherInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+    casting_entry?: CastingEntryUncheckedUpdateManyWithoutTouchNestedInput
+    casting_items?: CastingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    filing_items?: FilingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    setting_items?: SettingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    stock?: StockUncheckedUpdateManyWithoutTouchNestedInput
+    add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
+    QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
   }
 
   export type CustomerTransactionCreateManyCustomerInput = {
@@ -67198,6 +70940,19 @@ export namespace Prisma {
     balance?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type ReceiptVoucherCreateManyCustomerIdInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.ITEMTYPE
+    gold_rate?: number | null
+    amount?: number | null
+    gold?: number | null
+    touch_id: number
+    purity: number
+    hallmark?: number | null
   }
 
   export type CustomerTransactionUpdateWithoutCustomerInput = {
@@ -67315,6 +71070,44 @@ export namespace Prisma {
     balance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReceiptVoucherUpdateWithoutCustomerIdInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    purity?: FloatFieldUpdateOperationsInput | number
+    hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
+    touchId?: AddTouchUpdateOneRequiredWithoutReceiptVoucherNestedInput
+  }
+
+  export type ReceiptVoucherUncheckedUpdateWithoutCustomerIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    touch_id?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    touch_id?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type CastingEntryCreateManyCasting_customerInput = {
@@ -68566,6 +72359,587 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CastingEntryCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    date: Date | string
+    given_gold: number
+    purity: number
+    final_touch: number
+    pure_value: number
+    copper: number
+    final_weight: number
+    casting_customer_id: number
+  }
+
+  export type CastingItemsCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    item_id: number
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    casting_entry_id: number
+    casting_customer_id: number
+  }
+
+  export type FilingItemsCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    filing_entry_id: number
+    type: $Enums.CASTINGENTRYTYPE
+    filing_item_id: number
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    stone_option?: $Enums.STONEOPTION | null
+    lot_filing_mapper_id?: number | null
+  }
+
+  export type SettingItemsCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type?: $Enums.CASTINGENTRYTYPE | null
+    setting_item_id: number
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    setting_entry_id: number
+  }
+
+  export type BuffingItemsCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    buffing_item_id: number
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    buffing_entry_id: number
+  }
+
+  export type StockCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    casting_item_id?: number | null
+    filing_item_id?: number | null
+    setting_item_id?: number | null
+    buffing_item_id?: number | null
+    item_type?: $Enums.ITEMTYPE | null
+    item_id?: number | null
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    casting_customer_id?: number | null
+    purchase_id?: number | null
+    customer_transaction_id?: number | null
+  }
+
+  export type AddPurchaseStockCreateManyTouchIdInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    supplierId: number
+    item: $Enums.ITEMTYPE
+    weight: number
+    purity: number
+    rate: number
+    totalValue: number
+    remarks?: string | null
+  }
+
+  export type CustomerTransactionCreateManyTouchInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    date: Date | string
+    value: number
+    type: string
+    purity?: number | null
+    goldRate?: number | null
+    customerId: number
+    usedPurity?: number | null
+  }
+
+  export type QcStockCreateManyTouchIdInput = {
+    id?: number
+    createdAt: Date | string
+    updatedAt?: Date | string
+    item_id: number
+    weight: number
+    stone_weight: number
+    final_weight: number
+    purity: number
+    remarks?: string | null
+  }
+
+  export type ReceiptVoucherCreateManyTouchIdInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer_id: number
+    type: $Enums.ITEMTYPE
+    gold_rate?: number | null
+    amount?: number | null
+    gold?: number | null
+    purity: number
+    hallmark?: number | null
+  }
+
+  export type ExpenseVoucherCreateManyTouchIdInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    description?: string | null
+    gold: number
+    purity: number
+  }
+
+  export type CastingEntryUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    given_gold?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    final_touch?: FloatFieldUpdateOperationsInput | number
+    pure_value?: FloatFieldUpdateOperationsInput | number
+    copper?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    casting_customer?: AddCastingUpdateOneRequiredWithoutEntriesNestedInput
+    items?: CastingItemsUpdateManyWithoutCastingEntryNestedInput
+    CastiingTotalBalance?: CastiingTotalBalanceUpdateManyWithoutItem_entry_idNestedInput
+  }
+
+  export type CastingEntryUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    given_gold?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    final_touch?: FloatFieldUpdateOperationsInput | number
+    pure_value?: FloatFieldUpdateOperationsInput | number
+    copper?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    casting_customer_id?: IntFieldUpdateOperationsInput | number
+    items?: CastingItemsUncheckedUpdateManyWithoutCastingEntryNestedInput
+    CastiingTotalBalance?: CastiingTotalBalanceUncheckedUpdateManyWithoutItem_entry_idNestedInput
+  }
+
+  export type CastingEntryUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    given_gold?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    final_touch?: FloatFieldUpdateOperationsInput | number
+    pure_value?: FloatFieldUpdateOperationsInput | number
+    copper?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    casting_customer_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CastingItemsUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: AddItemUpdateOneRequiredWithoutCasting_itemsNestedInput
+    castingEntry?: CastingEntryUpdateOneRequiredWithoutItemsNestedInput
+    filingEntry?: FilingEntryUpdateManyWithoutCastingItemNestedInput
+    settingEntry?: SettingEntryUpdateManyWithoutCastingItemNestedInput
+    buffingEntry?: BuffingEntryUpdateManyWithoutCastingItemNestedInput
+    stock?: StockUpdateManyWithoutCastingItemNestedInput
+    filingLotMapper?: LotFilingMapperUpdateManyWithoutItemIdNestedInput
+    casting_customer?: AddCastingUpdateOneRequiredWithoutCastingitemsNestedInput
+  }
+
+  export type CastingItemsUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_entry_id?: IntFieldUpdateOperationsInput | number
+    casting_customer_id?: IntFieldUpdateOperationsInput | number
+    filingEntry?: FilingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
+    settingEntry?: SettingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
+    buffingEntry?: BuffingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
+    stock?: StockUncheckedUpdateManyWithoutCastingItemNestedInput
+    filingLotMapper?: LotFilingMapperUncheckedUpdateManyWithoutItemIdNestedInput
+  }
+
+  export type CastingItemsUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_entry_id?: IntFieldUpdateOperationsInput | number
+    casting_customer_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FilingItemsUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
+    filing_entry?: FilingEntryUpdateOneRequiredWithoutFilingItemsNestedInput
+    filingitem?: AddItemUpdateOneRequiredWithoutFiling_itemsNestedInput
+    stock?: StockUpdateManyWithoutFilingItemNestedInput
+    setting_entry?: SettingEntryUpdateManyWithoutFilingItemsNestedInput
+    buffing_entry?: BuffingEntryUpdateManyWithoutFiling_itemsNestedInput
+    filing_wastage?: FilingWastageUpdateManyWithoutFiling_itemsNestedInput
+    lot_setting_mapper?: LotSettingMapperUpdateManyWithoutItemIdNestedInput
+    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutFilingItemIdNestedInput
+    lotFilingMapperId?: LotFilingMapperUpdateOneWithoutFiling_itemsNestedInput
+  }
+
+  export type FilingItemsUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    filing_entry_id?: IntFieldUpdateOperationsInput | number
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    filing_item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
+    lot_filing_mapper_id?: NullableIntFieldUpdateOperationsInput | number | null
+    stock?: StockUncheckedUpdateManyWithoutFilingItemNestedInput
+    setting_entry?: SettingEntryUncheckedUpdateManyWithoutFilingItemsNestedInput
+    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutFiling_itemsNestedInput
+    filing_wastage?: FilingWastageUncheckedUpdateManyWithoutFiling_itemsNestedInput
+    lot_setting_mapper?: LotSettingMapperUncheckedUpdateManyWithoutItemIdNestedInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutFilingItemIdNestedInput
+  }
+
+  export type FilingItemsUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    filing_entry_id?: IntFieldUpdateOperationsInput | number
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    filing_item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
+    lot_filing_mapper_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type SettingItemsUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: AddItemUpdateOneRequiredWithoutSetting_itemsNestedInput
+    setting_wastage?: SettingWastageUpdateManyWithoutSetting_itemsNestedInput
+    buffing_entry?: BuffingEntryUpdateManyWithoutSetting_itemsNestedInput
+    stock?: StockUpdateManyWithoutSettingItemNestedInput
+    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutSettingItemIdNestedInput
+    settingEntryId?: SettingEntryUpdateOneRequiredWithoutSettingItemsNestedInput
+  }
+
+  export type SettingItemsUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
+    setting_item_id?: IntFieldUpdateOperationsInput | number
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    setting_entry_id?: IntFieldUpdateOperationsInput | number
+    setting_wastage?: SettingWastageUncheckedUpdateManyWithoutSetting_itemsNestedInput
+    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutSetting_itemsNestedInput
+    stock?: StockUncheckedUpdateManyWithoutSettingItemNestedInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutSettingItemIdNestedInput
+  }
+
+  export type SettingItemsUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
+    setting_item_id?: IntFieldUpdateOperationsInput | number
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    setting_entry_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BuffingItemsUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: AddItemUpdateOneRequiredWithoutBuffing_itemsNestedInput
+    stock?: StockUpdateManyWithoutBuffingItemNestedInput
+    buffing_wastage?: BuffingWastageUpdateManyWithoutBuffing_itemsNestedInput
+    buffingEntryId?: BuffingEntryUpdateOneRequiredWithoutBuffingItemsNestedInput
+  }
+
+  export type BuffingItemsUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    buffing_item_id?: IntFieldUpdateOperationsInput | number
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    buffing_entry_id?: IntFieldUpdateOperationsInput | number
+    stock?: StockUncheckedUpdateManyWithoutBuffingItemNestedInput
+    buffing_wastage?: BuffingWastageUncheckedUpdateManyWithoutBuffing_itemsNestedInput
+  }
+
+  export type BuffingItemsUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    buffing_item_id?: IntFieldUpdateOperationsInput | number
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    buffing_entry_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type StockUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    castingItem?: CastingItemsUpdateOneWithoutStockNestedInput
+    filingItem?: FilingItemsUpdateOneWithoutStockNestedInput
+    settingItem?: SettingItemsUpdateOneWithoutStockNestedInput
+    buffingItem?: BuffingItemsUpdateOneWithoutStockNestedInput
+    item?: AddItemUpdateOneWithoutStockNestedInput
+    casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
+    purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
+    customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+  }
+
+  export type StockUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type StockUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type AddPurchaseStockUpdateWithoutTouchIdInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    weight?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    SupplierId?: AddSupplierItemUpdateOneRequiredWithoutAddPurchaseStockNestedInput
+    Stock?: StockUpdateManyWithoutPurchaseIdNestedInput
+  }
+
+  export type AddPurchaseStockUncheckedUpdateWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    supplierId?: IntFieldUpdateOperationsInput | number
+    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    weight?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    Stock?: StockUncheckedUpdateManyWithoutPurchaseIdNestedInput
+  }
+
+  export type AddPurchaseStockUncheckedUpdateManyWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    supplierId?: IntFieldUpdateOperationsInput | number
+    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    weight?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CustomerTransactionUpdateWithoutTouchInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
+    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
+    customer?: AddCustomerUpdateOneRequiredWithoutTransactionsNestedInput
+    stock?: StockUpdateManyWithoutCustomer_transactionNestedInput
+  }
+
+  export type CustomerTransactionUncheckedUpdateWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
+    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    customerId?: IntFieldUpdateOperationsInput | number
+    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
+    stock?: StockUncheckedUpdateManyWithoutCustomer_transactionNestedInput
+  }
+
+  export type CustomerTransactionUncheckedUpdateManyWithoutTouchInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
+    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    customerId?: IntFieldUpdateOperationsInput | number
+    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type QcStockUpdateWithoutTouchIdInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    stone_weight?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    itemId?: AddItemUpdateOneRequiredWithoutQCStockNestedInput
+    BillItem?: BillItemUpdateManyWithoutQcStockNestedInput
+  }
+
+  export type QcStockUncheckedUpdateWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    stone_weight?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    BillItem?: BillItemUncheckedUpdateManyWithoutQcStockNestedInput
+  }
+
+  export type QcStockUncheckedUpdateManyWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    stone_weight?: FloatFieldUpdateOperationsInput | number
+    final_weight?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ReceiptVoucherUpdateWithoutTouchIdInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    purity?: FloatFieldUpdateOperationsInput | number
+    hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
+    customerId?: AddCustomerUpdateOneRequiredWithoutReceipt_voucherNestedInput
+  }
+
+  export type ReceiptVoucherUncheckedUpdateWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer_id?: IntFieldUpdateOperationsInput | number
+    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    purity?: FloatFieldUpdateOperationsInput | number
+    hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type ReceiptVoucherUncheckedUpdateManyWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer_id?: IntFieldUpdateOperationsInput | number
+    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    gold?: NullableFloatFieldUpdateOperationsInput | number | null
+    purity?: FloatFieldUpdateOperationsInput | number
+    hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type ExpenseVoucherUpdateWithoutTouchIdInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gold?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type ExpenseVoucherUncheckedUpdateWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gold?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type ExpenseVoucherUncheckedUpdateManyWithoutTouchIdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gold?: FloatFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
   }
 
   export type BillItemCreateManyQcStockInput = {
@@ -70523,501 +74897,6 @@ export namespace Prisma {
     hallmark_charge?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CastingEntryCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    date: Date | string
-    given_gold: number
-    purity: number
-    final_touch: number
-    pure_value: number
-    copper: number
-    final_weight: number
-    casting_customer_id: number
-  }
-
-  export type CastingItemsCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    item_id: number
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    casting_entry_id: number
-    casting_customer_id: number
-  }
-
-  export type FilingItemsCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    filing_entry_id: number
-    type: $Enums.CASTINGENTRYTYPE
-    filing_item_id: number
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    stone_option?: $Enums.STONEOPTION | null
-    lot_filing_mapper_id?: number | null
-  }
-
-  export type SettingItemsCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type?: $Enums.CASTINGENTRYTYPE | null
-    setting_item_id: number
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    setting_entry_id: number
-  }
-
-  export type BuffingItemsCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    buffing_item_id: number
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    buffing_entry_id: number
-  }
-
-  export type StockCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    casting_item_id?: number | null
-    filing_item_id?: number | null
-    setting_item_id?: number | null
-    buffing_item_id?: number | null
-    item_type?: $Enums.ITEMTYPE | null
-    item_id?: number | null
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    casting_customer_id?: number | null
-    purchase_id?: number | null
-    customer_transaction_id?: number | null
-  }
-
-  export type AddPurchaseStockCreateManyTouchIdInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    supplierId: number
-    item: $Enums.ITEMTYPE
-    weight: number
-    purity: number
-    rate: number
-    totalValue: number
-    remarks?: string | null
-  }
-
-  export type CustomerTransactionCreateManyTouchInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    date: Date | string
-    value: number
-    type: string
-    purity?: number | null
-    goldRate?: number | null
-    customerId: number
-    usedPurity?: number | null
-  }
-
-  export type QcStockCreateManyTouchIdInput = {
-    id?: number
-    createdAt: Date | string
-    updatedAt?: Date | string
-    item_id: number
-    weight: number
-    stone_weight: number
-    final_weight: number
-    purity: number
-    remarks?: string | null
-  }
-
-  export type CastingEntryUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    given_gold?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    final_touch?: FloatFieldUpdateOperationsInput | number
-    pure_value?: FloatFieldUpdateOperationsInput | number
-    copper?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    casting_customer?: AddCastingUpdateOneRequiredWithoutEntriesNestedInput
-    items?: CastingItemsUpdateManyWithoutCastingEntryNestedInput
-    CastiingTotalBalance?: CastiingTotalBalanceUpdateManyWithoutItem_entry_idNestedInput
-  }
-
-  export type CastingEntryUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    given_gold?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    final_touch?: FloatFieldUpdateOperationsInput | number
-    pure_value?: FloatFieldUpdateOperationsInput | number
-    copper?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    casting_customer_id?: IntFieldUpdateOperationsInput | number
-    items?: CastingItemsUncheckedUpdateManyWithoutCastingEntryNestedInput
-    CastiingTotalBalance?: CastiingTotalBalanceUncheckedUpdateManyWithoutItem_entry_idNestedInput
-  }
-
-  export type CastingEntryUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    given_gold?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    final_touch?: FloatFieldUpdateOperationsInput | number
-    pure_value?: FloatFieldUpdateOperationsInput | number
-    copper?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    casting_customer_id?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type CastingItemsUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    item?: AddItemUpdateOneRequiredWithoutCasting_itemsNestedInput
-    castingEntry?: CastingEntryUpdateOneRequiredWithoutItemsNestedInput
-    filingEntry?: FilingEntryUpdateManyWithoutCastingItemNestedInput
-    settingEntry?: SettingEntryUpdateManyWithoutCastingItemNestedInput
-    buffingEntry?: BuffingEntryUpdateManyWithoutCastingItemNestedInput
-    stock?: StockUpdateManyWithoutCastingItemNestedInput
-    filingLotMapper?: LotFilingMapperUpdateManyWithoutItemIdNestedInput
-    casting_customer?: AddCastingUpdateOneRequiredWithoutCastingitemsNestedInput
-  }
-
-  export type CastingItemsUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    casting_entry_id?: IntFieldUpdateOperationsInput | number
-    casting_customer_id?: IntFieldUpdateOperationsInput | number
-    filingEntry?: FilingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
-    settingEntry?: SettingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
-    buffingEntry?: BuffingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
-    stock?: StockUncheckedUpdateManyWithoutCastingItemNestedInput
-    filingLotMapper?: LotFilingMapperUncheckedUpdateManyWithoutItemIdNestedInput
-  }
-
-  export type CastingItemsUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    casting_entry_id?: IntFieldUpdateOperationsInput | number
-    casting_customer_id?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type FilingItemsUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
-    filing_entry?: FilingEntryUpdateOneRequiredWithoutFilingItemsNestedInput
-    filingitem?: AddItemUpdateOneRequiredWithoutFiling_itemsNestedInput
-    stock?: StockUpdateManyWithoutFilingItemNestedInput
-    setting_entry?: SettingEntryUpdateManyWithoutFilingItemsNestedInput
-    buffing_entry?: BuffingEntryUpdateManyWithoutFiling_itemsNestedInput
-    filing_wastage?: FilingWastageUpdateManyWithoutFiling_itemsNestedInput
-    lot_setting_mapper?: LotSettingMapperUpdateManyWithoutItemIdNestedInput
-    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutFilingItemIdNestedInput
-    lotFilingMapperId?: LotFilingMapperUpdateOneWithoutFiling_itemsNestedInput
-  }
-
-  export type FilingItemsUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    filing_entry_id?: IntFieldUpdateOperationsInput | number
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    filing_item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
-    lot_filing_mapper_id?: NullableIntFieldUpdateOperationsInput | number | null
-    stock?: StockUncheckedUpdateManyWithoutFilingItemNestedInput
-    setting_entry?: SettingEntryUncheckedUpdateManyWithoutFilingItemsNestedInput
-    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutFiling_itemsNestedInput
-    filing_wastage?: FilingWastageUncheckedUpdateManyWithoutFiling_itemsNestedInput
-    lot_setting_mapper?: LotSettingMapperUncheckedUpdateManyWithoutItemIdNestedInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutFilingItemIdNestedInput
-  }
-
-  export type FilingItemsUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    filing_entry_id?: IntFieldUpdateOperationsInput | number
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    filing_item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
-    lot_filing_mapper_id?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type SettingItemsUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    item?: AddItemUpdateOneRequiredWithoutSetting_itemsNestedInput
-    setting_wastage?: SettingWastageUpdateManyWithoutSetting_itemsNestedInput
-    buffing_entry?: BuffingEntryUpdateManyWithoutSetting_itemsNestedInput
-    stock?: StockUpdateManyWithoutSettingItemNestedInput
-    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutSettingItemIdNestedInput
-    settingEntryId?: SettingEntryUpdateOneRequiredWithoutSettingItemsNestedInput
-  }
-
-  export type SettingItemsUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
-    setting_item_id?: IntFieldUpdateOperationsInput | number
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    setting_entry_id?: IntFieldUpdateOperationsInput | number
-    setting_wastage?: SettingWastageUncheckedUpdateManyWithoutSetting_itemsNestedInput
-    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutSetting_itemsNestedInput
-    stock?: StockUncheckedUpdateManyWithoutSettingItemNestedInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutSettingItemIdNestedInput
-  }
-
-  export type SettingItemsUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
-    setting_item_id?: IntFieldUpdateOperationsInput | number
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    setting_entry_id?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type BuffingItemsUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    item?: AddItemUpdateOneRequiredWithoutBuffing_itemsNestedInput
-    stock?: StockUpdateManyWithoutBuffingItemNestedInput
-    buffing_wastage?: BuffingWastageUpdateManyWithoutBuffing_itemsNestedInput
-    buffingEntryId?: BuffingEntryUpdateOneRequiredWithoutBuffingItemsNestedInput
-  }
-
-  export type BuffingItemsUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    buffing_item_id?: IntFieldUpdateOperationsInput | number
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    buffing_entry_id?: IntFieldUpdateOperationsInput | number
-    stock?: StockUncheckedUpdateManyWithoutBuffingItemNestedInput
-    buffing_wastage?: BuffingWastageUncheckedUpdateManyWithoutBuffing_itemsNestedInput
-  }
-
-  export type BuffingItemsUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    buffing_item_id?: IntFieldUpdateOperationsInput | number
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    buffing_entry_id?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type StockUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    castingItem?: CastingItemsUpdateOneWithoutStockNestedInput
-    filingItem?: FilingItemsUpdateOneWithoutStockNestedInput
-    settingItem?: SettingItemsUpdateOneWithoutStockNestedInput
-    buffingItem?: BuffingItemsUpdateOneWithoutStockNestedInput
-    item?: AddItemUpdateOneWithoutStockNestedInput
-    casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
-    purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
-    customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
-  }
-
-  export type StockUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
-    item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
-    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
-    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type StockUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
-    item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
-    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
-    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type AddPurchaseStockUpdateWithoutTouchIdInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
-    weight?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    rate?: FloatFieldUpdateOperationsInput | number
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    SupplierId?: AddSupplierItemUpdateOneRequiredWithoutAddPurchaseStockNestedInput
-    Stock?: StockUpdateManyWithoutPurchaseIdNestedInput
-  }
-
-  export type AddPurchaseStockUncheckedUpdateWithoutTouchIdInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supplierId?: IntFieldUpdateOperationsInput | number
-    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
-    weight?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    rate?: FloatFieldUpdateOperationsInput | number
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    Stock?: StockUncheckedUpdateManyWithoutPurchaseIdNestedInput
-  }
-
-  export type AddPurchaseStockUncheckedUpdateManyWithoutTouchIdInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supplierId?: IntFieldUpdateOperationsInput | number
-    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
-    weight?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    rate?: FloatFieldUpdateOperationsInput | number
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type CustomerTransactionUpdateWithoutTouchInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    value?: FloatFieldUpdateOperationsInput | number
-    type?: StringFieldUpdateOperationsInput | string
-    purity?: NullableFloatFieldUpdateOperationsInput | number | null
-    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
-    customer?: AddCustomerUpdateOneRequiredWithoutTransactionsNestedInput
-    stock?: StockUpdateManyWithoutCustomer_transactionNestedInput
-  }
-
-  export type CustomerTransactionUncheckedUpdateWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    value?: FloatFieldUpdateOperationsInput | number
-    type?: StringFieldUpdateOperationsInput | string
-    purity?: NullableFloatFieldUpdateOperationsInput | number | null
-    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    customerId?: IntFieldUpdateOperationsInput | number
-    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
-    stock?: StockUncheckedUpdateManyWithoutCustomer_transactionNestedInput
-  }
-
-  export type CustomerTransactionUncheckedUpdateManyWithoutTouchInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    value?: FloatFieldUpdateOperationsInput | number
-    type?: StringFieldUpdateOperationsInput | string
-    purity?: NullableFloatFieldUpdateOperationsInput | number | null
-    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    customerId?: IntFieldUpdateOperationsInput | number
-    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
-  }
-
-  export type QcStockUpdateWithoutTouchIdInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    stone_weight?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    itemId?: AddItemUpdateOneRequiredWithoutQCStockNestedInput
-    BillItem?: BillItemUpdateManyWithoutQcStockNestedInput
-  }
-
-  export type QcStockUncheckedUpdateWithoutTouchIdInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    stone_weight?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    BillItem?: BillItemUncheckedUpdateManyWithoutQcStockNestedInput
-  }
-
-  export type QcStockUncheckedUpdateManyWithoutTouchIdInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    stone_weight?: FloatFieldUpdateOperationsInput | number
-    final_weight?: FloatFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

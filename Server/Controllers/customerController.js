@@ -4,9 +4,16 @@ const prisma = new PrismaClient();
 // Create customer
 export const createCustomer = async (req, res) => {
   try {
-    const { name, phoneNumber, address, email } = req.body;
+    const { name, phoneNumber, address, email, balance } = req.body;
     const newCustomer = await prisma.addCustomer.create({
-      data: { name, phoneNumber, address, email },
+      data: { 
+        name, 
+        phoneNumber, 
+        address, 
+        email,
+        balance: balance === "" || balance == null ? null : parseFloat(balance),
+
+       },
     });
     res.status(201).json(newCustomer);
   } catch (error) {
@@ -16,18 +23,29 @@ export const createCustomer = async (req, res) => {
 
 // Get all customers
 export const getCustomers = async (req, res) => {
-  const customers = await prisma.addCustomer.findMany();
+  const customers = await prisma.addCustomer.findMany({
+    orderBy:{
+      updatedAt:'desc'
+    }
+  });
   res.json(customers);
 };
 
 // Update customer
 export const updateCustomer = async (req, res) => {
   const { id } = req.params;
-  const { name, phoneNumber, address, email } = req.body;
+  const { name, phoneNumber, address, email, balance } = req.body;
   try {
     const updated = await prisma.addCustomer.update({
       where: { id: Number(id) },
-      data: { name, phoneNumber, address, email },
+      data: { 
+        name, 
+        phoneNumber, 
+        address, 
+        email,
+        balance: balance === "" || balance == null ? null : parseFloat(balance),
+      
+       },
     });
     res.json(updated);
   } catch (error) {

@@ -8,12 +8,14 @@ import {
   DialogActions,
   TextField,
   InputAdornment,
+  Box
 } from "@mui/material";
 import { Edit, Delete, Search } from "@mui/icons-material";
 import Master from "./MasterNavbar";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { validateCustomer } from "../../Utils/validationSchemas";
 
 function MasterBuffing() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +26,7 @@ function MasterBuffing() {
   const [email, setEmail] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [balance, setBalance] = useState("");
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -37,6 +40,7 @@ function MasterBuffing() {
     setAddress("");
     setEmail("");
     setEditIndex(null);
+    setBalance("");
   };
 
   useEffect(() => {
@@ -53,74 +57,28 @@ function MasterBuffing() {
   }, []);
 
 
-  const validateForm = () => {
-    const trimmedName = customerName.trim();
-    const trimmedPhone = phoneNumber.trim();
-    const trimmedEmail = email.trim();
-  
-    if (!trimmedName) {
-      toast.error("Name is required", { position: "top-right" });
-      return false;
-    }
-    if (!trimmedPhone || !/^[0-9]{10}$/.test(trimmedPhone)) {
-      toast.error("Enter a valid 10-digit phone number", { position: "top-right" });
-      return false;
-    }
-    if (trimmedEmail && !/\S+@\S+\.\S+/.test(trimmedEmail)) {
-      toast.error("Enter a valid email address", { position: "top-right" });
-      return false;
-    }
-    // if (!address.trim()) {
-    //   toast.error("Address is required", { position: "top-right" });
-    //   return false;
-    // }
-  
-    // Duplicate name check
-    const duplicateName = customers.find(
-      (c, idx) =>
-        c.name.toLowerCase() === trimmedName.toLowerCase() &&
-        idx !== editIndex
-    );
-    if (duplicateName) {
-      toast.error("Buffing member with this name already exists", { position: "top-right" });
-      return false;
-    }
-  
-    // Duplicate phone check
-    const duplicatePhone = customers.find(
-      (c, idx) => c.phoneNumber === trimmedPhone && idx !== editIndex
-    );
-    if (duplicatePhone) {
-      toast.error("Phone number already exists", { position: "top-right" });
-      return false;
-    }
-  
-    // Duplicate email check (if email is not empty)
-    if (trimmedEmail) {
-      const duplicateEmail = customers.find(
-        (c, idx) => c.email?.toLowerCase() === trimmedEmail.toLowerCase() && idx !== editIndex
-      );
-      if (duplicateEmail) {
-        toast.error("Email already exists", { position: "top-right" });
-        return false;
-      }
-    }
-  
-    return true;
-  };
-
   const handleSave = async () => {
-    if (!validateForm()) return;
 
-    const customerData = { name: customerName, phoneNumber, address, email };
+    const customerData = {
+      name: customerName.trim() || "",
+      phoneNumber: phoneNumber.trim() || "",
+      email: email.trim() || "",
+      address: address.trim() || "",
+      balance: balance.toString().trim() || "",
+    };
 
+    const validation = validateCustomer(customerData, customers, editIndex);
+    if (!validation.success) {
+      toast.error(validation.error);
+      return;
+    }
     try {
       if (editIndex !== null) {
         // Update
         const id = customers[editIndex].id;
         const response = await axios.put(
           `${BACKEND_SERVER_URL}/api/buffing/${id}`,
-          customerData
+           validation.data
         );
         const updated = [...customers];
         updated[editIndex] = response.data.buffing || response.data;
@@ -130,11 +88,8 @@ function MasterBuffing() {
         });
       } else {
         // Create
-        const response = await axios.post(
-          `${BACKEND_SERVER_URL}/api/buffing`,
-          customerData
-        );
-        setCustomers((prev) => [...prev, response.data.buffing]);
+        const response = await axios.post(`${BACKEND_SERVER_URL}/api/buffing`, validation.data  );
+        setCustomers((prev) => [ response.data.buffing,...prev]);
         toast.success("Buffing member added successfully", {
           position: "top-right",
         });
@@ -149,12 +104,13 @@ function MasterBuffing() {
   const handleEdit = (index) => {
     const customer = filteredCustomers[index];
     const originalIndex = customers.findIndex(
-      (c) => c.name === customer.name && c.phoneNumber === customer.phoneNumber
-    );
-    setCustomerName(customer.name);
-    setPhoneNumber(customer.phoneNumber);
-    setAddress(customer.address);
+      (c) => c.name === customer.name && c.phoneNumber === customer.phoneNumber );
+
+    setCustomerName(customer.name || "");
+    setPhoneNumber(customer.phoneNumber || "");
+    setAddress(customer.address || "");
     setEmail(customer.email || "");
+    setBalance(customer.balance !== null && customer.balance !== undefined ? customer.balance.toString() : "");
     setEditIndex(originalIndex);
     openModal();
   };
@@ -181,7 +137,8 @@ function MasterBuffing() {
   };
 
   const filteredCustomers = customers.filter((customer) =>
-    customer.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    customer.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    customer.phoneNumber.includes(searchTerm)
   );
 
   return (
@@ -204,10 +161,10 @@ function MasterBuffing() {
             Add Buffing Member
           </Button>
           <TextField
-            placeholder="Search by Name"
+            placeholder="Search by Name or Phone"
             variant="outlined"
             size="small"
-            sx={{ marginLeft: "46rem" }}
+            sx={{ marginLeft: "55rem" }}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             InputProps={{
@@ -262,7 +219,8 @@ function MasterBuffing() {
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
             />
-            <TextField
+             <Box sx={{ display: "flex", gap: 2 }}> 
+             <TextField
               margin="dense"
               label="Phone Number"
               type="tel"
@@ -270,6 +228,17 @@ function MasterBuffing() {
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
+            
+      <TextField
+        margin="dense"
+        label="Balance"
+        type="number"
+        fullWidth
+        value={balance}
+        onChange={(e) => setBalance(e.target.value)}
+      />
+      </Box>
+        
             <TextField
               margin="dense"
               label="Email"
@@ -315,6 +284,7 @@ function MasterBuffing() {
                 <th>Time</th>
                 <th>Name</th>
                 <th>Phone</th>
+                <th>Balance</th>
                 <th>Email</th>
                 <th>Address</th>
                 <th>Actions</th>
@@ -350,6 +320,7 @@ function MasterBuffing() {
                       <td>{formattedUpdatedTime}</td>
                       <td>{customer.name}</td>
                       <td>{customer.phoneNumber}</td>
+                      <td>{customer.balance !== null && customer.balance !== undefined ? customer.balance : "-"}</td>
                       <td>{customer.email}</td>
                       <td>{customer.address}</td>
                       <td className={styles.tableActions}>
