@@ -102,6 +102,7 @@ const Customer = () => {
     <TableCell className={styles.tablehead}>Customer Name</TableCell>
     <TableCell className={styles.tablehead}>Phone Number</TableCell>
     <TableCell className={styles.tablehead}>Address</TableCell>
+    <TableCell className={styles.tablehead}>Balance</TableCell>
     <TableCell className={styles.tablehead}>Actions</TableCell>
   </TableRow>
 </TableHead>
@@ -126,15 +127,23 @@ const Customer = () => {
         <TableCell className={styles.tableCell}>{customer.name}</TableCell>
         <TableCell className={styles.tableCell}>{customer.phoneNumber}</TableCell>
         <TableCell className={styles.tableCell}>{customer.address}</TableCell>
+        <TableCell className={styles.tableCell}>{customer.balance || "-"}</TableCell>
 
         <TableCell className={styles.tableCell}>
           <IconButton
             onClick={() =>
+              // navigate(
+              //   `/customertranscation?id=${customer.id}&name=${encodeURIComponent(
+              //     customer.name
+              //   )}`
+              // )
+
               navigate(
                 `/customertranscation?id=${customer.id}&name=${encodeURIComponent(
                   customer.name
-                )}`
+                )}&balance=${customer.balance ?? 0}`
               )
+              
             }
             className={styles.iconButton}
           >

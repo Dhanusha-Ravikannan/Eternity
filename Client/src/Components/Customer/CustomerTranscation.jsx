@@ -13,7 +13,11 @@ const CustomerTranscation = () => {
   const [searchParams] = useSearchParams();
   const customerId = searchParams.get("id");
   const customerName = searchParams.get("name");
-  console.log("customerId:", customerId, "customerName:", customerName);
+  const openingBalance = parseFloat(searchParams.get("balance")) || 0;
+  console.log("customerId:", customerId, "customerName:", customerName, "openingBalance:", openingBalance);
+
+
+
 
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
@@ -385,6 +389,14 @@ const CustomerTranscation = () => {
   </div>
 )}
 <br/>
+
+<div className={styles.openingBalanceSection}>
+  <h5>
+    Opening Balance: <span style={{ color: "red" }}>  ₹ {openingBalance.toFixed(2)}   </span>
+  </h5>
+</div>
+
+
 <div > 
         <table className={styles.purchaseTable}>
           <thead>

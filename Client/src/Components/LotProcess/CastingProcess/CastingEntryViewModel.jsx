@@ -45,6 +45,8 @@ const CastingEntryViewModal = ({
     available: 0,
     requested: 0,
   });
+  const [openingBalance, setOpeningBalance] = useState(0);
+
 
   console.log("Casting Entry ID from parent:", castingEntryId);
 
@@ -358,6 +360,44 @@ const CastingEntryViewModal = ({
 
   const stockSummary = adjustedStockSummary();
 
+
+
+  useEffect(() => {
+    const fetchOpeningBalance = async () => {
+      if (!form.name) return; // only fetch when a name is selected
+  
+      try {
+        const res = await axios.get(`${BACKEND_SERVER_URL}/api/casting`);
+        if (Array.isArray(res.data)) {
+          const selectedCustomer = res.data.find(
+            (entry) => entry.name === form.name
+          );
+  
+          if (selectedCustomer) {
+            setOpeningBalance(parseFloat(selectedCustomer.balance) || 0);
+          } else {
+            setOpeningBalance(0);
+          }
+        } else {
+          setOpeningBalance(0);
+        }
+      } catch (error) {
+        console.error("Failed to fetch opening balance:", error);
+        setOpeningBalance(0);
+      }
+    };
+  
+    fetchOpeningBalance();
+  }, [form.name]);
+
+  useEffect(() => {
+    if (!open) {
+      setOpeningBalance(0);
+    }
+  }, [open]);
+  
+  
+
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
       <div
@@ -534,6 +574,28 @@ const CastingEntryViewModal = ({
             />
           </Grid>
         </Grid>
+
+
+        {openingBalance !== null && (
+  <Typography
+    sx={{
+      mt: 2,
+      fontWeight: "bold",
+      textAlign: "right",
+      fontSize: "1rem",
+      color:
+        openingBalance > 0
+          ? "green"
+          : openingBalance < 0
+          ? "red"
+          : "text.primary",
+    }}
+  >
+    Opening Balance: ₹ {openingBalance.toFixed(2)}
+  </Typography>
+)}
+
+
 
         {/* Add Product Items Section */}
         <Button onClick={addProductItem} variant="outlined" sx={{ mt: 3 , backgroundColor:' #f8f9fa', fontWeight:'530' }}>
