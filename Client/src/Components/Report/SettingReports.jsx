@@ -309,23 +309,23 @@ const SettingReports = () => {
             <th rowSpan={2}>Time</th>
             <th rowSpan={2}>Person</th>
             <th rowSpan={2}>Lot Number</th>            
-            <th colSpan={5}>Filing / Setting Items</th>
+            <th colSpan={4}>Filing / Setting Items</th>
             <th rowSpan={2}>Stone Wt</th>
             <th rowSpan={2}>Stone Count</th>
             <th rowSpan={2}>Receipt Wt</th>
             <th rowSpan={2}>Wastage</th>
             <th rowSpan={2}>Scrap Item</th>
-            <th rowSpan={2}>Scrap Item Qty</th>
+            {/* <th rowSpan={2}>Scrap Item Qty</th> */}
             <th rowSpan={2}>Total Product Wt</th>
             <th rowSpan={2}>Current Balance Wt</th>
             <th rowSpan={2}>Total Scrap Wt</th>
-            <th rowSpan={2}>Balance</th>
+            {/* <th rowSpan={2}>Balance</th> */}
           </tr>
           <tr>
             <th>Item</th>
             <th>Weight</th>
             <th>Touch</th>
-            <th>Purity</th>
+            {/* <th>Purity</th> */}
             <th>Remarks</th>
           </tr>
         </thead>
@@ -363,7 +363,7 @@ const SettingReports = () => {
                     <td>{fi.filing_item_name}</td>
                     <td>{fi.weight}</td>
                     <td>{fi.touch}</td>
-                    <td>{fi.item_purity}</td>
+                    {/* <td>{fi.item_purity}</td> */}
                     <td>{fi.remarks}</td>
 
                     {i === 0 && (
@@ -385,9 +385,9 @@ const SettingReports = () => {
                             .map((item) => item.itemName)
                             .join(", ") || "-"}
                         </td>
-                        <td rowSpan={filingItems.length}>
+                        {/* <td rowSpan={filingItems.length}>
                           {(entry.scrapItems || []).length || 0}
-                        </td>
+                        </td> */}
                         <td rowSpan={filingItems.length}>
                           {settingBalance.total_product_weight?.toFixed(2) || 0}
                         </td>
@@ -397,13 +397,15 @@ const SettingReports = () => {
                         <td rowSpan={filingItems.length}>
                           {settingBalance.total_scrap_weight?.toFixed(2) || 0}
                         </td>
-                        <td rowSpan={filingItems.length}>
+                        {/* <td rowSpan={filingItems.length}>
                           {settingBalance.balance?.toFixed(2) || 0}
-                        </td>
+                        </td> */}
                       </>
                     )}
                   </tr>
+                  
                 ))
+                
               ) : (
                 <tr key={`empty-${entry.id}`}>
                   <td>{index + 1}</td>
@@ -424,6 +426,7 @@ const SettingReports = () => {
                 </tr>
               );
             })
+                    
           ) : (
             <tr>
               <td colSpan="18" style={{ textAlign: "center" }}>

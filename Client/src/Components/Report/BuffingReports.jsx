@@ -273,7 +273,7 @@ const handleDownloadPDF = () => {
             <th>Remarks</th>
           </tr>
         </thead>
-        <tbody>
+        {/* <tbody>
           {filtered.length > 0 ? filtered.map((entry, idx) => {
             const items = entry.lotBuffingMapper || [];
             const balance = entry.buffingTotalBalance?.[0] || {};
@@ -330,7 +330,80 @@ const handleDownloadPDF = () => {
               <td colSpan="13" align="center">No records found</td>
             </tr>
           )}
-        </tbody>
+        </tbody> */}
+        <tbody>
+  {filtered.length > 0 ? filtered.map((entry, idx) => {
+    const items = entry.lotBuffingMapper || [];
+    const balance = entry.buffingTotalBalance?.[0] || {};
+
+    // Sum of weight for this entry
+    const totalItemWeight = items.reduce((acc, fi) => acc + (fi.weight || 0), 0);
+
+    return (
+      <>
+        {items.length > 0 ? items.map((fi, i) => (
+          <tr key={`${entry.id}-${fi.filing_item_id}-${i}`}>
+            {i === 0 && (
+              <>
+                <td rowSpan={items.length}>{idx + 1}</td>
+                <td rowSpan={items.length}>
+                  {new Date(entry.createdAt).toLocaleDateString()}
+                </td>
+                <td rowSpan={items.length}>
+                  {new Date(entry.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                </td>
+                <td rowSpan={items.length}>{entry.buffing_person_name}</td>
+                <td rowSpan={items.length}>{fi.lot_number}</td>
+              </>
+            )}
+
+            <td>{fi.filing_item_name}</td>
+            <td>{fi.weight}</td>
+            <td>{fi.touch}</td>
+            <td>{fi.item_purity}</td>
+            <td>{fi.remarks}</td>
+
+            {i === 0 && (
+              <>
+                <td rowSpan={items.length}>{balance.receipt_weight?.toFixed(2) ?? "-"}</td>
+                <td rowSpan={items.length}>{balance.total_scrap_weight?.toFixed(2) ?? "-"}</td>
+                <td rowSpan={items.length}>{balance.balance?.toFixed(2) ?? "-"}</td>
+                <td rowSpan={items.length}>{balance.wastage ? "Yes" : "No"}</td>
+              </>
+            )}
+          </tr>
+        )) : (
+          <tr key={entry.id}>
+            <td>{idx + 1}</td>
+            <td>{new Date(entry.createdAt).toLocaleDateString()}</td>
+            <td>{new Date(entry.createdAt).toLocaleTimeString()}</td>
+            <td>{entry.buffing_person_name}</td>
+            <td>-</td>
+            <td colSpan={5} style={{ textAlign: "center" }}>No Filing Items</td>
+            <td>{balance.receipt_weight?.toFixed(2) ?? "-"}</td>
+            <td>{balance.total_scrap_weight?.toFixed(2) ?? "-"}</td>
+            <td>{balance.balance?.toFixed(2) ?? "-"}</td>
+            <td>{balance.wastage ? "Yes" : "No"}</td>
+          </tr>
+        )}
+
+        {/* Add footer row for entries with more than 1 item */}
+        {items.length > 1 && (
+          <tr className={styles.entryFooter}>
+            <td colSpan={6} style={{ textAlign: "right", fontWeight: "bold",  }}>Total Weight:</td>
+            <td style={{ fontWeight: "bold" }}>{totalItemWeight}</td>
+            <td colSpan={6}></td>
+          </tr>
+        )}
+      </>
+    );
+  }) : (
+    <tr>
+      <td colSpan="13" align="center">No records found</td>
+    </tr>
+  )}
+</tbody>
+
       </table>
 
     </>

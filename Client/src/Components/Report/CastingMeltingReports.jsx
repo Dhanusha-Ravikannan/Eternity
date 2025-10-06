@@ -188,15 +188,15 @@ const CastingMeltingReports = () => {
               <th>Date</th>
               <th>Time</th>
               <th>Name</th>
-              <th>Before Wt</th>
-              <th>Product Item(s)</th>
+              {/* <th>Before Wt</th> */}  <th>Issue</th>
+              {/* <th>Product Item(s)</th>
               <th>Product Qty</th>
               <th>Scrap Item(s)</th>
-              <th>Scrap Qty</th>
-              <th style={{ width: "8rem" }}>Total Item Wt</th>
+              <th>Scrap Qty</th> */}
+              {/* <th style={{ width: "8rem" }}>Total Item Wt</th> */}<th>Receipt</th>
               <th>Balance Wt</th>
-              <th>Scrap Wt</th>
-              <th>Wastage</th>
+              {/* <th>Scrap Wt</th> */}
+              {/* <th>Wastage</th> */} <th>Final Weight</th>
               <th>Next Process</th>
             </tr>
           </thead>
@@ -214,7 +214,7 @@ const CastingMeltingReports = () => {
                 </td>
                 <td>{entry.customer?.name || "-"}</td>
                 <td>{entry.final_weight ?? "-"}</td>
-                <td>
+                {/* <td>
                   {Array.isArray(entry.productItems)
                     ? entry.productItems.join(", ")
                     : "-"}
@@ -225,7 +225,7 @@ const CastingMeltingReports = () => {
                     ? entry.scrapItems.join(", ")
                     : "-"}
                 </td>
-                <td>{entry.scrapQty || "-"}</td>
+                <td>{entry.scrapQty || "-"}</td> */}
                 <td>
                   {entry.totalItemWeight
                     ? entry.totalItemWeight.toFixed(2)
@@ -236,11 +236,11 @@ const CastingMeltingReports = () => {
                     ? entry.currentBalanceWeight.toFixed(2)
                     : "-"}
                 </td>
-                <td>
+                {/* <td>
                   {entry.totalScrapWeight
                     ? entry.totalScrapWeight.toFixed(2)
                     : "-"}
-                </td>
+                </td> */}
                 <td>
                   {entry.totalWastage ? entry.totalWastage.toFixed(2) : "-"}
                 </td>

@@ -247,10 +247,10 @@ const downloadPDF = () => {
         <div className={styles.summarySection}>
           <h4>Summary</h4>
           <div className={styles.summaryGrid}>
-            <div className={styles.summaryItem}>
+            {/* <div className={styles.summaryItem}>
               <span>Total Gold Rate:</span>
               <span>{totalWeight}</span>
-            </div>
+            </div> */}
             <div className={styles.summaryItem}>
               <span>Total Purity:</span>
               <span>{totalPurity}</span>
@@ -265,7 +265,7 @@ const downloadPDF = () => {
             </div>
             <div className={styles.summaryItem}>
               <span>Total Pure Received:</span>
-              <span>{totalPureReceived}</span>
+              <span>{totalPureReceived.toFixed(3)}</span>
             </div>
             <div className={styles.summaryItem}>
               <span>Total Cash Balance:</span>
@@ -290,8 +290,8 @@ const downloadPDF = () => {
                 <th>Invoice No</th>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Customer</th>
-                <th> Gold Rate</th>
+                <th>Customer Name</th>
+                {/* <th> Gold Rate</th> */}
                 <th>Total Purity</th>
                 <th>Total Amount</th>
                 <th>Amount Received</th>
@@ -309,12 +309,20 @@ const downloadPDF = () => {
                   <td> {new Date(inv.updatedAt).toLocaleDateString("en-GB")} </td>
                   <td>{inv.time}</td>
                   <td>{inv.customer?.name}</td>
-                  <td>{inv.gold_rate}</td>
+                  {/* <td>{inv.gold_rate}</td> */}
                   <td>{inv.total_pure}</td>
                   <td>{inv.total_amount}</td>
                   <td>{inv.amount_received || "-"}</td>
                   {/* <td>{inv.pure_received || "-"} </td> */}
-                  <td> {inv.receivedItems?.reduce(  (sum, row) => sum + (Number(row.purity_weight) || 0), 0 ) ?? 0} </td>
+                 
+                  <td>
+  {(
+    inv.receivedItems?.reduce(
+      (sum, row) => sum + (Number(row.purity_weight) || 0),
+      0
+    ) || 0
+  ).toFixed(3)}
+</td>
 
                   <td>{inv.cash_balance}</td>
                   <td>{inv.pure_balance.toFixed(3)}</td>
@@ -472,7 +480,8 @@ const downloadPDF = () => {
                     <td>{item.gold_rate || "-"}</td>
                     <td>{item.gold || "-"}</td>
                     <td>{item.touch?.touch ?? "-"}</td>
-                    <td>{item.purity_weight}</td>
+                    {/* <td>{item.purity_weight}</td> */}
+                    <td>{Number(item.purity_weight)?.toFixed(4)}</td>
                     <td>{item.amount || "-"}</td>
                     <td>{item.hallmark_charge || "-"}</td>
                   </tr>
@@ -488,19 +497,13 @@ const downloadPDF = () => {
             <tfoot className={styles.trEven}>
               <tr>
                 <td colSpan={6}>Total Purity</td>
-                <td>
-
-                    {viewInvoice.receivedItems?.reduce(
-                      (sum, row) => sum + (Number(row.purity_weight) || 0),
-                      0
-                    ) ?? 0}
-                </td>
+                <td> {( viewInvoice.receivedItems?.reduce((sum, row) => sum + (Number(row.purity_weight) || 0), 0 ) || 0 ).toFixed(3)} </td>
                 <td colSpan={2}></td>
               </tr>
             </tfoot>
           </table>
         </div>
-
+        
         {/* Balance Section */}
         <div className={styles.balance} style={{ marginTop: "2rem" }}>
           <p><b>Cash Balance:</b> ₹{viewInvoice.cash_balance}</p>
