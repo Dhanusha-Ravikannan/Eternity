@@ -199,6 +199,8 @@ function MasterCustomer() {
               label="Customer Name"
               type="text"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               value={customerName}
               inputRef={nameRef}
               onChange={(e) => setCustomerName(e.target.value)}
@@ -210,6 +212,8 @@ function MasterCustomer() {
               label="Phone Number"
               type="tel"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               value={phoneNumber}
               inputRef={phoneRef}
               onChange={(e) => setPhoneNumber(e.target.value)}
@@ -220,6 +224,8 @@ function MasterCustomer() {
               label="Balance"
               type="number"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               value={balance}
               inputRef={balanceRef}
               onChange={(e) => setBalance(e.target.value)}
@@ -230,6 +236,8 @@ function MasterCustomer() {
               label="Email"
               type="email"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               value={email}
               inputRef={emailRef}
               onChange={(e) => setEmail(e.target.value)}
@@ -240,6 +248,8 @@ function MasterCustomer() {
               label="Address"
               type="text"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               multiline
               rows={4}
               value={address}

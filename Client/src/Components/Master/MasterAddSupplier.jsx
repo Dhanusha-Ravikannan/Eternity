@@ -252,6 +252,8 @@ const validateForm = () => {
               label="Supplier Name"
               type="text"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               value={customerName}              
               onChange={(e) => setCustomerName(e.target.value)}
             />
@@ -260,6 +262,8 @@ const validateForm = () => {
               label="Phone Number"
               type="tel"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
@@ -268,6 +272,8 @@ const validateForm = () => {
   label="Email (optional)"
   type="email"
   fullWidth
+  autoComplete="off"
+  onWheel={(e) => e.target.blur()}
   value={email}
   onChange={(e) => setEmail(e.target.value)}
 />
@@ -277,6 +283,8 @@ const validateForm = () => {
               label="Address"
               type="text"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               multiline
               rows={4}
               value={address}

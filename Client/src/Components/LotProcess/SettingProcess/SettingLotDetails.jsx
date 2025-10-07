@@ -758,11 +758,15 @@ const SettingLotDetails = () => {
             color="error"
             sx={{ mt: 2, width: "100%" }}
             onClick={handleCloseJobcard}
+            disabled={!filteredEntries || filteredEntries.length === 0}
           >
             Close Jobcard
+            
           </Button>
         )}
-      </Box>
+      </Box> 
+
+    <br/>
 
       {/* Add Setting Dialog */}
       <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
