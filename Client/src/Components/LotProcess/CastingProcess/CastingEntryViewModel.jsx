@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Dialog,
-  DialogTitle,
   DialogContent,
   Grid,
   DialogActions,
@@ -20,6 +19,8 @@ import {
 import axios from "axios";
 import { BACKEND_SERVER_URL } from "../../../../Config/config";
 import DeleteIcon from "@mui/icons-material/Delete";
+import styles from './CastingEntryViewModel.module.css';
+import { blue } from "@mui/material/colors";
 
 const CastingEntryViewModal = ({
   open,
@@ -275,8 +276,12 @@ const CastingEntryViewModal = ({
     (sum, item) => sum + parseFloat(item.weight || 0),
     0
   );
-  const currentBalanceWeight =
-    parseFloat(form.beforeWeight || 0) - totalProductWeight;
+  // const currentBalanceWeight = 
+  //   parseFloat(form.beforeWeight || 0) - totalProductWeight;
+
+  const total = ( (parseFloat(form.beforeWeight) || 0) + (parseFloat(openingBalance) || 0) ).toFixed(3)
+
+  const currentBalanceWeight = (total - totalProductWeight) || 0
   const totalScrapWeight = scrapItems.reduce(
     (sum, item) => sum + parseFloat(item.weight || 0),
     0
@@ -399,189 +404,163 @@ const CastingEntryViewModal = ({
   
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+    // <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+      <Dialog
+  open={open}
+  onClose={handleClose}
+  maxWidth={false} // disables built-in size limits
+  PaperProps={{
+    sx: {
+      width: "75%", // or "1000px"
+      maxWidth: "1200px", // set your own limit
+    },
+  }}
+>
       <div
         style={{
           fontSize: "1.3rem",
           padding: "1rem",
           textAlign: "center",
           fontWeight: "500",
+          backgroundColor: "#f8f9fa",
         }}
       >
         {isView ? "View Casting Entry" : "Add Casting Entry"}
       </div>
 
-      {Object.keys(stockSummary).length > 0 && (
-        <Box sx={{ mt: 0, p: 2, border: "1px solid #ddd", borderRadius: 1, backgroundColor:' #f8f9fa' }}>
-          <Typography variant="h6" gutterBottom color="primary">
-            Available Stock
-          </Typography>
-          <Grid container spacing={2}>
-            {Object.entries(stockSummary).map(([touch, weight]) => (
-              <Grid item xs={6} sm={4} md={3} key={touch}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    p: 1,
-                    // backgroundColor: "#f5f5f5",
-                    backgroundColor:"#38383e",
-                    color:'white',
-                    borderRadius: 1,
-                  }}
-                >
-                  <Typography variant="body1">Touch {touch}:</Typography>
-                  <Typography variant="body1" fontWeight="bold">
-                    {weight.toFixed(2)}
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      )}
-
       <DialogContent>
-  
-     <Grid container spacing={6}>
-     <Grid item xs={3}>
-          <TextField
+<div
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    gap: "2rem",
+    flexWrap: "wrap",
+  }}
+>
+  {/* ================= Left Side - Form ================= */}
+  <Box sx={{ flex: 1, minWidth: "650px" }}>
+    {/* Row 1 */}
+    <Grid container spacing={2}>
+      <Grid item xs={6} sm={3}>
+        <TextField
           label="Date"
           type="date"
-          sx={{ width: "180px" }}
+          sx={{width:'10rem'}}
           margin="dense"
           value={form.date}
           onChange={handleChange("date")}
           InputLabelProps={{ shrink: true }}
           InputProps={{ readOnly: isView }}
         />
-          </Grid>
+      </Grid>
 
-      
-<Grid item xs={3}>
-            <TextField
-              label="Name"
-              select
-              sx={{ width: "180px" }}
-              margin="dense"
-              value={form.name}
-              onChange={handleChange("name")}
-              InputProps={{ readOnly: isView }}
-            >
-              {nameOptions.map((nameObj) => (
-                <MenuItem key={nameObj.id} value={nameObj.name}>
-                  {nameObj.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
+      <Grid item xs={6} sm={3}>
+        <TextField
+          label="Name"
+          select
+          // sx={{ width: "100%" }}
+          sx={{width:'10rem'}}
+          margin="dense"
+          value={form.name}
+          onChange={handleChange("name")}
+          InputProps={{ readOnly: isView }}
+        >
+          {nameOptions.map((nameObj) => (
+            <MenuItem key={nameObj.id} value={nameObj.name}>
+              {nameObj.name}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
 
-          <Grid item xs={3}>
-            <TextField
-              label="Touch"
-              select
-              sx={{ width: "160px" }}
-              margin="dense"
-              value={form.touch}
-              onChange={handleChange("touch")}
-              InputProps={{ readOnly: isView }}
-            >
-              {touchOptions.map((touchObj) => (
-                <MenuItem key={touchObj.id} value={touchObj.touch}>
-                  {touchObj.touch}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-          
-          <Grid item xs={3}>
-            <TextField
-              label="Given Gold"
-              type="number"
-              autoComplete="off"
-              onWheel={(e) => e.target.blur()}
-              sx={{ width: "160px" }}
-              margin="dense"
-              value={form.givenGold}
-              onChange={handleChange("givenGold")}
-              InputProps={{ readOnly: isView }}
-              error={!stockValidation.isValid}
-              helperText={stockValidation.message}
-            />
-          </Grid>
-      
-        </Grid>
+      <Grid item xs={6} sm={3}>
+        <TextField
+          label="Touch"
+          select
+          // sx={{ width: "100%" }}
+          sx={{width:'10rem'}}
+          margin="dense"
+          value={form.touch}
+          onChange={handleChange("touch")}
+          InputProps={{ readOnly: isView }}
+        >
+          {touchOptions.map((touchObj) => (
+            <MenuItem key={touchObj.id} value={touchObj.touch}>
+              {touchObj.touch}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
 
-        {!stockValidation.isValid && (
-          <Alert severity="error" sx={{ mt: 1 }}>
-            Insufficient stock for this touch! Available:{" "}
-            {stockValidation.available.toFixed(2)}, Requested:{" "}
-            {stockValidation.requested.toFixed(2)}
-          </Alert>
-        )}
+      <Grid item xs={6} sm={3}>
+        <TextField
+          label="Given Gold"
+          type="number"
+          autoComplete="off"
+          onWheel={(e) => e.target.blur()}
+          sx={{width:'10rem'}}
+          margin="dense"
+          value={form.givenGold}
+          onChange={handleChange("givenGold")}
+          InputProps={{ readOnly: isView }}
+          error={!stockValidation.isValid}
+          helperText={stockValidation.message}
+        />
+      </Grid>
+    </Grid>
 
-        <Grid container spacing={6}>
-          {/* 2nd Row */}
+    {/* Row 2 */}
+    <Grid container spacing={2} sx={{ mt: 0 }}>
+      <Grid item xs={6} sm={3}>
+        <TextField
+          label="Purity"
+          sx={{width:'10rem'}}
+          margin="dense"
+          value={form.purity}
+          InputProps={{ readOnly: true }}
+        />
+      </Grid>
 
-          <Grid item xs={3}>
-            <TextField
-              label="Purity"
-              sx={{ width: "180px" }}
-              margin="dense"
-              value={form.purity}
-              InputProps={{ readOnly: true }}
-            />
-          </Grid>
+      <Grid item xs={6} sm={3}>
+        <TextField
+          label="Final Touch"
+          type="number"
+          autoComplete="off"
+          onWheel={(e) => e.target.blur()}
+          sx={{width:'10rem'}}
+          margin="dense"
+          value={form.finalTouch}
+          onChange={handleChange("finalTouch")}
+          InputProps={{ readOnly: isView }}
+        />
+      </Grid>
 
-          <Grid item xs={3}>
-            <TextField
-              label="Final Touch"
-              type="number"
-              autoComplete="off"
-              onWheel={(e) => e.target.blur()}
-              sx={{ width: "180px" }}
-              margin="dense"
-              value={form.finalTouch}
-              onChange={handleChange("finalTouch")}
-              InputProps={{ readOnly: isView }}
-            />
-          </Grid>
-          {/* <Grid item xs={2}>
-            <TextField
-              label="Pure Value"
-              sx={{ width: "160px" }}
-              margin="dense"
-              value={form.pureValue}
-              InputProps={{ readOnly: true }}
-            />
-          </Grid> */}
-          <Grid item xs={2}>
-            <TextField
-              label="Before Weight"
-              sx={{ width: "160px" }}
-              margin="dense"
-              value={form.beforeWeight}
-              InputProps={{ readOnly: true }}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <TextField
-              label="Copper"
-              sx={{ width: "160px" }}
-              margin="dense"
-              value={form.copper}
-              InputProps={{ readOnly: true }}
-            />
-          </Grid>
-        </Grid>
+      <Grid item xs={6} sm={3}>
+        <TextField
+          label="Before Weight"
+          sx={{width:'10rem'}}
+          margin="dense"
+          value={form.beforeWeight}
+          InputProps={{ readOnly: true }}
+        />
+      </Grid>
 
-
-        {openingBalance !== null && (
+      <Grid item xs={6} sm={3}>
+        <TextField
+          label="Copper"
+          sx={{width:'10rem'}}
+          margin="dense"
+          value={form.copper}
+          InputProps={{ readOnly: true }}
+        />
+      </Grid> 
+<div> 
+      {openingBalance !== null && (
   <Typography
     sx={{
-      mt: 2,
+      mt: 1,
       fontWeight: "bold",
-      textAlign: "right",
       fontSize: "1rem",
       color:
         openingBalance > 0
@@ -593,12 +572,106 @@ const CastingEntryViewModal = ({
   >
     Opening Balance: ₹ {openingBalance.toFixed(2)}
   </Typography>
-)}
+)} 
+<Typography> Before Weight: ₹ {form.beforeWeight || 0} </Typography>
+<Typography> Total Weight:  ₹ {total} </Typography>
 
+</div>
 
+    </Grid>
+
+    {/* Validation Message */}
+    {!stockValidation.isValid && (
+      <Alert severity="error" sx={{ mt: 1 }}>
+        Insufficient stock for this touch! Available:{" "}
+        {stockValidation.available.toFixed(2)}, Requested:{" "}
+        {stockValidation.requested.toFixed(2)}
+      </Alert>
+    )}
+  </Box>
+
+  {/* ================= Right Side - Available Stock Table ================= */}
+  {Object.keys(stockSummary).length > 0 && (
+    <Box
+      sx={{
+        flex: "0 0 320px", //  fixed-width behavior inside flexbox
+        width:'40rem',
+        p: 2,
+        border: "1px solid #ddd",
+        borderRadius: 2,
+        backgroundColor: "#f8f9fa",
+        maxHeight: "220px", // ≈ fits 3 rows
+        overflowY: Object.keys(stockSummary).length > 3 ? "auto" : "hidden",
+      }}
+    >
+      <Typography
+        variant="h6"
+        gutterBottom
+        color="primary"
+        sx={{ textAlign: "center" }}
+      >
+        Available Stock
+      </Typography>
+
+      <table
+        style={{
+          width: "100%",
+          borderCollapse: "collapse",
+          backgroundColor: "white",
+          borderRadius: "6px",
+          overflow: "hidden",
+        }}
+      >
+        <thead>
+          <tr style={{ backgroundColor: "#38383e", color: "white" }}>
+            <th style={{ padding: "8px", textAlign: "center", width: "10%" }}>
+              S.No
+            </th>
+            <th style={{ padding: "8px", textAlign: "center" }}>Touch</th>
+            <th style={{ padding: "8px", textAlign: "center" }}>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(stockSummary).map(([touch, weight], index) => (
+            <tr key={touch}>
+              <td
+                style={{
+                  padding: "8px",
+                  textAlign: "center",
+                  borderBottom: "1px solid #ddd",
+                }}
+              >
+                {index + 1}
+              </td>
+              <td
+                style={{
+                  padding: "8px",
+                  textAlign: "center",
+                  borderBottom: "1px solid #ddd",
+                }}
+              >
+                {touch}
+              </td>
+              <td
+                style={{
+                  padding: "8px",
+                  textAlign: "center",
+                  borderBottom: "1px solid #ddd",
+                  fontWeight: "bold",
+                }}
+              >
+                {weight.toFixed(2)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </Box>
+  )}
+</div>
 
         {/* Add Product Items Section */}
-        <Button onClick={addProductItem} variant="outlined" sx={{ mt: 3 , backgroundColor:' #f8f9fa', fontWeight:'530' }}>
+        <Button onClick={addProductItem} variant="outlined" sx={{ mt: 4 , backgroundColor:' #f8f9fa', fontWeight:'530' }}>
           Add Product Items
         </Button>
         <Table size="small" sx={{ mt: 1 }}>
@@ -759,8 +832,7 @@ const CastingEntryViewModal = ({
         <Typography sx={{ mt: 1 }}>
           <strong>Total Item Weight:</strong> {totalProductWeight.toFixed(2)}{" "}
           &nbsp;&nbsp;&nbsp;
-          <strong>Current Balance Weight:</strong>{" "}
-          {currentBalanceWeight.toFixed(2)}
+          <strong>Current Balance Weight:</strong>{currentBalanceWeight.toFixed(2)}
         </Typography>
 
         {/* Add Scrap Items Section */}

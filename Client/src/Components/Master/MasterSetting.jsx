@@ -211,6 +211,8 @@ function MasterSetting() {
               label="Setting Member Name"
               type="text"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
             />
@@ -220,6 +222,8 @@ function MasterSetting() {
               label="Phone Number"
               type="tel"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
@@ -229,6 +233,8 @@ function MasterSetting() {
         label="Balance"
         type="number"
         fullWidth
+        autoComplete="off"
+        onWheel={(e) => e.target.blur()}
         value={balance}
         onChange={(e) => setBalance(e.target.value)}
       />
@@ -239,6 +245,8 @@ function MasterSetting() {
               label="Email"
               type="email"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -247,6 +255,8 @@ function MasterSetting() {
               label="Address"
               type="text"
               fullWidth
+              autoComplete="off"
+              onWheel={(e) => e.target.blur()}
               multiline
               rows={4}
               value={address}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
   Box,
@@ -371,6 +370,40 @@ const FilingLotDetails = () => {
     localStorage.setItem("filingLots", JSON.stringify(updatedLots));
     alert("Jobcard closed and lot created.");
   }; */
+
+  // const handleCloseJobcard = async () => {
+  //   try {
+  //     //  Check if there are any entries in the main table
+  //     if (!filteredEntries || filteredEntries.length === 0) {
+  //       alert("Cannot close jobcard — please add at least one entry first.");
+  //       return;
+  //     }
+  
+  //     //  Confirm with the user
+  //     const confirmClose = window.confirm(
+  //       "Are you sure you want to close this jobcard?"
+  //     );
+  //     if (!confirmClose) return;
+  
+  //     //  Proceed with backend call
+  //     const response = await axios.post(
+  //       `${BACKEND_SERVER_URL}/api/filingitems/close-jobcard`,
+  //       {
+  //         filing_person_id: filingPersonId,
+  //         current_lot_number: lotNumber,
+  //       }
+  //     );
+  
+  //     alert("Jobcard closed and new lot created successfully!");
+  
+  //     //  Redirect to the new lot
+  //     window.location.href = `/filinglot/${filingPersonId}/${name}/${response.data.newLotNumber}`;
+  //   } catch (error) {
+  //     console.error("Error closing jobcard:", error);
+  //     alert("Failed to close jobcard. Check console for details.");
+  //   }
+  // };
+  
 
   const handleCloseJobcard = async () => {
     try {
@@ -863,6 +896,7 @@ const FilingLotDetails = () => {
             color="error"
             sx={{ mt: 2, width: "100%" }}
             onClick={handleCloseJobcard}
+            disabled={!filteredEntries || filteredEntries.length === 0}
           >
             Close Jobcard
           </Button>

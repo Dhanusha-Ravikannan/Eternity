@@ -1814,7 +1814,7 @@ const ProcessReport = () => {
                       {lotNumber && lotNumber !== "" && (
                         <tr className={styles.lotHeader}>
                           <td
-                            colSpan="15"
+                            colSpan="17"
                             style={{
                               fontWeight: "bold",
                               backgroundColor: "#f0f0f0",

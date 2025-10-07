@@ -101,6 +101,7 @@ const Filing = () => {
                   <TableCell className={styles.tablehead}>
                    Address
                   </TableCell>
+                  <TableCell className={styles.tablehead} > Balance</TableCell>
                   <TableCell className={styles.tablehead}>
                   Actions
                   </TableCell>
@@ -122,6 +123,7 @@ const Filing = () => {
         <TableCell className={styles.tableCell}>{row.name}</TableCell>
         <TableCell className={styles.tableCell}>{row.phoneNumber || "-"}</TableCell>
         <TableCell className={styles.tableCell}>{row.address || "-"}</TableCell>
+        <TableCell className={styles.tableCell}> {row.balance || "-"}</TableCell>
         <TableCell className={styles.tableCell}>
           <Link to={`/filinglot/${row.id}/${encodeURIComponent(row.name)}/${row.lotInfo?.[0]?.lotNumber || 0}`}>
   <IconButton>

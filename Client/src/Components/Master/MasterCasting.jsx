@@ -210,6 +210,8 @@ function MasterCasting() {
       label="Casting Member Name"
       type="text"
       fullWidth
+      autoComplete="off"
+      onWheel={(e) => e.target.blur()}
       value={customerName}
       onChange={(e) => setCustomerName(e.target.value)}
     />
@@ -220,6 +222,8 @@ function MasterCasting() {
       label="Phone Number"
       type="tel"
       fullWidth
+      autoComplete="off"
+      onWheel={(e) => e.target.blur()}
       value={phoneNumber}
       onChange={(e) => setPhoneNumber(e.target.value)}
     />
@@ -230,6 +234,8 @@ function MasterCasting() {
         label="Balance"
         type="number"
         fullWidth
+        autoComplete="off"
+        onWheel={(e) => e.target.blur()}
         value={balance}
         onChange={(e) => setBalance(e.target.value)}
       />
@@ -238,6 +244,8 @@ function MasterCasting() {
         margin="dense"
         label="Email"
         type="email"
+        autoComplete="off"
+        onWheel={(e) => e.target.blur()}
         fullWidth
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -249,6 +257,8 @@ function MasterCasting() {
       label="Address"
       type="text"
       fullWidth
+      autoComplete="off"
+      onWheel={(e) => e.target.blur()}
       multiline
       rows={3}
       value={address}

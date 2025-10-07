@@ -896,7 +896,9 @@ const BuffingLotDetails = () => {
             Close Jobcard
           </Button>
         )}
-      </Box>
+      </Box> 
+      <br/> 
+      <br/>
 
       {open && (
         <div className={styles.overlay}>
