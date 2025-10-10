@@ -64,20 +64,62 @@ export const deleteCustomer = async (req, res) => {
   }
 };
 
+// export const getHallmarkByCustomerId = async (req, res) => {
+//   try {
+//     const { customerId } = req.params;
+
+//     const hallmark = await prisma.hallmark.findMany({
+//       where: {
+//         customer_id: parseInt(customerId),
+//       },
+//       include: {
+//         customer: true 
+//       }
+//     });
+
+//     if (hallmark.length === 0) {
+//       return res.status(200).json({ balance: 0 });
+//     }
+
+//     res.status(200).json(hallmark);
+//   } catch (error) {
+//     console.error("Error fetching hallmark:", error);
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// };
+
+
 export const getHallmarkByCustomerId = async (req, res) => {
   try {
     const { customerId } = req.params;
+    const parsedId = parseInt(customerId);
 
+    // Fetch hallmark records with related customer
     const hallmark = await prisma.hallmark.findMany({
-      where: {
-        customer_id: parseInt(customerId),
-      },
+      where: { customer_id: parsedId },
+      include: { customer: true },
     });
 
     if (hallmark.length === 0) {
-      return res.status(200).json({ balance: 0 });
+      // If no hallmark records, still fetch customer details
+      const customer = await prisma.addCustomer.findUnique({
+        where: { id: parsedId },
+      });
+
+      if (!customer) {
+        return res.status(404).json({ error: "Customer not found" });
+      }
+
+      // Return balance: 0 with customer info
+      return res.status(200).json([
+        {
+          balance: 0,
+          customer: customer,
+        },
+      ]);
     }
 
+    // If hallmark records exist, return them (already includes customer)
     res.status(200).json(hallmark);
   } catch (error) {
     console.error("Error fetching hallmark:", error);

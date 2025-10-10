@@ -90,28 +90,44 @@ export const createBill = async (req, res) => {
         pure_balance: parseFloat(pureBalance),
         prev_hallmark: parseFloat(prevHallmark),
         hallmark_balance: parseFloat(hallmarkBalance),
+        // billItems: {
+        //   create: billItems.map((item) => ({
+        //     qc_stock_id: item.id,
+        //     item_name: item.itemId.name,
+        //     weight: parseFloat(item.weight),
+        //     stone_weight: item.stone_weight
+        //       ? parseFloat(item.stone_weight)
+        //       : null,
+        //     total_weight: parseFloat(item.totalWeight),
+        //     // touchId: parseFloat(item.touchId),
+        //     touchId: item.touchValue ? parseFloat(item.touchValue) : null,
+        //     pure: parseFloat(item.pure),
+        //     amount: parseFloat(item.amount),
+        //     addItemId: parseInt(item.itemId.id),
+        //   })),
+        // },
         billItems: {
           create: billItems.map((item) => ({
             qc_stock_id: item.id,
-            item_name: item.itemId.name,
+            item_name: item.itemId?.name || "", //  Safely handle name
             weight: parseFloat(item.weight),
-            stone_weight: item.stone_weight
-              ? parseFloat(item.stone_weight)
-              : null,
+            stone_weight: item.stone_weight ? parseFloat(item.stone_weight) : null,
             total_weight: parseFloat(item.totalWeight),
-            touchId: parseFloat(item.touchId),
+            touchId: item.touchValue ? parseFloat(item.touchValue) : null, //  manual entry touch value
             pure: parseFloat(item.pure),
             amount: parseFloat(item.amount),
-            addItemId: parseInt(item.itemId.id),
+            addItemId: item.itemId?.id ? parseInt(item.itemId.id) : null, //  use optional chaining
           })),
         },
+        
         receivedItems: {
           create: receivedItems.map((item) => ({
             date: item.date,
             type: "Gold",
             gold_rate: parseFloat(item.goldRate),
             gold: item.gold ? parseFloat(item.gold) : null,
-            touchId: item.touchId ? parseFloat(item.touchId) : null,
+            // touchId: item.touchId ? parseFloat(item.touchId) : null,
+            touchId: item.touchValue ? parseFloat(item.touchValue) : null,
             purity_weight: parseFloat(item.purityWeight),
             amount: item.amount ? parseFloat(item.amount) : null,
             hallmark_charge: item.hallmarkCharge

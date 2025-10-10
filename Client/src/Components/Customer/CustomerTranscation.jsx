@@ -125,54 +125,117 @@ const CustomerTranscation = () => {
     setNewTransaction(updatedTransaction);
   };
 
+
   const addTransaction = async (e) => {
     e.preventDefault();
     setError("");
-
+  
     try {
       if (!newTransaction.date || newTransaction.type === "Select") {
         throw new Error("Date and transaction type are required");
       }
-
-      if (!customerId) {
-        throw new Error("Customer ID is missing");
-      }
-
+  
+      if (!customerId) throw new Error("Customer ID is missing");
+  
       let transactionData = {
         date: newTransaction.date,
         type: newTransaction.type,
         customerId: parseInt(customerId),
       };
-
+  
       if (newTransaction.type === "Cash") {
-        if (!newTransaction.cashValue || !newTransaction.goldRate) {
+        if (!newTransaction.cashValue || !newTransaction.goldRate)
           throw new Error("Cash value and Gold Rate are required");
-        }
+  
         transactionData.value = parseFloat(newTransaction.cashValue);
         transactionData.goldRate = parseFloat(newTransaction.goldRate);
         transactionData.purity = parseFloat(newTransaction.purity);
       } else if (newTransaction.type === "Gold") {
-        if (!newTransaction.goldValue || !newTransaction.touchId) {
+        if (!newTransaction.goldValue || !newTransaction.touchId)
           throw new Error("Gold value and touch are required");
-        }
+  
         transactionData.value = parseFloat(newTransaction.goldValue);
-        transactionData.touchId = parseInt(newTransaction.touchId); 
+        transactionData.touchId = parseInt(newTransaction.touchId);
         transactionData.purity = parseFloat(newTransaction.purity);
       }
-
+  
       const response = await axios.post(
         `${BACKEND_SERVER_URL}/api/transactions`,
         transactionData
       );
-      setTransactions([...transactions, response.data]);
+  
+      //  Update balance on frontend immediately
+      // const newBalance = response.data.updatedBalance;
+      // toast.success(`Transaction added! New Balance: ₹ ${newBalance.toFixed(2)}`);
+
+      const newBalance = response.data.updatedBalance;
+
+if (newBalance !== undefined && newBalance !== null) {
+  toast.success(`Transaction added! New Balance: ₹ ${newBalance.toFixed(2)}`);
+} else {
+  toast.success("Transaction added successfully!");
+}
+
+  
+      //  Refresh transactions
+      setTransactions([...transactions, response.data.transaction]);
       resetForm();
       setShowPopup(false);
-      toast.success("Transaction added successfully!");
     } catch (error) {
       console.error("Error adding transaction:", error);
       toast.error(error.message || "Error adding transaction");
     }
   };
+  
+
+  // const addTransaction = async (e) => {
+  //   e.preventDefault();
+  //   setError("");
+
+  //   try {
+  //     if (!newTransaction.date || newTransaction.type === "Select") {
+  //       throw new Error("Date and transaction type are required");
+  //     }
+
+  //     if (!customerId) {
+  //       throw new Error("Customer ID is missing");
+  //     }
+
+  //     let transactionData = {
+  //       date: newTransaction.date,
+  //       type: newTransaction.type,
+  //       customerId: parseInt(customerId),
+  //     };
+
+  //     if (newTransaction.type === "Cash") {
+  //       if (!newTransaction.cashValue || !newTransaction.goldRate) {
+  //         throw new Error("Cash value and Gold Rate are required");
+  //       }
+  //       transactionData.value = parseFloat(newTransaction.cashValue);
+  //       transactionData.goldRate = parseFloat(newTransaction.goldRate);
+  //       transactionData.purity = parseFloat(newTransaction.purity);
+  //     } else if (newTransaction.type === "Gold") {
+  //       if (!newTransaction.goldValue || !newTransaction.touchId) {
+  //         throw new Error("Gold value and touch are required");
+  //       }
+  //       transactionData.value = parseFloat(newTransaction.goldValue);
+  //       transactionData.touchId = parseInt(newTransaction.touchId); 
+  //       transactionData.purity = parseFloat(newTransaction.purity);
+  //     }
+
+  //     const response = await axios.post(
+  //       `${BACKEND_SERVER_URL}/api/transactions`,
+  //       transactionData
+  //     );
+  //     setTransactions([...transactions, response.data]);
+  //     resetForm();
+  //     setShowPopup(false);
+  //     toast.success("Transaction added successfully!");
+  //   } catch (error) {
+  //     console.error("Error adding transaction:", error);
+  //     toast.error(error.message || "Error adding transaction");
+  //   }
+  // };
 
   const resetForm = () => {
     setNewTransaction({
@@ -484,7 +547,8 @@ const CustomerTranscation = () => {
   );
 };
 
-export default CustomerTranscation;
+export default CustomerTranscation; 
+
 
 
 

@@ -128,7 +128,8 @@ exports.Prisma.AddCustomerScalarFieldEnum = {
   phoneNumber: 'phoneNumber',
   address: 'address',
   email: 'email',
-  balance: 'balance'
+  balance: 'balance',
+  openingBalance: 'openingBalance'
 };
 
 exports.Prisma.AddCastingScalarFieldEnum = {
