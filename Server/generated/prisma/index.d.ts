@@ -5202,11 +5202,13 @@ export namespace Prisma {
   export type AddCustomerAvgAggregateOutputType = {
     id: number | null
     balance: number | null
+    openingBalance: number | null
   }
 
   export type AddCustomerSumAggregateOutputType = {
     id: number | null
     balance: number | null
+    openingBalance: number | null
   }
 
   export type AddCustomerMinAggregateOutputType = {
@@ -5218,6 +5220,7 @@ export namespace Prisma {
     address: string | null
     email: string | null
     balance: number | null
+    openingBalance: number | null
   }
 
   export type AddCustomerMaxAggregateOutputType = {
@@ -5229,6 +5232,7 @@ export namespace Prisma {
     address: string | null
     email: string | null
     balance: number | null
+    openingBalance: number | null
   }
 
   export type AddCustomerCountAggregateOutputType = {
@@ -5240,6 +5244,7 @@ export namespace Prisma {
     address: number
     email: number
     balance: number
+    openingBalance: number
     _all: number
   }
 
@@ -5247,11 +5252,13 @@ export namespace Prisma {
   export type AddCustomerAvgAggregateInputType = {
     id?: true
     balance?: true
+    openingBalance?: true
   }
 
   export type AddCustomerSumAggregateInputType = {
     id?: true
     balance?: true
+    openingBalance?: true
   }
 
   export type AddCustomerMinAggregateInputType = {
@@ -5263,6 +5270,7 @@ export namespace Prisma {
     address?: true
     email?: true
     balance?: true
+    openingBalance?: true
   }
 
   export type AddCustomerMaxAggregateInputType = {
@@ -5274,6 +5282,7 @@ export namespace Prisma {
     address?: true
     email?: true
     balance?: true
+    openingBalance?: true
   }
 
   export type AddCustomerCountAggregateInputType = {
@@ -5285,6 +5294,7 @@ export namespace Prisma {
     address?: true
     email?: true
     balance?: true
+    openingBalance?: true
     _all?: true
   }
 
@@ -5383,6 +5393,7 @@ export namespace Prisma {
     address: string | null
     email: string | null
     balance: number | null
+    openingBalance: number | null
     _count: AddCustomerCountAggregateOutputType | null
     _avg: AddCustomerAvgAggregateOutputType | null
     _sum: AddCustomerSumAggregateOutputType | null
@@ -5413,6 +5424,7 @@ export namespace Prisma {
     address?: boolean
     email?: boolean
     balance?: boolean
+    openingBalance?: boolean
     transactions?: boolean | AddCustomer$transactionsArgs<ExtArgs>
     bills?: boolean | AddCustomer$billsArgs<ExtArgs>
     hallmarks?: boolean | AddCustomer$hallmarksArgs<ExtArgs>
@@ -5431,9 +5443,10 @@ export namespace Prisma {
     address?: boolean
     email?: boolean
     balance?: boolean
+    openingBalance?: boolean
   }
 
-  export type AddCustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email" | "balance", ExtArgs["result"]["addCustomer"]>
+  export type AddCustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "phoneNumber" | "address" | "email" | "balance" | "openingBalance", ExtArgs["result"]["addCustomer"]>
   export type AddCustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     transactions?: boolean | AddCustomer$transactionsArgs<ExtArgs>
     bills?: boolean | AddCustomer$billsArgs<ExtArgs>
@@ -5459,6 +5472,7 @@ export namespace Prisma {
       address: string | null
       email: string | null
       balance: number | null
+      openingBalance: number | null
     }, ExtArgs["result"]["addCustomer"]>
     composites: {}
   }
@@ -5840,6 +5854,7 @@ export namespace Prisma {
     readonly address: FieldRef<"AddCustomer", 'String'>
     readonly email: FieldRef<"AddCustomer", 'String'>
     readonly balance: FieldRef<"AddCustomer", 'Float'>
+    readonly openingBalance: FieldRef<"AddCustomer", 'Float'>
   }
     
 
@@ -46106,7 +46121,8 @@ export namespace Prisma {
     phoneNumber: 'phoneNumber',
     address: 'address',
     email: 'email',
-    balance: 'balance'
+    balance: 'balance',
+    openingBalance: 'openingBalance'
   };
 
   export type AddCustomerScalarFieldEnum = (typeof AddCustomerScalarFieldEnum)[keyof typeof AddCustomerScalarFieldEnum]
@@ -46904,6 +46920,7 @@ export namespace Prisma {
     address?: StringNullableFilter<"AddCustomer"> | string | null
     email?: StringNullableFilter<"AddCustomer"> | string | null
     balance?: FloatNullableFilter<"AddCustomer"> | number | null
+    openingBalance?: FloatNullableFilter<"AddCustomer"> | number | null
     transactions?: CustomerTransactionListRelationFilter
     bills?: BillListRelationFilter
     hallmarks?: HallmarkListRelationFilter
@@ -46919,6 +46936,7 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
     balance?: SortOrderInput | SortOrder
+    openingBalance?: SortOrderInput | SortOrder
     transactions?: CustomerTransactionOrderByRelationAggregateInput
     bills?: BillOrderByRelationAggregateInput
     hallmarks?: HallmarkOrderByRelationAggregateInput
@@ -46938,6 +46956,7 @@ export namespace Prisma {
     address?: StringNullableFilter<"AddCustomer"> | string | null
     email?: StringNullableFilter<"AddCustomer"> | string | null
     balance?: FloatNullableFilter<"AddCustomer"> | number | null
+    openingBalance?: FloatNullableFilter<"AddCustomer"> | number | null
     transactions?: CustomerTransactionListRelationFilter
     bills?: BillListRelationFilter
     hallmarks?: HallmarkListRelationFilter
@@ -46953,6 +46972,7 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
     balance?: SortOrderInput | SortOrder
+    openingBalance?: SortOrderInput | SortOrder
     _count?: AddCustomerCountOrderByAggregateInput
     _avg?: AddCustomerAvgOrderByAggregateInput
     _max?: AddCustomerMaxOrderByAggregateInput
@@ -46972,6 +46992,7 @@ export namespace Prisma {
     address?: StringNullableWithAggregatesFilter<"AddCustomer"> | string | null
     email?: StringNullableWithAggregatesFilter<"AddCustomer"> | string | null
     balance?: FloatNullableWithAggregatesFilter<"AddCustomer"> | number | null
+    openingBalance?: FloatNullableWithAggregatesFilter<"AddCustomer"> | number | null
   }
 
   export type AddCastingWhereInput = {
@@ -50087,6 +50108,7 @@ export namespace Prisma {
     address?: string | null
     email?: string | null
     balance?: number | null
+    openingBalance?: number | null
     transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
     bills?: BillCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
@@ -50102,6 +50124,7 @@ export namespace Prisma {
     address?: string | null
     email?: string | null
     balance?: number | null
+    openingBalance?: number | null
     transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
     bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
@@ -50116,6 +50139,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
     bills?: BillUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
@@ -50131,6 +50155,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
     bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
@@ -50146,6 +50171,7 @@ export namespace Prisma {
     address?: string | null
     email?: string | null
     balance?: number | null
+    openingBalance?: number | null
   }
 
   export type AddCustomerUpdateManyMutationInput = {
@@ -50156,6 +50182,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddCustomerUncheckedUpdateManyInput = {
@@ -50167,6 +50194,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddCastingCreateInput = {
@@ -53410,11 +53438,13 @@ export namespace Prisma {
     address?: SortOrder
     email?: SortOrder
     balance?: SortOrder
+    openingBalance?: SortOrder
   }
 
   export type AddCustomerAvgOrderByAggregateInput = {
     id?: SortOrder
     balance?: SortOrder
+    openingBalance?: SortOrder
   }
 
   export type AddCustomerMaxOrderByAggregateInput = {
@@ -53426,6 +53456,7 @@ export namespace Prisma {
     address?: SortOrder
     email?: SortOrder
     balance?: SortOrder
+    openingBalance?: SortOrder
   }
 
   export type AddCustomerMinOrderByAggregateInput = {
@@ -53437,11 +53468,13 @@ export namespace Prisma {
     address?: SortOrder
     email?: SortOrder
     balance?: SortOrder
+    openingBalance?: SortOrder
   }
 
   export type AddCustomerSumOrderByAggregateInput = {
     id?: SortOrder
     balance?: SortOrder
+    openingBalance?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -62518,6 +62551,7 @@ export namespace Prisma {
     address?: string | null
     email?: string | null
     balance?: number | null
+    openingBalance?: number | null
     bills?: BillCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
@@ -62532,6 +62566,7 @@ export namespace Prisma {
     address?: string | null
     email?: string | null
     balance?: number | null
+    openingBalance?: number | null
     bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
@@ -62642,6 +62677,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
     bills?: BillUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
@@ -62656,6 +62692,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
     bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
@@ -70092,6 +70129,7 @@ export namespace Prisma {
     address?: string | null
     email?: string | null
     balance?: number | null
+    openingBalance?: number | null
     transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
     bills?: BillCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
@@ -70106,6 +70144,7 @@ export namespace Prisma {
     address?: string | null
     email?: string | null
     balance?: number | null
+    openingBalance?: number | null
     transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
     bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
@@ -70135,6 +70174,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
     bills?: BillUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
@@ -70149,6 +70189,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
     bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
@@ -70162,6 +70203,7 @@ export namespace Prisma {
     address?: string | null
     email?: string | null
     balance?: number | null
+    openingBalance?: number | null
     transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
@@ -70176,6 +70218,7 @@ export namespace Prisma {
     address?: string | null
     email?: string | null
     balance?: number | null
+    openingBalance?: number | null
     transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
@@ -70281,6 +70324,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
@@ -70295,6 +70339,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
@@ -70678,6 +70723,7 @@ export namespace Prisma {
     address?: string | null
     email?: string | null
     balance?: number | null
+    openingBalance?: number | null
     transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
     bills?: BillCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
@@ -70692,6 +70738,7 @@ export namespace Prisma {
     address?: string | null
     email?: string | null
     balance?: number | null
+    openingBalance?: number | null
     transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
     bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
@@ -70759,6 +70806,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
     bills?: BillUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
@@ -70773,6 +70821,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
     transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
     bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput

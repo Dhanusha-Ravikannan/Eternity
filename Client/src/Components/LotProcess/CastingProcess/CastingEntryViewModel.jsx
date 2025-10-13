@@ -593,7 +593,8 @@ const CastingEntryViewModal = ({
   >
     Opening Balance: ₹ {openingBalance.toFixed(2)}
   </Typography>
-)}
+)} 
+{/* <Typography> Total Balance:₹ {totalBalance.toFixed(3)} </Typography> */}
 
 
 

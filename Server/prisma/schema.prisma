@@ -39,6 +39,7 @@ model AddCustomer {
   address      String?
   email        String?
   balance      Float?
+  openingBalance Float?
   transactions CustomerTransaction[]
   bills        Bill[]
   hallmarks    Hallmark[]

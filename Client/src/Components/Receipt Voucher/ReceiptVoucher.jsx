@@ -90,7 +90,6 @@ const ReceiptVoucher = () => {
   const handleChangeReceipt = (index, field, value) => {
     const updatedRows = [...receipt];
     if (field === "type") {
-      // if one row only have one type if we change another type before we set all values are empty
       updatedRows[index].gold = "";
       updatedRows[index].touch = "";
       updatedRows[index].amount = "";
@@ -116,28 +115,37 @@ const ReceiptVoucher = () => {
     setReceipt(updatedRows);
     receiptValidation(receipt, setReceiptErrors);
   };
-
-  const handleCustomerChange = (event) => {
+  const handleCustomerChange = async (event) => {
     const customerId = event.target.value;
     setSelectedCustomer(customerId);
-
-    // Mock data for receipts when customer is selected
-    if (customerId) {
-      const fetchPreviousBal = async () => {
-        try {
-          const response = await axios.get(
-            `${BACKEND_SERVER_URL}/api/customers/${customerId}`
-          );
-          console.log("response from bal", response);
-          setReceiptBalances({
-            oldbalance: response?.data?.customerBillBalance?.balance,
-            hallMark: response?.data?.customerBillBalance?.hallMarkBal,
-          });
-        } catch (err) {}
-      };
-      fetchPreviousBal();
+  
+    if (!customerId || customerId === "Select Customer") return;
+  
+    try {
+      const response = await axios.get(
+        `${BACKEND_SERVER_URL}/api/customers/${customerId}`
+      );
+  
+      console.log("Customer + Hallmark response:", response.data);
+  
+      const dataArray = response.data;
+      const data = Array.isArray(dataArray) && dataArray.length > 0 ? dataArray[0] : null;
+  
+      if (!data) {
+        setReceiptBalances({ oldbalance: 0, hallMark: 0 });
+        return;
+      }
+  
+      setReceiptBalances({
+        oldbalance: (data?.customer?.openingBalance ?? data?.customer?.balance) ?? 0,
+        hallMark: data?.balance ?? 0,
+      });
+    } catch (error) {
+      console.error("Error fetching customer balances:", error);
+      toast.error("Failed to fetch customer balances");
     }
   };
+  
   const totalReceivedPurity = receipt.reduce(
     (acc, row) => acc + (parseFloat(row.purity) || 0),
     0
@@ -275,9 +283,7 @@ const ReceiptVoucher = () => {
               <input
                 className={styles.receiptInput}
                 readOnly
-                value={Number(receiptBalances?.oldbalance ?? 0).toFixed(3)}
-
-              />
+                value={Number(receiptBalances?.oldbalance ?? 0).toFixed(3)}  />
             </div>
             <div>
               <p className={styles.receiptLabel}>Hall Mark Balance</p>

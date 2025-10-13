@@ -6,7 +6,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "./Billing.module.css";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
-import { Dialog, DialogTitle, DialogContent, DialogActions,} from "@mui/material";
+import { Dialog,DialogContent, DialogActions,} from "@mui/material";
 
 const Billing = () => {
   const [customers, setCustomers] = useState([]);
@@ -110,29 +110,31 @@ useEffect(() => {
     try {
       if (selectedCustomerId) {
         const response = await axios.get(
-          `${BACKEND_SERVER_URL}/api/transactions/${selectedCustomerId}`
+          `${BACKEND_SERVER_URL}/api/customers/${selectedCustomerId}`
         );
-        console.log("sdhiohf", response);
-
-        let Usedbalance = response.data.reduce(
-          (sum, item) => sum + (item.usedPurity || 0),
-          0
-        );
-        let Availablebalance = response.data.reduce(
-          (sum, item) => sum + (item.purity || 0),
-          0
-        );
-        let balance = Availablebalance - Usedbalance;
-
-        if (balance > 0) {
-          setCustomerBalance(balance);
+        console.log("Customer Transaction Response:", response.data);
+  
+        if (response.data.length > 0) {
+          const customerInfo = response.data[0]?.customer || {};
+  
+          //  Use balance if available, otherwise use openingBalance
+          const balanceValue =
+            customerInfo.balance !== null && customerInfo.balance !== undefined
+              ? parseFloat(customerInfo.balance)
+              : parseFloat(customerInfo.openingBalance) || 0;
+  
+          setCustomerBalance(balanceValue);
+        } else {
+          setCustomerBalance(0);
         }
       }
     } catch (error) {
       console.error("Error fetching customer balance:", error);
+      setCustomerBalance(0);
     }
   };
-
+  
+ 
   const fetchHallmarkBalance = async () => {
     try {
       if (selectedCustomerId) {
@@ -292,25 +294,6 @@ useEffect(() => {
   };
   
 
-  // const addToBill = (item, index) => {
-  //   const totalWeight = parseFloat(item.weight || 0) - parseFloat(item.stoneWeight || 0);
-
-  //   setBillItems((prev) => [
-  //     ...prev,
-  //     {
-  //       ...item,
-  //       totalWeight,
-  //       percent: "",
-  //       pure: 0,
-  //       amount: 0,
-  //     },
-  //   ]);
-
-  //   const updatedAvailable = [...availableItems];
-  //   updatedAvailable.splice(index, 1);
-  //   setAvailableItems(updatedAvailable);
-  // };
-
   const handleInputChange = (index, field, value) => {
     const newBill = [...billItems];
     newBill[index][field] = value;
@@ -346,33 +329,17 @@ useEffect(() => {
 
   console.log("billin", billItems);
 
-  const totalBillingPure = billItems.reduce(
-    (sum, item) => sum + (item.pure || 0),
-    0
-  );
+  const totalBillingPure = billItems.reduce( (sum, item) => sum + (item.pure || 0), 0 );
 
-  const pureBalanceValue =
-    customerBalance > 0
-      ? customerBalance - totalBillingPure > 0
-        ? 0
-        : parseFloat(totalPure) -
-          parseFloat(totalReceivedPurity) -
-          parseFloat(customerBalance)
-      : parseFloat(totalPure) - parseFloat(totalReceivedPurity);
+  // Total pure from the footer "Total" row
+const totalFinalPure = parseFloat(totalPure || 0) + parseFloat(customerBalance || 0);
 
-  let pureBalance = pureBalanceValue.toFixed(3);
-  let cashBalance = "0.00";
+// Pure balance calculation (directly from Total)
+const pureBalanceValue = totalFinalPure - parseFloat(totalReceivedPurity || 0);
 
-  if (receivedRows.length > 0) {
-    const lastRow = receivedRows[receivedRows.length - 1];
-    const lastRate = parseFloat(lastRow.goldRate);
-
-    if (!isNaN(lastRate) && lastRate > 0) {
-      const absPure = totalPure - customerBalance - totalReceivedPurity;
-      console.log("absPure", absPure, "lastRate", lastRate);
-      cashBalance = absPure * lastRate;
-    }
-  }
+// Keep both positive and negative separately for display
+const pureBalance = pureBalanceValue >= 0 ? pureBalanceValue.toFixed(3) : "0.000";
+const excessPure = pureBalanceValue < 0 ? Math.abs(pureBalanceValue).toFixed(3) : "0.000";
 
   const handleReceivedInput = (index, field, value) => {
     const updated = [...receivedRows];
@@ -409,6 +376,21 @@ useEffect(() => {
     ? validGoldRates[validGoldRates.length - 1]
     : 0;
 
+
+      let cashBalance = 0;
+
+if (pureBalanceValue > 0) {
+  // Customer owes gold → convert to cash
+  cashBalance = pureBalanceValue * lastGoldRate;
+} else if (pureBalanceValue < 0) {
+  // Owner owes gold → convert to cash (negative)
+  cashBalance = pureBalanceValue * lastGoldRate;
+} else {
+  cashBalance = 0;
+}
+
+cashBalance = parseFloat(cashBalance.toFixed(2));
+
   const handleSave = async () => {
     try {
       const billData = {
@@ -420,10 +402,7 @@ useEffect(() => {
         totalAmount: totalAmount,
         customerBalance: customerBalance,
         grandTotal: grandTotal,
-        cashBalance:
-          parseFloat(cashBalance) > 0
-            ? parseFloat(cashBalance).toFixed(2)
-            : "0.00",
+        cashBalance: parseFloat(cashBalance).toFixed(2),
         pureBalance: pureBalanceValue,
         prevHallmark: prevHallmark,
         hallmarkBalance: hallmarkBalance,
@@ -450,7 +429,7 @@ useEffect(() => {
       setGoldRate("");
       setHallmarkForThisBill(0);
       setHallmarkBalance(0);
-      pureBalance = 0;
+      // pureBalance = 0;
     } catch (error) {
       console.error("Error saving bill:", error);
       alert("Error saving bill data");
@@ -573,24 +552,21 @@ useEffect(() => {
                   </tr>
                 ))}
               </tbody>
-             
+            
+
 <tfoot>
-  {customerBalance > 0 ? (
+  {customerBalance >= 0 ? (
     <tr style={{ color: "green", fontWeight: "bold" }}>
-      <td colSpan={5}>
-        Customer Excess Balance
-      </td>
-      <td>{parseFloat(customerBalance).toFixed(3)}</td>
-      <td>{(customerBalance * goldRate).toFixed(2)}</td>
+      <td colSpan={5}>Customer Balance</td>
+      <td>{parseFloat(customerBalance || 0).toFixed(3)}</td>
+      <td>{(parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)).toFixed(2)}</td>
       <td></td>
     </tr>
   ) : (
     <tr style={{ color: "red", fontWeight: "bold" }}>
-      <td colSpan={5}>
-        Customer Balance
-      </td>
-      <td>{parseFloat(Math.abs(customerBalance)).toFixed(3)}</td>
-      <td>{(Math.abs(customerBalance) * goldRate).toFixed(2)}</td>
+      <td colSpan={5}>Customer Excess Balance</td>
+      <td>{parseFloat(customerBalance || 0).toFixed(3)}</td>
+      <td>{(parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)).toFixed(2)}</td>
       <td></td>
     </tr>
   )}
@@ -599,8 +575,8 @@ useEffect(() => {
     <td colSpan={5}>
       <b>Final Bill Total</b>
     </td>
-    <td>{totalPure}</td>
-    <td>{totalAmount}</td>
+    <td>{parseFloat(totalPure || 0).toFixed(3)}</td>
+    <td>{parseFloat(totalAmount || 0).toFixed(2)}</td>
     <td></td>
   </tr>
 
@@ -609,26 +585,28 @@ useEffect(() => {
       <b>Total</b>
     </td>
     <td className={styles.trEven}>
-      {(totalPure - customerBalance).toFixed(3)}
+      {(parseFloat(totalPure || 0) + parseFloat(customerBalance || 0)).toFixed(3)}
     </td>
 
-     <td
+    <td
       colSpan={3}
       className={styles.trEven}
       style={{
         color:
-          totalAmount - customerBalance * goldRate >= 0 ? "green" : "red",
+          parseFloat(totalAmount || 0) + parseFloat(customerBalance || 0) * parseFloat(goldRate || 0) >= 0
+            ? "green"
+            : "red",
         fontWeight: "bold",
       }}
     >
-      {(totalAmount - customerBalance * goldRate).toFixed(2)} <br />
-      {totalAmount - customerBalance * goldRate >= 0
+      {(parseFloat(totalAmount || 0) + parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)).toFixed(2)}{" "}
+      <br />
+      {parseFloat(totalAmount || 0) + parseFloat(customerBalance || 0) * parseFloat(goldRate || 0) >= 0
         ? "Customer must give to Owner"
         : "Owner must give to Customer"}
     </td>
   </tr>
 </tfoot>
-
             </table>
           </div>
           <br />
@@ -641,9 +619,15 @@ useEffect(() => {
               label="Hallmark for this bill"
               type="number"
               size="small"
-              value={hallmarkForThisBill}
+              // value={hallmarkForThisBill}
+              // onChange={(e) => {
+              //   const value = parseFloat(e.target.value) || 0;
+              //   setHallmarkForThisBill(value);
+              //   setHallmarkBalance((parseFloat(prevHallmark) || 0) + value);
+              // }}
+              value={hallmarkForThisBill === 0 ? "" : hallmarkForThisBill}
               onChange={(e) => {
-                const value = parseFloat(e.target.value) || 0;
+                const value = e.target.value === "" ? 0 : parseFloat(e.target.value);
                 setHallmarkForThisBill(value);
                 setHallmarkBalance((parseFloat(prevHallmark) || 0) + value);
               }}
@@ -658,6 +642,7 @@ useEffect(() => {
             <IconButton
               onClick={addReceivedRow}
               disabled={totalPure - customerBalance < 0}
+         
             >
               <AddCircleOutlineIcon />
             </IconButton>
@@ -805,14 +790,21 @@ useEffect(() => {
               <b>Cash Balance:</b> ₹{" "}
               {cashBalance ? parseFloat(cashBalance).toFixed(2) : 0}
             </p>
-            <p>
+            {/* <p>
               <b>Excess Pure:</b>{" "}
               {pureBalanceValue < 0 ? Math.abs(pureBalance) : "0.00"}
             </p>
             <p>
               <b>Pure Balance:</b>{" "}
               {pureBalanceValue >= 0 ? pureBalance : "0.00"}
-            </p>
+            </p> */}
+            <p>
+  <b>Pure Balance:</b> {pureBalance}
+</p>
+<p>
+  <b>Excess Pure:</b> {excessPure}
+</p>
+
             <p>
               <b>Hallmark Balance:</b> {hallmarkBalance}
             </p>
@@ -832,7 +824,7 @@ useEffect(() => {
   onClick={() => setOpenBillsPopup(true)}
 >
   View All Bills
-</Button>
+</Button> 
 
         </div>
 
@@ -919,7 +911,7 @@ useEffect(() => {
                 <td>{item.weight}</td>
                 <td>{item.stone_weight}</td>
                 <td>{item.total_weight}</td>
-                <td>{item.touch.touch || item.touchId}</td>
+                <td>{item.touch?.touch ?? item.touchId ?? "-"}</td>            
                 <td>{item.pure}</td>
                 <td>{item.amount}</td>
               </tr>
@@ -928,8 +920,8 @@ useEffect(() => {
           <tfoot>
             <tr>
               <td colSpan={5}><b>Excess Balance</b></td>
-              <td>{viewBill.customer_balance}</td>
-              <td>{(viewBill.customer_balance * viewBill.gold_rate).toFixed(2)}</td>
+              <td>{(viewBill.customer_balance).toFixed(3)}</td>
+              <td>{(viewBill.customer_balance * viewBill.gold_rate).toFixed(3)}</td>
             </tr>
             <tr>
               <td colSpan={5}><b>Final Bill Total</b></td>
@@ -939,18 +931,16 @@ useEffect(() => {
             <tr>
               <td colSpan={5} className={styles.trEven}><b>Total</b></td>
               <td className={styles.trEven}>
-                {(viewBill.total_pure - viewBill.customer_balance).toFixed(3)}
+                {(viewBill.total_pure + viewBill.customer_balance).toFixed(3)}
               </td>
               <td className={styles.trEven}>
-                {(viewBill.total_amount - viewBill.customer_balance * viewBill.gold_rate).toFixed(2)} <br />
-                {viewBill.total_amount - viewBill.customer_balance * viewBill.gold_rate >= 0
+                {(viewBill.total_amount + viewBill.customer_balance * viewBill.gold_rate).toFixed(2)} <br />
+                {viewBill.total_amount + viewBill.customer_balance * viewBill.gold_rate >= 0
                   ? "Customer must give to Owner"
                   : "Owner must give to Customer"}
               </td>
             </tr>
           </tfoot>
-
-
         </table>
       </div>
   
@@ -977,15 +967,15 @@ useEffect(() => {
             </tr>
           </thead>
           <tbody>
-            {viewBill.receivedItems?.map((row, idx) => (
+              {(viewBill.receivedItems || []).map((row, idx) => (
               <tr key={idx}>
                 <td>{idx + 1}</td>
                 <td>{row.date}</td>
                 <td>{row.type}</td>
-                <td>{row.goldRate || "-" }</td>
+                <td>{row.goldRate || row.gold_rate || "-"}</td>
                 <td>{row.gold || "-"}</td>
-                <td>{row.touch?.touch ?? "-"}</td> 
-                <td>{row.purity_weight || "-"}</td>
+                <td>{row.touch?.touch ?? row.touchId ?? "-"}</td>
+                <td>{(row.purity_weight .toFixed(3)) || "-"}</td>
                 <td>{row.amount || "-"}</td>
                 <td>{row.hallmark_charge || "-"}</td>
               </tr>
@@ -994,11 +984,10 @@ useEffect(() => {
           <tfoot className={styles.trEven}>
             <tr>
               <td colSpan={6}><b>Total Purity</b></td>
-              <td> <b>
-        {viewBill.receivedItems?.reduce(
-          (sum, row) => sum + (Number(row.purity_weight) || 0),
-          0
-        ) ?? 0} </b> </td>
+              <td> 
+                <b> {( viewBill.receivedItems?.reduce((sum, row) => sum + (Number(row.purity_weight) || 0),  0 ) ?? 0 ).toFixed(3)}  </b> 
+
+          </td>
               <td colSpan={2}></td>
             </tr>
           </tfoot>
@@ -1008,8 +997,8 @@ useEffect(() => {
       <div className={styles.balance} style={{marginTop:'2rem'}}>
     
         <p><b>Cash Balance:</b> ₹{viewBill.cash_balance}</p>
-        <p><b>Excess Pure:</b> {viewBill.excessPure}</p>
-        <p><b>Pure Balance:</b> {viewBill.pure_balance.toFixed(3)}</p>
+        <p><b>Pure Balance:</b> {viewBill.excessPure}</p>
+        <p><b>Excess Pure:</b> {viewBill.pure_balance.toFixed(3)}</p>
         <p><b>Hallmark Balance:</b> {viewBill.hallmark_balance}</p>
       </div>
 
@@ -1029,7 +1018,6 @@ useEffect(() => {
         <button onClick={() => setViewBill(null)}>Back to Bills</button>
       </div>
 
-      
     </div>
     )}
   </DialogContent>
