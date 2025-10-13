@@ -14,10 +14,7 @@ const CustomerTranscation = () => {
   const customerId = searchParams.get("id");
   const customerName = searchParams.get("name");
   const openingBalance = parseFloat(searchParams.get("balance")) || 0;
-  console.log("customerId:", customerId, "customerName:", customerName, "openingBalance:", openingBalance);
-
-
-
+  console.log("customerId:", customerId, "customerName:", customerName, "Balance:", openingBalance);
 
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
@@ -455,7 +452,7 @@ if (newBalance !== undefined && newBalance !== null) {
 
 <div className={styles.openingBalanceSection}>
   <h5>
-    Opening Balance: <span style={{ color: "red" }}>  ₹ {openingBalance.toFixed(2)}   </span>
+    Opening Balance: <span style={{ color: "red" }}>  ₹ {openingBalance}   </span>
   </h5>
 </div>
 

@@ -27,7 +27,6 @@ const  allocatePurity = (transactions, totalPureToUse) => {
   return updates;
 }
 
-
 export const createBill = async (req, res) => {
   try {
     const {
@@ -90,43 +89,27 @@ export const createBill = async (req, res) => {
         pure_balance: parseFloat(pureBalance),
         prev_hallmark: parseFloat(prevHallmark),
         hallmark_balance: parseFloat(hallmarkBalance),
-        // billItems: {
-        //   create: billItems.map((item) => ({
-        //     qc_stock_id: item.id,
-        //     item_name: item.itemId.name,
-        //     weight: parseFloat(item.weight),
-        //     stone_weight: item.stone_weight
-        //       ? parseFloat(item.stone_weight)
-        //       : null,
-        //     total_weight: parseFloat(item.totalWeight),
-        //     // touchId: parseFloat(item.touchId),
-        //     touchId: item.touchValue ? parseFloat(item.touchValue) : null,
-        //     pure: parseFloat(item.pure),
-        //     amount: parseFloat(item.amount),
-        //     addItemId: parseInt(item.itemId.id),
-        //   })),
-        // },
+  
         billItems: {
           create: billItems.map((item) => ({
             qc_stock_id: item.id,
-            item_name: item.itemId?.name || "", //  Safely handle name
+            item_name: item.itemId?.name || "",
             weight: parseFloat(item.weight),
             stone_weight: item.stone_weight ? parseFloat(item.stone_weight) : null,
             total_weight: parseFloat(item.totalWeight),
-            touchId: item.touchValue ? parseFloat(item.touchValue) : null, //  manual entry touch value
+            touchId: item.percent ? parseFloat(item.percent) : null, 
             pure: parseFloat(item.pure),
             amount: parseFloat(item.amount),
-            addItemId: item.itemId?.id ? parseInt(item.itemId.id) : null, //  use optional chaining
+            addItemId: item.itemId?.id ? parseInt(item.itemId.id) : null,
           })),
         },
         
         receivedItems: {
           create: receivedItems.map((item) => ({
             date: item.date,
-            type: "Gold",
+            type: item.type || "Gold",
             gold_rate: parseFloat(item.goldRate),
             gold: item.gold ? parseFloat(item.gold) : null,
-            // touchId: item.touchId ? parseFloat(item.touchId) : null,
             touchId: item.touchValue ? parseFloat(item.touchValue) : null,
             purity_weight: parseFloat(item.purityWeight),
             amount: item.amount ? parseFloat(item.amount) : null,
@@ -142,17 +125,17 @@ export const createBill = async (req, res) => {
       },
     });
 
-    if (excessPure > 0) {
-      await prisma.customerTransaction.create({
-        data: {
-          customerId: parseInt(customerId),
-          purity: parseFloat(excessPure),
-          type: "GOLD",
-          value: 0,
-          date: new Date(),
-        },
-      });
-    }
+    // if (excessPure > 0) {
+    //   await prisma.customerTransaction.create({
+    //     data: {
+    //       customerId: parseInt(customerId),
+    //       purity: parseFloat(excessPure),
+    //       type: "GOLD",
+    //       value: 0,
+    //       date: new Date(),
+    //     },
+    //   });
+    // }
 
     const existing = await prisma.hallmark.findFirst({
       where: { customer_id: parseInt(customerId) },
@@ -172,6 +155,31 @@ export const createBill = async (req, res) => {
       });
     }
 
+//  Update customer's openingBalance or balance with the latest pureBalance (replace, not add)
+const customer = await prisma.addCustomer.findUnique({
+  where: { id: parseInt(customerId) },
+});
+
+if (customer) {
+  const newPureBalance = parseFloat(pureBalance) || 0;
+
+  if (customer.openingBalance !== null && customer.openingBalance !== undefined) {
+    // If openingBalance exists → replace it
+    await prisma.addCustomer.update({
+      where: { id: parseInt(customerId) },
+      data: { openingBalance: newPureBalance },
+    });
+    console.log(` Replaced openingBalance → ${newPureBalance.toFixed(3)}`);
+  } else {
+    // If openingBalance is null → replace balance instead
+    await prisma.addCustomer.update({
+      where: { id: parseInt(customerId) },
+      data: { balance: newPureBalance },
+    });
+    console.log(` Replaced balance → ${newPureBalance.toFixed(3)}`);
+  }
+}
+
     res.status(201).json({
       message: "Bill created successfully",
       bill,
@@ -181,6 +189,7 @@ export const createBill = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 export const getAllBills = async (req, res) => {
   try {
