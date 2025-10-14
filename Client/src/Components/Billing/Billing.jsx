@@ -118,15 +118,24 @@ useEffect(() => {
           const customerInfo = response.data[0]?.customer || {};
   
           //  Use balance if available, otherwise use openingBalance
-          const balanceValue =
-            customerInfo.balance !== null && customerInfo.balance !== undefined
-              ? parseFloat(customerInfo.balance)
-              : parseFloat(customerInfo.openingBalance) || 0;
+        //   const balanceValue =
+        //     customerInfo.balance !== null && customerInfo.balance !== undefined
+        //       ? parseFloat(customerInfo.balance)
+        //       : parseFloat(customerInfo.openingBalance) || 0;
   
-          setCustomerBalance(balanceValue);
-        } else {
-          setCustomerBalance(0);
-        }
+        //   setCustomerBalance(balanceValue);
+        // } else {
+        //   setCustomerBalance(0);
+        // }
+        const balanceValue =
+          customerInfo.openingBalance !== null && customerInfo.openingBalance !== undefined
+            ? parseFloat(customerInfo.openingBalance) || 0
+            : parseFloat(customerInfo.balance) || 0;
+
+        setCustomerBalance(balanceValue);
+      } else {
+        setCustomerBalance(0);
+      }
       }
     } catch (error) {
       console.error("Error fetching customer balance:", error);
@@ -996,10 +1005,29 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
   
       <div className={styles.balance} style={{marginTop:'2rem'}}>
     
-        <p><b>Cash Balance:</b> ₹{viewBill.cash_balance}</p>
+        {/* <p><b>Cash Balance:</b> ₹{viewBill.cash_balance}</p>
         <p><b>Pure Balance:</b> {viewBill.excessPure}</p>
         <p><b>Excess Pure:</b> {viewBill.pure_balance.toFixed(3)}</p>
-        <p><b>Hallmark Balance:</b> {viewBill.hallmark_balance}</p>
+        <p><b>Hallmark Balance:</b> {viewBill.hallmark_balance}</p> */}
+
+  <p><b>Cash Balance:</b> ₹{viewBill.cash_balance}</p>
+
+  {viewBill.pure_balance >= 0 ? (
+    <>
+      <p><b>Pure Balance:</b> {viewBill.pure_balance.toFixed(3)}</p>
+      <p><b>Excess Pure:</b> 0.000</p>
+    </>
+  ) : (
+    <>
+      <p><b>Pure Balance:</b> 0.000</p>
+      <p><b>Excess Pure:</b> {(viewBill.pure_balance).toFixed(3)}</p>
+    </>
+  )}
+
+  <p><b>Hallmark Balance:</b> {viewBill.hallmark_balance}</p>
+
+ 
+
       </div>
 
     {/* 🔹 Controls (hidden during print) */}

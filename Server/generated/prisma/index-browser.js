@@ -538,6 +538,7 @@ exports.Prisma.ReceiptVoucherScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   customer_id: 'customer_id',
+  date: 'date',
   type: 'type',
   gold_rate: 'gold_rate',
   amount: 'amount',
@@ -665,6 +666,11 @@ exports.Prisma.BillItemOrderByRelevanceFieldEnum = {
 
 exports.Prisma.ReceivedItemOrderByRelevanceFieldEnum = {
   date: 'date'
+};
+
+exports.Prisma.ReceiptVoucherOrderByRelevanceFieldEnum = {
+  date: 'date',
+  type: 'type'
 };
 
 exports.Prisma.ExpenseVoucherOrderByRelevanceFieldEnum = {

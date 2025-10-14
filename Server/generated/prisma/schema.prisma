@@ -624,13 +624,14 @@ model ReceiptVoucher {
 
   customer_id Int
   customerId  AddCustomer @relation(fields: [customer_id], references: [id])
-  type        ITEMTYPE
+  date        String?
+  type        String?
   gold_rate   Float?
   amount      Float?
   gold        Float?
-  touch_id    Int
-  touchId     AddTouch    @relation(fields: [touch_id], references: [id])
-  purity      Float
+  touch_id    Int?
+  touchId     AddTouch?   @relation(fields: [touch_id], references: [id])
+  purity      Float?
   hallmark    Float?
 }
 

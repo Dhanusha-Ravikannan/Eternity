@@ -1,17 +1,17 @@
 import { ITEMTYPE, PrismaClient } from "../generated/prisma/index.js";
 const prisma = new PrismaClient();
 
+
+
 // export const createTransaction = async (req, res) => {
 //   try {
-//     console.log("Sssssssssssss", req.body);
-//     const { date, type, value, touchId, purity, goldRate, customerId } =
-//       req.body;
-//     console.log("Backend received request body:", req.body);
+//     const { date, type, value, touchId, purity, goldRate, customerId } = req.body;
 
 //     if (!date || !type || !value || !customerId) {
 //       return res.status(400).json({ error: "Missing required fields" });
 //     }
 
+//     //  Step 1: Create new transaction
 //     const transaction = await prisma.customerTransaction.create({
 //       data: {
 //         date: new Date(date),
@@ -20,40 +20,84 @@ const prisma = new PrismaClient();
 //         value: parseFloat(value),
 //         ...(touchId ? { touch: { connect: { id: parseInt(touchId) } } } : {}),
 //         purity: purity ? parseFloat(purity) : null,
-//         customer: {
-//           connect: {
-//             id: parseInt(customerId),
-//           },
-//         },
+//         customer: { connect: { id: parseInt(customerId) } },
 //       },
 //     });
 
-//     const stock = await prisma.stock.create({
+//     //  Step 2: Add stock entry
+//     await prisma.stock.create({
 //       data: {
 //         casting_item_id: null,
 //         filing_item_id: null,
 //         setting_item_id: null,
 //         buffing_item_id: null,
-//         item_type: "Gold", 
+//         item_type: "Gold",
 //         item_id: null,
-//         weight: value?parseFloat(value):0,
+//         weight: value ? parseFloat(value) : 0,
 //         touch_id: touchId ? parseInt(touchId) : null,
-//         item_purity: purity ? parseFloat(purity) : 0, 
+//         item_purity: purity ? parseFloat(purity) : 0,
 //         remarks: `From Customer Transaction of Customer Id - ${customerId}`,
 //         casting_customer_id: null,
 //         purchase_id: null,
-//         customer_transaction_id: customerId,
+//         customer_transaction_id: transaction.id,
 //       },
 //     });
 
-//     res.status(201).json(transaction);
+//     //  Step 3: Fetch all transactions for this customer to compute total purity
+//     const allTransactions = await prisma.customerTransaction.findMany({
+//       where: { customerId: parseInt(customerId) },
+//     });
+
+//     const totalPuritySum = allTransactions.reduce(
+//       (sum, txn) => sum + (parseFloat(txn.purity) || 0),
+//       0
+//     );
+
+//     //  Step 4: Fetch the customer details
+//     const customer = await prisma.addCustomer.findUnique({
+//       where: { id: parseInt(customerId) },
+//     });
+
+//     if (!customer) {
+//       return res.status(404).json({ error: "Customer not found" });
+//     }
+
+//     //  Step 5: Determine correct opening balance
+//     let openingBalance = 0;
+
+//     if (customer.openingBalance !== null && customer.openingBalance !== undefined) {
+//       // If openingBalance column exists and has value
+//       openingBalance = parseFloat(customer.openingBalance);
+//     } else {
+//       // Otherwise use initial balance as opening balance (only once)
+//       openingBalance = parseFloat(customer.balance) || 0;
+
+//       // Save this as fixed openingBalance for future consistency
+//       await prisma.addCustomer.update({
+//         where: { id: parseInt(customerId) },
+//         data: { openingBalance },
+//       });
+//     }
+
+//     //  Step 6: Compute totalBalance = fixed opening + totalPuritySum
+//     const totalBalance = openingBalance + totalPuritySum;
+
+//     //  Step 7: Update customer's current balance
+//     await prisma.addCustomer.update({
+//       where: { id: parseInt(customerId) },
+//       data: { balance: totalBalance },
+//     });
+
+//     res.status(201).json({
+//       message: "Transaction created and customer balance updated successfully.",
+//       transaction,
+//       totalBalance,
+//     });
 //   } catch (error) {
 //     console.error("Error creating transaction:", error);
-//     console.error("Prisma error details:", error);
 //     res.status(500).json({ error: "Internal server error" });
 //   }
-// }; 
-
+// };
 
 
 export const createTransaction = async (req, res) => {
@@ -106,7 +150,7 @@ export const createTransaction = async (req, res) => {
       0
     );
 
-    //  Step 4: Fetch the customer details
+    //  Step 4: Fetch customer details
     const customer = await prisma.addCustomer.findUnique({
       where: { id: parseInt(customerId) },
     });
@@ -115,36 +159,22 @@ export const createTransaction = async (req, res) => {
       return res.status(404).json({ error: "Customer not found" });
     }
 
-    //  Step 5: Determine correct opening balance
-    let openingBalance = 0;
+    //  Step 5: Get existing opening balance (or default to 0)
+    const currentOpeningBalance = customer.openingBalance ?? 0;
 
-    if (customer.openingBalance !== null && customer.openingBalance !== undefined) {
-      // If openingBalance column exists and has value
-      openingBalance = parseFloat(customer.openingBalance);
-    } else {
-      // Otherwise use initial balance as opening balance (only once)
-      openingBalance = parseFloat(customer.balance) || 0;
+    //  Step 6: Compute new opening balance = existing opening + totalPuritySum
+    const newOpeningBalance = parseFloat(currentOpeningBalance) + totalPuritySum;
 
-      // Save this as fixed openingBalance for future consistency
-      await prisma.addCustomer.update({
-        where: { id: parseInt(customerId) },
-        data: { openingBalance },
-      });
-    }
-
-    //  Step 6: Compute totalBalance = fixed opening + totalPuritySum
-    const totalBalance = openingBalance + totalPuritySum;
-
-    //  Step 7: Update customer's current balance
+    //  Step 7: Update openingBalance (not balance)
     await prisma.addCustomer.update({
       where: { id: parseInt(customerId) },
-      data: { balance: totalBalance },
+      data: { openingBalance: newOpeningBalance },
     });
 
     res.status(201).json({
-      message: "Transaction created and customer balance updated successfully.",
+      message: "Transaction created and customer opening balance updated successfully.",
       transaction,
-      totalBalance,
+      openingBalance: newOpeningBalance,
     });
   } catch (error) {
     console.error("Error creating transaction:", error);

@@ -87,44 +87,49 @@ const ReceiptVoucher = () => {
       setReceipt(filterRows);
     }
   };
+
   const handleChangeReceipt = (index, field, value) => {
     const updatedRows = [...receipt];
-    if (field === "type") {
-      updatedRows[index].gold = "";
-      updatedRows[index].touch = "";
-      updatedRows[index].amount = "";
-      updatedRows[index].goldRate = "";
-      updatedRows[index].purity = "";
-    }
+  
+    // Store the raw value in state
     updatedRows[index][field] = value;
-    const goldRate = parseFloat(updatedRows[index].goldRate) || 0;
-    const gold = parseFloat(updatedRows[index].gold) || 0;
-    const touch = parseFloat(updatedRows[index].touch) || 0;
-    const amount = parseFloat(updatedRows[index].amount) || 0;
-
+  
+    // For purity calculation, fetch the numeric touch if field is touch
+    let goldRate = parseFloat(updatedRows[index].goldRate) || 0;
+    let gold = parseFloat(updatedRows[index].gold) || 0;
+    let amount = parseFloat(updatedRows[index].amount) || 0;
+  
+    // Lookup numeric touch value from masterTouch if touch ID exists
+    let touchValue = 0;
+    if (updatedRows[index].touch) {
+      const touchObj = masterTouch.find(
+        (t) => t.id === parseInt(updatedRows[index].touch)
+      );
+      touchValue = touchObj ? parseFloat(touchObj.touch) : 0;
+    }
+  
+    // Purity calculation
     let calculatedPurity = 0;
-
     if (goldRate > 0 && amount > 0) {
       calculatedPurity = amount / goldRate;
-    } else if (gold > 0 && touch > 0) {
-      calculatedPurity = gold * (touch / 100);
+    } else if (gold > 0 && touchValue > 0) {
+      calculatedPurity = gold * (touchValue / 100);
     }
-
+  
     updatedRows[index].purity = calculatedPurity.toFixed(3);
-
+  
     setReceipt(updatedRows);
     receiptValidation(receipt, setReceiptErrors);
   };
+  
+
   const handleCustomerChange = async (event) => {
     const customerId = event.target.value;
     setSelectedCustomer(customerId);
   
-    if (!customerId || customerId === "Select Customer") return;
-  
+    if (!customerId || customerId === "Select Customer") return; 
     try {
-      const response = await axios.get(
-        `${BACKEND_SERVER_URL}/api/customers/${customerId}`
-      );
+      const response = await axios.get(`${BACKEND_SERVER_URL}/api/customers/${customerId}`);
   
       console.log("Customer + Hallmark response:", response.data);
   
@@ -135,11 +140,10 @@ const ReceiptVoucher = () => {
         setReceiptBalances({ oldbalance: 0, hallMark: 0 });
         return;
       }
-  
+
       setReceiptBalances({
         oldbalance: (data?.customer?.openingBalance ?? data?.customer?.balance) ?? 0,
-        hallMark: data?.balance ?? 0,
-      });
+        hallMark: data?.balance ?? 0, });
     } catch (error) {
       console.error("Error fetching customer balances:", error);
       toast.error("Failed to fetch customer balances");
@@ -147,9 +151,7 @@ const ReceiptVoucher = () => {
   };
   
   const totalReceivedPurity = receipt.reduce(
-    (acc, row) => acc + (parseFloat(row.purity) || 0),
-    0
-  );
+    (acc, row) => acc + (parseFloat(row.purity) || 0),  0  );
   const pureBalance = receiptBalances.oldbalance - totalReceivedPurity;
   const lastGoldRate = [...receipt]
     .reverse()
@@ -162,9 +164,7 @@ const ReceiptVoucher = () => {
   const totalBillHallmark = parseFloat(receiptBalances.hallMark) || 0;
 
   const totalReceivedHallmark = receipt.reduce(
-    (total, row) => total + (parseFloat(row.hallMark) || 0),
-    0
-  );
+    (total, row) => total + (parseFloat(row.hallMark) || 0),   0  );
 
   const hallmarkBalance = totalBillHallmark - totalReceivedHallmark;
 
@@ -216,13 +216,13 @@ const ReceiptVoucher = () => {
       pureBalance: pureBalance,
       hallmarkBalance: hallmarkBalance,
     };
-    console.log("payLoad", payLoad);
+    console.log("Receipt payLoad", payLoad);
 
     const saveReceipt = async () => {
       handlePrint(receipt, selectedCustomer);
       try {
         const response = await axios.post(
-          `${BACKEND_SERVER_URL}/api/receipt`,
+          `${BACKEND_SERVER_URL}/api/receiptvoucher/receipt`,
           payLoad
         );
         if (response.status === 201) {
@@ -297,9 +297,6 @@ const ReceiptVoucher = () => {
 
               <Button
             style={{
-              backgroundColor: "#F5F5F5",
-              color: "black",
-              borderColor: "#25274D",
               backgroundColor:"rgb(188, 18, 35)",
               color:"white",
               borderColor:'brown',
@@ -421,7 +418,7 @@ const ReceiptVoucher = () => {
                       >
                         <option value="">touch</option>
                         {masterTouch.map((option) => (
-                          <option key={option.id} value={option.touch}>
+                          <option key={option.id} value={option.id}>
                             {option.touch}
                           </option>
                         ))}

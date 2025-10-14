@@ -277,7 +277,8 @@ function MasterCustomer() {
                   <td>{updatedDateObj?.toLocaleTimeString("en-IN", {hour: "2-digit", minute: "2-digit"}) || "-"}</td>
                   <td>{c.name}</td>
                   <td>{c.phoneNumber}</td>
-                  <td>{((c.balance ?? c.openingBalance) ?? 0).toFixed(3)}</td>
+                  {/* <td>{((c.balance ?? c.openingBalance) ?? 0).toFixed(3)}</td> */}
+                  <td>{((c.openingBalance ?? c.balance) ?? 0).toFixed(3)}</td>
                   <td>{c.email}</td>
                   <td>{c.address}</td>
 

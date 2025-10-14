@@ -7,7 +7,7 @@ const PrintReceipt = React.forwardRef((props, ref) => {
     <>
       {/* Header Section */}
       <div>
-        <h3 style={{textAlign:"center"}}>AGR Receipt Voucher</h3>
+        <h3 style={{textAlign:"center"}}>Eternity Receipt Voucher</h3>
       </div>
       <div style={styles.header}>
         <h3 style={styles.h3}>Receipt Entries</h3>
