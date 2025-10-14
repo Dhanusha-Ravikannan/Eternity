@@ -127,15 +127,18 @@ const Customer = () => {
         <TableCell className={styles.tableCell}>{customer.name}</TableCell>
         <TableCell className={styles.tableCell}>{customer.phoneNumber}</TableCell>
         <TableCell className={styles.tableCell}>{customer.address}</TableCell>
-        <TableCell className={styles.tableCell}>{(( customer.balance) ?? 0).toFixed(3)}</TableCell>
+        <TableCell className={styles.tableCell}>
+          {/* {(( customer.balance) ?? 0).toFixed(3)} */}
+        {((customer.openingBalance ?? customer.balance) ?? 0).toFixed(3)}
+        </TableCell>
       
-
         <TableCell className={styles.tableCell}>
           <IconButton
             onClick={() =>
               navigate(
                 `/customertranscation?id=${customer.id}&name=${encodeURIComponent( customer.name
-                )}&balance=${(( customer.balance) ?? 0).toFixed(3)}`
+                )}&balance=${((customer.openingBalance ?? customer.balance) ?? 0).toFixed(3)}`
+                //  {(( customer.balance) ?? 0).toFixed(3)}`
               )            
             }
             className={styles.iconButton}

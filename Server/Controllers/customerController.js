@@ -11,7 +11,8 @@ export const createCustomer = async (req, res) => {
         phoneNumber, 
         address, 
         email,
-        balance: balance === "" || balance == null ? null : parseFloat(balance),
+        // balance: balance === "" || balance == null ? null : parseFloat(balance),
+        balance: balance === "" || balance == null ? 0 : parseFloat(balance),
 
        },
     });
@@ -26,6 +27,11 @@ export const getCustomers = async (req, res) => {
   const customers = await prisma.addCustomer.findMany({
     orderBy:{
       updatedAt:'desc'
+    },
+    include:{
+      hallmarks:{
+        select:{balance:true}
+      }
     }
   });
   res.json(customers);

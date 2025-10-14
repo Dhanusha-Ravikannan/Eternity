@@ -44080,7 +44080,8 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     customer_id: number | null
-    type: $Enums.ITEMTYPE | null
+    date: string | null
+    type: string | null
     gold_rate: number | null
     amount: number | null
     gold: number | null
@@ -44094,7 +44095,8 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     customer_id: number | null
-    type: $Enums.ITEMTYPE | null
+    date: string | null
+    type: string | null
     gold_rate: number | null
     amount: number | null
     gold: number | null
@@ -44108,6 +44110,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     customer_id: number
+    date: number
     type: number
     gold_rate: number
     amount: number
@@ -44146,6 +44149,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     customer_id?: true
+    date?: true
     type?: true
     gold_rate?: true
     amount?: true
@@ -44160,6 +44164,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     customer_id?: true
+    date?: true
     type?: true
     gold_rate?: true
     amount?: true
@@ -44174,6 +44179,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     customer_id?: true
+    date?: true
     type?: true
     gold_rate?: true
     amount?: true
@@ -44275,12 +44281,13 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     customer_id: number
-    type: $Enums.ITEMTYPE
+    date: string | null
+    type: string | null
     gold_rate: number | null
     amount: number | null
     gold: number | null
-    touch_id: number
-    purity: number
+    touch_id: number | null
+    purity: number | null
     hallmark: number | null
     _count: ReceiptVoucherCountAggregateOutputType | null
     _avg: ReceiptVoucherAvgAggregateOutputType | null
@@ -44308,6 +44315,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     customer_id?: boolean
+    date?: boolean
     type?: boolean
     gold_rate?: boolean
     amount?: boolean
@@ -44316,7 +44324,7 @@ export namespace Prisma {
     purity?: boolean
     hallmark?: boolean
     customerId?: boolean | AddCustomerDefaultArgs<ExtArgs>
-    touchId?: boolean | AddTouchDefaultArgs<ExtArgs>
+    touchId?: boolean | ReceiptVoucher$touchIdArgs<ExtArgs>
   }, ExtArgs["result"]["receiptVoucher"]>
 
 
@@ -44326,6 +44334,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     customer_id?: boolean
+    date?: boolean
     type?: boolean
     gold_rate?: boolean
     amount?: boolean
@@ -44335,29 +44344,30 @@ export namespace Prisma {
     hallmark?: boolean
   }
 
-  export type ReceiptVoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "customer_id" | "type" | "gold_rate" | "amount" | "gold" | "touch_id" | "purity" | "hallmark", ExtArgs["result"]["receiptVoucher"]>
+  export type ReceiptVoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "customer_id" | "date" | "type" | "gold_rate" | "amount" | "gold" | "touch_id" | "purity" | "hallmark", ExtArgs["result"]["receiptVoucher"]>
   export type ReceiptVoucherInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customerId?: boolean | AddCustomerDefaultArgs<ExtArgs>
-    touchId?: boolean | AddTouchDefaultArgs<ExtArgs>
+    touchId?: boolean | ReceiptVoucher$touchIdArgs<ExtArgs>
   }
 
   export type $ReceiptVoucherPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ReceiptVoucher"
     objects: {
       customerId: Prisma.$AddCustomerPayload<ExtArgs>
-      touchId: Prisma.$AddTouchPayload<ExtArgs>
+      touchId: Prisma.$AddTouchPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       createdAt: Date
       updatedAt: Date
       customer_id: number
-      type: $Enums.ITEMTYPE
+      date: string | null
+      type: string | null
       gold_rate: number | null
       amount: number | null
       gold: number | null
-      touch_id: number
-      purity: number
+      touch_id: number | null
+      purity: number | null
       hallmark: number | null
     }, ExtArgs["result"]["receiptVoucher"]>
     composites: {}
@@ -44700,7 +44710,7 @@ export namespace Prisma {
   export interface Prisma__ReceiptVoucherClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     customerId<T extends AddCustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddCustomerDefaultArgs<ExtArgs>>): Prisma__AddCustomerClient<$Result.GetResult<Prisma.$AddCustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    touchId<T extends AddTouchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddTouchDefaultArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    touchId<T extends ReceiptVoucher$touchIdArgs<ExtArgs> = {}>(args?: Subset<T, ReceiptVoucher$touchIdArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -44734,7 +44744,8 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"ReceiptVoucher", 'DateTime'>
     readonly updatedAt: FieldRef<"ReceiptVoucher", 'DateTime'>
     readonly customer_id: FieldRef<"ReceiptVoucher", 'Int'>
-    readonly type: FieldRef<"ReceiptVoucher", 'ITEMTYPE'>
+    readonly date: FieldRef<"ReceiptVoucher", 'String'>
+    readonly type: FieldRef<"ReceiptVoucher", 'String'>
     readonly gold_rate: FieldRef<"ReceiptVoucher", 'Float'>
     readonly amount: FieldRef<"ReceiptVoucher", 'Float'>
     readonly gold: FieldRef<"ReceiptVoucher", 'Float'>
@@ -45081,6 +45092,25 @@ export namespace Prisma {
      * Limit how many ReceiptVouchers to delete.
      */
     limit?: number
+  }
+
+  /**
+   * ReceiptVoucher.touchId
+   */
+  export type ReceiptVoucher$touchIdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    where?: AddTouchWhereInput
   }
 
   /**
@@ -46636,6 +46666,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     customer_id: 'customer_id',
+    date: 'date',
     type: 'type',
     gold_rate: 'gold_rate',
     amount: 'amount',
@@ -46835,6 +46866,14 @@ export namespace Prisma {
   };
 
   export type ReceivedItemOrderByRelevanceFieldEnum = (typeof ReceivedItemOrderByRelevanceFieldEnum)[keyof typeof ReceivedItemOrderByRelevanceFieldEnum]
+
+
+  export const ReceiptVoucherOrderByRelevanceFieldEnum: {
+    date: 'date',
+    type: 'type'
+  };
+
+  export type ReceiptVoucherOrderByRelevanceFieldEnum = (typeof ReceiptVoucherOrderByRelevanceFieldEnum)[keyof typeof ReceiptVoucherOrderByRelevanceFieldEnum]
 
 
   export const ExpenseVoucherOrderByRelevanceFieldEnum: {
@@ -49950,15 +49989,16 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
     updatedAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
     customer_id?: IntFilter<"ReceiptVoucher"> | number
-    type?: EnumITEMTYPEFilter<"ReceiptVoucher"> | $Enums.ITEMTYPE
+    date?: StringNullableFilter<"ReceiptVoucher"> | string | null
+    type?: StringNullableFilter<"ReceiptVoucher"> | string | null
     gold_rate?: FloatNullableFilter<"ReceiptVoucher"> | number | null
     amount?: FloatNullableFilter<"ReceiptVoucher"> | number | null
     gold?: FloatNullableFilter<"ReceiptVoucher"> | number | null
-    touch_id?: IntFilter<"ReceiptVoucher"> | number
-    purity?: FloatFilter<"ReceiptVoucher"> | number
+    touch_id?: IntNullableFilter<"ReceiptVoucher"> | number | null
+    purity?: FloatNullableFilter<"ReceiptVoucher"> | number | null
     hallmark?: FloatNullableFilter<"ReceiptVoucher"> | number | null
     customerId?: XOR<AddCustomerScalarRelationFilter, AddCustomerWhereInput>
-    touchId?: XOR<AddTouchScalarRelationFilter, AddTouchWhereInput>
+    touchId?: XOR<AddTouchNullableScalarRelationFilter, AddTouchWhereInput> | null
   }
 
   export type ReceiptVoucherOrderByWithRelationInput = {
@@ -49966,15 +50006,17 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customer_id?: SortOrder
-    type?: SortOrder
+    date?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
     gold_rate?: SortOrderInput | SortOrder
     amount?: SortOrderInput | SortOrder
     gold?: SortOrderInput | SortOrder
-    touch_id?: SortOrder
-    purity?: SortOrder
+    touch_id?: SortOrderInput | SortOrder
+    purity?: SortOrderInput | SortOrder
     hallmark?: SortOrderInput | SortOrder
     customerId?: AddCustomerOrderByWithRelationInput
     touchId?: AddTouchOrderByWithRelationInput
+    _relevance?: ReceiptVoucherOrderByRelevanceInput
   }
 
   export type ReceiptVoucherWhereUniqueInput = Prisma.AtLeast<{
@@ -49985,15 +50027,16 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
     updatedAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
     customer_id?: IntFilter<"ReceiptVoucher"> | number
-    type?: EnumITEMTYPEFilter<"ReceiptVoucher"> | $Enums.ITEMTYPE
+    date?: StringNullableFilter<"ReceiptVoucher"> | string | null
+    type?: StringNullableFilter<"ReceiptVoucher"> | string | null
     gold_rate?: FloatNullableFilter<"ReceiptVoucher"> | number | null
     amount?: FloatNullableFilter<"ReceiptVoucher"> | number | null
     gold?: FloatNullableFilter<"ReceiptVoucher"> | number | null
-    touch_id?: IntFilter<"ReceiptVoucher"> | number
-    purity?: FloatFilter<"ReceiptVoucher"> | number
+    touch_id?: IntNullableFilter<"ReceiptVoucher"> | number | null
+    purity?: FloatNullableFilter<"ReceiptVoucher"> | number | null
     hallmark?: FloatNullableFilter<"ReceiptVoucher"> | number | null
     customerId?: XOR<AddCustomerScalarRelationFilter, AddCustomerWhereInput>
-    touchId?: XOR<AddTouchScalarRelationFilter, AddTouchWhereInput>
+    touchId?: XOR<AddTouchNullableScalarRelationFilter, AddTouchWhereInput> | null
   }, "id">
 
   export type ReceiptVoucherOrderByWithAggregationInput = {
@@ -50001,12 +50044,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customer_id?: SortOrder
-    type?: SortOrder
+    date?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
     gold_rate?: SortOrderInput | SortOrder
     amount?: SortOrderInput | SortOrder
     gold?: SortOrderInput | SortOrder
-    touch_id?: SortOrder
-    purity?: SortOrder
+    touch_id?: SortOrderInput | SortOrder
+    purity?: SortOrderInput | SortOrder
     hallmark?: SortOrderInput | SortOrder
     _count?: ReceiptVoucherCountOrderByAggregateInput
     _avg?: ReceiptVoucherAvgOrderByAggregateInput
@@ -50023,12 +50067,13 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"ReceiptVoucher"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ReceiptVoucher"> | Date | string
     customer_id?: IntWithAggregatesFilter<"ReceiptVoucher"> | number
-    type?: EnumITEMTYPEWithAggregatesFilter<"ReceiptVoucher"> | $Enums.ITEMTYPE
+    date?: StringNullableWithAggregatesFilter<"ReceiptVoucher"> | string | null
+    type?: StringNullableWithAggregatesFilter<"ReceiptVoucher"> | string | null
     gold_rate?: FloatNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
     amount?: FloatNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
     gold?: FloatNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
-    touch_id?: IntWithAggregatesFilter<"ReceiptVoucher"> | number
-    purity?: FloatWithAggregatesFilter<"ReceiptVoucher"> | number
+    touch_id?: IntNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
+    purity?: FloatNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
     hallmark?: FloatNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
   }
 
@@ -53159,14 +53204,15 @@ export namespace Prisma {
   export type ReceiptVoucherCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    type: $Enums.ITEMTYPE
+    date?: string | null
+    type?: string | null
     gold_rate?: number | null
     amount?: number | null
     gold?: number | null
-    purity: number
+    purity?: number | null
     hallmark?: number | null
     customerId: AddCustomerCreateNestedOneWithoutReceipt_voucherInput
-    touchId: AddTouchCreateNestedOneWithoutReceiptVoucherInput
+    touchId?: AddTouchCreateNestedOneWithoutReceiptVoucherInput
   }
 
   export type ReceiptVoucherUncheckedCreateInput = {
@@ -53174,26 +53220,28 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customer_id: number
-    type: $Enums.ITEMTYPE
+    date?: string | null
+    type?: string | null
     gold_rate?: number | null
     amount?: number | null
     gold?: number | null
-    touch_id: number
-    purity: number
+    touch_id?: number | null
+    purity?: number | null
     hallmark?: number | null
   }
 
   export type ReceiptVoucherUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    purity?: FloatFieldUpdateOperationsInput | number
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
     customerId?: AddCustomerUpdateOneRequiredWithoutReceipt_voucherNestedInput
-    touchId?: AddTouchUpdateOneRequiredWithoutReceiptVoucherNestedInput
+    touchId?: AddTouchUpdateOneWithoutReceiptVoucherNestedInput
   }
 
   export type ReceiptVoucherUncheckedUpdateInput = {
@@ -53201,12 +53249,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer_id?: IntFieldUpdateOperationsInput | number
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    touch_id?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
+    touch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
@@ -53215,23 +53264,25 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customer_id: number
-    type: $Enums.ITEMTYPE
+    date?: string | null
+    type?: string | null
     gold_rate?: number | null
     amount?: number | null
     gold?: number | null
-    touch_id: number
-    purity: number
+    touch_id?: number | null
+    purity?: number | null
     hallmark?: number | null
   }
 
   export type ReceiptVoucherUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    purity?: FloatFieldUpdateOperationsInput | number
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
@@ -53240,12 +53291,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer_id?: IntFieldUpdateOperationsInput | number
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    touch_id?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
+    touch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
@@ -56042,11 +56094,18 @@ export namespace Prisma {
     hallmark_charge?: SortOrder
   }
 
+  export type ReceiptVoucherOrderByRelevanceInput = {
+    fields: ReceiptVoucherOrderByRelevanceFieldEnum | ReceiptVoucherOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type ReceiptVoucherCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customer_id?: SortOrder
+    date?: SortOrder
     type?: SortOrder
     gold_rate?: SortOrder
     amount?: SortOrder
@@ -56072,6 +56131,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customer_id?: SortOrder
+    date?: SortOrder
     type?: SortOrder
     gold_rate?: SortOrder
     amount?: SortOrder
@@ -56086,6 +56146,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customer_id?: SortOrder
+    date?: SortOrder
     type?: SortOrder
     gold_rate?: SortOrder
     amount?: SortOrder
@@ -60738,10 +60799,12 @@ export namespace Prisma {
     update?: XOR<XOR<AddCustomerUpdateToOneWithWhereWithoutReceipt_voucherInput, AddCustomerUpdateWithoutReceipt_voucherInput>, AddCustomerUncheckedUpdateWithoutReceipt_voucherInput>
   }
 
-  export type AddTouchUpdateOneRequiredWithoutReceiptVoucherNestedInput = {
+  export type AddTouchUpdateOneWithoutReceiptVoucherNestedInput = {
     create?: XOR<AddTouchCreateWithoutReceiptVoucherInput, AddTouchUncheckedCreateWithoutReceiptVoucherInput>
     connectOrCreate?: AddTouchCreateOrConnectWithoutReceiptVoucherInput
     upsert?: AddTouchUpsertWithoutReceiptVoucherInput
+    disconnect?: AddTouchWhereInput | boolean
+    delete?: AddTouchWhereInput | boolean
     connect?: AddTouchWhereUniqueInput
     update?: XOR<XOR<AddTouchUpdateToOneWithWhereWithoutReceiptVoucherInput, AddTouchUpdateWithoutReceiptVoucherInput>, AddTouchUncheckedUpdateWithoutReceiptVoucherInput>
   }
@@ -61169,25 +61232,27 @@ export namespace Prisma {
   export type ReceiptVoucherCreateWithoutCustomerIdInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    type: $Enums.ITEMTYPE
+    date?: string | null
+    type?: string | null
     gold_rate?: number | null
     amount?: number | null
     gold?: number | null
-    purity: number
+    purity?: number | null
     hallmark?: number | null
-    touchId: AddTouchCreateNestedOneWithoutReceiptVoucherInput
+    touchId?: AddTouchCreateNestedOneWithoutReceiptVoucherInput
   }
 
   export type ReceiptVoucherUncheckedCreateWithoutCustomerIdInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    type: $Enums.ITEMTYPE
+    date?: string | null
+    type?: string | null
     gold_rate?: number | null
     amount?: number | null
     gold?: number | null
-    touch_id: number
-    purity: number
+    touch_id?: number | null
+    purity?: number | null
     hallmark?: number | null
   }
 
@@ -61323,12 +61388,13 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
     updatedAt?: DateTimeFilter<"ReceiptVoucher"> | Date | string
     customer_id?: IntFilter<"ReceiptVoucher"> | number
-    type?: EnumITEMTYPEFilter<"ReceiptVoucher"> | $Enums.ITEMTYPE
+    date?: StringNullableFilter<"ReceiptVoucher"> | string | null
+    type?: StringNullableFilter<"ReceiptVoucher"> | string | null
     gold_rate?: FloatNullableFilter<"ReceiptVoucher"> | number | null
     amount?: FloatNullableFilter<"ReceiptVoucher"> | number | null
     gold?: FloatNullableFilter<"ReceiptVoucher"> | number | null
-    touch_id?: IntFilter<"ReceiptVoucher"> | number
-    purity?: FloatFilter<"ReceiptVoucher"> | number
+    touch_id?: IntNullableFilter<"ReceiptVoucher"> | number | null
+    purity?: FloatNullableFilter<"ReceiptVoucher"> | number | null
     hallmark?: FloatNullableFilter<"ReceiptVoucher"> | number | null
   }
 
@@ -63591,11 +63657,12 @@ export namespace Prisma {
   export type ReceiptVoucherCreateWithoutTouchIdInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    type: $Enums.ITEMTYPE
+    date?: string | null
+    type?: string | null
     gold_rate?: number | null
     amount?: number | null
     gold?: number | null
-    purity: number
+    purity?: number | null
     hallmark?: number | null
     customerId: AddCustomerCreateNestedOneWithoutReceipt_voucherInput
   }
@@ -63605,11 +63672,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customer_id: number
-    type: $Enums.ITEMTYPE
+    date?: string | null
+    type?: string | null
     gold_rate?: number | null
     amount?: number | null
     gold?: number | null
-    purity: number
+    purity?: number | null
     hallmark?: number | null
   }
 
@@ -70995,12 +71063,13 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    type: $Enums.ITEMTYPE
+    date?: string | null
+    type?: string | null
     gold_rate?: number | null
     amount?: number | null
     gold?: number | null
-    touch_id: number
-    purity: number
+    touch_id?: number | null
+    purity?: number | null
     hallmark?: number | null
   }
 
@@ -71124,25 +71193,27 @@ export namespace Prisma {
   export type ReceiptVoucherUpdateWithoutCustomerIdInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    purity?: FloatFieldUpdateOperationsInput | number
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
-    touchId?: AddTouchUpdateOneRequiredWithoutReceiptVoucherNestedInput
+    touchId?: AddTouchUpdateOneWithoutReceiptVoucherNestedInput
   }
 
   export type ReceiptVoucherUncheckedUpdateWithoutCustomerIdInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    touch_id?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
+    touch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
@@ -71150,12 +71221,13 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    touch_id?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
+    touch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
@@ -72530,11 +72602,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customer_id: number
-    type: $Enums.ITEMTYPE
+    date?: string | null
+    type?: string | null
     gold_rate?: number | null
     amount?: number | null
     gold?: number | null
-    purity: number
+    purity?: number | null
     hallmark?: number | null
   }
 
@@ -72930,11 +73003,12 @@ export namespace Prisma {
   export type ReceiptVoucherUpdateWithoutTouchIdInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    purity?: FloatFieldUpdateOperationsInput | number
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
     customerId?: AddCustomerUpdateOneRequiredWithoutReceipt_voucherNestedInput
   }
@@ -72944,11 +73018,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer_id?: IntFieldUpdateOperationsInput | number
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    purity?: FloatFieldUpdateOperationsInput | number
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
@@ -72957,11 +73032,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer_id?: IntFieldUpdateOperationsInput | number
-    type?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     gold_rate?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableFloatFieldUpdateOperationsInput | number | null
     gold?: NullableFloatFieldUpdateOperationsInput | number | null
-    purity?: FloatFieldUpdateOperationsInput | number
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
