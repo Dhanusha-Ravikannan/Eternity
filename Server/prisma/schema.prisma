@@ -215,6 +215,8 @@ model CastingEntry {
   casting_customer     AddCasting             @relation(fields: [casting_customer_id], references: [id])
   items                CastingItems[]
   CastiingTotalBalance CastiingTotalBalance[]
+  opening_balance     Float? 
+
 }
 
 model CastingItems {

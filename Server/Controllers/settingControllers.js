@@ -2,8 +2,6 @@ import {PrismaClient} from "../generated/prisma/index.js";
 const prisma = new PrismaClient();
 
 
-
-
 export const createSetting = async (req, res) => {
   try {
     const { name, email, address, phoneNumber, casting_item_id, balance } = req.body;
@@ -14,7 +12,7 @@ export const createSetting = async (req, res) => {
         email, 
         address, 
         phoneNumber, 
-        balance 
+        balance: balance === "" || balance == null ? 0 : parseFloat(balance),
       },
     });
 

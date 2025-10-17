@@ -13,7 +13,7 @@ export const createCasting = async (req,res) =>{
                     email,
                     phoneNumber,
                     address,
-                    balance: balance === "" || balance == null ? null : parseFloat(balance),
+                    balance: balance === "" || balance == null ? 0 : parseFloat(balance),
                 },
             }
         );
