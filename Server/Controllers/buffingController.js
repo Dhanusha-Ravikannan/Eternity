@@ -6,7 +6,13 @@ export const createBuffing = async (req, res) => {
     const { name, email, address, phoneNumber, casting_item_id, balance } = req.body;
 
     const newBuffing = await prisma.addBuffing.create({
-      data: { name, email, address, phoneNumber, balance },
+      data: { 
+        name,
+        email,
+        address, 
+        phoneNumber, 
+        balance: balance === "" || balance == null ? 0 : parseFloat(balance),
+      },
     });
 
     const newLot = await prisma.lotInfo.create({

@@ -128,6 +128,15 @@ export const createCastingItem = async (req, res) => {
             },
           });
         }
+
+
+        // ✅ Update AddCasting.balance with total_wastage
+  // if (castingEntry?.casting_customer_id && balanceData.total_wastage != null) {
+  //   await tx.addCasting.update({
+  //     where: { id: castingEntry.casting_customer_id },
+  //     data: { balance: balanceData.total_wastage },
+  //   });
+  // }
       }
 
       return savedItems;
@@ -175,6 +184,11 @@ export const getCastingItemById = async (req, res) => {
       include: {
         item: true,
         touch: true,
+        castingEntry:{
+          include:{
+            CastiingTotalBalance: true
+          }
+        }
       },
     });
 

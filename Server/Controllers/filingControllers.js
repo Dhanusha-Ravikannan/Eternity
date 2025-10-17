@@ -4,14 +4,14 @@ const prisma = new PrismaClient();
   export const createFiling = async (req, res) => {
     try {
       const { name, email, address, phoneNumber, casting_item_id, balance } = req.body;
-  
+
       const newFiling = await prisma.addFiling.create({
         data: { 
           name,
           email, 
           address, 
           phoneNumber ,
-          balance
+          balance: balance === "" || balance == null ? 0 : parseFloat(balance),
 
 
         },

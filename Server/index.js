@@ -23,6 +23,7 @@ import buffingItemsRoutes from './Routes/buffingItemsRoutes.js';
 import qcStockRoutes from './Routes/qcStockRoutes.js';
 import billRoutes from './Routes/billRoutes.js';
 import receiptVoucherRoutes from './Routes/receiptVoucherRoutes.js';
+import expenseTrackerRoutes from './Routes/expenseTrackerRoutes.js'
 
 const app = express();
 const PORT = process.env.PORT ||  5000;
@@ -57,6 +58,7 @@ app.use("/api/buffingitems", buffingItemsRoutes);
 app.use("/api/qcstock", qcStockRoutes);
 app.use("/api/bills", billRoutes);
 app.use("/api/receiptvoucher",receiptVoucherRoutes);
+app.use("/api/expense-voucher", expenseTrackerRoutes)
 
 
 app.get("/", (req, res) => {
