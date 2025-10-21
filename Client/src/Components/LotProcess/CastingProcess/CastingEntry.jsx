@@ -120,39 +120,44 @@ const CastingEntry = () => {
     }
   };
 
-  const handleSave = async () => {
+
+  const handleSave = async (extraData = {}) => {
     try {
       const payload = {
         date: form.date,
         given_gold: parseFloat(form.givenGold),
-        casting_customer_id: form.nameId,
-        touch_id: form.touchId,
+        casting_customer_id: Number(form.nameId),
+        touch_id: Number(form.touchId),
         final_touch: parseFloat(form.finalTouch),
         purity: parseFloat(form.purity),
         pure_value: parseFloat(form.pureValue),
         final_weight: parseFloat(form.beforeWeight),
-        copper: parseFloat(form.copper)
-      };
-
-      const response = await axios.post(`${BACKEND_SERVER_URL}/api/castingentry`, payload);
-      const savedEntry = response.data; 
-      console.log("Saved Entry:", savedEntry);
-      console.log("Casting Entry ID:", savedEntry.id);
+        copper: parseFloat(form.copper),
   
-      setForm(prev => ({
+        // 👇 merge from modal
+        opening_balance: parseFloat(extraData.opening_balance) || 0,
+        total_sum_balance: parseFloat(extraData.total_sum_balance) || 0,
+        total_item_weight: parseFloat(extraData.total_item_weight) || 0,
+        current_balance_weight: parseFloat(extraData.current_balance_weight) || 0,
+        total_scrap_weight: parseFloat(extraData.total_scrap_weight) || 0,
+        total_wastage: parseFloat(extraData.total_wastage) || 0,
+      };
+  
+      const response = await axios.post(`${BACKEND_SERVER_URL}/api/castingentry`, payload);
+      const savedEntry = response.data;
+  
+      setForm((prev) => ({
         ...prev,
-        id: savedEntry.id 
+        id: savedEntry.id,
       }));
   
-      setEntries(prev => [...prev, savedEntry]);
-      setAllEntries(prev => [...prev, savedEntry]);
-
-      await fetchAllData();
-
-      setMode("view");    
-      setOpenModal(true);   
-      handleClose();
+      setEntries((prev) => [...prev, savedEntry]);
+      setAllEntries((prev) => [...prev, savedEntry]);
   
+      await fetchAllData();
+      setMode("view");
+      setOpenModal(true);
+      handleClose();
     } catch (err) {
       console.error("Failed to save:", err);
       alert("Error saving entry");
@@ -163,31 +168,53 @@ const CastingEntry = () => {
     setMode('add');
     resetForm();
     setOpen(true);
-   
-
   };
 
-  const handleView = (entry) => {
-    const nameObj = nameOptions.find(obj => obj.id === entry.casting_customer_id);
-    const touchObj = touchOptions.find(t => t.id === entry.touch_id);
-
-    setForm({
-      id: entry.id,
-      date: entry.date?.split('T')[0] || '',
-      name: nameObj?.name || '',
-      nameId: nameObj?.id || '',
-      givenGold: entry.given_gold || '',
-      touch: touchObj?.touch || '',
-      touchId: touchObj?.id || '',
-      finalTouch: entry.final_touch || '',
-      purity: entry.purity || '',
-      pureValue: entry.pure_value || '',
-      beforeWeight: entry.final_weight || '',
-      copper: entry.copper || ''
-    });
-
-    setMode('view');
-    setOpen(true);
+  const handleView = async (entry) => {
+    try {
+      // 1️⃣ Fetch the full casting entry by ID
+      const res = await axios.get(`${BACKEND_SERVER_URL}/api/castingentry/${entry.id}`);
+      const data = res.data;
+      console.log("Fetched Casting Entry Data:", data);
+  
+      // 2️⃣ Extract nested relations safely
+      const customer = data.casting_customer || {};
+      const touch = data.touch || {};
+      const balance = data.CastiingTotalBalance?.[0] || {};
+  
+      // 3️⃣ Build a new form object
+      const newForm = {
+        id: data.id || "",
+        date: data.date ? data.date.split("T")[0] : "",
+        name: customer.name || "",
+        nameId: customer.id || "",
+        givenGold: data.given_gold || 0,
+        touch: touch.touch || "",
+        touchId: touch.id || "",
+        finalTouch: data.final_touch || 0,
+        purity: data.purity || 0,
+        pureValue: data.pure_value || 0,
+        copper: data.copper || 0,
+        beforeWeight: data.final_weight || 0,
+        opening_balance: data.opening_balance || 0,
+        totalItemWeight: balance.total_item_weight || 0,
+        currentBalanceWeight: balance.current_balance_weight || 0,
+        totalScrapWeight: balance.total_scrap_weight || 0,
+        totalWastage: balance.total_wastage || 0,
+      };
+  
+      // 4️⃣ Update form first (async render)
+      setForm(newForm);
+  
+      // 5️⃣ Open the modal only *after* state updates
+      setTimeout(() => {
+        setMode("view");
+        setOpen(true);
+      }, 0);
+    } catch (err) {
+      console.error("❌ Error fetching casting entry by ID:", err);
+      alert("Failed to load casting entry details.");
+    }
   };
 
   const handleDelete = async (id) => {

@@ -17,7 +17,8 @@ const router = express.Router();
 
 router.post("/", createFilingItem);
 router.get("/", getAllFilingItems);
-router.get("/:id", getFilingItemById);
+// router.get("/:id", getFilingItemById);
+router.get("/filingentry/:filing_entry_id", getFilingItemById); 
 router.delete("/:id", deleteFilingItem);
 
 router.get("/filingitems/available", getAvailableFilingItems);

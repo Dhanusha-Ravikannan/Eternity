@@ -319,7 +319,7 @@ function MasterCasting() {
                       <td>{formattedUpdatedTime}</td>
                       <td>{customer.name}</td>
                       <td>{customer.phoneNumber}</td>
-                      <td>{customer.balance}</td>
+                      <td>{Number(customer.balance).toFixed(3)}</td>
                       <td>{customer.email}</td>
                       <td>{customer.address}</td>
                       <td className={styles.tableActions}>

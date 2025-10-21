@@ -90,3 +90,25 @@ export const deleteCasting = async (req,res) =>{
     }
 
 }
+
+
+export const getCastingById = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const casting = await prisma.addCasting.findUnique({
+        where: { id: Number(id) }, // Prisma expects a number if id is Int
+      });
+  
+      if (!casting) {
+        return res.status(404).json({ error: "Casting entry not found" });
+      }
+  
+      res.status(200).json(casting);
+      console.log(casting);
+    } catch (error) {
+      console.error(error);
+      res.status(400).json({ error: "Failed to fetch casting by ID" });
+    }
+  };
+  
