@@ -8,6 +8,61 @@ const prisma = new PrismaClient();
 
 // CREATE Casting Entry
 
+// export const createCastingEntry = async (req, res) => {
+//   try {
+//     const {
+//       date,
+//       given_gold,
+//       casting_customer_id,
+//       touch_id,
+//       final_touch,
+//       final_weight,
+//       pure_value,
+//       purity,
+//       copper,
+//     } = req.body;
+
+//     // Validation
+//     if (
+//       !date ||
+//       isNaN(given_gold) ||
+//       isNaN(final_touch) ||
+//       isNaN(final_weight) ||
+//       isNaN(pure_value) ||
+//       isNaN(purity) ||
+//       isNaN(copper) ||
+//       !casting_customer_id ||
+//       !touch_id
+//     ) {
+//       return res.status(400).json({ error: "Invalid input values" });
+//     }
+
+//     // Create casting entry
+//     const newEntry = await prisma.castingEntry.create({
+//       data: {
+//         date: new Date(date),
+//         given_gold: parseFloat(given_gold),
+//         final_touch: parseFloat(final_touch),
+//         final_weight: parseFloat(final_weight),
+//         pure_value: parseFloat(pure_value),
+//         purity: parseFloat(purity),
+//         copper: parseFloat(copper),
+//         casting_customer_id: Number(casting_customer_id),
+//         touch_id: Number(touch_id),
+//       },
+//     });
+
+//     await reduceStockOnCastingCreate(newEntry);
+
+//     res.status(201).json(newEntry); // flat response, includes id directly
+
+//     // res.status(201).json({ message: "Casting entry created successfully", data: newEntry });
+//   } catch (error) {
+//     console.error("Error creating casting entry:", error);
+//     res.status(500).json({ error: "Failed to create casting entry" });
+//   }
+// };
+
 export const createCastingEntry = async (req, res) => {
   try {
     const {
@@ -20,6 +75,14 @@ export const createCastingEntry = async (req, res) => {
       pure_value,
       purity,
       copper,
+
+      //  Add these new ones
+      opening_balance,
+      total_sum_balance,
+      total_item_weight,
+      current_balance_weight,
+      total_scrap_weight,
+      total_wastage,
     } = req.body;
 
     // Validation
@@ -37,7 +100,7 @@ export const createCastingEntry = async (req, res) => {
       return res.status(400).json({ error: "Invalid input values" });
     }
 
-    // Create casting entry
+    //  Create casting entry
     const newEntry = await prisma.castingEntry.create({
       data: {
         date: new Date(date),
@@ -49,19 +112,57 @@ export const createCastingEntry = async (req, res) => {
         copper: parseFloat(copper),
         casting_customer_id: Number(casting_customer_id),
         touch_id: Number(touch_id),
+        opening_balance: parseFloat(opening_balance) || 0, 
+        total_sum_balance: parseFloat(total_sum_balance) || 0,
       },
     });
 
+    //  Step 2 — Create related CastiingTotalBalance record
+    await prisma.castiingTotalBalance.create({
+      data: {
+        item_entry: newEntry.id, // link to casting entry
+        total_item_weight: parseFloat(total_item_weight) || 0,
+        current_balance_weight: parseFloat(current_balance_weight) || 0,
+        total_scrap_weight: parseFloat(total_scrap_weight) || 0,
+        total_wastage: parseFloat(total_wastage) || 0,
+      },
+    });
+
+    //  Step 3 — Update AddCasting.balance with total_wastage
+    if (casting_customer_id && total_wastage != null && !isNaN(total_wastage)) {
+      await prisma.addCasting.update({
+        where: { id: Number(casting_customer_id) },
+        data: { balance: parseFloat(total_wastage) || 0 },
+      });
+    }
+    
+
+
+// if (casting_customer_id && total_wastage != null) {
+//   await prisma.addCasting.update({
+//     where: { id: Number(casting_customer_id) },
+//     data: { balance: parseFloat(total_wastage) || 0 },
+//   });
+// }
+
+    //  Update the customer balance to reflect total wastage
+    // if (casting_customer_id && total_wastage != null) {
+    //   await prisma.addCasting.update({
+    //     where: { id: Number(casting_customer_id) },
+    //     data: { balance: parseFloat(total_wastage) || 0 },
+    //   });
+    // }
+
+    //  Optional: reduce stock after creating both
     await reduceStockOnCastingCreate(newEntry);
 
-    res.status(201).json(newEntry); // flat response, includes id directly
-
-    // res.status(201).json({ message: "Casting entry created successfully", data: newEntry });
+    res.status(201).json(newEntry);
   } catch (error) {
     console.error("Error creating casting entry:", error);
     res.status(500).json({ error: "Failed to create casting entry" });
   }
 };
+
 
 // Post - http://localhost:5000/api/castingentry
 

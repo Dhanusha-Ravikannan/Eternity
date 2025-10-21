@@ -216,6 +216,8 @@ model CastingEntry {
   casting_customer     AddCasting             @relation(fields: [casting_customer_id], references: [id])
   items                CastingItems[]
   CastiingTotalBalance CastiingTotalBalance[]
+  opening_balance      Float?
+  total_sum_balance    Float?
 }
 
 model CastingItems {
@@ -333,6 +335,8 @@ model FilingTotalBalance {
   balance                Float
   filing_entry_id        Int
   filingEntryId          FilingEntry @relation(fields: [filing_entry_id], references: [id])
+  opening_balance        Float?
+  total_sum_balance      Float?
 }
 
 model FilingWastage {

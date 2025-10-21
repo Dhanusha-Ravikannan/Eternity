@@ -9,8 +9,7 @@ import {
   TextField,
   Typography,
   MenuItem,
-  IconButton,
-} from "@mui/material";
+  IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import Navbar from "../../Navbar/Navbar";
@@ -53,7 +52,32 @@ const FilingLotDetails = () => {
   const [closingSummary, setClosingSummary] = useState(null);
   const [active, setActive] = useState(true);
 
-  const { id: filingPersonId, name, lotNumber } = useParams();
+  const { id: filingPersonId, name, lotNumber, balance } = useParams();
+
+  useEffect(() => {
+    if (balance) {
+      setOpeningBalance(parseFloat(balance));
+    }
+  }, [balance]);
+
+
+  useEffect(() => {
+    const fetchFilingData = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_SERVER_URL}/api/filing/${filingPersonId}`);
+        console.log("Filing Data:", response.data);
+  
+        if (response.data) {
+          setOpeningBalance(response.data.balance || 0);
+        }
+      } catch (error) {
+        console.error("Error fetching filing data:", error);
+      }
+    };
+  
+    fetchFilingData();
+  }, [filingPersonId]);
+  
 
   const fetchAssignedEntries = async () => {
     try {
@@ -206,6 +230,15 @@ const FilingLotDetails = () => {
     setShowScrapTable(true);
   };
 
+
+    {/* Calculate total weight from viewed items */}
+const totalWeight = viewedItems.reduce(
+  (acc, item) => acc + (parseFloat(item?.weight) || 0),
+  0
+);
+
+const totalSumBalance = openingBalance + totalWeight;
+
   const totalProductWeight = productItems.reduce(
     (acc, curr) => acc + (parseFloat(curr.weight) || 0),
     0
@@ -219,7 +252,9 @@ const FilingLotDetails = () => {
     (acc, item) => acc + (parseFloat(item?.weight) || 0),
     0
   );
-  const currentBalanceWeight = totalAssignedWeight - totalProductWeight;
+
+  // const currentBalanceWeight = totalAssignedWeight - totalProductWeight;
+  const currentBalanceWeight = totalSumBalance - totalProductWeight;
   const finalBalance = currentBalanceWeight - totalScrapWeight;
 
   const addWastageInput = () => {
@@ -289,37 +324,6 @@ const FilingLotDetails = () => {
       ? "Owner must give to worker"
       : "Worker must give to owner";
 
-  /*   const handleSaveSummary = async () => {
-    try {
-      const data = {
-        total_receipt: totalReceipt,
-        total_wastage: totalWastage,
-        balance: totalBalanceSum,
-        wastage_percentage: parseFloat(wastagePercentage) || 0,
-        given_gold: additionalGold,
-        add_wastage: wastageInputs[0].value, // Sum of all manual wastage inputs
-        overall_wastage: overallWastage,
-        closing_balance: closingBalance,
-        opening_balance: 0, // As specified, opening balance is 0
-        filing_entry_id: 1, // You'll need to track the current filing entry ID
-      };
-
-      const response = await axios.post(
-        `${BACKEND_SERVER_URL}/api/filingitems/wastage`,
-        data
-      );
-
-      // Also save to localStorage as before
-      localStorage.setItem("filingSummary", JSON.stringify(data));
-      setClosingSummary(data);
-
-      alert("Summary saved successfully to database!");
-    } catch (error) {
-      console.error("Error saving summary:", error);
-      alert("Failed to save summary. Check console for details.");
-    }
-  }; */
-
   const handleSaveSummary = async () => {
     try {
       console.log("ssssssss", additionalGold);
@@ -364,13 +368,6 @@ const FilingLotDetails = () => {
     }
   };
 
-  /* const handleCloseJobcard = () => {
-    const savedLots = JSON.parse(localStorage.getItem("filingLots")) || [];
-    const nextId = savedLots.length + 1;
-    const updatedLots = [...savedLots, { id: nextId }];
-    localStorage.setItem("filingLots", JSON.stringify(updatedLots));
-    alert("Jobcard closed and lot created.");
-  }; */
 
   const handleCloseJobcard = async () => {
     try {
@@ -443,13 +440,17 @@ const FilingLotDetails = () => {
       (acc, item) => acc + (parseFloat(item?.weight) || 0),
       0
     );
-    const currentBalanceWeight = totalAssignedWeight - totalProductWeight;
+
+    const totalSumBalance = openingBalance + totalWeight;
+    const currentBalanceWeight = totalSumBalance - totalProductWeight;
     const finalBalance = currentBalanceWeight - totalScrapWeight;
 
     const totalBalance = {
+      opening_balance: Number(openingBalance) || 0,
+      total_sum_balance: Number(totalSumBalance) || 0,
       after_weight: Number(afterWeight) || 0,
-      balance: Number(finalBalance) || 0,
-      current_balance_weight: Number(currentBalanceWeight) || 0,
+      balance: Number(finalBalance) ,
+      current_balance_weight: Number(currentBalanceWeight) ,
       total_product_weight: totalProductWeight,
       total_scrap_weight: totalScrapWeight,
       wastage: wastageOption === "Yes",
@@ -889,15 +890,31 @@ const FilingLotDetails = () => {
        Assign Filing Items 
       </div>
         <DialogContent>
-          <TextField
-            label="Date"
-            type="date"
-            fullWidth
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            InputLabelProps={{ shrink: true }}
-            sx={{ mb: 2, mt: 0 }}
-          />
+ 
+<Box sx={{ display: "flex", gap: 2, mb: 2, alignItems: "center" }}>
+  <TextField
+    label="Date"
+    type="date"
+    sx={{ width: "15rem" }}
+    value={date}
+    onChange={(e) => setDate(e.target.value)}
+    InputLabelProps={{ shrink: true }}
+  />
+
+  <TextField
+    label="Opening Balance (g)"
+    value={openingBalance}
+    InputProps={{
+      readOnly: true,
+      sx: {
+        color: openingBalance >= 0 ? "green" : "red", 
+        fontWeight: "bold",
+      },
+    }}
+    sx={{ width: "13rem", marginLeft: "25rem" }}
+  />
+</Box>
+
           <Typography variant="h6" gutterBottom>
             Available Filing Items
           </Typography>
@@ -1028,15 +1045,34 @@ const FilingLotDetails = () => {
               </tr>
             </tfoot>
           </table>
-          <TextField
-            label="After Weight"
-            value={afterWeight}
-            onChange={(e) => setAfterWeight(e.target.value)}
-            // fullWidth
-            sx={{width:'12rem'}}
-            margin="normal"
-          />
-<br/>
+
+          <Box
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    mt: 0,
+  }}
+>
+
+  <TextField
+    label="After Weight"
+    value={afterWeight}
+    onChange={(e) => setAfterWeight(e.target.value)}
+    sx={{ width: "12rem" }}
+    margin="normal"
+  />
+
+  <Box sx={{ textAlign: "right" }}>
+    <Typography sx={{ color: openingBalance >= 0 ? "green" : "red" }}>
+      <strong>Opening Balance:</strong> {openingBalance}
+    </Typography>
+    <Typography sx={{ color: totalSumBalance >= 0 ? "green" : "red" }}>
+      <strong>Total Sum Balance:</strong> {totalSumBalance}
+    </Typography>
+  </Box>
+</Box>
+
           <Button
             variant="outlined"
             sx={{ mt: 2 , backgroundColor:' #f8f9fa', fontWeight:'530' }}
@@ -1216,8 +1252,7 @@ const FilingLotDetails = () => {
           <br />
 
           <Button variant="outlined" onClick={handleAddScrapRow} 
-            sx={{ mt: 1 , backgroundColor:' #f8f9fa', fontWeight:'530' }}   >
-           
+            sx={{ mt: 1 , backgroundColor:' #f8f9fa', fontWeight:'530' }}>
             Add Scrap Items
           </Button>
           {showScrapTable && (

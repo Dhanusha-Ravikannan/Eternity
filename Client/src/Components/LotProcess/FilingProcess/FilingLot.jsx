@@ -37,6 +37,7 @@ const FilingLot = () => {
         <div className={styles.details}><strong>Name:</strong> <span>{name}</span></div>
         <div className={styles.details}><strong>Phone Number:</strong> <span>{userDetails?.phoneNumber || '-'}</span></div>
         <div className={styles.details}><strong>Address:</strong> <span>{userDetails?.address || '-'}</span></div>
+        <div className={styles.details}><strong>Balance:</strong> <span>{userDetails?.balance || '-'}</span></div>
         <hr />
       </div>
 
@@ -46,9 +47,15 @@ const FilingLot = () => {
             <div className={styles.header}>
               <label className={styles.lotLabel}>Lot No: {lot.lotNumber}</label>
               <div className={styles.actions}>
-              <Link to={`/filingLotDetails/${id}/${encodeURIComponent(name)}/${lot.lotNumber || 0}`}>
+              {/* <Link to={`/filingLotDetails/${id}/${encodeURIComponent(name)}/${lot.lotNumber || 0}`}>
                   <button className={styles.button}>View</button>
-                </Link>
+                </Link> */}
+
+                <Link
+    to={`/filingLotDetails/${id}/${encodeURIComponent(name)}/${lot.lotNumber || 0}/${userDetails?.balance || 0}`}
+  >
+    <button className={styles.button}>View</button>
+  </Link>
               </div>
             </div>
           </div>

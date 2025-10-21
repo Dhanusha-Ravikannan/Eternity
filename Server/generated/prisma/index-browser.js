@@ -252,7 +252,9 @@ exports.Prisma.CastingEntryScalarFieldEnum = {
   pure_value: 'pure_value',
   copper: 'copper',
   final_weight: 'final_weight',
-  casting_customer_id: 'casting_customer_id'
+  casting_customer_id: 'casting_customer_id',
+  opening_balance: 'opening_balance',
+  total_sum_balance: 'total_sum_balance'
 };
 
 exports.Prisma.CastingItemsScalarFieldEnum = {
@@ -325,7 +327,9 @@ exports.Prisma.FilingTotalBalanceScalarFieldEnum = {
   total_scrap_weight: 'total_scrap_weight',
   wastage: 'wastage',
   balance: 'balance',
-  filing_entry_id: 'filing_entry_id'
+  filing_entry_id: 'filing_entry_id',
+  opening_balance: 'opening_balance',
+  total_sum_balance: 'total_sum_balance'
 };
 
 exports.Prisma.FilingWastageScalarFieldEnum = {

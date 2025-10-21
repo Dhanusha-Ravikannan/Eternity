@@ -216,6 +216,7 @@ model CastingEntry {
   items                CastingItems[]
   CastiingTotalBalance CastiingTotalBalance[]
   opening_balance     Float? 
+  total_sum_balance  Float? 
 
 }
 
@@ -282,6 +283,7 @@ model FilingEntry {
   filingItems        FilingItems[]
   filingTotalBalance FilingTotalBalance[]
   LotFilingMapper    LotFilingMapper[]
+ 
 }
 
 model LotFilingMapper {
@@ -334,6 +336,8 @@ model FilingTotalBalance {
   balance                Float
   filing_entry_id        Int
   filingEntryId          FilingEntry @relation(fields: [filing_entry_id], references: [id])
+  opening_balance        Float?     
+  total_sum_balance      Float?
 }
 
 model FilingWastage {

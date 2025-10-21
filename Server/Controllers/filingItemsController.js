@@ -126,6 +126,8 @@ export const createFilingItem = async (req, res) => {
             total_scrap_weight: totalBalance.total_scrap_weight || null,
             wastage: totalBalance.wastage ?? false,
             balance: totalBalance.balance,
+            opening_balance: totalBalance.opening_balance || null, 
+            total_sum_balance: totalBalance.total_sum_balance || null,   
           },
         });
       } else {
@@ -138,9 +140,22 @@ export const createFilingItem = async (req, res) => {
             total_scrap_weight: totalBalance.total_scrap_weight || null,
             wastage: totalBalance.wastage ?? false,
             balance: totalBalance.balance,
+            opening_balance: totalBalance.opening_balance || null,   
+      total_sum_balance: totalBalance.total_sum_balance || null, 
           },
         });
       }
+
+
+// Update AddFiling table with the latest balance from FilingTotalBalance
+await tx.addFiling.update({
+  where: { id: entry.filing_person_id }, 
+  data: {
+    balance: totalBalance.balance, 
+  },
+});
+
+      
 
       return { createdItems: processedItems, balanceRecord };
     });
@@ -184,7 +199,15 @@ export const getAllFilingItems = async (req, res) => {
       include: {
         filingitem: true,
         touch: true,
-        filing_entry: true,
+        // filing_entry: true,
+        filing_entry:{
+          include:{
+            filingTotalBalance:true,
+            filing_person:true,
+            castingItem:true,
+          }
+        },     
+        
       },
     });
     res.status(200).json(items);
@@ -196,28 +219,50 @@ export const getAllFilingItems = async (req, res) => {
 
 export const getFilingItemById = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { filing_entry_id } = req.params; 
 
-    const item = await prisma.filingItems.findUnique({
-      where: { id: parseInt(id) },
+    if (!filing_entry_id) {
+      return res.status(400).json({ error: "filing_entry_id is required" });
+    }
+
+    const entryId = parseInt(filing_entry_id);
+
+    if (isNaN(entryId)) {
+      return res.status(400).json({ error: "Invalid filing_entry_id" });
+    }
+
+    const items = await prisma.filingItems.findMany({
+      where: {
+        filing_entry_id: entryId, 
+      },
       include: {
+        filingitem: true,
         touch: true,
         stock: true,
         setting_entry: true,
         buffing_entry: true,
         filing_wastage: true,
-        filing_entry: true,
+        filing_entry: {
+          include: {
+            filingTotalBalance: true,
+            filing_person: true,
+            castingItem: true,
+          },
+        },
       },
     });
 
-    if (!item) return res.status(404).json({ error: "Filing item not found" });
+    if (!items || items.length === 0) {
+      return res.status(404).json({ error: "No filing items found for the given filing entry ID" });
+    }
 
-    res.json(item);
+    res.status(200).json(items);
   } catch (error) {
-    console.error("Error fetching filing item:", error);
-    res.status(500).json({ error: "Failed to fetch filing item" });
+    console.error("Error fetching filing items by filing_entry_id:", error);
+    res.status(500).json({ error: "Failed to fetch filing items" });
   }
 };
+
 
 export const deleteFilingItem = async (req, res) => {
   const { id } = req.params;

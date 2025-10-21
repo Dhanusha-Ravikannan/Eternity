@@ -17434,6 +17434,8 @@ export namespace Prisma {
     copper: number | null
     final_weight: number | null
     casting_customer_id: number | null
+    opening_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type CastingEntrySumAggregateOutputType = {
@@ -17446,6 +17448,8 @@ export namespace Prisma {
     copper: number | null
     final_weight: number | null
     casting_customer_id: number | null
+    opening_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type CastingEntryMinAggregateOutputType = {
@@ -17460,6 +17464,8 @@ export namespace Prisma {
     copper: number | null
     final_weight: number | null
     casting_customer_id: number | null
+    opening_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type CastingEntryMaxAggregateOutputType = {
@@ -17474,6 +17480,8 @@ export namespace Prisma {
     copper: number | null
     final_weight: number | null
     casting_customer_id: number | null
+    opening_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type CastingEntryCountAggregateOutputType = {
@@ -17488,6 +17496,8 @@ export namespace Prisma {
     copper: number
     final_weight: number
     casting_customer_id: number
+    opening_balance: number
+    total_sum_balance: number
     _all: number
   }
 
@@ -17502,6 +17512,8 @@ export namespace Prisma {
     copper?: true
     final_weight?: true
     casting_customer_id?: true
+    opening_balance?: true
+    total_sum_balance?: true
   }
 
   export type CastingEntrySumAggregateInputType = {
@@ -17514,6 +17526,8 @@ export namespace Prisma {
     copper?: true
     final_weight?: true
     casting_customer_id?: true
+    opening_balance?: true
+    total_sum_balance?: true
   }
 
   export type CastingEntryMinAggregateInputType = {
@@ -17528,6 +17542,8 @@ export namespace Prisma {
     copper?: true
     final_weight?: true
     casting_customer_id?: true
+    opening_balance?: true
+    total_sum_balance?: true
   }
 
   export type CastingEntryMaxAggregateInputType = {
@@ -17542,6 +17558,8 @@ export namespace Prisma {
     copper?: true
     final_weight?: true
     casting_customer_id?: true
+    opening_balance?: true
+    total_sum_balance?: true
   }
 
   export type CastingEntryCountAggregateInputType = {
@@ -17556,6 +17574,8 @@ export namespace Prisma {
     copper?: true
     final_weight?: true
     casting_customer_id?: true
+    opening_balance?: true
+    total_sum_balance?: true
     _all?: true
   }
 
@@ -17657,6 +17677,8 @@ export namespace Prisma {
     copper: number
     final_weight: number
     casting_customer_id: number
+    opening_balance: number | null
+    total_sum_balance: number | null
     _count: CastingEntryCountAggregateOutputType | null
     _avg: CastingEntryAvgAggregateOutputType | null
     _sum: CastingEntrySumAggregateOutputType | null
@@ -17690,6 +17712,8 @@ export namespace Prisma {
     copper?: boolean
     final_weight?: boolean
     casting_customer_id?: boolean
+    opening_balance?: boolean
+    total_sum_balance?: boolean
     touch?: boolean | AddTouchDefaultArgs<ExtArgs>
     casting_customer?: boolean | AddCastingDefaultArgs<ExtArgs>
     items?: boolean | CastingEntry$itemsArgs<ExtArgs>
@@ -17711,9 +17735,11 @@ export namespace Prisma {
     copper?: boolean
     final_weight?: boolean
     casting_customer_id?: boolean
+    opening_balance?: boolean
+    total_sum_balance?: boolean
   }
 
-  export type CastingEntryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "date" | "given_gold" | "touch_id" | "purity" | "final_touch" | "pure_value" | "copper" | "final_weight" | "casting_customer_id", ExtArgs["result"]["castingEntry"]>
+  export type CastingEntryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "date" | "given_gold" | "touch_id" | "purity" | "final_touch" | "pure_value" | "copper" | "final_weight" | "casting_customer_id" | "opening_balance" | "total_sum_balance", ExtArgs["result"]["castingEntry"]>
   export type CastingEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     touch?: boolean | AddTouchDefaultArgs<ExtArgs>
     casting_customer?: boolean | AddCastingDefaultArgs<ExtArgs>
@@ -17742,6 +17768,8 @@ export namespace Prisma {
       copper: number
       final_weight: number
       casting_customer_id: number
+      opening_balance: number | null
+      total_sum_balance: number | null
     }, ExtArgs["result"]["castingEntry"]>
     composites: {}
   }
@@ -18126,6 +18154,8 @@ export namespace Prisma {
     readonly copper: FieldRef<"CastingEntry", 'Float'>
     readonly final_weight: FieldRef<"CastingEntry", 'Float'>
     readonly casting_customer_id: FieldRef<"CastingEntry", 'Int'>
+    readonly opening_balance: FieldRef<"CastingEntry", 'Float'>
+    readonly total_sum_balance: FieldRef<"CastingEntry", 'Float'>
   }
     
 
@@ -25306,6 +25336,8 @@ export namespace Prisma {
     total_scrap_weight: number | null
     balance: number | null
     filing_entry_id: number | null
+    opening_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type FilingTotalBalanceSumAggregateOutputType = {
@@ -25316,6 +25348,8 @@ export namespace Prisma {
     total_scrap_weight: number | null
     balance: number | null
     filing_entry_id: number | null
+    opening_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type FilingTotalBalanceMinAggregateOutputType = {
@@ -25328,6 +25362,8 @@ export namespace Prisma {
     wastage: boolean | null
     balance: number | null
     filing_entry_id: number | null
+    opening_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type FilingTotalBalanceMaxAggregateOutputType = {
@@ -25340,6 +25376,8 @@ export namespace Prisma {
     wastage: boolean | null
     balance: number | null
     filing_entry_id: number | null
+    opening_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type FilingTotalBalanceCountAggregateOutputType = {
@@ -25352,6 +25390,8 @@ export namespace Prisma {
     wastage: number
     balance: number
     filing_entry_id: number
+    opening_balance: number
+    total_sum_balance: number
     _all: number
   }
 
@@ -25364,6 +25404,8 @@ export namespace Prisma {
     total_scrap_weight?: true
     balance?: true
     filing_entry_id?: true
+    opening_balance?: true
+    total_sum_balance?: true
   }
 
   export type FilingTotalBalanceSumAggregateInputType = {
@@ -25374,6 +25416,8 @@ export namespace Prisma {
     total_scrap_weight?: true
     balance?: true
     filing_entry_id?: true
+    opening_balance?: true
+    total_sum_balance?: true
   }
 
   export type FilingTotalBalanceMinAggregateInputType = {
@@ -25386,6 +25430,8 @@ export namespace Prisma {
     wastage?: true
     balance?: true
     filing_entry_id?: true
+    opening_balance?: true
+    total_sum_balance?: true
   }
 
   export type FilingTotalBalanceMaxAggregateInputType = {
@@ -25398,6 +25444,8 @@ export namespace Prisma {
     wastage?: true
     balance?: true
     filing_entry_id?: true
+    opening_balance?: true
+    total_sum_balance?: true
   }
 
   export type FilingTotalBalanceCountAggregateInputType = {
@@ -25410,6 +25458,8 @@ export namespace Prisma {
     wastage?: true
     balance?: true
     filing_entry_id?: true
+    opening_balance?: true
+    total_sum_balance?: true
     _all?: true
   }
 
@@ -25509,6 +25559,8 @@ export namespace Prisma {
     wastage: boolean
     balance: number
     filing_entry_id: number
+    opening_balance: number | null
+    total_sum_balance: number | null
     _count: FilingTotalBalanceCountAggregateOutputType | null
     _avg: FilingTotalBalanceAvgAggregateOutputType | null
     _sum: FilingTotalBalanceSumAggregateOutputType | null
@@ -25540,6 +25592,8 @@ export namespace Prisma {
     wastage?: boolean
     balance?: boolean
     filing_entry_id?: boolean
+    opening_balance?: boolean
+    total_sum_balance?: boolean
     filingEntryId?: boolean | FilingEntryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["filingTotalBalance"]>
 
@@ -25555,9 +25609,11 @@ export namespace Prisma {
     wastage?: boolean
     balance?: boolean
     filing_entry_id?: boolean
+    opening_balance?: boolean
+    total_sum_balance?: boolean
   }
 
-  export type FilingTotalBalanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "after_weight" | "total_product_weight" | "current_balance_weight" | "total_scrap_weight" | "wastage" | "balance" | "filing_entry_id", ExtArgs["result"]["filingTotalBalance"]>
+  export type FilingTotalBalanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "after_weight" | "total_product_weight" | "current_balance_weight" | "total_scrap_weight" | "wastage" | "balance" | "filing_entry_id" | "opening_balance" | "total_sum_balance", ExtArgs["result"]["filingTotalBalance"]>
   export type FilingTotalBalanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     filingEntryId?: boolean | FilingEntryDefaultArgs<ExtArgs>
   }
@@ -25577,6 +25633,8 @@ export namespace Prisma {
       wastage: boolean
       balance: number
       filing_entry_id: number
+      opening_balance: number | null
+      total_sum_balance: number | null
     }, ExtArgs["result"]["filingTotalBalance"]>
     composites: {}
   }
@@ -25956,6 +26014,8 @@ export namespace Prisma {
     readonly wastage: FieldRef<"FilingTotalBalance", 'Boolean'>
     readonly balance: FieldRef<"FilingTotalBalance", 'Float'>
     readonly filing_entry_id: FieldRef<"FilingTotalBalance", 'Int'>
+    readonly opening_balance: FieldRef<"FilingTotalBalance", 'Float'>
+    readonly total_sum_balance: FieldRef<"FilingTotalBalance", 'Float'>
   }
     
 
@@ -46308,7 +46368,9 @@ export namespace Prisma {
     pure_value: 'pure_value',
     copper: 'copper',
     final_weight: 'final_weight',
-    casting_customer_id: 'casting_customer_id'
+    casting_customer_id: 'casting_customer_id',
+    opening_balance: 'opening_balance',
+    total_sum_balance: 'total_sum_balance'
   };
 
   export type CastingEntryScalarFieldEnum = (typeof CastingEntryScalarFieldEnum)[keyof typeof CastingEntryScalarFieldEnum]
@@ -46402,7 +46464,9 @@ export namespace Prisma {
     total_scrap_weight: 'total_scrap_weight',
     wastage: 'wastage',
     balance: 'balance',
-    filing_entry_id: 'filing_entry_id'
+    filing_entry_id: 'filing_entry_id',
+    opening_balance: 'opening_balance',
+    total_sum_balance: 'total_sum_balance'
   };
 
   export type FilingTotalBalanceScalarFieldEnum = (typeof FilingTotalBalanceScalarFieldEnum)[keyof typeof FilingTotalBalanceScalarFieldEnum]
@@ -47872,6 +47936,8 @@ export namespace Prisma {
     copper?: FloatFilter<"CastingEntry"> | number
     final_weight?: FloatFilter<"CastingEntry"> | number
     casting_customer_id?: IntFilter<"CastingEntry"> | number
+    opening_balance?: FloatNullableFilter<"CastingEntry"> | number | null
+    total_sum_balance?: FloatNullableFilter<"CastingEntry"> | number | null
     touch?: XOR<AddTouchScalarRelationFilter, AddTouchWhereInput>
     casting_customer?: XOR<AddCastingScalarRelationFilter, AddCastingWhereInput>
     items?: CastingItemsListRelationFilter
@@ -47890,6 +47956,8 @@ export namespace Prisma {
     copper?: SortOrder
     final_weight?: SortOrder
     casting_customer_id?: SortOrder
+    opening_balance?: SortOrderInput | SortOrder
+    total_sum_balance?: SortOrderInput | SortOrder
     touch?: AddTouchOrderByWithRelationInput
     casting_customer?: AddCastingOrderByWithRelationInput
     items?: CastingItemsOrderByRelationAggregateInput
@@ -47911,6 +47979,8 @@ export namespace Prisma {
     copper?: FloatFilter<"CastingEntry"> | number
     final_weight?: FloatFilter<"CastingEntry"> | number
     casting_customer_id?: IntFilter<"CastingEntry"> | number
+    opening_balance?: FloatNullableFilter<"CastingEntry"> | number | null
+    total_sum_balance?: FloatNullableFilter<"CastingEntry"> | number | null
     touch?: XOR<AddTouchScalarRelationFilter, AddTouchWhereInput>
     casting_customer?: XOR<AddCastingScalarRelationFilter, AddCastingWhereInput>
     items?: CastingItemsListRelationFilter
@@ -47929,6 +47999,8 @@ export namespace Prisma {
     copper?: SortOrder
     final_weight?: SortOrder
     casting_customer_id?: SortOrder
+    opening_balance?: SortOrderInput | SortOrder
+    total_sum_balance?: SortOrderInput | SortOrder
     _count?: CastingEntryCountOrderByAggregateInput
     _avg?: CastingEntryAvgOrderByAggregateInput
     _max?: CastingEntryMaxOrderByAggregateInput
@@ -47951,6 +48023,8 @@ export namespace Prisma {
     copper?: FloatWithAggregatesFilter<"CastingEntry"> | number
     final_weight?: FloatWithAggregatesFilter<"CastingEntry"> | number
     casting_customer_id?: IntWithAggregatesFilter<"CastingEntry"> | number
+    opening_balance?: FloatNullableWithAggregatesFilter<"CastingEntry"> | number | null
+    total_sum_balance?: FloatNullableWithAggregatesFilter<"CastingEntry"> | number | null
   }
 
   export type CastingItemsWhereInput = {
@@ -48474,6 +48548,8 @@ export namespace Prisma {
     wastage?: BoolFilter<"FilingTotalBalance"> | boolean
     balance?: FloatFilter<"FilingTotalBalance"> | number
     filing_entry_id?: IntFilter<"FilingTotalBalance"> | number
+    opening_balance?: FloatNullableFilter<"FilingTotalBalance"> | number | null
+    total_sum_balance?: FloatNullableFilter<"FilingTotalBalance"> | number | null
     filingEntryId?: XOR<FilingEntryScalarRelationFilter, FilingEntryWhereInput>
   }
 
@@ -48487,6 +48563,8 @@ export namespace Prisma {
     wastage?: SortOrder
     balance?: SortOrder
     filing_entry_id?: SortOrder
+    opening_balance?: SortOrderInput | SortOrder
+    total_sum_balance?: SortOrderInput | SortOrder
     filingEntryId?: FilingEntryOrderByWithRelationInput
   }
 
@@ -48503,6 +48581,8 @@ export namespace Prisma {
     wastage?: BoolFilter<"FilingTotalBalance"> | boolean
     balance?: FloatFilter<"FilingTotalBalance"> | number
     filing_entry_id?: IntFilter<"FilingTotalBalance"> | number
+    opening_balance?: FloatNullableFilter<"FilingTotalBalance"> | number | null
+    total_sum_balance?: FloatNullableFilter<"FilingTotalBalance"> | number | null
     filingEntryId?: XOR<FilingEntryScalarRelationFilter, FilingEntryWhereInput>
   }, "id">
 
@@ -48516,6 +48596,8 @@ export namespace Prisma {
     wastage?: SortOrder
     balance?: SortOrder
     filing_entry_id?: SortOrder
+    opening_balance?: SortOrderInput | SortOrder
+    total_sum_balance?: SortOrderInput | SortOrder
     _count?: FilingTotalBalanceCountOrderByAggregateInput
     _avg?: FilingTotalBalanceAvgOrderByAggregateInput
     _max?: FilingTotalBalanceMaxOrderByAggregateInput
@@ -48536,6 +48618,8 @@ export namespace Prisma {
     wastage?: BoolWithAggregatesFilter<"FilingTotalBalance"> | boolean
     balance?: FloatWithAggregatesFilter<"FilingTotalBalance"> | number
     filing_entry_id?: IntWithAggregatesFilter<"FilingTotalBalance"> | number
+    opening_balance?: FloatNullableWithAggregatesFilter<"FilingTotalBalance"> | number | null
+    total_sum_balance?: FloatNullableWithAggregatesFilter<"FilingTotalBalance"> | number | null
   }
 
   export type FilingWastageWhereInput = {
@@ -51126,6 +51210,8 @@ export namespace Prisma {
     pure_value: number
     copper: number
     final_weight: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
     touch: AddTouchCreateNestedOneWithoutCasting_entryInput
     casting_customer: AddCastingCreateNestedOneWithoutEntriesInput
     items?: CastingItemsCreateNestedManyWithoutCastingEntryInput
@@ -51144,6 +51230,8 @@ export namespace Prisma {
     copper: number
     final_weight: number
     casting_customer_id: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
     items?: CastingItemsUncheckedCreateNestedManyWithoutCastingEntryInput
     CastiingTotalBalance?: CastiingTotalBalanceUncheckedCreateNestedManyWithoutItem_entry_idInput
   }
@@ -51157,6 +51245,8 @@ export namespace Prisma {
     pure_value?: FloatFieldUpdateOperationsInput | number
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     touch?: AddTouchUpdateOneRequiredWithoutCasting_entryNestedInput
     casting_customer?: AddCastingUpdateOneRequiredWithoutEntriesNestedInput
     items?: CastingItemsUpdateManyWithoutCastingEntryNestedInput
@@ -51175,6 +51265,8 @@ export namespace Prisma {
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
     casting_customer_id?: IntFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     items?: CastingItemsUncheckedUpdateManyWithoutCastingEntryNestedInput
     CastiingTotalBalance?: CastiingTotalBalanceUncheckedUpdateManyWithoutItem_entry_idNestedInput
   }
@@ -51191,6 +51283,8 @@ export namespace Prisma {
     copper: number
     final_weight: number
     casting_customer_id: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type CastingEntryUpdateManyMutationInput = {
@@ -51202,6 +51296,8 @@ export namespace Prisma {
     pure_value?: FloatFieldUpdateOperationsInput | number
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type CastingEntryUncheckedUpdateManyInput = {
@@ -51216,6 +51312,8 @@ export namespace Prisma {
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
     casting_customer_id?: IntFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type CastingItemsCreateInput = {
@@ -51702,6 +51800,8 @@ export namespace Prisma {
     total_scrap_weight?: number | null
     wastage: boolean
     balance: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
     filingEntryId: FilingEntryCreateNestedOneWithoutFilingTotalBalanceInput
   }
 
@@ -51715,6 +51815,8 @@ export namespace Prisma {
     wastage: boolean
     balance: number
     filing_entry_id: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type FilingTotalBalanceUpdateInput = {
@@ -51725,6 +51827,8 @@ export namespace Prisma {
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     wastage?: BoolFieldUpdateOperationsInput | boolean
     balance?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     filingEntryId?: FilingEntryUpdateOneRequiredWithoutFilingTotalBalanceNestedInput
   }
 
@@ -51738,6 +51842,8 @@ export namespace Prisma {
     wastage?: BoolFieldUpdateOperationsInput | boolean
     balance?: FloatFieldUpdateOperationsInput | number
     filing_entry_id?: IntFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type FilingTotalBalanceCreateManyInput = {
@@ -51750,6 +51856,8 @@ export namespace Prisma {
     wastage: boolean
     balance: number
     filing_entry_id: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type FilingTotalBalanceUpdateManyMutationInput = {
@@ -51760,6 +51868,8 @@ export namespace Prisma {
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     wastage?: BoolFieldUpdateOperationsInput | boolean
     balance?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type FilingTotalBalanceUncheckedUpdateManyInput = {
@@ -51772,6 +51882,8 @@ export namespace Prisma {
     wastage?: BoolFieldUpdateOperationsInput | boolean
     balance?: FloatFieldUpdateOperationsInput | number
     filing_entry_id?: IntFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type FilingWastageCreateInput = {
@@ -54441,6 +54553,8 @@ export namespace Prisma {
     copper?: SortOrder
     final_weight?: SortOrder
     casting_customer_id?: SortOrder
+    opening_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type CastingEntryAvgOrderByAggregateInput = {
@@ -54453,6 +54567,8 @@ export namespace Prisma {
     copper?: SortOrder
     final_weight?: SortOrder
     casting_customer_id?: SortOrder
+    opening_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type CastingEntryMaxOrderByAggregateInput = {
@@ -54467,6 +54583,8 @@ export namespace Prisma {
     copper?: SortOrder
     final_weight?: SortOrder
     casting_customer_id?: SortOrder
+    opening_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type CastingEntryMinOrderByAggregateInput = {
@@ -54481,6 +54599,8 @@ export namespace Prisma {
     copper?: SortOrder
     final_weight?: SortOrder
     casting_customer_id?: SortOrder
+    opening_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type CastingEntrySumOrderByAggregateInput = {
@@ -54493,6 +54613,8 @@ export namespace Prisma {
     copper?: SortOrder
     final_weight?: SortOrder
     casting_customer_id?: SortOrder
+    opening_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type EnumCASTINGENTRYTYPEFilter<$PrismaModel = never> = {
@@ -54904,6 +55026,8 @@ export namespace Prisma {
     wastage?: SortOrder
     balance?: SortOrder
     filing_entry_id?: SortOrder
+    opening_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type FilingTotalBalanceAvgOrderByAggregateInput = {
@@ -54914,6 +55038,8 @@ export namespace Prisma {
     total_scrap_weight?: SortOrder
     balance?: SortOrder
     filing_entry_id?: SortOrder
+    opening_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type FilingTotalBalanceMaxOrderByAggregateInput = {
@@ -54926,6 +55052,8 @@ export namespace Prisma {
     wastage?: SortOrder
     balance?: SortOrder
     filing_entry_id?: SortOrder
+    opening_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type FilingTotalBalanceMinOrderByAggregateInput = {
@@ -54938,6 +55066,8 @@ export namespace Prisma {
     wastage?: SortOrder
     balance?: SortOrder
     filing_entry_id?: SortOrder
+    opening_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type FilingTotalBalanceSumOrderByAggregateInput = {
@@ -54948,6 +55078,8 @@ export namespace Prisma {
     total_scrap_weight?: SortOrder
     balance?: SortOrder
     filing_entry_id?: SortOrder
+    opening_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type LotInfoNullableScalarRelationFilter = {
@@ -61407,6 +61539,8 @@ export namespace Prisma {
     pure_value: number
     copper: number
     final_weight: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
     touch: AddTouchCreateNestedOneWithoutCasting_entryInput
     items?: CastingItemsCreateNestedManyWithoutCastingEntryInput
     CastiingTotalBalance?: CastiingTotalBalanceCreateNestedManyWithoutItem_entry_idInput
@@ -61423,6 +61557,8 @@ export namespace Prisma {
     pure_value: number
     copper: number
     final_weight: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
     items?: CastingItemsUncheckedCreateNestedManyWithoutCastingEntryInput
     CastiingTotalBalance?: CastiingTotalBalanceUncheckedCreateNestedManyWithoutItem_entry_idInput
   }
@@ -61554,6 +61690,8 @@ export namespace Prisma {
     copper?: FloatFilter<"CastingEntry"> | number
     final_weight?: FloatFilter<"CastingEntry"> | number
     casting_customer_id?: IntFilter<"CastingEntry"> | number
+    opening_balance?: FloatNullableFilter<"CastingEntry"> | number | null
+    total_sum_balance?: FloatNullableFilter<"CastingEntry"> | number | null
   }
 
   export type CastingItemsUpsertWithWhereUniqueWithoutCasting_customerInput = {
@@ -63308,6 +63446,8 @@ export namespace Prisma {
     pure_value: number
     copper: number
     final_weight: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
     casting_customer: AddCastingCreateNestedOneWithoutEntriesInput
     items?: CastingItemsCreateNestedManyWithoutCastingEntryInput
     CastiingTotalBalance?: CastiingTotalBalanceCreateNestedManyWithoutItem_entry_idInput
@@ -63324,6 +63464,8 @@ export namespace Prisma {
     copper: number
     final_weight: number
     casting_customer_id: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
     items?: CastingItemsUncheckedCreateNestedManyWithoutCastingEntryInput
     CastiingTotalBalance?: CastiingTotalBalanceUncheckedCreateNestedManyWithoutItem_entry_idInput
   }
@@ -64450,6 +64592,8 @@ export namespace Prisma {
     pure_value: number
     copper: number
     final_weight: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
     touch: AddTouchCreateNestedOneWithoutCasting_entryInput
     casting_customer: AddCastingCreateNestedOneWithoutEntriesInput
     CastiingTotalBalance?: CastiingTotalBalanceCreateNestedManyWithoutItem_entry_idInput
@@ -64467,6 +64611,8 @@ export namespace Prisma {
     copper: number
     final_weight: number
     casting_customer_id: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
     CastiingTotalBalance?: CastiingTotalBalanceUncheckedCreateNestedManyWithoutItem_entry_idInput
   }
 
@@ -64760,6 +64906,8 @@ export namespace Prisma {
     pure_value?: FloatFieldUpdateOperationsInput | number
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     touch?: AddTouchUpdateOneRequiredWithoutCasting_entryNestedInput
     casting_customer?: AddCastingUpdateOneRequiredWithoutEntriesNestedInput
     CastiingTotalBalance?: CastiingTotalBalanceUpdateManyWithoutItem_entry_idNestedInput
@@ -64777,6 +64925,8 @@ export namespace Prisma {
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
     casting_customer_id?: IntFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     CastiingTotalBalance?: CastiingTotalBalanceUncheckedUpdateManyWithoutItem_entry_idNestedInput
   }
 
@@ -64905,6 +65055,8 @@ export namespace Prisma {
     pure_value: number
     copper: number
     final_weight: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
     touch: AddTouchCreateNestedOneWithoutCasting_entryInput
     casting_customer: AddCastingCreateNestedOneWithoutEntriesInput
     items?: CastingItemsCreateNestedManyWithoutCastingEntryInput
@@ -64922,6 +65074,8 @@ export namespace Prisma {
     copper: number
     final_weight: number
     casting_customer_id: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
     items?: CastingItemsUncheckedCreateNestedManyWithoutCastingEntryInput
   }
 
@@ -64950,6 +65104,8 @@ export namespace Prisma {
     pure_value?: FloatFieldUpdateOperationsInput | number
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     touch?: AddTouchUpdateOneRequiredWithoutCasting_entryNestedInput
     casting_customer?: AddCastingUpdateOneRequiredWithoutEntriesNestedInput
     items?: CastingItemsUpdateManyWithoutCastingEntryNestedInput
@@ -64967,6 +65123,8 @@ export namespace Prisma {
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
     casting_customer_id?: IntFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     items?: CastingItemsUncheckedUpdateManyWithoutCastingEntryNestedInput
   }
 
@@ -65597,6 +65755,8 @@ export namespace Prisma {
     total_scrap_weight?: number | null
     wastage: boolean
     balance: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type FilingTotalBalanceUncheckedCreateWithoutFilingEntryIdInput = {
@@ -65608,6 +65768,8 @@ export namespace Prisma {
     total_scrap_weight?: number | null
     wastage: boolean
     balance: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type FilingTotalBalanceCreateOrConnectWithoutFilingEntryIdInput = {
@@ -65772,6 +65934,8 @@ export namespace Prisma {
     wastage?: BoolFilter<"FilingTotalBalance"> | boolean
     balance?: FloatFilter<"FilingTotalBalance"> | number
     filing_entry_id?: IntFilter<"FilingTotalBalance"> | number
+    opening_balance?: FloatNullableFilter<"FilingTotalBalance"> | number | null
+    total_sum_balance?: FloatNullableFilter<"FilingTotalBalance"> | number | null
   }
 
   export type LotFilingMapperUpsertWithWhereUniqueWithoutFilingEntryInput = {
@@ -71242,6 +71406,8 @@ export namespace Prisma {
     pure_value: number
     copper: number
     final_weight: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type CastingItemsCreateManyCasting_customerInput = {
@@ -71282,6 +71448,8 @@ export namespace Prisma {
     pure_value?: FloatFieldUpdateOperationsInput | number
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     touch?: AddTouchUpdateOneRequiredWithoutCasting_entryNestedInput
     items?: CastingItemsUpdateManyWithoutCastingEntryNestedInput
     CastiingTotalBalance?: CastiingTotalBalanceUpdateManyWithoutItem_entry_idNestedInput
@@ -71298,6 +71466,8 @@ export namespace Prisma {
     pure_value?: FloatFieldUpdateOperationsInput | number
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     items?: CastingItemsUncheckedUpdateManyWithoutCastingEntryNestedInput
     CastiingTotalBalance?: CastiingTotalBalanceUncheckedUpdateManyWithoutItem_entry_idNestedInput
   }
@@ -71313,6 +71483,8 @@ export namespace Prisma {
     pure_value?: FloatFieldUpdateOperationsInput | number
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type CastingItemsUpdateWithoutCasting_customerInput = {
@@ -72493,6 +72665,8 @@ export namespace Prisma {
     copper: number
     final_weight: number
     casting_customer_id: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type CastingItemsCreateManyTouchInput = {
@@ -72629,6 +72803,8 @@ export namespace Prisma {
     pure_value?: FloatFieldUpdateOperationsInput | number
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     casting_customer?: AddCastingUpdateOneRequiredWithoutEntriesNestedInput
     items?: CastingItemsUpdateManyWithoutCastingEntryNestedInput
     CastiingTotalBalance?: CastiingTotalBalanceUpdateManyWithoutItem_entry_idNestedInput
@@ -72645,6 +72821,8 @@ export namespace Prisma {
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
     casting_customer_id?: IntFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     items?: CastingItemsUncheckedUpdateManyWithoutCastingEntryNestedInput
     CastiingTotalBalance?: CastiingTotalBalanceUncheckedUpdateManyWithoutItem_entry_idNestedInput
   }
@@ -72660,6 +72838,8 @@ export namespace Prisma {
     copper?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
     casting_customer_id?: IntFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type CastingItemsUpdateWithoutTouchInput = {
@@ -73699,6 +73879,8 @@ export namespace Prisma {
     total_scrap_weight?: number | null
     wastage: boolean
     balance: number
+    opening_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type LotFilingMapperCreateManyFilingEntryInput = {
@@ -73766,6 +73948,8 @@ export namespace Prisma {
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     wastage?: BoolFieldUpdateOperationsInput | boolean
     balance?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type FilingTotalBalanceUncheckedUpdateWithoutFilingEntryIdInput = {
@@ -73777,6 +73961,8 @@ export namespace Prisma {
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     wastage?: BoolFieldUpdateOperationsInput | boolean
     balance?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type FilingTotalBalanceUncheckedUpdateManyWithoutFilingEntryIdInput = {
@@ -73788,6 +73974,8 @@ export namespace Prisma {
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     wastage?: BoolFieldUpdateOperationsInput | boolean
     balance?: FloatFieldUpdateOperationsInput | number
+    opening_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type LotFilingMapperUpdateWithoutFilingEntryInput = {

@@ -35,6 +35,9 @@ const CastingEntryViewModal = ({
   handleCastingItemsSaved,
 }) => {
   const isView = mode === "view";
+  const [openingBalance, setOpeningBalance] = useState(0);
+  const [totalBalance, setTotalBalance] = useState(0);
+
 
   const [productItems, setProductItems] = useState([]);
   const [scrapItems, setScrapItems] = useState([]);
@@ -274,26 +277,106 @@ const CastingEntryViewModal = ({
     (sum, item) => sum + parseFloat(item.weight || 0),
     0
   );
+  // const currentBalanceWeight =
+  //   parseFloat(form.beforeWeight || 0) - totalProductWeight;
+
   const currentBalanceWeight =
-    parseFloat(form.beforeWeight || 0) - totalProductWeight;
+  parseFloat(totalBalance || 0) - totalProductWeight;
+
+
   const totalScrapWeight = scrapItems.reduce(
     (sum, item) => sum + parseFloat(item.weight || 0),
     0
   );
   const totalWastage = currentBalanceWeight - totalScrapWeight;
 
-  useEffect(() => {
-    const fetchExistingItems = async () => {
-      if (!castingEntryId || mode !== "view") return;
 
+
+    // Fetch main casting entry details by ID
+    // useEffect(() => {
+    //   if (!castingEntryId || !open) return;
+    //   const fetchCastingEntry = async () => {
+    //     try {
+    //       const res = await axios.get(`${BACKEND_SERVER_URL}/api/castingentry/${castingEntryId}`);
+    //       const data = res.data;
+  
+    //       if (data) {
+    //         // Populate form fields with API response
+    //         handleChange("date")({ target: { value: data.date || "" } });
+    //         handleChange("name")({ target: { value: data.name?.name || "" } });
+    //         handleChange("touch")({ target: { value: data.touch?.touch || "" } });
+    //         handleChange("givenGold")({ target: { value: data.givenGold || 0 } });
+    //         handleChange("beforeWeight")({ target: { value: data.beforeWeight || 0 } });
+    //         handleChange("purity")({ target: { value: data.purity || "" } });
+    //         handleChange("finalTouch")({ target: { value: data.finalTouch || "" } });
+    //         handleChange("copper")({ target: { value: data.copper || "" } });
+  
+    //         console.log("Fetched Casting Entry:", data);
+    //       }
+    //     } catch (err) {
+    //       console.error("Failed to fetch casting entry:", err);
+    //     }
+    //   };
+  
+    //   fetchCastingEntry();
+    // }, [castingEntryId, open]);
+
+    useEffect(() => {
+      if (!castingEntryId || !open) return;
+    
+      const fetchCastingEntry = async () => {
+        try {
+          const res = await axios.get(`${BACKEND_SERVER_URL}/api/castingentry/${castingEntryId}`);
+          const data = res.data;
+    
+          if (data) {
+            // populate form
+            handleChange("date")({ target: { value: data.date || "" } });
+            handleChange("name")({ target: { value: data.casting_customer?.name || "" } });
+            handleChange("touch")({ target: { value: data.touch?.touch || "" } });
+            handleChange("givenGold")({ target: { value: data.given_gold || 0 } });
+            handleChange("beforeWeight")({ target: { value: data.final_weight || 0 } });
+            handleChange("purity")({ target: { value: data.purity || "" } });
+            handleChange("finalTouch")({ target: { value: data.final_touch || "" } });
+            handleChange("copper")({ target: { value: data.copper || "" } });
+    
+            // ✅ Set correct balances directly from API
+            setOpeningBalance(parseFloat(data.opening_balance || 0));
+            setTotalBalance(parseFloat(data.total_sum_balance || 0));
+    
+            // ✅ Also load CastiingTotalBalance if available
+            if (data.CastiingTotalBalance?.length > 0) {
+              const balanceData = data.CastiingTotalBalance[0];
+              setForm((prev) => ({
+                ...prev,
+                totalItemWeight: balanceData.total_item_weight,
+                totalScrapWeight: balanceData.total_scrap_weight,
+                totalWastage: balanceData.total_wastage,
+              }));
+            }
+          }
+        } catch (err) {
+          console.error("Failed to fetch casting entry:", err);
+        }
+      };
+    
+      fetchCastingEntry();
+    }, [castingEntryId, open]);
+    
+  
+
+  useEffect(() => {
+    const fetchCastingItems = async () => {
+      if (!castingEntryId) return;
+  
       try {
-        const res = await axios.get(
-          `${BACKEND_SERVER_URL}/api/castingitems/${castingEntryId}`
-        );
-        const items = res.data;
+        const res = await axios.get(`${BACKEND_SERVER_URL}/api/castingitems/${castingEntryId}`);
+        const items = res.data || [];
+  
         const product = [];
         const scrap = [];
-
+        let balance = {};
+  
         items.forEach((item) => {
           const formattedItem = {
             id: item.id,
@@ -304,21 +387,35 @@ const CastingEntryViewModal = ({
             remarks: item.remarks || "",
             scrapremarks: item.remarks || "",
           };
-
+  
           if (item.type === "Items") product.push(formattedItem);
           else if (item.type === "ScrapItems") scrap.push(formattedItem);
+  
+          if (item.castingEntry?.CastiingTotalBalance?.length) {
+            balance = item.castingEntry.CastiingTotalBalance[0];
+          }
         });
-
+  
         setProductItems(product);
         setScrapItems(scrap);
+  
+        if (balance) {
+          setForm(prev => ({
+            ...prev,
+            beforeWeight: balance.current_balance_weight,
+            totalItemWeight: balance.total_item_weight,
+            totalScrapWeight: balance.total_scrap_weight,
+            totalWastage: balance.total_wastage,
+          }));
+        }
       } catch (err) {
-        console.error("Failed to load existing casting items:", err);
+        console.error("Failed to fetch casting items:", err);
       }
     };
-
-    fetchExistingItems();
-  }, [castingEntryId, mode]);
-
+  
+    fetchCastingItems();
+  }, [castingEntryId]);
+  
   // Calculate available stock summary by touch
     const calculateStockSummary = () => {
     const summary = {};
@@ -358,6 +455,46 @@ const CastingEntryViewModal = ({
   };
 
   const stockSummary = adjustedStockSummary();
+
+
+
+
+  useEffect(() => {
+    const fetchBalanceByName = async () => {
+      if (!form.name) {
+        setOpeningBalance(0);
+        // handleChange("beforeWeight")({ target: { value: 0 } });
+        return;
+      }
+  
+      try {
+        // Find the selected name object from options
+        const selectedName = nameOptions.find((n) => n.name === form.name);
+        if (!selectedName) return;
+  
+        const res = await axios.get(`${BACKEND_SERVER_URL}/api/casting/${selectedName.id}`);
+        const balance = res.data?.balance || 0;
+  
+        setOpeningBalance(balance);
+        // Update the form's beforeWeight
+        // handleChange("beforeWeight")({ target: { value: balance } });
+      } catch (err) {
+        console.error("Failed to fetch balance:", err);
+        setOpeningBalance(0);
+        // handleChange("beforeWeight")({ target: { value: 0 } });
+      }
+    };
+  
+    fetchBalanceByName();
+  }, [form.name, nameOptions]);
+
+  useEffect(() => {
+    const beforeWeight = parseFloat(form.beforeWeight || 0);
+    const opening = parseFloat(openingBalance || 0);
+    setTotalBalance(opening + beforeWeight);
+  }, [openingBalance, form.beforeWeight]);
+  
+  
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
@@ -535,9 +672,13 @@ const CastingEntryViewModal = ({
             />
           </Grid>
         </Grid>
-
+  <div style={{textAlign:"end"}}> 
+<div> Opening Balance: {openingBalance.toFixed(2)} </div>
+<div> Total Balance: {totalBalance.toFixed(2)} </div>
+</div>
+<br/>
         {/* Add Product Items Section */}
-        <Button onClick={addProductItem} variant="outlined" sx={{ mt: 3 , backgroundColor:' #f8f9fa', fontWeight:'530' }}>
+        <Button onClick={addProductItem} variant="outlined" sx={{ mt:1, backgroundColor:' #f8f9fa', fontWeight:'530' }}>
           Add Product Items
         </Button>
         <Table size="small" sx={{ mt: 1 }}>
@@ -696,10 +837,8 @@ const CastingEntryViewModal = ({
         </Table>
 
         <Typography sx={{ mt: 1 }}>
-          <strong>Total Item Weight:</strong> {totalProductWeight.toFixed(2)}{" "}
-          &nbsp;&nbsp;&nbsp;
-          <strong>Current Balance Weight:</strong>{" "}
-          {currentBalanceWeight.toFixed(2)}
+          <strong>Total Item Weight:</strong> {totalProductWeight.toFixed(2)}
+          <strong>Current Balance Weight:</strong>{currentBalanceWeight.toFixed(2)}
         </Typography>
 
         {/* Add Scrap Items Section */}
@@ -858,11 +997,31 @@ const CastingEntryViewModal = ({
       <DialogActions>
         <Button  variant="outlined"  onClick={handleClose}>Close</Button>
 
-        {mode === "add" && (
+        {/* {mode === "add" && (
           <Button onClick={handleSave} variant="contained" color="primary">
             Save
           </Button>
-        )}
+        )} */}
+
+{mode === "add" && (
+  <Button
+    onClick={() =>
+      handleSave({
+        opening_balance: openingBalance,
+        total_sum_balance: totalBalance,
+        total_item_weight: 0,
+        current_balance_weight: totalBalance || form.beforeWeight,
+        total_scrap_weight: 0,
+        total_wastage: totalBalance || form.beforeWeight,
+      })
+    }
+    variant="contained"
+    color="primary"
+  >
+    Save
+  </Button>
+)}
+
 
         {mode === "view" && (
           <Button onClick={handleSaveItems} variant="contained" color="primary">

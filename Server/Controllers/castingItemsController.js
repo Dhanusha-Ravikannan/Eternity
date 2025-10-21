@@ -129,14 +129,17 @@ export const createCastingItem = async (req, res) => {
           });
         }
 
-
-        // ✅ Update AddCasting.balance with total_wastage
-  // if (castingEntry?.casting_customer_id && balanceData.total_wastage != null) {
-  //   await tx.addCasting.update({
-  //     where: { id: castingEntry.casting_customer_id },
-  //     data: { balance: balanceData.total_wastage },
-  //   });
-  // }
+     //  Step 3 — Update AddCasting.balance with total_wastage
+     if (
+      castingEntry.casting_customer_id &&
+      balanceData.total_wastage != null &&
+      !isNaN(balanceData.total_wastage)
+    ) {
+      await tx.addCasting.update({
+        where: { id: Number(castingEntry.casting_customer_id) },
+        data: { balance: parseFloat(balanceData.total_wastage) || 0 },
+      });
+    }
       }
 
       return savedItems;
@@ -188,7 +191,8 @@ export const getCastingItemById = async (req, res) => {
           include:{
             CastiingTotalBalance: true
           }
-        }
+        },
+        
       },
     });
 
