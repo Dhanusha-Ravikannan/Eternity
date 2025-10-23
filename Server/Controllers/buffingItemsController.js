@@ -114,6 +114,9 @@ export const createBuffingItem = async (req, res) => {
       wastage,
       totalScrapWeight,
       balance,
+      open_balance,        // new
+      // total_sum_balance 
+      totalSumBalance
     } = req.body;
 
     if (!buffingEntryId) {
@@ -229,6 +232,9 @@ export const createBuffingItem = async (req, res) => {
           wastage: normalizedWastage,
           total_scrap_weight: totalScrapWeight,
           balance,
+          open_balance,        // add here
+          // total_sum_balance,  
+          total_sum_balance: totalSumBalance ?? null, // use camelCase
         },
       });
     } else {
@@ -240,9 +246,21 @@ export const createBuffingItem = async (req, res) => {
           wastage: normalizedWastage,
           total_scrap_weight: totalScrapWeight,
           balance,
+          open_balance,        // add here
+          // total_sum_balance, 
+          total_sum_balance: totalSumBalance ?? null, // use camelCase 
         },
       });
     }
+
+        // STEP 5: Update AddBuffing balance
+
+if (buffingEntry && balance != null) {
+  await prisma.addBuffing.update({
+    where: { id: buffingEntry.buffing_person_id },
+    data: { balance: balance },
+  });
+}
 
     return res.status(200).json({
       message: "Buffing items, stock, and balance upserted successfully",

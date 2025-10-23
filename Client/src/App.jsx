@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CircularProgress, Box } from "@mui/material";
 
+
 // Lazy load components
 
 const Login = lazy(() => import("./Components/Login/Login"));
@@ -43,7 +44,8 @@ const QCStock = lazy(() => import("./Components/Master/QCStock"));
 const CustomerReport = lazy(() => import("./Components/Report/CustomerReport"));
 const TouchWisePurchaseReport = lazy(() => import("./Components/Report/TouchWisePurchaseReports"));
 const ReceiptVoucher = lazy(()=>import("./Components/Receipt Voucher/ReceiptVoucher"));
-const ExpenseVoucher = lazy (()=> import("./Components/Expense Voucher/ExpenseVoucher"))
+const ExpenseVoucher = lazy (()=> import("./Components/Expense Voucher/ExpenseVoucher"));
+const ReceiptVoucherReport = lazy (()=> import ("./Components/Report/ReceiptVoucherReport"))
 
 
 const Loader = () => (
@@ -106,6 +108,7 @@ const App = () => {
           <Route path="/purchasereport" element={<TouchWisePurchaseReport />} />
           <Route path="/receiptvoucher" element={<ReceiptVoucher/>} />
           <Route path="/expensevoucher" element={<ExpenseVoucher/>}/>
+          <Route path="/receiptvoucherreport" element={<ReceiptVoucherReport />}/>
           
         </Routes>
       </Suspense>

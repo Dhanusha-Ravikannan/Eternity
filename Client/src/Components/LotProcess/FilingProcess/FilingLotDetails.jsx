@@ -56,20 +56,19 @@ const FilingLotDetails = () => {
   const [finalBalance, setFinalBalance] = useState (0);
   const { id: filingPersonId, name, lotNumber } = useParams();
 
+ 
+  const fetchOpeningBalance = async () => {
+    try {
+      const response = await axios.get(`${BACKEND_SERVER_URL}/api/filing/${filingPersonId}`);
+      setOpeningBalanceTotal(response.data.balance || 0);
+      console.log('Balance for this person', response.data.balance)
+    } catch (error) {
+      console.error("Error fetching opening balance:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchFilingData = async () => {
-      try {
-        const response = await axios.get(`${BACKEND_SERVER_URL}/api/filing/${filingPersonId}`);
-        console.log("Filing Data:", response.data);
-        console.log('Balance for this person', response.data.balance)
-        if (response.data) {
-          setOpeningBalanceTotal(response.data.balance || 0);
-        }
-      } catch (error) {
-        console.error("Error fetching filing data:", error);
-      }
-    };
-    fetchFilingData();
+    fetchOpeningBalance();
   }, [filingPersonId]);
 
   const fetchAssignedEntries = async () => {
@@ -441,6 +440,10 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
       alert("Data saved successfully!");
       // fetchAssignedEntries();
       await fetchAssignedEntries();
+
+          // Refetch opening balance immediately
+          await fetchOpeningBalance();
+
       setViewDialogOpen(false);
       setProductItems([]);
       setScrapItems([]);
@@ -517,7 +520,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
           >
             Reset
           </Button>
-        
+          <Button> Open Balance: {openingBalanceTotal}</Button>
 
           <Button
             style={{
@@ -526,7 +529,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
               borderColor: "#25274D",
               borderStyle: "solid",
               borderWidth: "2px",
-              marginLeft: "49rem",
+              marginLeft: "37rem",
             }}
             variant="contained"
             onClick={() => setIsAssignOpen(true)}

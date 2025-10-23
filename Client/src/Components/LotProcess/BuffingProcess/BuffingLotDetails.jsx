@@ -4,14 +4,7 @@ import styles from "./BuffingLotDetails.module.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_SERVER_URL } from "../../../../Config/config";
-import {
-  DialogActions,
-  Box,
-  Button,
-  TextField,
-  Typography,
-  MenuItem,
-} from "@mui/material";
+import { DialogActions, Box, Button, TextField, Typography, MenuItem, } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Checkbox from "@mui/material/Checkbox";
 
@@ -26,16 +19,13 @@ const BuffingLotDetails = () => {
   const { id, name, lotNumber } = useParams();
   const [receiptWeight, setReceiptWeight] = useState("");
   const [remarks, setRemarks] = useState("");
-
   const [wastageInputs, setWastageInputs] = useState([{ value: "" }]);
   const [wastagePercentage, setWastagePercentage] = useState("");
   const [givenGold, setGivenGold] = useState("");
   const [closingSummary, setClosingSummary] = useState(null);
   const [openingBalance, setOpeningBalance] = useState(0);
-
   const [existingWastageId, setExistingWastageId] = useState(null);
   const [active, setActive] = useState(true);
-
   const [wastage, setWastage] = useState("No");
   const [scrapItems, setScrapItems] = useState([]);
   const [itemOptions, setItemOptions] = useState([]);
@@ -43,6 +33,35 @@ const BuffingLotDetails = () => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const [openingBalanceTotal,setOpeningBalanceTotal] = useState(0);
+  const [totalSumBalance, setTotalSumBalance] = useState(0);
+
+ 
+  const fetchOpeningBalance = async () => {
+    try {
+      const response = await axios.get(`${BACKEND_SERVER_URL}/api/buffing/${id}`);
+      const openBal = response.data.balance || 0;
+      setOpeningBalanceTotal(openBal);
+    } catch (error) {
+      console.error("Error fetching opening balance", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOpeningBalance();
+  }, [id]);
+  
+  
+  useEffect(() => {
+    if (viewEntry) {
+      const totalTableWeight = viewEntry.items.reduce(
+        (sum, item) => sum + (parseFloat(item.weight) || 0), 
+        0
+      );
+      setTotalSumBalance(openingBalanceTotal + totalTableWeight);
+    }
+  }, [viewEntry, openingBalanceTotal]);
+  
 
   useEffect(() => {
     const fetchDropdowns = async () => {
@@ -75,7 +94,6 @@ const BuffingLotDetails = () => {
       );
       const isActive = res.data?.[0]?.lotBuffingMapper?.[0]?.isactive ?? false;
       console.log("isActive value:", isActive);
-
       setActive(isActive);
       const formatted = res.data.map((entry) => ({
         id: entry.id,
@@ -95,7 +113,6 @@ const BuffingLotDetails = () => {
                   stoneCount = settingBalance.stone_count || "-";
                   stoneWeight = settingBalance.stone_weight || "-";
                 }
-
                 return {
                   id: mapper.filing_item_id || mapper.setting_item_id,
                   item:
@@ -156,7 +173,6 @@ const BuffingLotDetails = () => {
       const response = await axios.get(
         `${BACKEND_SERVER_URL}/api/buffing/entry/${id}/${lotNumber}`
       );
-
       console.log("Sssssssssssssssssssssssssssssssssop", response);
 
       if (response.data.length > 0) {
@@ -186,66 +202,77 @@ const BuffingLotDetails = () => {
   const handleSave = async () => {
     try {
       if (!viewEntry) return;
-
-      // Calculate totals
-      const totalWeight = viewEntry.items.reduce(
+  
+      // Step 1: Calculate total weight of items in the entry
+      const totalItemWeight = viewEntry.items.reduce(
         (sum, item) => sum + (parseFloat(item.weight) || 0),
         0
       );
-
+  
+      // Step 2: Calculate total scrap weight
       const totalScrapWeight = scrapItems.reduce(
         (sum, s) => sum + (parseFloat(s.weight) || 0),
         0
       );
-
+  
+      // Step 3: Compute balance = openingBalance + totalItemWeight - receiptWeight - totalScrapWeight
+      const receipt = parseFloat(receiptWeight) || 0;
       const balance =
-        totalWeight - (parseFloat(receiptWeight) || 0) - totalScrapWeight;
-
-      // Prepare payload with proper buffing_item_id
+        parseFloat(openingBalanceTotal || 0) + totalItemWeight - receipt - totalScrapWeight;
+  
+      // Step 4: Prepare payload for backend
       const payload = {
         buffingEntryId: viewEntry.id,
-        receiptWeight: parseFloat(receiptWeight) || 0,
-        remarks,
-        wastage,
+        receiptWeight: receipt,
+        remarks: remarks || "",
+        wastage: wastage || "No",
         totalScrapWeight,
         balance,
+        open_balance: parseFloat(openingBalanceTotal) || 0,
+        totalSumBalance: parseFloat(totalItemWeight) + parseFloat(openingBalanceTotal),
         scrapItems: scrapItems
           .filter((s) => s.item)
           .map((s) => ({
-            buffing_item_id: parseInt(s.item),
+            buffing_item_id: parseInt(s.item), // backend expects buffing_item_id
             weight: parseFloat(s.weight) || 0,
             touch_id: s.touch || null,
             item_purity: parseFloat(s.purity) || 0,
             scrap_remarks: s.remarks || "",
           })),
       };
-
-      console.log("Saving Buffing Items:", payload);
-
-      // POST to backend
+  
+      console.log("Saving Buffing Items payload:", payload);
+  
+      // Step 5: POST to backend
       await axios.post(`${BACKEND_SERVER_URL}/api/buffingitems`, payload);
-
-      // Update frontend table
+  
+      // Step 6: Update frontend table state
       const updatedEntry = {
         ...viewEntry,
-        receiptWeight,
+        receiptWeight: receipt,
+        remarks,
         wastage,
         scrapItems: scrapItems.map((s) => ({
-          itemName:
-            itemOptions.find((opt) => opt.id === parseInt(s.item))?.name || "",
+          itemName: itemOptions.find((opt) => opt.id === parseInt(s.item))?.name || "",
           ...s,
         })),
         totalScrapWeight,
         balance,
+        openingBalance: parseFloat(openingBalanceTotal),
+        totalSumBalance: parseFloat(totalItemWeight) + parseFloat(openingBalanceTotal),
       };
-
+  
       setMainTableData((prev) =>
         prev.map((e) => (e.id === viewEntry.id ? updatedEntry : e))
       );
-
+  
       alert("Buffing Entry saved successfully!");
       await fetchBuffingEntries();
 
+      // Refetch opening balance immediately
+      await fetchOpeningBalance();
+
+      // Step 7: Reset popup states
       setOpen(false);
       setViewEntry(null);
       setScrapItems([]);
@@ -257,7 +284,7 @@ const BuffingLotDetails = () => {
       alert("Failed to save Buffing Entry");
     }
   };
-
+  
   console.log(
     "Buffing Datas:",
     `person_id: ${id},`,
@@ -282,10 +309,7 @@ const BuffingLotDetails = () => {
 
       console.log("Posting Buffing Entry:", payload);
 
-      const res = await axios.post(
-        "http://localhost:5000/api/buffingentry",
-        payload
-      );
+      const res = await axios.post(  "http://localhost:5000/api/buffingentry",   payload   );
       const newEntry = {
         id: res.data.entry.id,
         date,
@@ -349,13 +373,10 @@ const BuffingLotDetails = () => {
     const fetchItems = async () => {
       try {
         // Filing items (flat structure, as before)
-        const filingRes = await axios.get(
-          "http://localhost:5000/api/filingitems/filingitems/available"
-        );
+        const filingRes = await axios.get( "http://localhost:5000/api/filingitems/filingitems/available"  );
         const filingFiltered = filingRes.data.filter(
           (item) =>
-            item.stone_option === "WithoutStone" && item.status === "Unassigned"
-        );
+            item.stone_option === "WithoutStone" && item.status === "Unassigned" );
         const filingTransformed = filingFiltered.map((item) => ({
           id: item.id,
           item: item.filingitem?.name,
@@ -396,6 +417,7 @@ const BuffingLotDetails = () => {
   }, []);
 
   const handleClickOpen = () => setOpen(true);
+
   const handleClose = () => {
     setOpen(false);
     setSelectedItems([]);
@@ -414,30 +436,19 @@ const BuffingLotDetails = () => {
       "Are you sure you want to delete this scrap item?"
     );
     if (!confirmDelete) return;
-
     try {
       if (scrap.id) {
         await axios.delete(
           `${BACKEND_SERVER_URL}/api/buffingitems/${scrap.id}`
         );
       }
-
       //  Update scrapItems state immediately
       const updatedScrapItems = scrapItems.filter((_, i) => i !== idx);
       setScrapItems(updatedScrapItems);
-
       //  Recalculate total scrap weight and balance
-      const totalScrapWeight = updatedScrapItems.reduce(
-        (sum, s) => sum + (parseFloat(s.weight) || 0),
-        0
-      );
-      const totalWeight = viewEntry.items.reduce(
-        (sum, item) => sum + (parseFloat(item.weight) || 0),
-        0
-      );
-      const balance =
-        totalWeight - (parseFloat(receiptWeight) || 0) - totalScrapWeight;
-
+      const totalScrapWeight = updatedScrapItems.reduce((sum, s) => sum + (parseFloat(s.weight) || 0),  0 );
+      const totalWeight = viewEntry.items.reduce( (sum, item) => sum + (parseFloat(item.weight) || 0), 0  );
+      const balance =  totalWeight - (parseFloat(receiptWeight) || 0) - totalScrapWeight;
       //  Update main table entry in state
       setMainTableData((prev) =>
         prev.map((e) =>
@@ -446,7 +457,6 @@ const BuffingLotDetails = () => {
             : e
         )
       );
-
       // alert("Scrap item deleted successfully!");
     } catch (error) {
       console.error("Error deleting scrap item:", error);
@@ -461,7 +471,6 @@ const BuffingLotDetails = () => {
   const handleFilter = () => {
     const from = fromDate ? new Date(fromDate) : null;
     const to = toDate ? new Date(toDate) : null;
-
     const filtered = mainTableData.filter((entry) => {
       const entryDate = new Date(entry.date);
 
@@ -483,32 +492,19 @@ const BuffingLotDetails = () => {
   // Monthly wastage calculations
   const totalReceipt = filteredData.reduce((sum, entry) => {
     return sum + (parseFloat(entry.receiptWeight) || 0);
-  }, 0);
-
-  const manualWastageSum = wastageInputs.reduce(
-    (sum, w) => sum + (parseFloat(w.value) || 0),
-    0
-  );
-
-  // % wastage calculation
-  const totalWastageFromPercentage =
-    (totalReceipt * (parseFloat(wastagePercentage) || 0)) / 100;
-
-  // Final total wastage = percentage wastage + manual wastage inputs
-  const totalWastage = totalWastageFromPercentage + manualWastageSum;
-
-  const totalBalanceSum = filteredData.reduce((sum, entry) => {
+}, 0);
+const manualWastageSum = wastageInputs.reduce( (sum, w) => sum + (parseFloat(w.value) || 0),  0 );
+// % wastage calculation
+const totalWastageFromPercentage = (totalReceipt * (parseFloat(wastagePercentage) || 0)) / 100;
+// Final total wastage = percentage wastage + manual wastage inputs
+const totalWastage = totalWastageFromPercentage + manualWastageSum;
+const totalBalanceSum = filteredData.reduce((sum, entry) => {
     return sum + (parseFloat(entry.balance) || 0);
-  }, 0);
+ }, 0);
   const overallWastage = totalBalanceSum - totalWastage + openingBalance;
-
   const additionalGold = parseFloat(givenGold) || 0;
-
-  const closingBalance =
-    overallWastage < 0 ? overallWastage + additionalGold : overallWastage;
-
-  const settlementMessage =
-    closingBalance < 0
+  const closingBalance = overallWastage < 0 ? overallWastage + additionalGold : overallWastage;
+  const settlementMessage = closingBalance < 0
       ? "Owner must give to worker"
       : "Worker must give to owner";
 
@@ -537,26 +533,18 @@ const BuffingLotDetails = () => {
         );
       } else {
         // Create new wastage record
-        response = await axios.post(
-          `${BACKEND_SERVER_URL}/api/buffing/wastage`,
-          data
-        );
-
+        response = await axios.post( `${BACKEND_SERVER_URL}/api/buffing/wastage`,  data  );
         setExistingWastageId(response.data.id);
-      }
-
+   }
       localStorage.setItem("buffingSummary", JSON.stringify(data));
       setClosingSummary(data);
-
       alert(`Summary ${existingWastageId ? "updated" : "saved"} successfully!`);
     } catch (error) {
       console.error("Error saving summary:", error);
       alert("Failed to save summary. Check console for details.");
     }
   };
-
   console.log("ssss", openingBalance);
-
   const handleCloseJobcard = async () => {
     try {
       const response = await axios.post(
@@ -569,7 +557,6 @@ const BuffingLotDetails = () => {
 
       // Redirect to the new lot
       window.location.href = `/buffinglot/${id}/${name}/${response.data.newLotNumber}`;
-
       alert("Jobcard closed and new lot created successfully!");
     } catch (error) {
       console.error("Error closing jobcard:", error);
@@ -597,15 +584,7 @@ const BuffingLotDetails = () => {
     <>
       <Navbar />
       <h5 className={styles.heading}>Buffing Lot Details</h5>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "1rem",
-          flexWrap: "wrap",
-          marginTop: "1rem",
-        }}
-      >
+      <div style={{ display: "flex", alignItems: "center",  gap: "1rem", flexWrap: "wrap", marginTop: "1rem" }} >
         <TextField
           label="From Date"
           type="date"
@@ -623,15 +602,9 @@ const BuffingLotDetails = () => {
           onChange={(e) => setToDate(e.target.value)}
           InputLabelProps={{ shrink: true }}
         />
-
-        <Button variant="outlined" onClick={() => handleFilter()}>
-          {" "}
-          Filter{" "}
-        </Button>
-        <Button variant="outlined" onClick={() => handleResetFilter()}>
-          Reset
-        </Button>
-
+        <Button variant="outlined" onClick={() => handleFilter()}>   Filter </Button>
+        <Button variant="outlined" onClick={() => handleResetFilter()}>  Reset  </Button>
+        <Button> Open Balance: {openingBalanceTotal}</Button>
         <Button
           style={{
             backgroundColor: "#F5F5F5",
@@ -639,7 +612,7 @@ const BuffingLotDetails = () => {
             borderColor: "#25274D",
             borderStyle: "solid",
             borderWidth: "2px",
-            marginLeft: "47rem",
+            marginLeft: "36rem",
           }}
           variant="contained"
           onClick={handleClickOpen}
@@ -647,12 +620,9 @@ const BuffingLotDetails = () => {
           Add Buffing
         </Button>
       </div>
-
-      <table
-        className={styles.table}
+      <table className={styles.table}
         border="1"
-        style={{ width: "95%", marginTop: "2rem", marginLeft: "2rem" }}
-      >
+        style={{ width: "95%", marginTop: "2rem", marginLeft: "2rem" }}  >
         <thead>
           <tr>
             <th>S.No</th>
@@ -725,14 +695,14 @@ const BuffingLotDetails = () => {
                       <td rowSpan={entry.items.length}>
                         {entry.totalScrapWeight || "-"}
                       </td>
-                      {/* <td rowSpan={entry.items.length}>
-                        {entry.balance || "-"}
-                      </td> */}
                       <td rowSpan={entry.items.length}>
+                        {entry.balance || "-"}
+                      </td>
+                      {/* <td rowSpan={entry.items.length}>
   {entry.balance !== undefined && entry.balance !== null
     ? parseFloat(entry.balance).toFixed(2)
     : "-"}
-</td>
+</td> */}
                       <td rowSpan={entry.items.length}>
                         <Button
                           variant="outlined"
@@ -836,11 +806,9 @@ const BuffingLotDetails = () => {
         <Typography sx={{ mt: 2 }}>
           <strong>Total Wastage:</strong> {totalWastage.toFixed(2)} g
         </Typography>
-
         <Typography sx={{ mt: 2 }}>
           <strong>Balance:</strong> {totalBalanceSum.toFixed(2)} g
         </Typography>
-
         <Typography sx={{ mt: 2 }}>
           <strong>Overall Wastage:</strong> {overallWastage.toFixed(2)} g
         </Typography>
@@ -1061,14 +1029,9 @@ const BuffingLotDetails = () => {
                     <td>
                       <b>
                         {viewEntry.items
-                          .reduce(
-                            (sum, item) => sum + (parseFloat(item.weight) || 0),
-                            0
-                          )
-                          .toFixed(2)}{" "}
+                          .reduce((sum, item) => sum + (parseFloat(item.weight) || 0), 0 )  .toFixed(2)}
                       </b>
                     </td>
-
                     <td colSpan={6}></td>
                   </tr>
                 </tfoot>
@@ -1077,6 +1040,7 @@ const BuffingLotDetails = () => {
 
             {viewEntry && (
               <>
+
                 <Box sx={{ mt: 3, display: "flex", gap: 65 }}>
                   <TextField
                     label="Receipt Weight"
@@ -1090,14 +1054,6 @@ const BuffingLotDetails = () => {
                       setReceiptWeight(parseFloat(e.target.value) )
                     }
                   />
-                  {/* <TextField
-                    label="Remarks"
-                    type="text"
-                    fullWidth
-                    required
-                    value={remarks}
-                    onChange={(e) => setRemarks(e.target.value)}
-                  /> */}
                   <Box
                     sx={{
                       display: "flex",
@@ -1127,6 +1083,14 @@ const BuffingLotDetails = () => {
                     </Button>
                   </Box>
                 </Box>
+
+{viewEntry && (
+  <Box sx={{ mt: 2, mb: 2 }}>
+    <Typography><b>Open Balance:</b> {openingBalanceTotal.toFixed(2)}</Typography>
+    <Typography><b>Total Sum Balance:</b> {totalSumBalance.toFixed(2)}</Typography>
+  </Box>
+)}
+
                 <div style={{ marginTop: "2rem" }}>
                   <Button variant="outlined" onClick={addScrapItem} sx={{ backgroundColor:' #f8f9fa', fontWeight:'530' }}>
                     Add Scrap Items
@@ -1267,27 +1231,21 @@ const BuffingLotDetails = () => {
                     <Typography>
                       <strong>Total Scrap Weight:</strong>
                       {scrapItems
-                        .reduce(
+                       .reduce(
                           (sum, s) => sum + (parseFloat(s.weight) || 0),
                           0
                         )
                         .toFixed(2)}
                     </Typography>
 
+              
                     <Typography>
-                      <strong>Balance:</strong>
-                      {(
-                        viewEntry.items.reduce(
-                          (sum, item) => sum + (parseFloat(item.weight) || 0),
-                          0
-                        ) -
-                        receiptWeight -
-                        scrapItems.reduce(
-                          (sum, s) => sum + (parseFloat(s.weight) || 0),
-                          0
-                        )
-                      ).toFixed(2)}
-                    </Typography>
+  <strong>Balance:</strong> 
+  {(
+    totalSumBalance - (parseFloat(receiptWeight) || 0) - scrapItems.reduce((sum, s) => sum + (parseFloat(s.weight) || 0), 0)
+  ).toFixed(2)}
+</Typography>
+
                   </Box>
                 </div>
               </>

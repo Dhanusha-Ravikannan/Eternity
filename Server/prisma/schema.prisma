@@ -487,6 +487,8 @@ model BuffingTotalBalance {
   balance            Float
   buffing_entry_id   Int
   BuffingEntryId     BuffingEntry @relation(fields: [buffing_entry_id], references: [id])
+  open_balance       Float?  
+  total_sum_balance  Float?       
 }
 
 model LotBuffingMapper {

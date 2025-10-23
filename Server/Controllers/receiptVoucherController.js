@@ -96,3 +96,49 @@ export const createReceiptVoucher = async (req, res) => {
     }
   };
   
+
+  // Controller to get all receipt vouchers
+// export const getAllReceiptVouchers = async (req, res) => {
+//   try {
+//     const receipts = await prisma.receiptVoucher.findMany({
+//       orderBy: { date: "desc" }, 
+//       include: {
+//         customerId: true,
+//         touchId:true,
+//       },
+//     });
+
+//     return res.status(200).json({ receipts });
+//   } catch (error) {
+//     console.error("Error fetching receipt vouchers:", error.message || error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// };
+
+export const getAllReceiptVouchers = async (req, res) => {
+  try {
+    const receipts = await prisma.receiptVoucher.findMany({
+      orderBy: { date: "desc" },
+      include: {
+        customerId:true,
+       // include customer info
+        touchId: true,     // include touch info if applicable
+      },
+    });
+
+    // Fetch hallmark balance for each receipt
+    const receiptsWithHallmark = await Promise.all(
+      receipts.map(async (r) => {
+        const hallmark = await prisma.hallmark.findFirst({
+          where: { customer_id: r.customer_id },
+        });
+        return { ...r, hallMarkBalance: hallmark?.balance ?? 0 };
+      })
+    );
+
+    return res.status(200).json({ receipts: receiptsWithHallmark });
+  } catch (error) {
+    console.error("Error fetching receipt vouchers:", error.message || error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
