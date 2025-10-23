@@ -5,7 +5,6 @@ import Checkbox from "@mui/material/Checkbox";
 import axios from "axios";
 import {
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
   Box,
@@ -13,7 +12,6 @@ import {
   TextField,
   Typography,
   MenuItem,
-  IconButton,
 } from "@mui/material";
 import { BACKEND_SERVER_URL } from "../../../../Config/config";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -49,15 +47,29 @@ const SettingLotDetails = () => {
   const [fromDatee, setFromDatee] = useState("");
   const [toDate, setToDate] = useState("");
   const [filteredEntries, setFilteredEntries] = useState([]);
-
   const [wastagePercent, setWastagePercent] = useState("");
   const [givenGold, setGivenGold] = useState("");
-
   const [wastageInputs, setWastageInputs] = useState([{ value: "" }]);
   const [closingSummary, setClosingSummary] = useState(null);
   const [active, setActive] = useState(true);
   const [existingWastageId, setExistingWastageId] = useState(null);
   const [openingBalance, setOpeningBalance] = useState(0);
+  const [openingBalanceTotal, setOpeningBalanceTotal] = useState(0); 
+  
+
+  const fetchOpeningBalance = async () => {
+    try {
+      const response = await axios.get(`${BACKEND_SERVER_URL}/api/setting/${settingPersonId}`);
+      setOpeningBalanceTotal(response.data.balance || 0);
+      console.log('Balance for this person', response.data.balance)
+    } catch (error) {
+      console.error("Error fetching opening balance:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOpeningBalance();
+  }, [settingPersonId]);
 
   const applyDateFilter = () => {
     if (!fromDatee || !toDate) {
@@ -182,7 +194,13 @@ const SettingLotDetails = () => {
       await axios.post("http://localhost:5000/api/settingentry", payload);
       setSelectedItems([]);
       handleClose();
-      fetchAssignedItems();
+      // fetchAssignedItems();
+
+      await fetchAssignedItems();
+
+      // Refetch opening balance immediately
+      await fetchOpeningBalance();
+  
     } catch (err) {
       console.error("Error saving setting entry:", err);
     }
@@ -193,23 +211,27 @@ const SettingLotDetails = () => {
     setViewOpen(true);
   };
 
+
   const handleViewSave = async () => {
     try {
       const receiptWeight = Number(viewData.receiptWeight || 0);
       const stoneWeight = Number(viewData.stoneWeight || 0);
       const totalProductWeight = receiptWeight;
+  
       const totalScrapWeight =
-        viewData.scrapItems?.reduce(
-          (sum, item) => sum + Number(item.weight || 0),
-          0
-        ) || 0;
-      const totalIssue = viewData.filingItems
-        .reduce((sum, fi) => sum + Number(fi.weight || 0), 0)
-        .toFixed(2);
-      const currentBalanceWeight =
-        totalIssue - totalProductWeight + stoneWeight;
+        viewData.scrapItems?.reduce((sum, item) => sum + Number(item.weight || 0), 0) || 0;
+  
+      // Total sum balance = opening balance + sum of filing items weight
+      const totalSumBalance =
+        openingBalanceTotal +
+        viewData.filingItems.reduce((sum, fi) => sum + Number(fi.weight || 0), 0);
+  
+      // Current balance = total sum balance - receiptWeight + stoneWeight
+      const currentBalanceWeight = totalSumBalance - receiptWeight + stoneWeight;
+  
+      // Final balance after deducting scrap
       const balance = currentBalanceWeight - totalScrapWeight;
-
+  
       const payload = {
         settingEntryId: viewData.id,
         setting_person_id: Number(settingPersonId),
@@ -227,22 +249,25 @@ const SettingLotDetails = () => {
           purity: Number(item.purity || 0),
           remarks: item.remarks || "",
         })),
-
         totalProductWeight,
+        totalSumBalance,
         currentBalanceWeight,
         totalScrapWeight,
         balance,
+        open_balance: openingBalanceTotal, // Send explicitly if needed
       };
-
+  
       console.log("Posting viewData payload:", payload);
       await axios.post(`${BACKEND_SERVER_URL}/api/settingitems`, payload);
       await fetchAssignedItems();
       setViewOpen(false);
+
+          // Refetch opening balance immediately
+    await fetchOpeningBalance();
     } catch (err) {
       console.error("Error saving view data:", err);
     }
   };
-
   const handleDeleteScrapItem = async (item, idx) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this scrap item?"
@@ -339,57 +364,46 @@ const SettingLotDetails = () => {
     setFilteredEntries(assignedItems);
   }, [assignedItems]);
 
-  /*   const getOverallBalance = () => {
-    return filteredEntries
-      .reduce((total, group) => {
-        if (!group.afterWeight) return total;
+  // const getOverallBalance = () => {
+  //   return filteredEntries
+  //     .reduce((total, entry) => {
+  //       // Calculate total issue weight from filing items
+  //       const issueSum = entry.filingItems.reduce(
+  //         (sum, item) => sum + parseFloat(item.weight || 0),
+  //         0
+  //       );
 
-        const issueSum = group.items.reduce(
-          (sum, item) => sum + parseFloat(item.beforeWeight || 0),
-          0
-        );
+  //       // Get other weights
+  //       const receiptWeight = parseFloat(entry.receiptWeight || 0);
+  //       const stoneWeight = parseFloat(entry.stoneWeight || 0);
 
-        const afterWeight = parseFloat(group.afterWeight || 0);
-        const stoneWeight = parseFloat(group.stoneWeight || 0);
-        const scrapWeight = parseFloat(
-          getTotalScrapWeight(group.scrapItems || [])
-        );
+  //       // Calculate scrap weight
+  //       const scrapWeight = entry.scrapItems
+  //         ? entry.scrapItems.reduce(
+  //             (sum, item) => sum + parseFloat(item.weight || 0),
+  //             0
+  //           )
+  //         : 0;
 
-        const balance = issueSum - (afterWeight - stoneWeight) - scrapWeight;
+  //       // Calculate balance for this entry
+  //       const balance = issueSum - receiptWeight + stoneWeight - scrapWeight;
 
-        return total + (isNaN(balance) ? 0 : balance);
-      }, 0)
-      .toFixed(2);
-  }; */
+  //       return total + (isNaN(balance) ? 0 : balance);
+  //     }, 0)
+  //     .toFixed(2);
+      
+  // };
 
   const getOverallBalance = () => {
-    return filteredEntries
-      .reduce((total, entry) => {
-        // Calculate total issue weight from filing items
-        const issueSum = entry.filingItems.reduce(
-          (sum, item) => sum + parseFloat(item.weight || 0),
-          0
-        );
-
-        // Get other weights
-        const receiptWeight = parseFloat(entry.receiptWeight || 0);
-        const stoneWeight = parseFloat(entry.stoneWeight || 0);
-
-        // Calculate scrap weight
-        const scrapWeight = entry.scrapItems
-          ? entry.scrapItems.reduce(
-              (sum, item) => sum + parseFloat(item.weight || 0),
-              0
-            )
-          : 0;
-
-        // Calculate balance for this entry
-        const balance = issueSum - receiptWeight + stoneWeight - scrapWeight;
-
-        return total + (isNaN(balance) ? 0 : balance);
-      }, 0)
-      .toFixed(2);
+    const total = filteredEntries.reduce((sum, entry) => {
+      // Each entry already has "balance" stored after View Save
+      const balance = parseFloat(entry.balance || 0);
+      return sum + (isNaN(balance) ? 0 : balance);
+    }, 0);
+  
+    return total.toFixed(2);
   };
+  
   const handleWastageInputChange = (index, value) => {
     const newInputs = [...wastageInputs];
     newInputs[index].value = value;
@@ -467,7 +481,8 @@ const SettingLotDetails = () => {
         </Button>
         <Button variant="outlined" onClick={resetFilter}>
           Reset
-        </Button>
+        </Button> 
+        <Button> Open Balance: {openingBalanceTotal}</Button>
         <Button
           style={{
             backgroundColor: "#F5F5F5",
@@ -475,7 +490,7 @@ const SettingLotDetails = () => {
             borderColor: "#25274D",
             borderStyle: "solid",
             borderWidth: "2px",
-            marginLeft: "47.3rem",
+            marginLeft: "35.3rem",
           }}
           variant="contained"
           onClick={handleOpen}
@@ -717,41 +732,6 @@ const SettingLotDetails = () => {
         >
           {existingWastageId ? "Update Summary" : "Save Summary"}
         </Button>
-        {/*  <Button
-          variant="outlined"
-          color="error"
-          sx={{ mt: 2, width: "100%" }}
-          onClick={() => {
-            const confirmed = window.confirm(
-              "Are you sure you want to close this jobcard?"
-            );
-            if (confirmed) {
-              const existingLots =
-                JSON.parse(localStorage.getItem("settingLots")) || [];
-              const newLot = {
-                id: existingLots.length + 1,
-                entries,
-                summary: {
-                  totalStoneCount,
-                  wastagePercent,
-                  totalWastage: totalWastage.toFixed(2),
-                  overallBalance: getOverallBalance(),
-                  closingBalance: closingBalance.toFixed(2),
-                  givenGold,
-                  finalClosingBalance: finalClosingBalance.toFixed(2),
-                },
-              };
-              localStorage.setItem(
-                "settingLots",
-                JSON.stringify([...existingLots, newLot])
-              );
-              alert("Jobcard closed successfully!");
-              window.location.href = "/settinglot";
-            }
-          }}
-        >
-          Close Jobcard
-        </Button> */}
         {active && (
           <Button
             variant="outlined"
@@ -910,12 +890,17 @@ const SettingLotDetails = () => {
                         {viewData.filingItems
                           .reduce((sum, fi) => sum + Number(fi.weight || 0), 0)
                           .toFixed(2)}
+                 
                       </strong>
                     </td>
                     <td colSpan={3}></td>
                   </tr>
                 </tfoot>
               </table>
+              <div> Open Balance: {openingBalanceTotal}</div>
+              <div> Total Sum Balance:  {(openingBalanceTotal +
+      viewData.filingItems.reduce((sum, fi) => sum + Number(fi.weight || 0), 0)
+    ).toFixed(2)} </div>
 
               {/* Receipt / Stone / Remarks */}
               <Box sx={{ mt: 3, display: "flex", gap: 2 }}>
@@ -990,10 +975,10 @@ const SettingLotDetails = () => {
                 <Typography>
                   <strong>Current Balance Weight:</strong>{" "}
                   {(
-                    viewData.filingItems.reduce(
-                      (sum, fi) => sum + Number(fi.weight || 0),
-                      0
-                    ) -
+
+                    (openingBalanceTotal +
+                      viewData.filingItems.reduce((sum, fi) => sum + Number(fi.weight || 0), 0)
+                    ).toFixed(2) -
                     (viewData.receiptWeight || 0) +
                     (viewData.stoneWeight || 0)
                   ).toFixed(2)}
@@ -1003,7 +988,7 @@ const SettingLotDetails = () => {
                     display: "flex",
                     alignItems: "center",
                     gap: 1,
-                    marginLeft: "7.1rem",
+                    marginLeft: "2rem",
                   }}
                 >
                   <Typography>
@@ -1186,10 +1171,10 @@ const SettingLotDetails = () => {
                   <Typography>
                     <strong>Balance:</strong>{" "}
                     {(
-                      (viewData.filingItems?.reduce(
-                        (sum, fi) => sum + Number(fi.weight || 0),
-                        0
-                      ) || 0) -
+
+                      (openingBalanceTotal +
+                        viewData.filingItems.reduce((sum, fi) => sum + Number(fi.weight || 0), 0)
+                      ).toFixed(2) -
                       (viewData.receiptWeight || 0) +
                       (viewData.stoneWeight || 0) -
                       (viewData.scrapItems?.reduce(

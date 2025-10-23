@@ -9,21 +9,20 @@ import {
   TextField,
   Typography,
   MenuItem,
-  IconButton } from "@mui/material";
+  IconButton,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import Navbar from "../../Navbar/Navbar";
 import styles from "./FilingLotDetails.module.css";
-import { useParams } from "react-router-dom";
+import { data, useParams } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
 import { BACKEND_SERVER_URL } from "../../../../Config/config";
 import AddIcon from "@mui/icons-material/Add";
 
 const FilingLotDetails = () => {
   const [isAssignOpen, setIsAssignOpen] = useState(false);
-  const [date, setDate] = useState(
-    () => new Date().toISOString().split("T")[0]
-  );
+  const [date, setDate] = useState( () => new Date().toISOString().split("T")[0]);
   const [availableItems, setAvailableItems] = useState([]);
   const [selectedItemIds, setSelectedItemIds] = useState([]);
   const [assignedEntries, setAssignedEntries] = useState([]);
@@ -51,33 +50,27 @@ const FilingLotDetails = () => {
   const [givenGold, setGivenGold] = useState("");
   const [closingSummary, setClosingSummary] = useState(null);
   const [active, setActive] = useState(true);
-
-  const { id: filingPersonId, name, lotNumber, balance } = useParams();
-
-  useEffect(() => {
-    if (balance) {
-      setOpeningBalance(parseFloat(balance));
-    }
-  }, [balance]);
-
+  const [openingBalanceTotal, setOpeningBalanceTotal] = useState(0); 
+  const [totalSumBalance, setTotalSumBalance] = useState(0);
+  const [currentBalanceWeight, setCurrentBalanceWeight] = useState(0);
+  const [finalBalance, setFinalBalance] = useState (0);
+  const { id: filingPersonId, name, lotNumber } = useParams();
 
   useEffect(() => {
     const fetchFilingData = async () => {
       try {
         const response = await axios.get(`${BACKEND_SERVER_URL}/api/filing/${filingPersonId}`);
         console.log("Filing Data:", response.data);
-  
+        console.log('Balance for this person', response.data.balance)
         if (response.data) {
-          setOpeningBalance(response.data.balance || 0);
+          setOpeningBalanceTotal(response.data.balance || 0);
         }
       } catch (error) {
         console.error("Error fetching filing data:", error);
       }
     };
-  
     fetchFilingData();
   }, [filingPersonId]);
-  
 
   const fetchAssignedEntries = async () => {
     try {
@@ -229,33 +222,20 @@ const FilingLotDetails = () => {
     ]);
     setShowScrapTable(true);
   };
+const totalProductWeight = productItems.reduce( (acc, curr) => acc + (parseFloat(curr.weight) || 0),  0 );
+const totalScrapWeight = scrapItems.reduce((acc, curr) => acc + (parseFloat(curr.weight) || 0), 0 );
+const totalTableWeight = viewedItems.reduce( (acc, item) => acc + (parseFloat(item?.weight) || 0),0 );
 
+useEffect(() => {
+  const totalSumBalance = (openingBalanceTotal || 0) + totalTableWeight;
+  setTotalSumBalance(totalSumBalance);
 
-    {/* Calculate total weight from viewed items */}
-const totalWeight = viewedItems.reduce(
-  (acc, item) => acc + (parseFloat(item?.weight) || 0),
-  0
-);
-
-const totalSumBalance = openingBalance + totalWeight;
-
-  const totalProductWeight = productItems.reduce(
-    (acc, curr) => acc + (parseFloat(curr.weight) || 0),
-    0
-  );
-
-  const totalScrapWeight = scrapItems.reduce(
-    (acc, curr) => acc + (parseFloat(curr.weight) || 0),
-    0
-  );
-  const totalAssignedWeight = viewedItems.reduce(
-    (acc, item) => acc + (parseFloat(item?.weight) || 0),
-    0
-  );
-
-  // const currentBalanceWeight = totalAssignedWeight - totalProductWeight;
   const currentBalanceWeight = totalSumBalance - totalProductWeight;
+  setCurrentBalanceWeight(currentBalanceWeight);
+
   const finalBalance = currentBalanceWeight - totalScrapWeight;
+  setFinalBalance(finalBalance);
+}, [openingBalanceTotal, productItems, scrapItems]);
 
   const addWastageInput = () => {
     setWastageInputs([...wastageInputs, { value: "" }]);
@@ -428,29 +408,19 @@ const totalSumBalance = openingBalance + totalWeight;
       .filter((item) => item.filing_item_id !== null && item.touch_id !== null);
 
     // Calculate weights and balances
-    const totalProductWeight = formattedProductItems.reduce(
-      (acc, curr) => acc + curr.weight,
-      0
-    );
-    const totalScrapWeight = formattedScrapItems.reduce(
-      (acc, curr) => acc + curr.weight,
-      0
-    );
-    const totalAssignedWeight = viewedItems.reduce(
-      (acc, item) => acc + (parseFloat(item?.weight) || 0),
-      0
-    );
-
-    const totalSumBalance = openingBalance + totalWeight;
-    const currentBalanceWeight = totalSumBalance - totalProductWeight;
-    const finalBalance = currentBalanceWeight - totalScrapWeight;
+const totalProductWeight = formattedProductItems.reduce(  (acc, curr) => acc + curr.weight,   0 );
+const totalScrapWeight = formattedScrapItems.reduce(  (acc, curr) => acc + curr.weight,   0 );
+const totalTableWeight = viewedItems.reduce((acc, item) => acc + (parseFloat(item?.weight) || 0), 0 );
+const totalSumBalance = (openingBalanceTotal || 0) + totalTableWeight;
+const currentBalanceWeight = totalSumBalance - totalProductWeight;
+const finalBalance = currentBalanceWeight - totalScrapWeight;
 
     const totalBalance = {
-      opening_balance: Number(openingBalance) || 0,
+      opening_balance: Number(openingBalanceTotal) || 0,
       total_sum_balance: Number(totalSumBalance) || 0,
       after_weight: Number(afterWeight) || 0,
-      balance: Number(finalBalance) ,
-      current_balance_weight: Number(currentBalanceWeight) ,
+      balance: Number(finalBalance) || 0,
+      current_balance_weight: Number(currentBalanceWeight) || 0,
       total_product_weight: totalProductWeight,
       total_scrap_weight: totalScrapWeight,
       wastage: wastageOption === "Yes",
@@ -535,8 +505,7 @@ const totalSumBalance = openingBalance + totalWeight;
             InputLabelProps={{ shrink: true }}
           />
           <Button variant="outlined" onClick={applyDateFilter}>
-            {" "}
-            Filter{" "}
+            Filter
           </Button>
           <Button
             variant="outlined"
@@ -565,6 +534,7 @@ const totalSumBalance = openingBalance + totalWeight;
             Add Filing
           </Button>
         </div>
+        
         <div className={styles.tablecontainer} > 
         <table className={styles.table} style={{marginTop:'2rem'}}>
           <thead>
@@ -577,7 +547,6 @@ const totalSumBalance = openingBalance + totalWeight;
               <th>Touch</th>
               <th>Purity</th>
               <th>Remarks</th>
-              {/* <th>Status</th> */}
               <th> After Weight</th>
               <th> Total Product Weight </th>
               <th> Current Balance Weight </th>
@@ -606,7 +575,7 @@ const totalSumBalance = openingBalance + totalWeight;
                   <td>{entry.castingItems[0]?.touch || "-"}</td>
                   <td>{entry.castingItems[0]?.purity || "-"}</td>
                   <td>{entry.castingItems[0]?.remarks || "-"}</td>
-                  {/* <td>Assigned</td> */}
+
                   {(() => {
                     const balance =
                       entry.filingTotalBalance &&
@@ -638,79 +607,72 @@ const totalSumBalance = openingBalance + totalWeight;
                         <td rowSpan={entry.castingItems.length}>
                           {(balance?.balance ?? 0).toFixed(2)}
                         </td>
-                        <td rowSpan={entry.castingItems.length}>
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            onClick={() => {
-                              setViewedItems(entry.castingItems);
-                              setCurrentFilingEntryId(entry.id);
+                      
+<td rowSpan={entry.castingItems.length}>
+<Button
+  variant="outlined"
+  size="small"
+  onClick={() => {
+    setViewedItems(entry.castingItems);
+    setCurrentFilingEntryId(entry.id);
 
-                              const balance = entry.filingTotalBalance?.[0];
-                              setAfterWeight(balance?.after_weight || "");
-                              setWastageOption(balance?.wastage ? "Yes" : "No");
+    // Get the saved balance object from backend
+    const balance = entry.filingTotalBalance?.[0];
 
-                              const products = entry.filingItems.filter(
-                                (i) =>
-                                  i.type === "ProductItems" ||
-                                  i.type === "Items"
-                              );
-                              const scraps = entry.filingItems.filter(
-                                (i) => i.type === "ScrapItems"
-                              );
+    // If balance exists use it, otherwise fallback to filing_person.balance
+    const openingBalanceValue =
+      balance?.opening_balance ?? entry.filing_person?.balance ?? 0;
 
-                              setProductItems(
-                                products.map((p) => ({
-                                  item:
-                                    itemsList.find(
-                                      (i) => i.id === p.filing_item_id
-                                    )?.name || "",
-                                  weight: p.weight,
-                                  touch:
-                                    touchList.find((t) => t.id === p.touch_id)
-                                      ?.touch || "",
-                                  purity: p.item_purity,
-                                  remarks: p.remarks || "",
-                                  hasStone:
-                                    p.stone_option === "WithStone"
-                                      ? "Yes"
-                                      : "No",
-                                  // process: p.process || 'Buffing',
-                                  process:
-                                    p.process ||
-                                    (p.stone_option === "WithStone"
-                                      ? "Setting"
-                                      : "Buffing"),
-                                  id: p.id,
-                                }))
-                              );
+    // Set all balance-related states
+    setOpeningBalanceTotal(openingBalanceValue);
+    setAfterWeight(balance?.after_weight || "");
+    setWastageOption(balance?.wastage ? "Yes" : "No");
+    setTotalSumBalance(balance?.total_sum_balance ?? openingBalanceValue);
+    setCurrentBalanceWeight(balance?.current_balance_weight ?? openingBalanceValue);
+    setFinalBalance(balance?.balance ?? openingBalanceValue);
 
-                              setScrapItems(
-                                scraps.map((s) => ({
-                                  item:
-                                    itemsList.find(
-                                      (i) => i.id === s.filing_item_id
-                                    )?.name || "",
-                                  weight: s.weight,
-                                  touch:
-                                    touchList.find((t) => t.id === s.touch_id)
-                                      ?.touch || "",
-                                  purity: s.item_purity,
-                                  remarks: s.remarks || "",
-                                  id: s.id,
-                                }))
-                              );
+    // Filter and set saved product items
+    const products = entry.filingItems.filter(
+      (i) => i.type === "ProductItems" || i.type === "Items"
+    );
 
-                              // Set visibility based on whether these arrays have items
-                              setShowProductTable(products.length > 0);
-                              setShowScrapTable(scraps.length > 0);
+    setProductItems(
+      products.map((p) => ({
+        item: itemsList.find((i) => i.id === p.filing_item_id)?.name || "",
+        weight: p.weight,
+        touch: touchList.find((t) => t.id === p.touch_id)?.touch || "",
+        purity: p.item_purity,
+        remarks: p.remarks || "",
+        hasStone: p.stone_option === "WithStone" ? "Yes" : "No",
+        process:
+          p.process || (p.stone_option === "WithStone" ? "Setting" : "Buffing"),
+        id: p.id,
+      }))
+    );
 
-                              setViewDialogOpen(true);
-                            }}
-                          >
-                            View
-                          </Button>
-                        </td>
+    // Filter and set saved scrap items
+    const scraps = entry.filingItems.filter((i) => i.type === "ScrapItems");
+
+    setScrapItems(
+      scraps.map((s) => ({
+        item: itemsList.find((i) => i.id === s.filing_item_id)?.name || "",
+        weight: s.weight,
+        touch: touchList.find((t) => t.id === s.touch_id)?.touch || "",
+        purity: s.item_purity,
+        remarks: s.remarks || "",
+        id: s.id,
+      }))
+    );
+
+    setShowProductTable(products.length > 0);
+    setShowScrapTable(scraps.length > 0);
+
+    setViewDialogOpen(true);
+  }}
+>
+  View
+</Button>
+</td>
                       </>
                     );
                   })()}
@@ -722,7 +684,7 @@ const totalSumBalance = openingBalance + totalWeight;
                     <td>{item.touch || "-"}</td>
                     <td>{item.purity || "-"}</td>
                     <td>{item.remarks || "-"}</td>
-                    {/* <td>Assigned</td>          */}
+
                   </tr>
                 ))}
               </React.Fragment>
@@ -732,7 +694,7 @@ const totalSumBalance = openingBalance + totalWeight;
         </div>
       </div>
 
-      {/* Monthly Wastage Box  */}
+
       <Box
         sx={{
           ml: 4,
@@ -792,15 +754,7 @@ const totalSumBalance = openingBalance + totalWeight;
               />
             </Box>
           ))}
-          {/* <Button
-            variant="outlined"
-            startIcon={<AddIcon />}
-            onClick={addWastageInput}
-            size="small"
-            sx={{ mt: 1 }}
-          >
-            Add Wastage
-          </Button> */}
+       
         </Box>
 
         <Typography sx={{ mt: 2 }}>
@@ -815,7 +769,7 @@ const totalSumBalance = openingBalance + totalWeight;
           <strong>Overall Wastage:</strong> {overallWastage.toFixed(2)} g
         </Typography>
 
-        {/* Show Given Gold only if Overall Wastage is negative */}
+
         {parseFloat(overallWastage) < 0 && (
           <TextField
             label="Given Gold"
@@ -832,7 +786,7 @@ const totalSumBalance = openingBalance + totalWeight;
           <strong>Closing Balance:</strong> {closingBalance.toFixed(2)} g
         </Typography>
 
-        {/* Show settlement message */}
+
         <Typography
           sx={{
             mt: 2,
@@ -876,7 +830,7 @@ const totalSumBalance = openingBalance + totalWeight;
         fullWidth
         maxWidth="md"
       >
-        {/* <DialogTitle>Assign Filing Items</DialogTitle> */}
+
        
         <div
         style={{
@@ -890,31 +844,18 @@ const totalSumBalance = openingBalance + totalWeight;
        Assign Filing Items 
       </div>
         <DialogContent>
- 
-<Box sx={{ display: "flex", gap: 2, mb: 2, alignItems: "center" }}>
-  <TextField
-    label="Date"
-    type="date"
-    sx={{ width: "15rem" }}
-    value={date}
-    onChange={(e) => setDate(e.target.value)}
-    InputLabelProps={{ shrink: true }}
-  />
-
-  <TextField
-    label="Opening Balance (g)"
-    value={openingBalance}
-    InputProps={{
-      readOnly: true,
-      sx: {
-        color: openingBalance >= 0 ? "green" : "red", 
-        fontWeight: "bold",
-      },
-    }}
-    sx={{ width: "13rem", marginLeft: "25rem" }}
-  />
-</Box>
-
+          <TextField
+            label="Date"
+            type="date"
+            fullWidth
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            InputLabelProps={{ shrink: true }}
+            sx={{ mb: 2, mt: 0 }}
+          />
+       {/* <Typography sx={{ color: openingBalanceTotal >= 0 ? "green" : "red", fontWeight: "bold" }}>
+    Open Balance: {openingBalanceTotal.toFixed(2)} g
+  </Typography> */}
           <Typography variant="h6" gutterBottom>
             Available Filing Items
           </Typography>
@@ -981,7 +922,7 @@ const totalSumBalance = openingBalance + totalWeight;
         maxWidth="md"
         fullWidth
       >
-        {/* <DialogTitle>Assigned Items</DialogTitle> */}
+
         <div
         style={{
           fontSize: "1.3rem",
@@ -1043,18 +984,21 @@ const totalSumBalance = openingBalance + totalWeight;
                 </td>
                 <td colSpan={3}></td>
               </tr>
+           
             </tfoot>
           </table>
 
-          <Box
+<Box
   sx={{
     display: "flex",
-    alignItems: "center",
     justifyContent: "space-between",
-    mt: 0,
+    alignItems: "center",
+    mt: 2,
+    mb: 1,
+    gap: 2
   }}
 >
-
+  {/* After Weight Input */}
   <TextField
     label="After Weight"
     value={afterWeight}
@@ -1063,25 +1007,23 @@ const totalSumBalance = openingBalance + totalWeight;
     margin="normal"
   />
 
-  <Box sx={{ textAlign: "right" }}>
-    <Typography sx={{ color: openingBalance >= 0 ? "green" : "red" }}>
-      <strong>Opening Balance:</strong> {openingBalance}
+  {/* Right-aligned balances */}
+  <Box sx={{ textAlign: "right", minWidth: "150px" }}>
+    <Typography sx={{ color: openingBalanceTotal >= 0 ? "green" : "red" }}>
+      <strong>Opening Balance:</strong> {openingBalanceTotal.toFixed(2)}
     </Typography>
     <Typography sx={{ color: totalSumBalance >= 0 ? "green" : "red" }}>
-      <strong>Total Sum Balance:</strong> {totalSumBalance}
+      <strong>Total Sum Balance:</strong> {totalSumBalance.toFixed(2)}
     </Typography>
   </Box>
 </Box>
 
           <Button
             variant="outlined"
-            sx={{ mt: 2 , backgroundColor:' #f8f9fa', fontWeight:'530' }}
-            onClick={handleAddProductRow}
-          >
-         
+            sx={{ mt: 0 , backgroundColor:' #f8f9fa', fontWeight:'530' }}
+            onClick={handleAddProductRow} >
             Add Product Items
           </Button>
-
           {showProductTable && (
             <>
               <div className={styles.tableContainer}>
@@ -1213,7 +1155,7 @@ const totalSumBalance = openingBalance + totalWeight;
                   mt: 2,
                 }}
               >
-                {/* Left side: weights */}
+
                 <Box sx={{ display: "flex", gap: 5 }}>
                   <Typography variant="body1">
                     <b> Total Product Weight:</b>{" "}
@@ -1252,7 +1194,8 @@ const totalSumBalance = openingBalance + totalWeight;
           <br />
 
           <Button variant="outlined" onClick={handleAddScrapRow} 
-            sx={{ mt: 1 , backgroundColor:' #f8f9fa', fontWeight:'530' }}>
+            sx={{ mt: 1 , backgroundColor:' #f8f9fa', fontWeight:'530' }}   >
+           
             Add Scrap Items
           </Button>
           {showScrapTable && (
@@ -1384,4 +1327,4 @@ const totalSumBalance = openingBalance + totalWeight;
   );
 };
 
-export default FilingLotDetails;
+export default FilingLotDetails; 

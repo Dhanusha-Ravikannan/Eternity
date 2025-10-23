@@ -117,6 +117,145 @@ export const createSettingEntry = async (req, res) => {
   }
 };
 
+// GET /api/settingentry/byId/:id
+export const getSettingEntryById = async (req, res) => {
+  try {
+    const settingEntryId = parseInt(req.params.id);
+    if (!settingEntryId) {
+      return res.status(400).json({ error: "settingEntryId is required" });
+    }
+
+    // Fetch the setting entry
+    const entry = await prisma.settingEntry.findUnique({
+      where: { id: settingEntryId },
+      include: {
+        setting_person: true,
+        castingItem: { include: { item: true, touch: true } },
+        filingItems: {
+          include: {
+            filing_entry: { include: { filing_person: true } },
+            touch: true,
+            stock: true,
+            filingitem: true,
+          },
+        },
+        LotSettingMapper: {
+          include: {
+            lotId: true,
+            itemId: {
+              include: {
+                filingitem: true,
+                touch: true,
+                filing_entry: { include: { filing_person: true } },
+              },
+            },
+            settingEntry: true,
+          },
+        },
+        settingTotalBalance: true,
+        SettingItems: { include: { item: true, touch: true } },
+      },
+    });
+
+    if (!entry) {
+      return res.status(404).json({ error: "Setting entry not found" });
+    }
+
+    // Flatten filing items
+    const filingItems = [
+      ...entry.filingItems.map((f) => ({
+        id: f.id,
+        type: f.type,
+        item_name: f.filingitem?.name || "",
+        weight: f.weight || 0,
+        purity: f.item_purity || 0,
+        touch: f.touch?.touch || "",
+        remarks: f.remarks || "",
+        stone_option: f.stone_option || "",
+        filing_entry_id: f.filing_entry_id,
+        filing_person_name: f.filing_entry?.filing_person?.name || "",
+      })),
+      ...entry.LotSettingMapper.map((mapper) => ({
+        id: mapper.itemId?.id,
+        type: mapper.itemId?.type,
+        item_name: mapper.itemId?.filingitem?.name || "",
+        weight: mapper.itemId?.weight || 0,
+        purity: mapper.itemId?.item_purity || 0,
+        touch: mapper.itemId?.touch?.touch || "",
+        remarks: mapper.itemId?.remarks || "",
+        stone_option: mapper.itemId?.stone_option || "",
+        filing_entry_id: mapper.itemId?.filing_entry_id || null,
+        filing_person_name:
+          mapper.itemId?.filing_entry?.filing_person?.name || "",
+      })),
+    ];
+
+    const totalBalance = entry.settingTotalBalance?.[0] || {};
+
+    const result = {
+      id: entry.id,
+      createdAt: entry.createdAt,
+      setting_person_id: entry.setting_person_id,
+      setting_person_name: entry.setting_person?.name || "",
+
+      casting_item_id: entry.casting_item_id,
+      casting_item_weight: entry.castingItem?.weight || 0,
+      casting_item_type: entry.castingItem?.type || "",
+      casting_item_purity: entry.castingItem?.item_purity || 0,
+      casting_item_remarks: entry.castingItem?.remarks || "",
+      item_name: entry.castingItem?.item?.name || "",
+      touch: entry.castingItem?.touch?.touch || "",
+
+      filingItems,
+
+      // Lot mapper
+      lotSettingMapper: entry.LotSettingMapper.map((mapper) => ({
+        lot_id: mapper.lot_id,
+        lot_number: mapper.lotId?.lotNumber || "",
+        isactive: mapper.lotId.IsActive,
+        filing_item_id: mapper.filing_item_id,
+        filing_item_name: mapper.itemId?.filingitem?.name || "",
+        filing_entry_id: mapper.itemId?.filing_entry_id || null,
+        filing_person_name:
+          mapper.itemId?.filing_entry?.filing_person?.name || "",
+        setting_entry_id: mapper.setting_entry_id,
+      })),
+
+      // Total balance
+      receiptWeight: totalBalance.receipt_weight ?? null,
+      stoneCount: totalBalance.stone_count ?? null,
+      stoneWeight: totalBalance.stone_weight ?? null,
+      remarks: totalBalance.remarks ?? "",
+      wastage: totalBalance.wastage ? "Yes" : "No",
+      totalProductWeight: totalBalance.total_product_weight ?? null,
+      currentBalanceWeight: totalBalance.current_balance_weight ?? null,
+      totalScrapWeight: totalBalance.total_scrap_weight ?? null,
+      balance: totalBalance.balance ?? null,
+      openBalance: totalBalance.open_balance ?? null,
+      totalSumBalance: totalBalance.total_sum_balance ?? null,
+
+      scrapItems:
+        entry.SettingItems?.map((si) => ({
+          id: si.id,
+          type: si.type,
+          itemName: si.item?.name || "",
+          weight: si.scrap_weight || 0,
+          purity: si.item_purity || 0,
+          touch: si.touch?.touch || "",
+          touch_id: si.touch?.id,
+          item_id: si.item?.id,
+          remarks: si.scrap_remarks || "",
+        })) || [],
+    };
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error in getSettingEntryById:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 
 // GET - http://localhost:5000/api/settingentry/person/:id
 
@@ -271,6 +410,8 @@ console.log('entries:', entries)
         currentBalanceWeight: totalBalance.current_balance_weight ?? null,
         totalScrapWeight: totalBalance.total_scrap_weight ?? null,
         balance: totalBalance.balance ?? null,
+        openBalance: totalBalance.open_balance ?? null,         // <-- added
+        totalSumBalance: totalBalance.total_sum_balance ?? null,
 
         scrapItems:
           entry.SettingItems?.map((si) => ({
@@ -567,4 +708,4 @@ export const getReportSettingEntries = async (req, res) => {
   }
 };
 
-    
+

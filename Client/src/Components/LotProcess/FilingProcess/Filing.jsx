@@ -102,7 +102,7 @@ const Filing = () => {
                    Address
                   </TableCell>
                   <TableCell className={styles.tablehead}>
-                   Balance
+                   Opening Balance
                   </TableCell>
                   <TableCell className={styles.tablehead}>
                   Actions
