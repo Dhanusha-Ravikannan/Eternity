@@ -418,6 +418,8 @@ model SettingTotalBalance {
   balance                Float?
   setting_entry_id       Int
   setting_entry          SettingEntry @relation(fields: [setting_entry_id], references: [id])
+  open_balance           Float?
+  total_sum_balance      Float?
 }
 
 model SettingWastage {

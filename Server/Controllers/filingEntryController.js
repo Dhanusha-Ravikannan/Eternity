@@ -374,7 +374,16 @@ export const getFilingEntriesByPersonId = async (req, res) => {
       id: entry.id,
       createdAt: entry.createdAt,
       filing_person_id: entry.filing_person_id,
-      filing_person_name: entry.filing_person?.name || "",
+      // filing_person_name: entry.filing_person?.name || "",
+  filing_person: {
+    id: entry.filing_person?.id,
+    name: entry.filing_person?.name || "",
+    phoneNumber: entry.filing_person?.phoneNumber || "",
+    address: entry.filing_person?.address || "",
+    email: entry.filing_person?.email || "",
+    balance: entry.filing_person?.balance ?? 0,
+  },
+
       casting_item_id: entry.casting_item_id,
       casting_item_weight: entry.castingItem?.weight || 0,
       casting_item_type: entry.castingItem?.type || "",
@@ -403,15 +412,20 @@ export const getFilingEntriesByPersonId = async (req, res) => {
         filing_person_name: mapper.filingId?.name || "",
         filing_entry_id: mapper.filing_entry_id,
       })),
-
       filingTotalBalance: entry.filingTotalBalance.map((balance) => ({
+        id: balance.id,
+        createdAt: balance.createdAt,
         after_weight: balance.after_weight ?? null,
-        total_product_weight: balance.total_product_weight ?? null,
-        current_balance_weight: balance.current_balance_weight ?? null,
-        total_scrap_weight: balance.total_scrap_weight ?? null,
-        wastage: balance.wastage ?? null,
-        balance: balance.balance ?? null,
+        total_product_weight: balance.total_product_weight ?? 0,
+        current_balance_weight: balance.current_balance_weight ?? 0,
+        total_scrap_weight: balance.total_scrap_weight ?? 0,
+        wastage: balance.wastage ?? false,
+        balance: balance.balance ?? 0,
+        filing_entry_id: balance.filing_entry_id,
+        opening_balance: balance.opening_balance ?? 0,
+        total_sum_balance: balance.total_sum_balance ?? 0,
       })),
+      
     }));
 
     res.status(200).json(result);

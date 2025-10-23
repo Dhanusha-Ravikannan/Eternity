@@ -387,7 +387,9 @@ exports.Prisma.SettingTotalBalanceScalarFieldEnum = {
   current_balance_weight: 'current_balance_weight',
   total_scrap_weight: 'total_scrap_weight',
   balance: 'balance',
-  setting_entry_id: 'setting_entry_id'
+  setting_entry_id: 'setting_entry_id',
+  open_balance: 'open_balance',
+  total_sum_balance: 'total_sum_balance'
 };
 
 exports.Prisma.SettingWastageScalarFieldEnum = {

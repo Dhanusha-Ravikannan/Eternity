@@ -86,7 +86,7 @@ const App = () => {
           <Route path="/masterpurchasestock" element={<MasterPurchaseStock />} />
           <Route path="/mastersupplier" element={<MasterAddSupplier />} />
           <Route path="/stock" element={<Stock />} />
-          <Route path="/filingLotDetails/:id/:name/:lotNumber/:balance" element={<FilingLotDetails />} />
+          <Route path="/filingLotDetails/:id/:name/:lotNumber" element={<FilingLotDetails />} />
           <Route path="/filinglot/:id/:name/:lotNumber" element={<FilingLot />} />
           <Route path="/settinglot/:id/:name/:lotNumber" element={<SettingLot />} />
           <Route path="/settingLotDetails/:id/:name/:lotNumber" element={<SettingLotDetails />} />

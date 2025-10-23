@@ -47,15 +47,15 @@ const FilingLot = () => {
             <div className={styles.header}>
               <label className={styles.lotLabel}>Lot No: {lot.lotNumber}</label>
               <div className={styles.actions}>
-              {/* <Link to={`/filingLotDetails/${id}/${encodeURIComponent(name)}/${lot.lotNumber || 0}`}>
+              <Link to={`/filingLotDetails/${id}/${encodeURIComponent(name)}/${lot.lotNumber || 0}`}>
                   <button className={styles.button}>View</button>
-                </Link> */}
+                </Link>
 
-                <Link
+                {/* <Link
     to={`/filingLotDetails/${id}/${encodeURIComponent(name)}/${lot.lotNumber || 0}/${userDetails?.balance || 0}`}
   >
     <button className={styles.button}>View</button>
-  </Link>
+  </Link> */}
               </div>
             </div>
           </div>

@@ -16,6 +16,9 @@ export const createSettingItem = async (req, res) => {
       wastage,
       totalScrapWeight,
       balance,
+      open_balance,       // new
+      // total_sum_balance,
+      totalSumBalance,
     } = req.body;
 
     //  Only validate settingEntryId
@@ -137,6 +140,9 @@ export const createSettingItem = async (req, res) => {
           wastage: normalizedWastage,
           total_scrap_weight: totalScrapWeight,
           balance: balance,
+          open_balance: open_balance ?? null,           // added
+          // total_sum_balance: total_sum_balance ?? null, // added
+          total_sum_balance: totalSumBalance ?? null, // use camelCase
         },
       });
     } else {
@@ -151,9 +157,23 @@ export const createSettingItem = async (req, res) => {
           wastage: normalizedWastage,
           total_scrap_weight: totalScrapWeight,
           balance: balance,
+          open_balance: open_balance ?? null,           // added
+          // total_sum_balance: total_sum_balance ?? null, // added
+          total_sum_balance: totalSumBalance ?? null, // use camelCase
         },
       });
     }
+
+    // STEP 5: Update AddSetting balance
+
+if (settingEntry && balance != null) {
+  await prisma.addSetting.update({
+    where: { id: settingEntry.setting_person_id },
+    data: { balance: balance },
+  });
+}
+
+
 
     return res.status(200).json({
       message:

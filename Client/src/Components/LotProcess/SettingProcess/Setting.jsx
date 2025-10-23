@@ -101,6 +101,9 @@ const Setting = () => {
                    Address
                   </TableCell>
                   <TableCell className={styles.tablehead}>
+                   Opening Balance
+                  </TableCell>
+                  <TableCell className={styles.tablehead}>
                   Actions
                   </TableCell>
                 </TableRow>
@@ -119,6 +122,7 @@ const Setting = () => {
         <TableCell className={styles.tableCell}>{row.name}</TableCell>
         <TableCell className={styles.tableCell}>{row.phoneNumber || "-"}</TableCell>
         <TableCell className={styles.tableCell}>{row.address || "-"}</TableCell>
+        <TableCell className={styles.tableCell}>{row.balance || "-"}</TableCell>
         <TableCell className={styles.tableCell}>
           <Link to={`/settinglot/${row.id}/${encodeURIComponent(row.name)}/${row.lotInfo?.[0]?.lotNumber || 0}`}>
   <IconButton>

@@ -30803,6 +30803,8 @@ export namespace Prisma {
     total_scrap_weight: number | null
     balance: number | null
     setting_entry_id: number | null
+    open_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type SettingTotalBalanceSumAggregateOutputType = {
@@ -30815,6 +30817,8 @@ export namespace Prisma {
     total_scrap_weight: number | null
     balance: number | null
     setting_entry_id: number | null
+    open_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type SettingTotalBalanceMinAggregateOutputType = {
@@ -30830,6 +30834,8 @@ export namespace Prisma {
     total_scrap_weight: number | null
     balance: number | null
     setting_entry_id: number | null
+    open_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type SettingTotalBalanceMaxAggregateOutputType = {
@@ -30845,6 +30851,8 @@ export namespace Prisma {
     total_scrap_weight: number | null
     balance: number | null
     setting_entry_id: number | null
+    open_balance: number | null
+    total_sum_balance: number | null
   }
 
   export type SettingTotalBalanceCountAggregateOutputType = {
@@ -30860,6 +30868,8 @@ export namespace Prisma {
     total_scrap_weight: number
     balance: number
     setting_entry_id: number
+    open_balance: number
+    total_sum_balance: number
     _all: number
   }
 
@@ -30874,6 +30884,8 @@ export namespace Prisma {
     total_scrap_weight?: true
     balance?: true
     setting_entry_id?: true
+    open_balance?: true
+    total_sum_balance?: true
   }
 
   export type SettingTotalBalanceSumAggregateInputType = {
@@ -30886,6 +30898,8 @@ export namespace Prisma {
     total_scrap_weight?: true
     balance?: true
     setting_entry_id?: true
+    open_balance?: true
+    total_sum_balance?: true
   }
 
   export type SettingTotalBalanceMinAggregateInputType = {
@@ -30901,6 +30915,8 @@ export namespace Prisma {
     total_scrap_weight?: true
     balance?: true
     setting_entry_id?: true
+    open_balance?: true
+    total_sum_balance?: true
   }
 
   export type SettingTotalBalanceMaxAggregateInputType = {
@@ -30916,6 +30932,8 @@ export namespace Prisma {
     total_scrap_weight?: true
     balance?: true
     setting_entry_id?: true
+    open_balance?: true
+    total_sum_balance?: true
   }
 
   export type SettingTotalBalanceCountAggregateInputType = {
@@ -30931,6 +30949,8 @@ export namespace Prisma {
     total_scrap_weight?: true
     balance?: true
     setting_entry_id?: true
+    open_balance?: true
+    total_sum_balance?: true
     _all?: true
   }
 
@@ -31033,6 +31053,8 @@ export namespace Prisma {
     total_scrap_weight: number | null
     balance: number | null
     setting_entry_id: number
+    open_balance: number | null
+    total_sum_balance: number | null
     _count: SettingTotalBalanceCountAggregateOutputType | null
     _avg: SettingTotalBalanceAvgAggregateOutputType | null
     _sum: SettingTotalBalanceSumAggregateOutputType | null
@@ -31067,6 +31089,8 @@ export namespace Prisma {
     total_scrap_weight?: boolean
     balance?: boolean
     setting_entry_id?: boolean
+    open_balance?: boolean
+    total_sum_balance?: boolean
     setting_entry?: boolean | SettingEntryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["settingTotalBalance"]>
 
@@ -31085,9 +31109,11 @@ export namespace Prisma {
     total_scrap_weight?: boolean
     balance?: boolean
     setting_entry_id?: boolean
+    open_balance?: boolean
+    total_sum_balance?: boolean
   }
 
-  export type SettingTotalBalanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "receipt_weight" | "stone_count" | "stone_weight" | "remarks" | "wastage" | "total_product_weight" | "current_balance_weight" | "total_scrap_weight" | "balance" | "setting_entry_id", ExtArgs["result"]["settingTotalBalance"]>
+  export type SettingTotalBalanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "receipt_weight" | "stone_count" | "stone_weight" | "remarks" | "wastage" | "total_product_weight" | "current_balance_weight" | "total_scrap_weight" | "balance" | "setting_entry_id" | "open_balance" | "total_sum_balance", ExtArgs["result"]["settingTotalBalance"]>
   export type SettingTotalBalanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     setting_entry?: boolean | SettingEntryDefaultArgs<ExtArgs>
   }
@@ -31110,6 +31136,8 @@ export namespace Prisma {
       total_scrap_weight: number | null
       balance: number | null
       setting_entry_id: number
+      open_balance: number | null
+      total_sum_balance: number | null
     }, ExtArgs["result"]["settingTotalBalance"]>
     composites: {}
   }
@@ -31492,6 +31520,8 @@ export namespace Prisma {
     readonly total_scrap_weight: FieldRef<"SettingTotalBalance", 'Float'>
     readonly balance: FieldRef<"SettingTotalBalance", 'Float'>
     readonly setting_entry_id: FieldRef<"SettingTotalBalance", 'Int'>
+    readonly open_balance: FieldRef<"SettingTotalBalance", 'Float'>
+    readonly total_sum_balance: FieldRef<"SettingTotalBalance", 'Float'>
   }
     
 
@@ -46539,7 +46569,9 @@ export namespace Prisma {
     current_balance_weight: 'current_balance_weight',
     total_scrap_weight: 'total_scrap_weight',
     balance: 'balance',
-    setting_entry_id: 'setting_entry_id'
+    setting_entry_id: 'setting_entry_id',
+    open_balance: 'open_balance',
+    total_sum_balance: 'total_sum_balance'
   };
 
   export type SettingTotalBalanceScalarFieldEnum = (typeof SettingTotalBalanceScalarFieldEnum)[keyof typeof SettingTotalBalanceScalarFieldEnum]
@@ -48970,6 +49002,8 @@ export namespace Prisma {
     total_scrap_weight?: FloatNullableFilter<"SettingTotalBalance"> | number | null
     balance?: FloatNullableFilter<"SettingTotalBalance"> | number | null
     setting_entry_id?: IntFilter<"SettingTotalBalance"> | number
+    open_balance?: FloatNullableFilter<"SettingTotalBalance"> | number | null
+    total_sum_balance?: FloatNullableFilter<"SettingTotalBalance"> | number | null
     setting_entry?: XOR<SettingEntryScalarRelationFilter, SettingEntryWhereInput>
   }
 
@@ -48986,6 +49020,8 @@ export namespace Prisma {
     total_scrap_weight?: SortOrderInput | SortOrder
     balance?: SortOrderInput | SortOrder
     setting_entry_id?: SortOrder
+    open_balance?: SortOrderInput | SortOrder
+    total_sum_balance?: SortOrderInput | SortOrder
     setting_entry?: SettingEntryOrderByWithRelationInput
     _relevance?: SettingTotalBalanceOrderByRelevanceInput
   }
@@ -49006,6 +49042,8 @@ export namespace Prisma {
     total_scrap_weight?: FloatNullableFilter<"SettingTotalBalance"> | number | null
     balance?: FloatNullableFilter<"SettingTotalBalance"> | number | null
     setting_entry_id?: IntFilter<"SettingTotalBalance"> | number
+    open_balance?: FloatNullableFilter<"SettingTotalBalance"> | number | null
+    total_sum_balance?: FloatNullableFilter<"SettingTotalBalance"> | number | null
     setting_entry?: XOR<SettingEntryScalarRelationFilter, SettingEntryWhereInput>
   }, "id">
 
@@ -49022,6 +49060,8 @@ export namespace Prisma {
     total_scrap_weight?: SortOrderInput | SortOrder
     balance?: SortOrderInput | SortOrder
     setting_entry_id?: SortOrder
+    open_balance?: SortOrderInput | SortOrder
+    total_sum_balance?: SortOrderInput | SortOrder
     _count?: SettingTotalBalanceCountOrderByAggregateInput
     _avg?: SettingTotalBalanceAvgOrderByAggregateInput
     _max?: SettingTotalBalanceMaxOrderByAggregateInput
@@ -49045,6 +49085,8 @@ export namespace Prisma {
     total_scrap_weight?: FloatNullableWithAggregatesFilter<"SettingTotalBalance"> | number | null
     balance?: FloatNullableWithAggregatesFilter<"SettingTotalBalance"> | number | null
     setting_entry_id?: IntWithAggregatesFilter<"SettingTotalBalance"> | number
+    open_balance?: FloatNullableWithAggregatesFilter<"SettingTotalBalance"> | number | null
+    total_sum_balance?: FloatNullableWithAggregatesFilter<"SettingTotalBalance"> | number | null
   }
 
   export type SettingWastageWhereInput = {
@@ -52212,6 +52254,8 @@ export namespace Prisma {
     current_balance_weight: number
     total_scrap_weight?: number | null
     balance?: number | null
+    open_balance?: number | null
+    total_sum_balance?: number | null
     setting_entry: SettingEntryCreateNestedOneWithoutSettingTotalBalanceInput
   }
 
@@ -52228,6 +52272,8 @@ export namespace Prisma {
     total_scrap_weight?: number | null
     balance?: number | null
     setting_entry_id: number
+    open_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type SettingTotalBalanceUpdateInput = {
@@ -52241,6 +52287,8 @@ export namespace Prisma {
     current_balance_weight?: FloatFieldUpdateOperationsInput | number
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    open_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
     setting_entry?: SettingEntryUpdateOneRequiredWithoutSettingTotalBalanceNestedInput
   }
 
@@ -52257,6 +52305,8 @@ export namespace Prisma {
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
     setting_entry_id?: IntFieldUpdateOperationsInput | number
+    open_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type SettingTotalBalanceCreateManyInput = {
@@ -52272,6 +52322,8 @@ export namespace Prisma {
     total_scrap_weight?: number | null
     balance?: number | null
     setting_entry_id: number
+    open_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type SettingTotalBalanceUpdateManyMutationInput = {
@@ -52285,6 +52337,8 @@ export namespace Prisma {
     current_balance_weight?: FloatFieldUpdateOperationsInput | number
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    open_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type SettingTotalBalanceUncheckedUpdateManyInput = {
@@ -52300,6 +52354,8 @@ export namespace Prisma {
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
     setting_entry_id?: IntFieldUpdateOperationsInput | number
+    open_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type SettingWastageCreateInput = {
@@ -55359,6 +55415,8 @@ export namespace Prisma {
     total_scrap_weight?: SortOrder
     balance?: SortOrder
     setting_entry_id?: SortOrder
+    open_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type SettingTotalBalanceAvgOrderByAggregateInput = {
@@ -55371,6 +55429,8 @@ export namespace Prisma {
     total_scrap_weight?: SortOrder
     balance?: SortOrder
     setting_entry_id?: SortOrder
+    open_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type SettingTotalBalanceMaxOrderByAggregateInput = {
@@ -55386,6 +55446,8 @@ export namespace Prisma {
     total_scrap_weight?: SortOrder
     balance?: SortOrder
     setting_entry_id?: SortOrder
+    open_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type SettingTotalBalanceMinOrderByAggregateInput = {
@@ -55401,6 +55463,8 @@ export namespace Prisma {
     total_scrap_weight?: SortOrder
     balance?: SortOrder
     setting_entry_id?: SortOrder
+    open_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type SettingTotalBalanceSumOrderByAggregateInput = {
@@ -55413,6 +55477,8 @@ export namespace Prisma {
     total_scrap_weight?: SortOrder
     balance?: SortOrder
     setting_entry_id?: SortOrder
+    open_balance?: SortOrder
+    total_sum_balance?: SortOrder
   }
 
   export type SettingWastageCountOrderByAggregateInput = {
@@ -67177,6 +67243,8 @@ export namespace Prisma {
     current_balance_weight: number
     total_scrap_weight?: number | null
     balance?: number | null
+    open_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type SettingTotalBalanceUncheckedCreateWithoutSetting_entryInput = {
@@ -67191,6 +67259,8 @@ export namespace Prisma {
     current_balance_weight: number
     total_scrap_weight?: number | null
     balance?: number | null
+    open_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type SettingTotalBalanceCreateOrConnectWithoutSetting_entryInput = {
@@ -67395,6 +67465,8 @@ export namespace Prisma {
     total_scrap_weight?: FloatNullableFilter<"SettingTotalBalance"> | number | null
     balance?: FloatNullableFilter<"SettingTotalBalance"> | number | null
     setting_entry_id?: IntFilter<"SettingTotalBalance"> | number
+    open_balance?: FloatNullableFilter<"SettingTotalBalance"> | number | null
+    total_sum_balance?: FloatNullableFilter<"SettingTotalBalance"> | number | null
   }
 
   export type LotSettingMapperUpsertWithWhereUniqueWithoutSettingEntryInput = {
@@ -74352,6 +74424,8 @@ export namespace Prisma {
     current_balance_weight: number
     total_scrap_weight?: number | null
     balance?: number | null
+    open_balance?: number | null
+    total_sum_balance?: number | null
   }
 
   export type LotSettingMapperCreateManySettingEntryInput = {
@@ -74434,6 +74508,8 @@ export namespace Prisma {
     current_balance_weight?: FloatFieldUpdateOperationsInput | number
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    open_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type SettingTotalBalanceUncheckedUpdateWithoutSetting_entryInput = {
@@ -74448,6 +74524,8 @@ export namespace Prisma {
     current_balance_weight?: FloatFieldUpdateOperationsInput | number
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    open_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type SettingTotalBalanceUncheckedUpdateManyWithoutSetting_entryInput = {
@@ -74462,6 +74540,8 @@ export namespace Prisma {
     current_balance_weight?: FloatFieldUpdateOperationsInput | number
     total_scrap_weight?: NullableFloatFieldUpdateOperationsInput | number | null
     balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    open_balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    total_sum_balance?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type LotSettingMapperUpdateWithoutSettingEntryInput = {
