@@ -125,17 +125,69 @@ export const createBill = async (req, res) => {
       },
     });
 
-    // if (excessPure > 0) {
-    //   await prisma.customerTransaction.create({
-    //     data: {
-    //       customerId: parseInt(customerId),
-    //       purity: parseFloat(excessPure),
-    //       type: "GOLD",
-    //       value: 0,
-    //       date: new Date(),
-    //     },
-    //   });
-    // }
+// ======= UPDATE STOCK BASED ON RECEIVED ITEMS =======
+for (const item of receivedItems) {
+  if (!item.gold || parseFloat(item.gold) <= 0) continue; // skip invalid items
+
+  const type = item.type || "Gold"; // Gold/Silver/Cash
+  const touchValue = item.touchValue ? parseFloat(item.touchValue) : null;
+  const weight = parseFloat(item.gold);           // <-- weight column
+  const purityWeight = parseFloat(item.purityWeight); // <-- purity column
+
+  // Ensure a touch record exists for this touchValue
+  let touchRecord = null;
+  if (touchValue !== null) {
+    touchRecord = await prisma.addTouch.findFirst({ where: { touch: touchValue } });
+    if (!touchRecord) {
+      touchRecord = await prisma.addTouch.create({ data: { touch: touchValue } });
+      console.log(`Created new touch record: ${touchValue}`);
+    }
+  }
+
+  // Find existing stock with same type and touch
+  const existingStock = await prisma.stock.findFirst({
+    where: {
+      item_type: type,
+      touch_id: touchRecord ? touchRecord.id : null,
+    },
+    include: { touch: true },
+  });
+
+  if (existingStock) {
+    // Update existing stock
+    const newWeight = existingStock.weight + weight;
+    await prisma.stock.update({
+      where: { id: existingStock.id },
+      data: {
+        weight: newWeight,
+        item_purity: existingStock.item_purity + purityWeight,
+      },
+    });
+    console.log(
+      `Updated stock for ${type} (Touch ${touchValue}): +${weight} → Total ${newWeight}`
+    );
+  } else {
+    // Create new stock entry
+    await prisma.stock.create({
+      data: {
+        item_type: type,
+        touch_id: touchRecord ? touchRecord.id : null,
+        weight: weight,
+        item_purity: purityWeight,
+        remarks: `Added from Bill ${bill.bill_no}`,
+      },
+    });
+    console.log(
+      `Created new stock for ${type} (Touch ${touchValue}): Weight ${weight}, Purity ${purityWeight}`
+    );
+  }
+}
+// ======= END STOCK UPDATE =======
+
+
+
+
+
 
     const existing = await prisma.hallmark.findFirst({
       where: { customer_id: parseInt(customerId) },

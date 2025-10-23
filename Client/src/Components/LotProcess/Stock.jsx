@@ -17,28 +17,45 @@ const Stock = () => {
   const [customerName, setCustomerName] = useState("");
   const [touchSummary, setTouchSummary] = useState({});
 
-  useEffect(() => {
-    const fetchStockItems = async () => {
-      try {
-        const response = await axios.get(`${BACKEND_SERVER_URL}/api/stock`);
-        const allItems = response.data;
-        console.log("Available stock Items:", allItems);
-        setStockItems(allItems);
-        setFilteredItems(allItems);
-        calculateSummary(allItems);
-      } catch (error) {
-        console.error("Error fetching stock items:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchStockItems = async () => {
+  //     try {
+  //       const response = await axios.get(`${BACKEND_SERVER_URL}/api/stock`);
+  //       const allItems = response.data;
+  //       console.log("Available stock Items:", allItems);
+  //       setStockItems(allItems);
+  //       setFilteredItems(allItems);
+  //       calculateSummary(allItems);
+  //     } catch (error) {
+  //       console.error("Error fetching stock items:", error);
+  //     }
+  //   };
 
+  //   fetchStockItems();
+  // }, []);
+
+  const fetchStockItems = async () => {
+    try {
+      const response = await axios.get(`${BACKEND_SERVER_URL}/api/stock`);
+      setStockItems(response.data);
+      setFilteredItems(response.data);
+      calculateSummary(response.data);
+    } catch (error) {
+      console.error("Error fetching stock items:", error);
+    }
+  };
+  
+  useEffect(() => {
     fetchStockItems();
   }, []);
+  
 
   const calculateSummary = (items) => {
     const summary = {};
 
     items.forEach((item) => {
-      const touch = item.touch?.touch || item.touch_id;
+      // const touch = item.touch?.touch || item.touch_id;
+      const touch = item.touch?.touch ?? item.touch_id ?? item.touchValue ?? "Unknown";
       const weight = parseFloat(item.weight) || 0;
 
       if (touch) {
@@ -347,7 +364,9 @@ const Stock = () => {
                     <td>{customerName}</td>
                     <td>{itemName}</td>
                     <td>{item.weight ?? "-"}</td>
-                    <td>{item.touch?.touch ?? item.touch_id ?? "-"}</td>
+                    {/* <td>{item.touch?.touch ?? item.touch_id ?? "-"}</td> */}
+                    <td>{item.touch?.touch ?? item.touch_id ?? item.touchValue ?? "-"}</td>
+
                     <td>{item.item_purity ?? "-"}</td>
                     <td>{item.remarks || "-"}</td>
                     <td>{processName}</td>

@@ -435,7 +435,9 @@ exports.Prisma.BuffingTotalBalanceScalarFieldEnum = {
   wastage: 'wastage',
   total_scrap_weight: 'total_scrap_weight',
   balance: 'balance',
-  buffing_entry_id: 'buffing_entry_id'
+  buffing_entry_id: 'buffing_entry_id',
+  open_balance: 'open_balance',
+  total_sum_balance: 'total_sum_balance'
 };
 
 exports.Prisma.LotBuffingMapperScalarFieldEnum = {

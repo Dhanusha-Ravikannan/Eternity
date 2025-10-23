@@ -146,7 +146,12 @@ function Navbar() {
               <Link className={styles.dropdownItem} to="/customerreport">
                 Customer Report
               </Link>
-            </li>         
+            </li>      
+            <li>
+              <Link className={styles.dropdownItem} to="/receiptvoucherreport">
+                Receipt Voucher Report 
+              </Link>
+            </li>    
           </ul>
         </li>
 

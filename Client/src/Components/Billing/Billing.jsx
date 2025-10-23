@@ -62,7 +62,6 @@ const handlePrint = () => {
   }, 1000);
 };
 
-
 const fetchBills = async () => {
   try {
     const res = await fetch(`${BACKEND_SERVER_URL}/api/bills`);
@@ -116,17 +115,6 @@ useEffect(() => {
   
         if (response.data.length > 0) {
           const customerInfo = response.data[0]?.customer || {};
-  
-          //  Use balance if available, otherwise use openingBalance
-        //   const balanceValue =
-        //     customerInfo.balance !== null && customerInfo.balance !== undefined
-        //       ? parseFloat(customerInfo.balance)
-        //       : parseFloat(customerInfo.openingBalance) || 0;
-  
-        //   setCustomerBalance(balanceValue);
-        // } else {
-        //   setCustomerBalance(0);
-        // }
         const balanceValue =
           customerInfo.openingBalance !== null && customerInfo.openingBalance !== undefined
             ? parseFloat(customerInfo.openingBalance) || 0
@@ -320,9 +308,7 @@ useEffect(() => {
       newBill[index].pure = parseFloat(pure.toFixed(3));
       newBill[index].amount = parseFloat(amount.toFixed(2));
     }
-
     console.log(newBill);
-
     setBillItems(newBill);
   };
 
@@ -339,13 +325,10 @@ useEffect(() => {
   console.log("billin", billItems);
 
   const totalBillingPure = billItems.reduce( (sum, item) => sum + (item.pure || 0), 0 );
-
   // Total pure from the footer "Total" row
 const totalFinalPure = parseFloat(totalPure || 0) + parseFloat(customerBalance || 0);
-
 // Pure balance calculation (directly from Total)
 const pureBalanceValue = totalFinalPure - parseFloat(totalReceivedPurity || 0);
-
 // Keep both positive and negative separately for display
 const pureBalance = pureBalanceValue >= 0 ? pureBalanceValue.toFixed(3) : "0.000";
 const excessPure = pureBalanceValue < 0 ? Math.abs(pureBalanceValue).toFixed(3) : "0.000";
@@ -562,7 +545,6 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
                 ))}
               </tbody>
             
-
 <tfoot>
   {customerBalance >= 0 ? (
     <tr style={{ color: "green", fontWeight: "bold" }}>
@@ -588,33 +570,75 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
     <td>{parseFloat(totalAmount || 0).toFixed(2)}</td>
     <td></td>
   </tr>
+<tr>
+  <td colSpan={5} className={styles.trEven}>
+    <b>
+      Total{" "}
+      {(() => {
+        const total = (
+          parseFloat(totalPure || 0) + parseFloat(customerBalance || 0)
+        ).toFixed(3);
 
-  <tr>
-    <td colSpan={5} className={styles.trEven}>
-      <b>Total</b>
-    </td>
-    <td className={styles.trEven}>
-      {(parseFloat(totalPure || 0) + parseFloat(customerBalance || 0)).toFixed(3)}
-    </td>
+        if (total === "0.000") return ""; 
+        return (
+          <span
+            style={{
+              color: total > 0 ? "green" : "red",
+              marginLeft: "8px",
+              fontWeight: "bold",
+            }}
+          >
+            ({total > 0
+              ? "Customer must give to Owner"
+              : "Owner must give to Customer"}
+            )
+          </span>
+        );
+      })()}
+    </b>
+  </td>
 
-    <td
-      colSpan={3}
-      className={styles.trEven}
-      style={{
-        color:
-          parseFloat(totalAmount || 0) + parseFloat(customerBalance || 0) * parseFloat(goldRate || 0) >= 0
-            ? "green"
-            : "red",
-        fontWeight: "bold",
-      }}
-    >
-      {(parseFloat(totalAmount || 0) + parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)).toFixed(2)}{" "}
-      <br />
-      {parseFloat(totalAmount || 0) + parseFloat(customerBalance || 0) * parseFloat(goldRate || 0) >= 0
-        ? "Customer must give to Owner"
-        : "Owner must give to Customer"}
-    </td>
-  </tr>
+  <td
+    className={styles.trEven}
+    style={{
+      color:
+        (parseFloat(totalPure || 0) + parseFloat(customerBalance || 0)).toFixed(3) > 0
+          ? "green"
+          : (parseFloat(totalPure || 0) + parseFloat(customerBalance || 0)).toFixed(3) < 0
+          ? "red"
+          : "inherit",
+      fontWeight: "bold",
+    }}
+  >
+    {(() => {
+      const total = (
+        parseFloat(totalPure || 0) + parseFloat(customerBalance || 0)
+      ).toFixed(3);
+      return total === "0.000" ? "" : total;
+    })()}
+  </td>
+
+  <td
+    colSpan={1}  
+    className={styles.trEven}
+    style={{
+      color:
+        parseFloat(totalAmount || 0) +
+          parseFloat(customerBalance || 0) * parseFloat(goldRate || 0) >=
+        0
+          ? "green"
+          : "red",
+      fontWeight: "bold",
+    }}
+  >
+    {(
+      parseFloat(totalAmount || 0) +
+      parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)
+    ).toFixed(2)}
+  </td>
+  <td className={styles.trEven}> </td>
+</tr>
+
 </tfoot>
             </table>
           </div>
@@ -628,12 +652,6 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
               label="Hallmark for this bill"
               type="number"
               size="small"
-              // value={hallmarkForThisBill}
-              // onChange={(e) => {
-              //   const value = parseFloat(e.target.value) || 0;
-              //   setHallmarkForThisBill(value);
-              //   setHallmarkBalance((parseFloat(prevHallmark) || 0) + value);
-              // }}
               value={hallmarkForThisBill === 0 ? "" : hallmarkForThisBill}
               onChange={(e) => {
                 const value = e.target.value === "" ? 0 : parseFloat(e.target.value);
@@ -650,7 +668,7 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
             <div className={styles.billdetails}>Received Details:</div>
             <IconButton
               onClick={addReceivedRow}
-              disabled={totalPure - customerBalance < 0}
+              disabled={totalPure - customerBalance > 0}
          
             >
               <AddCircleOutlineIcon />
@@ -807,10 +825,10 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
               <b>Pure Balance:</b>{" "}
               {pureBalanceValue >= 0 ? pureBalance : "0.00"}
             </p> */}
-            <p>
+            <p style={{color:'green'}}>
   <b>Pure Balance:</b> {pureBalance}
 </p>
-<p>
+<p style={{color:'red'}}>
   <b>Excess Pure:</b> {excessPure}
 </p>
 
@@ -944,9 +962,6 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
               </td>
               <td className={styles.trEven}>
                 {(viewBill.total_amount + viewBill.customer_balance * viewBill.gold_rate).toFixed(2)} <br />
-                {viewBill.total_amount + viewBill.customer_balance * viewBill.gold_rate >= 0
-                  ? "Customer must give to Owner"
-                  : "Owner must give to Customer"}
               </td>
             </tr>
           </tfoot>
@@ -1045,7 +1060,6 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
         <button onClick={() => handlePrint()}>Print Bill</button>
         <button onClick={() => setViewBill(null)}>Back to Bills</button>
       </div>
-
     </div>
     )}
   </DialogContent>
