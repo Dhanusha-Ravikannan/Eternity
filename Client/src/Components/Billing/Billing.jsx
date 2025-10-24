@@ -668,7 +668,7 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
             <div className={styles.billdetails}>Received Details:</div>
             <IconButton
               onClick={addReceivedRow}
-              disabled={totalPure - customerBalance > 0}
+              disabled={totalPure - customerBalance < 0}
          
             >
               <AddCircleOutlineIcon />

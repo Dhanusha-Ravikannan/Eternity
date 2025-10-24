@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Button, TextField, Stack } from '@mui/material';
+import {Button, TextField, Stack} from '@mui/material';
 import axios from 'axios';
 import { BACKEND_SERVER_URL } from "../../../../Config/config";
 import CastingEntryViewModal from './CastingEntryViewModel';
@@ -7,6 +7,7 @@ import Navbar from '../../Navbar/Navbar';
 import { FaEye } from "react-icons/fa";
 import styles from './CastingEntry.module.css'
 import { Delete  } from "@mui/icons-material";
+
 
 const CastingEntry = () => {
   const [open, setOpen] = useState(false);
@@ -134,7 +135,7 @@ const CastingEntry = () => {
         final_weight: parseFloat(form.beforeWeight),
         copper: parseFloat(form.copper),
   
-        // 👇 merge from modal
+        //  merge from modal
         opening_balance: parseFloat(extraData.opening_balance) || 0,
         total_sum_balance: parseFloat(extraData.total_sum_balance) || 0,
         total_item_weight: parseFloat(extraData.total_item_weight) || 0,
@@ -172,17 +173,17 @@ const CastingEntry = () => {
 
   const handleView = async (entry) => {
     try {
-      // 1️⃣ Fetch the full casting entry by ID
+      // 1️ Fetch the full casting entry by ID
       const res = await axios.get(`${BACKEND_SERVER_URL}/api/castingentry/${entry.id}`);
       const data = res.data;
       console.log("Fetched Casting Entry Data:", data);
   
-      // 2️⃣ Extract nested relations safely
+      // 2️ Extract nested relations safely
       const customer = data.casting_customer || {};
       const touch = data.touch || {};
       const balance = data.CastiingTotalBalance?.[0] || {};
   
-      // 3️⃣ Build a new form object
+      // 3️ Build a new form object
       const newForm = {
         id: data.id || "",
         date: data.date ? data.date.split("T")[0] : "",
@@ -203,16 +204,16 @@ const CastingEntry = () => {
         totalWastage: balance.total_wastage || 0,
       };
   
-      // 4️⃣ Update form first (async render)
+      // 4️ Update form first (async render)
       setForm(newForm);
   
-      // 5️⃣ Open the modal only *after* state updates
+      // 5️ Open the modal only *after* state updates
       setTimeout(() => {
         setMode("view");
         setOpen(true);
       }, 0);
     } catch (err) {
-      console.error("❌ Error fetching casting entry by ID:", err);
+      console.error(" Error fetching casting entry by ID:", err);
       alert("Failed to load casting entry details.");
     }
   };

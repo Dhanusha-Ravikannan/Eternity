@@ -4,7 +4,8 @@ import styles from "./BuffingLotDetails.module.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_SERVER_URL } from "../../../../Config/config";
-import { DialogActions, Box, Button, TextField, Typography, MenuItem, } from "@mui/material";
+import { DialogActions, Box, Button, TextField, Typography, MenuItem,Accordion,AccordionSummary,AccordionDetails } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Checkbox from "@mui/material/Checkbox";
 
@@ -604,7 +605,8 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
         />
         <Button variant="outlined" onClick={() => handleFilter()}>   Filter </Button>
         <Button variant="outlined" onClick={() => handleResetFilter()}>  Reset  </Button>
-        <Button> Open Balance: {openingBalanceTotal}</Button>
+        
+        <Button> Open Balance: {openingBalanceTotal}</Button>       
         <Button
           style={{
             backgroundColor: "#F5F5F5",
@@ -620,6 +622,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
           Add Buffing
         </Button>
       </div>
+      
       <table className={styles.table}
         border="1"
         style={{ width: "95%", marginTop: "2rem", marginLeft: "2rem" }}  >
@@ -753,7 +756,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
         <br />
 
         <Typography>
-          <strong>Total Receipt:</strong> {totalReceipt.toFixed(2)} g
+          <strong>Total Receipt : </strong>  {totalReceipt.toFixed(2)} g  
         </Typography>
 
         <TextField
@@ -804,7 +807,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
         </Box>
 
         <Typography sx={{ mt: 2 }}>
-          <strong>Total Wastage:</strong> {totalWastage.toFixed(2)} g
+          <strong>Total Wastage: </strong> {totalWastage.toFixed(2)} g
         </Typography>
         <Typography sx={{ mt: 2 }}>
           <strong>Balance:</strong> {totalBalanceSum.toFixed(2)} g
@@ -1038,6 +1041,55 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
               )}
             </table>
 
+              {/* Accordion for Calculation Details */}
+  <Accordion className={styles.calculationAccordion}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="buffing-calculation-details"
+          id="buffing-calculation-header"
+        >
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            Calculation Details
+          </Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <div className={styles.calculationInfo}>
+            <ul>
+              <li>
+                <b>Total Sum Balance</b> = Opening Balance + Total
+              </li>
+              <li>
+                <b>Total Scrap Weight</b> = Sum of weight from Add Scrap Items
+                table
+              </li>
+              <li>
+                <b>Balance</b> = Total Sum Balance − Receipt Weight
+              </li>
+            </ul>
+
+            <div className={styles.sectionDivider}></div>
+
+            <h4 className={styles.sectionTitle}>Monthly Wastage:</h4>
+            <ul>
+              <li>
+                <b>Total Receipt</b> = Receipt Weight (main table)
+              </li>
+              <li>
+                <b>Total Wastage</b> = (Total Receipt × Wastage % / 100) +{" "}
+                <i>Wastage Values (g)</i> (Optional)
+              </li>
+              <li>
+                <b>Balance</b> = Sum of Balance column (main table)
+              </li>
+              <li>
+                <b>Overall Wastage</b> = Balance − Total Wastage
+              </li>
+            </ul>
+          </div>
+        </AccordionDetails>
+      </Accordion>
+
             {viewEntry && (
               <>
 
@@ -1086,8 +1138,8 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
 
 {viewEntry && (
   <Box sx={{ mt: 2, mb: 2 }}>
-    <Typography><b>Open Balance:</b> {openingBalanceTotal.toFixed(2)}</Typography>
-    <Typography><b>Total Sum Balance:</b> {totalSumBalance.toFixed(2)}</Typography>
+    <Typography><b>Opening Balance :</b> {openingBalanceTotal.toFixed(2)}</Typography>
+    <Typography><b>Total Sum Balance :</b> {totalSumBalance.toFixed(2)}</Typography>
   </Box>
 )}
 
@@ -1229,7 +1281,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
 
                   <Box sx={{ mt: 2, display: "flex", gap: 4 }}>
                     <Typography>
-                      <strong>Total Scrap Weight:</strong>
+                      <strong>Total Scrap Weight :</strong>
                       {scrapItems
                        .reduce(
                           (sum, s) => sum + (parseFloat(s.weight) || 0),
@@ -1240,7 +1292,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
 
               
                     <Typography>
-  <strong>Balance:</strong> 
+  <strong>Balance   :</strong> 
   {(
     totalSumBalance - (parseFloat(receiptWeight) || 0) - scrapItems.reduce((sum, s) => sum + (parseFloat(s.weight) || 0), 0)
   ).toFixed(2)}
@@ -1284,6 +1336,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
                 </Button>
               )}
             </DialogActions>
+            
           </div>
         </div>
       )}
