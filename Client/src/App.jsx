@@ -8,7 +8,6 @@ import { CircularProgress, Box } from "@mui/material";
 const Login = lazy(() => import("./Components/Login/Login"));
 const Navbar = lazy(() => import("./Components/Navbar/Navbar"));
 const Customer = lazy(() => import("./Components/Customer/Customer"));
-const Goldsmith = lazy(() => import("./Components/Goldsmith/Goldsmith"));
 const Filing = lazy(() => import("./Components/LotProcess/FilingProcess/Filing"));
 const Setting = lazy(() => import("./Components/LotProcess/SettingProcess/Setting"));
 const Buffing = lazy(() => import("./Components/LotProcess/BuffingProcess/Buffing"));
@@ -73,7 +72,6 @@ const App = () => {
           <Route path="/customer" element={<Customer />} />
           <Route path="/customertranscation" element={<CustomerTranscation />} />
           <Route path="/master" element={<MasterNavbar />} />
-          <Route path="/goldsmith" element={<Goldsmith />} />
           <Route path="/casting" element={<CastingEntry />} />
           <Route path="/filing" element={<Filing />} />
           <Route path="/setting" element={<Setting />} />
