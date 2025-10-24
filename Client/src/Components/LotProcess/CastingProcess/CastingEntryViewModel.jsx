@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Dialog,
+  Dialog,  Accordion,AccordionSummary,AccordionDetails ,
   DialogTitle,
   DialogContent,
   Grid,
@@ -18,9 +18,11 @@ import {
   Box,
   Alert,
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 import { BACKEND_SERVER_URL } from "../../../../Config/config";
 import DeleteIcon from "@mui/icons-material/Delete";
+import styles from './CastingEntryViewModel.module.css'
 
 const CastingEntryViewModal = ({
   open,
@@ -169,8 +171,7 @@ const CastingEntryViewModal = ({
         total_scrap_weight: totalScrapWeight,
         total_wastage: totalWastage,
       };
-
-      await axios.post("http://localhost:5000/api/castingitems", {
+        await axios.post(`${BACKEND_SERVER_URL}/api/castingitems`,{ 
         items: payloads,
         balanceData,
       });
@@ -290,37 +291,6 @@ const CastingEntryViewModal = ({
   );
   const totalWastage = currentBalanceWeight - totalScrapWeight;
 
-
-
-    // Fetch main casting entry details by ID
-    // useEffect(() => {
-    //   if (!castingEntryId || !open) return;
-    //   const fetchCastingEntry = async () => {
-    //     try {
-    //       const res = await axios.get(`${BACKEND_SERVER_URL}/api/castingentry/${castingEntryId}`);
-    //       const data = res.data;
-  
-    //       if (data) {
-    //         // Populate form fields with API response
-    //         handleChange("date")({ target: { value: data.date || "" } });
-    //         handleChange("name")({ target: { value: data.name?.name || "" } });
-    //         handleChange("touch")({ target: { value: data.touch?.touch || "" } });
-    //         handleChange("givenGold")({ target: { value: data.givenGold || 0 } });
-    //         handleChange("beforeWeight")({ target: { value: data.beforeWeight || 0 } });
-    //         handleChange("purity")({ target: { value: data.purity || "" } });
-    //         handleChange("finalTouch")({ target: { value: data.finalTouch || "" } });
-    //         handleChange("copper")({ target: { value: data.copper || "" } });
-  
-    //         console.log("Fetched Casting Entry:", data);
-    //       }
-    //     } catch (err) {
-    //       console.error("Failed to fetch casting entry:", err);
-    //     }
-    //   };
-  
-    //   fetchCastingEntry();
-    // }, [castingEntryId, open]);
-
     useEffect(() => {
       if (!castingEntryId || !open) return;
     
@@ -340,11 +310,11 @@ const CastingEntryViewModal = ({
             handleChange("finalTouch")({ target: { value: data.final_touch || "" } });
             handleChange("copper")({ target: { value: data.copper || "" } });
     
-            // ✅ Set correct balances directly from API
+            //  Set correct balances directly from API
             setOpeningBalance(parseFloat(data.opening_balance || 0));
             setTotalBalance(parseFloat(data.total_sum_balance || 0));
     
-            // ✅ Also load CastiingTotalBalance if available
+            //  Also load CastiingTotalBalance if available
             if (data.CastiingTotalBalance?.length > 0) {
               const balanceData = data.CastiingTotalBalance[0];
               setForm((prev) => ({
@@ -494,7 +464,6 @@ const CastingEntryViewModal = ({
     setTotalBalance(opening + beforeWeight);
   }, [openingBalance, form.beforeWeight]);
   
-  
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
@@ -540,7 +509,8 @@ const CastingEntryViewModal = ({
       )}
 
       <DialogContent>
-  
+ 
+
      <Grid container spacing={6}>
      <Grid item xs={3}>
           <TextField
@@ -672,11 +642,82 @@ const CastingEntryViewModal = ({
             />
           </Grid>
         </Grid>
-  <div style={{textAlign:"end"}}> 
-<div> Opening Balance: {openingBalance.toFixed(2)} </div>
-<div> Total Balance: {totalBalance.toFixed(2)} </div>
-</div>
+
 <br/>
+ {/* Accordion for Calculation Details */}
+ <Accordion className={styles.calculationAccordion}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="casting-calculation-details"
+          id="casting-calculation-header"
+        >
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            Calculation Details
+          </Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <div className={styles.calculationInfo}>
+            <ul>
+              <li>
+                <b>Purity</b> = Given Gold × Touch / 100
+              </li>
+              <li>
+                <b>Pure Value</b> = Final Touch / 100
+              </li>
+              <li>
+                <b>Before Weight</b> = Purity / Pure Value
+              </li>
+              <li>
+                <b>Copper</b> = Given Gold − Before Weight
+              </li>
+              <li>
+                <b>Opening Balance</b> – Comes from{" "}
+                <i>Master Casting</i> table with respective name
+              </li>
+              <li>
+                <b>Total Balance</b> = Opening Balance + Before Weight
+              </li>
+            </ul>
+            <hr/>
+
+            <div className={styles.sectionDivider}></div>
+
+            <Typography
+              variant="subtitle1"
+              sx={{ fontWeight: 600, marginBottom: "0.8rem" }}
+            >
+              In Table Calculations:
+            </Typography>
+
+            <ul>
+              <li>
+                <b>Purity</b> = Weight × Touch / 100
+              </li>
+              <li>
+                <b>Total Item Weight</b> = Sum of weight from Add Product Items
+                table
+              </li>
+              <li>
+                <b>Current Balance Weight</b> = Total Balance − Total Item Weight
+              </li>
+              <li>
+                <b>Total Scrap Weight</b> = Sum of weight from Add Scrap Items
+                table
+              </li>
+              <li>
+                <b>Total Wastage</b> = Current Balance Weight − Total Scrap
+                Weight
+              </li>
+            </ul>
+          </div>
+        </AccordionDetails>
+      </Accordion>
+<br/>
+<div style={{textAlign:"end"}}> 
+<div> <b>Opening Balance:  </b> {openingBalance.toFixed(2)} </div>
+<div> <b> Total Balance:  </b> {totalBalance.toFixed(2)} </div>
+</div>
         {/* Add Product Items Section */}
         <Button onClick={addProductItem} variant="outlined" sx={{ mt:1, backgroundColor:' #f8f9fa', fontWeight:'530' }}>
           Add Product Items
@@ -838,7 +879,7 @@ const CastingEntryViewModal = ({
 
         <Typography sx={{ mt: 1 }}>
           <strong>Total Item Weight:</strong> {totalProductWeight.toFixed(2)}
-          <strong>Current Balance Weight:</strong>{currentBalanceWeight.toFixed(2)}
+          <strong style={{marginLeft:'4rem'}}>Current Balance Weight: </strong>{currentBalanceWeight.toFixed(2)}
         </Typography>
 
         {/* Add Scrap Items Section */}
@@ -988,9 +1029,8 @@ const CastingEntryViewModal = ({
           </TableBody>
         </Table>
         <Typography sx={{ mt: 1 }}>
-          <strong>Total Scrap Weight:</strong> {totalScrapWeight.toFixed(2)}{" "}
-          &nbsp;&nbsp;&nbsp;
-          <strong>Total Wastage:</strong> {totalWastage.toFixed(2)}
+          <strong>Total Scrap Weight:</strong> {totalScrapWeight.toFixed(2)}
+          <strong style={{marginLeft:'4rem'}}>Total Wastage:</strong> {totalWastage.toFixed(2)}
         </Typography>
       </DialogContent>
 

@@ -102,7 +102,7 @@ const Customer = () => {
     <TableCell className={styles.tablehead}>Customer Name</TableCell>
     <TableCell className={styles.tablehead}>Phone Number</TableCell>
     <TableCell className={styles.tablehead}>Address</TableCell>
-    <TableCell className={styles.tablehead}>Balance</TableCell>
+    <TableCell className={styles.tablehead}>Opening Balance</TableCell>
     <TableCell className={styles.tablehead}>Actions</TableCell>
   </TableRow>
 </TableHead>

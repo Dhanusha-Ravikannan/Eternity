@@ -10,7 +10,11 @@ import {
   Typography,
   MenuItem,
   IconButton,
+  Accordion,
+AccordionSummary,
+AccordionDetails,
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import Navbar from "../../Navbar/Navbar";
@@ -1021,6 +1025,71 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
   </Box>
 </Box>
 
+ {/* Accordion for Calculation Details */}
+ <Accordion className={styles.calculationAccordion}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="filing-calculation-details"
+          id="filing-calculation-header"
+        >
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            Calculation Details
+          </Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <div className={styles.calculationInfo}>
+            <ul>
+              <li>
+                <b>After Weight</b> – (Optional)
+              </li>
+              <li>
+                <b>Opening Balance</b> – Comes from <i>Master Filing</i> table with
+                the respective name
+              </li>
+              <li>
+                <b>Total Sum Balance</b> = Opening Balance + Total
+              </li>
+              <li>
+                <b>Purity</b> = Weight × Touch / 100
+              </li>
+              <li>
+                <b>Total Product Weight</b> = Sum of weight from Add Product Items
+                table
+              </li>
+              <li>
+                <b>Current Balance Weight</b> = Total Balance − Total Item Weight
+              </li>
+              <li>
+                <b>Total Scrap Weight</b> = Sum of weight from Add Scrap Items table
+              </li>
+              <li>
+                <b>Balance</b> = Current Balance Weight − Total Scrap Weight
+              </li>
+            </ul>
+<hr/>
+            <div className={styles.sectionDivider}></div>
+
+            <h5 className={styles.sectionTitle}>Monthly Wastage:</h5>
+            <ul>
+              <li>
+                <b>Total Receipt</b> = Sum of Weight column (main table)
+              </li>
+              <li>
+                <b>Balance</b> = Sum of Balance column (main table)
+              </li>
+              <li>
+                <b>Overall Wastage</b> = Balance − Total Receipt
+              </li>
+              <li>
+                <b>Total Wastage</b> = (Total Receipt × Wastage % / 100) +{" "}
+                <i>Wastage Values (g)</i> (Optional)
+              </li>
+            </ul>
+          </div>
+        </AccordionDetails>
+      </Accordion>
+<br/>
           <Button
             variant="outlined"
             sx={{ mt: 0 , backgroundColor:' #f8f9fa', fontWeight:'530' }}
@@ -1301,7 +1370,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
                   </tbody>
                 </table>
               </div>
-
+<br/>
               <Box display="flex" alignItems="center" gap={8}>
                 <Typography variant="body1">
                   <b> Total Scrap Weight: </b>{" "}

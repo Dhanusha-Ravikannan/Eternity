@@ -12,10 +12,15 @@ import {
   TextField,
   Typography,
   MenuItem,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { BACKEND_SERVER_URL } from "../../../../Config/config";
 import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "./SettingLotDetails.module.css";
+
 
 const SettingLotDetails = () => {
   const getTodayDateString = () => {
@@ -476,8 +481,7 @@ const SettingLotDetails = () => {
           InputLabelProps={{ shrink: true }}
         />
         <Button variant="outlined" onClick={applyDateFilter}>
-          {" "}
-          Filter{" "}
+          Filter
         </Button>
         <Button variant="outlined" onClick={resetFilter}>
           Reset
@@ -625,7 +629,7 @@ const SettingLotDetails = () => {
       >
         <Typography sx={{ marginLeft: "5rem", color: "darkblue" }}>
           <b> Opening Balance: {openingBalance.toFixed(0)} </b>{" "}
-        </Typography>{" "}
+        </Typography>
         <hr />
         <Typography
           sx={{ color: "red", fontWeight: "bold", fontSize: "1.1rem" }}
@@ -676,14 +680,14 @@ const SettingLotDetails = () => {
                   </Button> */}
         </Box>
         <Typography sx={{ mt: 2 }}>
-          <strong>Total Wastage:</strong> {Number(totalStoneCount).toFixed(2)} ×{" "}
+          <strong>Total Wastage  :</strong> {Number(totalStoneCount).toFixed(2)} ×{" "}
           {Number(wastagePercent) || 0} / 100 ={" "}
           <strong>
             {!isNaN(totalWastage) ? Number(totalWastage).toFixed(2) : "0.00"} g
           </strong>
         </Typography>
         <Typography sx={{ mt: 2 }}>
-          <strong>Overall Balance:</strong>
+          <strong>Overall Balance :</strong>
           {getOverallBalance()}g
         </Typography>
         <Typography sx={{ mt: 1, color: "red" }}>
@@ -897,8 +901,72 @@ const SettingLotDetails = () => {
                   </tr>
                 </tfoot>
               </table>
-              <div> Open Balance: {openingBalanceTotal}</div>
-              <div> Total Sum Balance:  {(openingBalanceTotal +
+
+                {/* Accordion for Calculation Details */}
+                <Accordion className={styles.calculationAccordion}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="calculation-details"
+          id="calculation-details-header"
+        >
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            Calculation Details
+          </Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <div className={styles.calculationInfo}>
+            <ul>
+              <li>
+                <b>Opening Balance</b> – Comes from <i>Master Setting</i> table
+                with the respective name.
+              </li>
+              <li>
+                <b>Total Sum Balance</b> = Opening Balance + Total Issue
+              </li>
+              <li>
+                <b>Total Product Weight</b> = Receipt Weight
+              </li>
+              <li>
+                <b>Current Balance Weight</b> = Total Sum Balance − Total
+                Product Weight + Stone Weight
+              </li>
+              <li>
+                <b>Total Scrap Weight</b> = Sum of weight from Add Scrap Items
+                table
+              </li>
+              <li>
+                <b>Balance</b> = Current Balance Weight − Total Scrap Weight
+              </li>
+              <li>
+                <b>Purity</b> = Weight × Touch / 100
+              </li>
+            </ul>
+
+            <div className={styles.sectionDivider}></div>
+<hr/>
+            <h5 className={styles.sectionTitle}>Monthly Wastage :</h5>
+            <ul>
+              <li>
+                <b>Total Stone Count</b> = Sum of Stone Count (main table)
+              </li>
+              <li>
+                <b>Total Wastage</b> = (Total Stone Count × Wastage % / 100) +{" "}
+                <i>Wastage Values (g)</i> (Optional)
+              </li>
+              <li>
+                <b>Overall Balance</b> = Sum of Balance column (main table)
+              </li>
+              <li>
+                <b>Closing Balance</b> = Overall Balance − Total Wastage
+              </li>
+            </ul>
+          </div>
+        </AccordionDetails>
+      </Accordion>
+
+              <div><b>  Opening Balance  :</b> {openingBalanceTotal}</div>
+              <div> <b>  Total Sum Balance  : </b>  {(openingBalanceTotal +
       viewData.filingItems.reduce((sum, fi) => sum + Number(fi.weight || 0), 0)
     ).toFixed(2)} </div>
 
@@ -969,11 +1037,11 @@ const SettingLotDetails = () => {
                 }}
               >
                 <Typography>
-                  <strong>Total Product Weight:</strong>{" "}
+                  <strong>Total Product Weight :</strong>
                   {(viewData.receiptWeight || 0).toFixed(2)}
                 </Typography>
                 <Typography>
-                  <strong>Current Balance Weight:</strong>{" "}
+                  <strong>Current Balance Weight:</strong>
                   {(
 
                     (openingBalanceTotal +

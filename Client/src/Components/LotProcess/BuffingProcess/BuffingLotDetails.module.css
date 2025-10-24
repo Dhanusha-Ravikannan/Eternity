@@ -18,6 +18,9 @@
     padding: 1rem;
     border-radius: 8px;
     min-width: 800px;
+    max-height: 100vh; 
+    overflow-y: auto;
+
   }
   
   /* Buttons container */
@@ -69,4 +72,32 @@
     font-weight: bold;
     padding: 10px;
     border: 1px solid #ccc;
+  }
+
+  
+  .calculationAccordion {
+    margin: 2rem 0;
+    background-color: #fdfdfd;
+    border: 1px solid #ddd;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+  
+  .calculationInfo {
+    padding: 1.5rem 2rem;
+    background-color: #fafafa;
+    border-radius: 10px;
+  }
+  
+  .calculationInfo ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin: 0;
+  }
+  
+  .calculationInfo li {
+    margin-bottom: 0.6rem;
+    line-height: 1.6;
+    color: #333;
+    font-size: 0.95rem;
   }
