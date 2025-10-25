@@ -6,7 +6,8 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "./Billing.module.css";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
-import { Dialog,DialogContent, DialogActions,} from "@mui/material";
+// import { Dialog,DialogContent, DialogActions,} from "@mui/material";
+import SavedBills from "./SavedBills";
 
 const Billing = () => {
   const [customers, setCustomers] = useState([]);
@@ -30,37 +31,8 @@ const Billing = () => {
 const [viewBill, setViewBill] = useState(null);
 const [openBillsPopup, setOpenBillsPopup] = useState(false);
 const [openViewBillPopup, setOpenViewBillPopup] = useState(false);
-const [printSize, setPrintSize] = useState("A4");
 const printRef = useRef();
 
-const handlePrint = () => {
-  const style = document.createElement("style");
-  style.innerHTML = `
-    @page { size: ${printSize}; margin: 1mm; }
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-      #print-section, #print-section * {
-        visibility: visible;
-      }
-      #print-section {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-      }
-      .no-print {
-        display: none !important;
-      }
-    }
-  `;
-  document.head.appendChild(style);
-  window.print();
-  setTimeout(() => {
-    document.head.removeChild(style);
-  }, 1000);
-};
 
 const fetchBills = async () => {
   try {
@@ -668,7 +640,7 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
             <div className={styles.billdetails}>Received Details:</div>
             <IconButton
               onClick={addReceivedRow}
-              disabled={totalPure - customerBalance < 0}
+              disabled={totalPure - customerBalance > 0}
          
             >
               <AddCircleOutlineIcon />
@@ -817,14 +789,6 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
               <b>Cash Balance:</b> ₹{" "}
               {cashBalance ? parseFloat(cashBalance).toFixed(2) : 0}
             </p>
-            {/* <p>
-              <b>Excess Pure:</b>{" "}
-              {pureBalanceValue < 0 ? Math.abs(pureBalance) : "0.00"}
-            </p>
-            <p>
-              <b>Pure Balance:</b>{" "}
-              {pureBalanceValue >= 0 ? pureBalance : "0.00"}
-            </p> */}
             <p style={{color:'green'}}>
   <b>Pure Balance:</b> {pureBalance}
 </p>
@@ -855,219 +819,6 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
 
         </div>
 
-        <Dialog
-  open={openBillsPopup}
-  onClose={() => setOpenBillsPopup(false)}
-  maxWidth="md"
-  fullWidth
->
-
-  <br/> 
-  <div id="print-section" ref={printRef} > 
-  <h4><center>  Saved Bill Details </center> </h4>
-  <DialogContent>
-    {!viewBill ? (
-      <div className={styles.table}>
-        <div style={{marginLeft:'3rem'}}> 
-        <table>
-          <thead>
-            <tr>
-              <th style={{width:'5rem'}} >S.No</th>
-              <th style={{width:'10rem'}}>Bill No</th>
-              <th style={{width:'12rem'}}>Customer Name</th>
-              <th style={{width:'10rem'}}>Date</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bills.map((bill, idx) => (
-              <tr key={bill.id}>
-                <td>{idx + 1}</td>
-                <td>{bill.bill_no || idx + 1}</td>
-                <td>{bill.customer?.name || "-"}</td>
-                <td>{bill.date}</td>
-                <td>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    onClick={() => setViewBill(bill)}
-                  >
-                    view bill details
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        </div>
-      </div>
-    ) : (
-      // Show bill details in view mode
-<div> 
-  
-<div className={styles.bill}>
-  <div className={styles.leftSection}>
-    <Typography><b>Bill No: </b> {viewBill.bill_no}</Typography>
-    <Typography><b>Customer Name: </b> {viewBill.customer?.name}</Typography>
-    <Typography><b>Gold Rate: </b> {viewBill.gold_rate}</Typography>
-  </div>
-
-  <div className={styles.rightSection}>
-    <Typography><b>Date: </b>{viewBill.date}</Typography>
-    <Typography><b>Time: </b>{viewBill.time}</Typography>
-  </div>
-</div>
-      <div className={styles.billdetails}>Bill Details:</div>
-      <div className={styles.table}>
-        <table>
-          <thead>
-            <tr>
-              <th>Item Name</th>
-              <th>Weight</th>
-              <th>Stone Weight</th>
-              <th>Total Weight</th>
-              <th style={{width:'5rem'}}>%</th>
-              <th>Pure</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            {viewBill.billItems.map((item, index) => (
-              <tr key={index}>
-                <td>{item.item_name}</td>
-                <td>{item.weight}</td>
-                <td>{item.stone_weight}</td>
-                <td>{item.total_weight}</td>
-                <td>{item.touch?.touch ?? item.touchId ?? "-"}</td>            
-                <td>{item.pure}</td>
-                <td>{item.amount}</td>
-              </tr>
-            ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan={5}><b>Excess Balance</b></td>
-              <td>{(viewBill.customer_balance).toFixed(3)}</td>
-              <td>{(viewBill.customer_balance * viewBill.gold_rate).toFixed(3)}</td>
-            </tr>
-            <tr>
-              <td colSpan={5}><b>Final Bill Total</b></td>
-              <td>{viewBill.total_pure}</td>
-              <td>{viewBill.total_amount}</td>
-            </tr>
-            <tr>
-              <td colSpan={5} className={styles.trEven}><b>Total</b></td>
-              <td className={styles.trEven}>
-                {(viewBill.total_pure + viewBill.customer_balance).toFixed(3)}
-              </td>
-              <td className={styles.trEven}>
-                {(viewBill.total_amount + viewBill.customer_balance * viewBill.gold_rate).toFixed(2)} <br />
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-  
-      <div className={styles.bal}>
-        <p><b>Prev Hallmark Balance:</b> {viewBill.prev_hallmark}</p>
-      </div>
-  
-      <div className={styles.receivedHeader}>
-        <div className={styles.billdetails}>Received Details:</div>
-      </div>
-      <div className={styles.table}>
-        <table>
-          <thead>
-            <tr>
-              <th>S.No</th>
-              <th>Date</th>
-              <th>Type</th>
-              <th>Gold Rate</th>
-              <th>Gold WT</th>
-              <th>Touch</th>
-              <th>Purity Weight</th>
-              <th>Amount</th>
-              <th>Hallmark Charge</th>
-            </tr>
-          </thead>
-          <tbody>
-              {(viewBill.receivedItems || []).map((row, idx) => (
-              <tr key={idx}>
-                <td>{idx + 1}</td>
-                <td>{row.date}</td>
-                <td>{row.type}</td>
-                <td>{row.goldRate || row.gold_rate || "-"}</td>
-                <td>{row.gold || "-"}</td>
-                <td>{row.touch?.touch ?? row.touchId ?? "-"}</td>
-                <td>{(row.purity_weight .toFixed(3)) || "-"}</td>
-                <td>{row.amount || "-"}</td>
-                <td>{row.hallmark_charge || "-"}</td>
-              </tr>
-            ))}
-          </tbody>
-          <tfoot className={styles.trEven}>
-            <tr>
-              <td colSpan={6}><b>Total Purity</b></td>
-              <td> 
-                <b> {( viewBill.receivedItems?.reduce((sum, row) => sum + (Number(row.purity_weight) || 0),  0 ) ?? 0 ).toFixed(3)}  </b> 
-
-          </td>
-              <td colSpan={2}></td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-  
-      <div className={styles.balance} style={{marginTop:'2rem'}}>
-    
-        {/* <p><b>Cash Balance:</b> ₹{viewBill.cash_balance}</p>
-        <p><b>Pure Balance:</b> {viewBill.excessPure}</p>
-        <p><b>Excess Pure:</b> {viewBill.pure_balance.toFixed(3)}</p>
-        <p><b>Hallmark Balance:</b> {viewBill.hallmark_balance}</p> */}
-
-  <p><b>Cash Balance:</b> ₹{viewBill.cash_balance}</p>
-
-  {viewBill.pure_balance >= 0 ? (
-    <>
-      <p><b>Pure Balance:</b> {viewBill.pure_balance.toFixed(3)}</p>
-      <p><b>Excess Pure:</b> 0.000</p>
-    </>
-  ) : (
-    <>
-      <p><b>Pure Balance:</b> 0.000</p>
-      <p><b>Excess Pure:</b> {(viewBill.pure_balance).toFixed(3)}</p>
-    </>
-  )}
-
-  <p><b>Hallmark Balance:</b> {viewBill.hallmark_balance}</p>
-
- 
-
-      </div>
-
-    {/* 🔹 Controls (hidden during print) */}
-    <div className="no-print" style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-        <select
-          value={printSize}
-          onChange={(e) => setPrintSize(e.target.value)}
-          style={{ padding: "5px" }}
-        >
-          <option value="A4">A4</option>
-          <option value="A5">A5</option>
-          <option value="A6">A6</option>
-        </select>
-
-        <button onClick={() => handlePrint()}>Print Bill</button>
-        <button onClick={() => setViewBill(null)}>Back to Bills</button>
-      </div>
-    </div>
-    )}
-  </DialogContent>
-  </div>
-  <DialogActions>
-    <Button   variant="outlined" onClick={() => setOpenBillsPopup(false)}>Close</Button>
-  </DialogActions>
-</Dialog>
 
         <div className={styles.tablecard}>
           <h3>Available Product Weights</h3>
@@ -1102,6 +853,26 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
           </div>
         </div>
       </div>
+
+      {/* <SavedBills
+  openViewAll={openViewAll}
+  handleCloseViewAll={handleCloseViewAll}
+  bills={bills}
+  handleViewBill={handleViewBill}
+  viewBillOpen={viewBillOpen}
+  handleCloseViewBill={handleCloseViewBill}
+  selectedBill={selectedBill}
+/> */}
+<SavedBills
+  openBillsPopup={openBillsPopup}
+  setOpenBillsPopup={setOpenBillsPopup}
+  bills={bills}
+  viewBill={viewBill}
+  setViewBill={setViewBill}
+  printRef={printRef}
+/>
+
+
     </>
   );
 };
