@@ -1,0 +1,270 @@
+.customerReportHeader {
+    margin: 30px 60px 0px 60px;
+    padding: 1.5rem;
+    background: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .customerReportHeader  h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .customerReport {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: 10px;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+  }
+  
+  .customerReport:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #f1f1f1;
+  }
+  
+  
+  .print-mode {
+    justify-content: flex-start;
+  }
+  
+  .customerInfo {
+    margin-left: auto;
+    padding-right: 1rem;
+  }
+  
+  .customerInfo span {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .customerReportBtn {
+    font-size: 1rem !important;
+    background-color: #2c3e50 !important;
+    color: #fff !important;
+    padding: 0.4rem 1rem !important;
+    border-radius: 6px !important;
+  }
+  
+  
+  .customerReportContainer {
+    position: relative !important;
+    max-height: 600px !important;
+    overflow: auto !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    margin:1vw 3vw;
+  }
+  
+  .customerReportTable{
+    width: 100%;
+    border-collapse: collapse;
+  
+  }
+  #customerReportHead{
+    position: sticky;
+    top: 0px;
+    z-index: 10;
+  }
+  
+  #customerReportHead tr th {
+    padding: 6px;
+    text-align:center; 
+    background-color: black;
+    color: white;
+  }
+  
+  .customerReportTbody tr td{
+     border: 1px solid #0b0a0a;
+    padding: 6px;
+    text-align:center;
+  }
+  .orderTable,.receiveTable {
+   width: 100%;
+   border-collapse:collapse ;
+  }
+  .orderTableTr tr th{
+    border: 1px solid #0b0a0a;
+    padding: 6px;
+    text-align:center;
+     background: #427fdb;;
+     color: white;
+  }
+  .receiveTableTr tr th{
+    border: 1px solid #0b0a0a;
+    padding: 6px;
+    text-align:center;
+    background: #427fdb;
+     color: white;
+  }
+  .orderTableTbody,.receiveTableBody tr td{
+    border: 1px solid #0b0a0a;
+    padding: 6px;
+    text-align:center;
+  }
+  .customerTotal{
+      font-size: larger;
+  
+  }
+  
+  .overAllBalance {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+    gap: 20px;
+    max-width: 400px;
+  }
+  
+  .balanceCard {
+    display: flex;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    width: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .balanceCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  }
+  
+  .balancepositive {
+       background-color:white; 
+       border-left: 8px solid #f06292 ;
+       color: black;
+  }
+  
+  .balancenegative {
+      background-color: white;
+      border-left:8px solid #43a047;
+      color: black;
+   
+  }
+  .custRepTfoot {
+    position: sticky;
+    bottom: 0;
+    background: rgb(249, 248, 247);   /* so it doesn’t overlap rows */
+    z-index: 2;          /* positive z-index to stay above */
+  }
+  
+  
+
+  .customerReportHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .customerReportHeader h3 {
+    text-align: left;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  
+  .reportHorizontal {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .reportField {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .reportButtons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+  }
+  
+  .customerReportBtn {
+    background-color: #1976d2;
+    color: white;
+    text-transform: none;
+    font-weight: 500;
+  }
+  
+  .customerReportBtn:hover {
+    background-color: #115293;
+  }
+  
+
+
+
+  /* === Table Borders and Layout === */
+.customerReportTable,
+.receiveTable,
+.orderTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Table border for all cells */
+.customerReportTable th,
+.customerReportTable td,
+.receiveTable th,
+.receiveTable td,
+.orderTable th,
+.orderTable td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+/* Table header style */
+.customerReportTable thead th,
+.receiveTable thead th,
+.orderTable thead th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Table foot (total) */
+.custRepTfoot td {
+  border: none;
+  text-align: right;
+  font-weight: bold;
+  background-color: #fafafa;
+}
+
+/* Inner tables (Bill/Receive) inside main cell */
+.receiveTable,
+.orderTable {
+  margin: 10px 0;
+  width: 95%;
+  background-color: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Align inner tables nicely */
+.customerReportTable td > table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heading{
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}

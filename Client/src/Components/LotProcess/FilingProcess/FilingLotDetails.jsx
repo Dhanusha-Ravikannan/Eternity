@@ -1058,7 +1058,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
                 table
               </li>
               <li>
-                <b>Current Balance Weight</b> = Total Balance − Total Item Weight
+                <b>Current Balance Weight</b> = Total Sum Balance − Total Product Weight
               </li>
               <li>
                 <b>Total Scrap Weight</b> = Sum of weight from Add Scrap Items table

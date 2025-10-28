@@ -6,7 +6,6 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "./Billing.module.css";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
-// import { Dialog,DialogContent, DialogActions,} from "@mui/material";
 import SavedBills from "./SavedBills";
 
 const Billing = () => {
@@ -382,6 +381,8 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
 
       console.log("Bill saved successfully:", response.data);
       alert("Bill data saved successfully!");
+      const responsee = await axios.get(`${BACKEND_SERVER_URL}/api/bills`);
+      setBills(responsee.data);
 
       fetchQcStock();
       setSelectedCustomer("");
@@ -639,12 +640,12 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
           <div className={styles.receivedHeader}>
             <div className={styles.billdetails}>Received Details:</div>
             <IconButton
-              onClick={addReceivedRow}
-              disabled={totalPure - customerBalance > 0}
-         
-            >
-              <AddCircleOutlineIcon />
-            </IconButton>
+  onClick={addReceivedRow}
+  disabled={(parseFloat(totalPure || 0) + parseFloat(customerBalance || 0)) < 0}
+>
+  <AddCircleOutlineIcon />
+</IconButton>
+
           </div>
           <div >
             <table className={styles.table}>
@@ -853,16 +854,6 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
           </div>
         </div>
       </div>
-
-      {/* <SavedBills
-  openViewAll={openViewAll}
-  handleCloseViewAll={handleCloseViewAll}
-  bills={bills}
-  handleViewBill={handleViewBill}
-  viewBillOpen={viewBillOpen}
-  handleCloseViewBill={handleCloseViewBill}
-  selectedBill={selectedBill}
-/> */}
 <SavedBills
   openBillsPopup={openBillsPopup}
   setOpenBillsPopup={setOpenBillsPopup}
@@ -871,8 +862,6 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
   setViewBill={setViewBill}
   printRef={printRef}
 />
-
-
     </>
   );
 };
