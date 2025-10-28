@@ -14,6 +14,7 @@ import styles from "./SalesReport.module.css";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import BillDetailsNo from "../Billing/BillDetailsNo";
 
 
 const SalesReport = () => {
@@ -356,171 +357,33 @@ const downloadPDF = () => {
         </div>
       </div>
 
-      {/* View Modal */}
 <Dialog
   open={!!viewInvoice}
   onClose={() => setViewInvoice(null)}
   maxWidth="md"
   fullWidth
 >
-  <center>
-    <h4 style={{ padding: "0.5rem" }}>Invoice Details</h4>
-  </center>
+<div style={{ padding: "1.3rem" }}> 
+<center>
+        <h4 style={{ padding: "0.5rem" }}>Invoice Details</h4>
+      </center>
 
-  <DialogContent dividers>
-    {viewInvoice && (
-      <>
-        {/* Header Section */}
-        <div className={styles.bill}>
-          <div className={styles.leftSection}>
-            <Typography><b>Invoice No: </b> {viewInvoice.bill_no}</Typography>
-            <Typography><b>Customer Name: </b> {viewInvoice.customer?.name}</Typography>
-            <Typography><b>Gold Rate: </b> {viewInvoice.gold_rate}</Typography>
-          </div>
-          <div className={styles.rightSection}>
-            <Typography>
-              <b>Date: </b>
-              {new Date(viewInvoice.updatedAt).toLocaleDateString("en-GB")}
-            </Typography>
-            <Typography><b>Time: </b>{viewInvoice.time}</Typography>
-          </div>
-        </div>
+  {viewInvoice && (
+    <BillDetailsNo
+      viewBill={viewInvoice}
+      setViewBill={setViewInvoice}
+    />
+  )}
 
-        <div className={styles.billdetails}>Bill Details:</div>
-        <div className={styles.table}>
-          <table>
-            <thead>
-              <tr>
-                <th>Item Name</th>
-                <th>Weight</th>
-                <th>Stone Weight</th>
-                <th>Total Weight</th>
-                <th style={{ width: "5rem" }}>%</th>
-                <th>Pure</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {viewInvoice.billItems?.length > 0 ? (
-                viewInvoice.billItems.map((item, index) => (
-                  <tr key={item.id}>
-                    <td>{item.item_name}</td>
-                    <td>{item.weight}</td>
-                    <td>{item.stone_weight}</td>
-                    <td>{item.total_weight}</td>
-                    <td>{item.touch?.touch ?? item.touchId ?? "-"}</td>
-                    <td>{item.pure}</td>
-                    <td>{item.amount}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="7" style={{ textAlign: "center" }}>
-                    No items found
-                  </td>
-                </tr>
-              )}
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colSpan={5}><b>Excess Balance</b></td>
-                <td>{viewInvoice.customer_balance}</td>
-                <td>{(viewInvoice.customer_balance * viewInvoice.gold_rate).toFixed(2)}</td>
-              </tr>
-              <tr>
-                <td colSpan={5}><b>Final Bill Total</b></td>
-                <td>{viewInvoice.total_pure}</td>
-                <td>{viewInvoice.total_amount}</td>
-              </tr>
-              <tr>
-                <td colSpan={5} className={styles.trEven}><b>Total</b></td>
-                <td className={styles.trEven}>
-                  {(viewInvoice.total_pure - viewInvoice.customer_balance).toFixed(3)}
-                </td>
-                <td className={styles.trEven}>
-                  {(viewInvoice.total_amount - viewInvoice.customer_balance * viewInvoice.gold_rate).toFixed(2)} <br />
-                  {viewInvoice.total_amount - viewInvoice.customer_balance * viewInvoice.gold_rate >= 0
-                    ? "Customer must give to Owner"
-                    : "Owner must give to Customer"}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-
-        <div className={styles.bal}>
-        <p><b>Prev Hallmark Balance:</b> {viewInvoice.prev_hallmark}</p>
-      </div>
-
-        <div className={styles.receivedHeader}>
-          <div className={styles.billdetails}>Received Details:</div>
-        </div>
-        <div className={styles.table}>
-          <table>
-            <thead>
-              <tr>
-                <th>S.No</th>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Gold Rate</th>
-                <th>Gold WT</th>
-                <th>Touch</th>
-                <th>Purity Weight</th>
-                <th>Amount</th>
-                <th>Hallmark Charge</th>
-              </tr>
-            </thead>
-            <tbody>
-              {viewInvoice.receivedItems?.length > 0 ? (
-                viewInvoice.receivedItems.map((item, index) => (
-                  <tr key={item.id}>
-                    <td>{index + 1}</td>
-                    <td>{new Date(item.updatedAt).toLocaleDateString("en-GB")}</td>
-                    <td>{item.type}</td>
-                    <td>{item.gold_rate || "-"}</td>
-                    <td>{item.gold || "-"}</td>
-                    <td>{item.touch?.touch ?? "-"}</td>
-                    {/* <td>{item.purity_weight}</td> */}
-                    <td>{Number(item.purity_weight)?.toFixed(4)}</td>
-                    <td>{item.amount || "-"}</td>
-                    <td>{item.hallmark_charge || "-"}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="9" style={{ textAlign: "center" }}>
-                    No received items found
-                  </td>
-                </tr>
-              )}
-            </tbody>
-            <tfoot className={styles.trEven}>
-              <tr>
-                <td colSpan={6}>Total Purity</td>
-                <td> {( viewInvoice.receivedItems?.reduce((sum, row) => sum + (Number(row.purity_weight) || 0), 0 ) || 0 ).toFixed(3)} </td>
-                <td colSpan={2}></td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-        
-        {/* Balance Section */}
-        <div className={styles.balance} style={{ marginTop: "2rem" }}>
-          <p><b>Cash Balance:</b> ₹{viewInvoice.cash_balance}</p>
-          <p><b>Excess Pure:</b> {viewInvoice.excessPure}</p>
-          <p><b>Pure Balance:</b> {viewInvoice.pure_balance?.toFixed(3)}</p>
-          <p><b>Hallmark Balance:</b> {viewInvoice.hallmark_balance}</p>
-        </div>
-      </>
-    )}
-  </DialogContent>
-
-  <DialogActions>
+  {/* <DialogActions>
     <Button variant="outlined" onClick={() => setViewInvoice(null)}>
       Close
     </Button>
-  </DialogActions>
+  </DialogActions> */}
+  </div>
 </Dialog>
+
+
 
     </>
   );

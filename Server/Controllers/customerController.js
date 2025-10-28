@@ -1,5 +1,7 @@
 import { PrismaClient } from "../generated/prisma/index.js";
 const prisma = new PrismaClient();
+import { getCustomerBalance } from "../Utils/getCustomerBal.js"
+
 
 // Create customer
 export const createCustomer = async (req, res) => {
@@ -132,3 +134,254 @@ export const getHallmarkByCustomerId = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// export const getCustomerReportDetailsById = async (req, res) => {
+//   const { id } = req.params;
+
+//   try {
+//     const customer = await prisma.addCustomer.findUnique({
+//       where: { id: parseInt(id) },
+//       include: {
+//         //  Receipt Voucher details
+//         receipt_voucher: {
+//           include: {
+//             touchId: true, // include touch info (optional)
+//           },
+//         },
+
+//         //  Customer Transactions
+//         transactions: {
+//           include: {
+//             touch: true, // Include touch details used in transactions
+//             stock: true, // Include related stock entries if any
+//           },
+//         },
+
+//         //  Bills (with nested BillItems and ReceivedItems)
+//         bills: {
+//           include: {
+//             billItems: {
+//               include: {
+//                 qcStock: {
+//                   include: {
+//                     itemId: true, // Include item details from AddItem
+//                     touchId: true,
+//                   },
+//                 },
+//               },
+//             },
+//             receivedItems: true,
+//           },
+//         },
+
+//         // Optional: Include Hallmark details if you want
+//         hallmarks: true,
+//       },
+//     });
+
+//     if (!customer) {
+//       return res.status(404).json({ message: "Customer not found" });
+//     }
+
+//     res.status(200).json(customer);
+//   } catch (error) {
+//     console.error("Error fetching customer details:", error);
+//     res.status(500).json({ message: "Internal Server Error", error: error.message });
+//   }
+// };
+
+
+// http://localhost:5000/api/customers/customerReport/1
+
+export const getCustomerReportDetailsById = async (req, res) => {
+  const { id } = req.params;
+  const { fromDate, toDate } = req.query;
+
+  try {
+    const customerId = parseInt(id);
+    if (isNaN(customerId)) {
+      return res.status(400).json({ message: "Invalid customer ID" });
+    }
+
+    //  Initialize date filter
+    let dateFilter = {};
+    if (fromDate && toDate) {
+      const from = new Date(fromDate);
+      const to = new Date(toDate);
+      to.setHours(23, 59, 59, 999); // include full day range
+
+      dateFilter = {
+        gte: from,
+        lte: to,
+      };
+    }
+
+    //  Fetch customer with related filtered data
+    const customer = await prisma.addCustomer.findUnique({
+      where: { id: customerId },
+      include: {
+        //  Receipt Vouchers (filtered by date)
+        receipt_voucher: {
+          where: fromDate && toDate ? { createdAt: dateFilter } : undefined,
+          include: {
+            touchId: true,
+          },
+        },
+
+        //  Transactions (filtered by date)
+        transactions: {
+          where: fromDate && toDate ? { createdAt: dateFilter } : undefined,
+          include: {
+            touch: true,
+            stock: true,
+          },
+        },
+
+        //  Bills (filtered by date)
+        bills: {
+          where: fromDate && toDate ? { createdAt: dateFilter } : undefined,
+          include: {
+            billItems: {
+              include: {
+                qcStock: {
+                  include: {
+                    itemId: true,
+                    touchId: true,
+                  },
+                },
+              },
+            },
+            receivedItems: true,
+          },
+        },
+
+        //  Hallmark details (optional, no date filter)
+        hallmarks: true,
+      },
+    });
+
+    if (!customer) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+
+    //  Combine summary view (optional)
+    const summary = {
+      totalBills: customer.bills?.length || 0,
+      totalReceipts: customer.receipt_voucher?.length || 0,
+      totalTransactions: customer.transactions?.length || 0,
+      totalHallmarks: customer.hallmarks?.length || 0,
+    };
+
+    //  Send combined response
+    res.status(200).json({
+      customerDetails: customer,
+      summary,
+      filterRange:
+        fromDate && toDate ? { from: fromDate, to: toDate } : "All Time",
+    });
+  } catch (error) {
+    console.error("Error fetching customer report details:", error);
+    res.status(500).json({
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
+
+
+
+
+export const customerReport = async (req, res) => {
+  try {
+    const { id } = req.params; // customerId
+    const { fromDate, toDate } = req.query;
+
+    const customerId = parseInt(id);
+    if (isNaN(customerId)) {
+      return res.status(400).json({ message: "Invalid customer ID" });
+    }
+
+    // ----- DATE RANGE FILTER -----
+    let dateFilter = {};
+    if (fromDate && toDate) {
+      const from = new Date(fromDate);
+      const to = new Date(toDate);
+      to.setHours(23, 59, 59, 999); // include full day
+
+      dateFilter = { gte: from, lte: to };
+    }
+
+    // ----- BUILD WHERE CLAUSES -----
+    const billWhere = fromDate && toDate ? { createdAt: dateFilter, customer_id: customerId } : { customer_id: customerId };
+    const billReceiveWhere = fromDate && toDate ? { createdAt: dateFilter } : {};
+    const receiptVoucherWhere = fromDate && toDate ? { createdAt: dateFilter, customer_id: customerId } : { customer_id: customerId };
+    const transactionWhere = fromDate && toDate ? { createdAt: dateFilter, customerId } : { customerId };
+
+    // ----- FETCH DATA -----
+    const bills = await prisma.bill.findMany({
+      where: billWhere,
+      include: {
+        // billItems: {
+        //   include: {
+        //     qcStock: {
+        //       include: { itemId: true, touchId: true },
+        //     },
+        //   },
+        // },
+        billItems: true,
+        receivedItems: true,
+      },
+    });
+
+    const billReceives = await prisma.receivedItem.findMany({
+      where: billReceiveWhere,
+    });
+
+    const receipts = await prisma.receiptVoucher.findMany({
+      where: receiptVoucherWhere,
+      include: { touchId: true },
+    });
+
+    const transactions = await prisma.customerTransaction.findMany({
+      where: transactionWhere,
+      include: {
+        touch: true,
+        stock: true,
+      },
+    });
+
+    // ----- COMBINE DATA -----
+    const combinedData = [
+      ...bills.map((bill) => ({ type: "Bill", info: bill })),
+      ...billReceives.map((receive) => ({ type: "BillReceive", info: receive })),
+      ...receipts.map((receipt) => ({ type: "ReceiptVoucher", info: receipt })),
+      ...transactions.map((tran) => ({ type: "Transaction", info: tran })),
+    ];
+
+    // ----- FETCH OVERALL BALANCE -----
+    const overallBalance = await getCustomerBalance(customerId);
+
+    // ----- SUMMARY -----
+    const summary = {
+      totalBills: bills.length,
+      totalReceipts: receipts.length,
+      totalTransactions: transactions.length,
+      totalBillReceives: billReceives.length,
+    };
+
+    // ----- RESPONSE -----
+    res.status(200).json({
+      data: combinedData,
+      summary,
+      overallBalance,
+      filterRange:
+        fromDate && toDate ? { from: fromDate, to: toDate } : "All Time",
+    });
+  } catch (error) {
+    console.error("Error in customerReport:", error);
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
+
+
