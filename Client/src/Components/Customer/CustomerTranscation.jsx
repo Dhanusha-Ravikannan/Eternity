@@ -69,8 +69,29 @@ const CustomerTranscation = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
+    //  Prevent negative inputs for specific fields
+    if (
+      (name === "cashValue" || name === "goldRate") &&
+      newTransaction.type === "Cash" &&
+      parseFloat(value) < 0
+    ) {
+      toast.error("Negative values are not allowed for Cash transactions");
+      return;
+    }
+  
+    if (
+      name === "goldValue" &&
+      newTransaction.type === "Gold" &&
+      parseFloat(value) < 0
+    ) {
+      toast.error("Negative values are not allowed for Gold transactions");
+      return;
+    }
+  
     const updatedTransaction = { ...newTransaction, [name]: value };
-
+  
+    // 🔹 Cash type calculations
     if (name === "cashValue" && updatedTransaction.type === "Cash") {
       updatedTransaction.value = value;
       const cashValue = parseFloat(value);
@@ -80,6 +101,7 @@ const CustomerTranscation = () => {
       } else {
         updatedTransaction.purity = "";
       }
+  
     } else if (name === "goldRate" && updatedTransaction.type === "Cash") {
       const cashValue = parseFloat(updatedTransaction.cashValue);
       const goldRate = parseFloat(value);
@@ -88,6 +110,8 @@ const CustomerTranscation = () => {
       } else {
         updatedTransaction.purity = "";
       }
+  
+    // 🔹 Gold type calculations
     } else if (name === "goldValue" && updatedTransaction.type === "Gold") {
       updatedTransaction.value = value;
       const touch = parseFloat(updatedTransaction.touch);
@@ -97,18 +121,22 @@ const CustomerTranscation = () => {
       } else {
         updatedTransaction.purity = "";
       }
+  
     } else if (name === "touchId" && updatedTransaction.type === "Gold") {
-      const selectedTouch = touchOptions.find(option => option.id === parseInt(value));
+      const selectedTouch = touchOptions.find(
+        (option) => option.id === parseInt(value)
+      );
       if (selectedTouch) {
         updatedTransaction.touchId = selectedTouch.id;
         updatedTransaction.touch = selectedTouch.touch;
-        
         const gold = parseFloat(updatedTransaction.goldValue);
         const touch = parseFloat(selectedTouch.touch);
         if (!isNaN(gold) && !isNaN(touch)) {
           updatedTransaction.purity = ((gold * touch) / 100).toFixed(3);
         }
       }
+  
+    // 🔹 Reset values when type changes
     } else if (name === "type") {
       updatedTransaction.value = "";
       updatedTransaction.cashValue = "";
@@ -118,11 +146,10 @@ const CustomerTranscation = () => {
       updatedTransaction.purity = "";
       updatedTransaction.goldRate = "";
     }
-
+  
     setNewTransaction(updatedTransaction);
   };
-
-
+  
   const addTransaction = async (e) => {
     e.preventDefault();
     setError("");
@@ -175,7 +202,31 @@ if (newBalance !== undefined && newBalance !== null) {
 
   
       //  Refresh transactions
-      setTransactions([...transactions, response.data.transaction]);
+      // setTransactions([...transactions, response.data.transaction]);
+   
+      // const newTransactionRecord = {
+      //   ...response.data.transaction,
+      //   createdAt: new Date().toISOString(),
+      // };
+  
+      // setTransactions((prev) => [newTransactionRecord, ...prev]);
+
+      // Ensure purity and touch details are visible immediately
+const newTransactionRecord = {
+  ...response.data.transaction,
+  createdAt: new Date().toISOString(),
+  purity: newTransaction.purity,
+  touch: newTransaction.type === "Gold"
+    ? { id: newTransaction.touchId, touch: newTransaction.touch }
+    : null,
+  goldRate: newTransaction.goldRate || null,
+  value: newTransaction.value || transactionData.value,
+  type: newTransaction.type,
+};
+
+setTransactions((prev) => [newTransactionRecord, ...prev]);
+
+      
       resetForm();
       setShowPopup(false);
     } catch (error) {
@@ -184,56 +235,6 @@ if (newBalance !== undefined && newBalance !== null) {
     }
   };
   
-
-  // const addTransaction = async (e) => {
-  //   e.preventDefault();
-  //   setError("");
-
-  //   try {
-  //     if (!newTransaction.date || newTransaction.type === "Select") {
-  //       throw new Error("Date and transaction type are required");
-  //     }
-
-  //     if (!customerId) {
-  //       throw new Error("Customer ID is missing");
-  //     }
-
-  //     let transactionData = {
-  //       date: newTransaction.date,
-  //       type: newTransaction.type,
-  //       customerId: parseInt(customerId),
-  //     };
-
-  //     if (newTransaction.type === "Cash") {
-  //       if (!newTransaction.cashValue || !newTransaction.goldRate) {
-  //         throw new Error("Cash value and Gold Rate are required");
-  //       }
-  //       transactionData.value = parseFloat(newTransaction.cashValue);
-  //       transactionData.goldRate = parseFloat(newTransaction.goldRate);
-  //       transactionData.purity = parseFloat(newTransaction.purity);
-  //     } else if (newTransaction.type === "Gold") {
-  //       if (!newTransaction.goldValue || !newTransaction.touchId) {
-  //         throw new Error("Gold value and touch are required");
-  //       }
-  //       transactionData.value = parseFloat(newTransaction.goldValue);
-  //       transactionData.touchId = parseInt(newTransaction.touchId); 
-  //       transactionData.purity = parseFloat(newTransaction.purity);
-  //     }
-
-  //     const response = await axios.post(
-  //       `${BACKEND_SERVER_URL}/api/transactions`,
-  //       transactionData
-  //     );
-  //     setTransactions([...transactions, response.data]);
-  //     resetForm();
-  //     setShowPopup(false);
-  //     toast.success("Transaction added successfully!");
-  //   } catch (error) {
-  //     console.error("Error adding transaction:", error);
-  //     toast.error(error.message || "Error adding transaction");
-  //   }
-  // };
-
   const resetForm = () => {
     setNewTransaction({
       date: getTodayDate(),
@@ -312,17 +313,37 @@ if (newBalance !== undefined && newBalance !== null) {
             value={fromDate}
             onChange={(e) => setFromDate(e.target.value)}
             InputLabelProps={{ shrink: true }}
-            sx={{ ml: "11.5rem" }}
+            sx={{ ml: "7.5rem" }}
           />
           <TextField
             label="To Date"
             type="date"
             size="small"
-            sx={{ ml: "1.9rem" }}
+            sx={{ ml: "1rem" }}
             value={toDate}
             onChange={(e) => setToDate(e.target.value)}
             InputLabelProps={{ shrink: true }}
           />
+
+<Button
+    variant="outlined"
+    color="error"
+    size="small"
+    style={{
+      borderStyle: "solid",
+      borderWidth: "2px",
+      marginLeft:"1rem",
+      backgroundColor: "rgb(188, 18, 35)",
+      color: "white",
+      borderColor: "brown",
+    }}
+    onClick={() => {
+      setFromDate(null);
+      setToDate(null);
+    }}
+  >
+    Reset 
+  </Button>
         </div>
 
 {showPopup && (
@@ -494,7 +515,7 @@ if (newBalance !== undefined && newBalance !== null) {
         <td>
           {transaction.type === "Gold"
             ? `${transaction.value} g`
-            : `₹ ${transaction.value.toFixed(2)}`}
+            : `₹ ${transaction.value}`}
         </td>
 
         <td>{transaction.goldRate}</td>

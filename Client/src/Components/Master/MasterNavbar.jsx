@@ -35,7 +35,7 @@ const MasterNavbar = () => {
             href="/mastercustomer"
             className={`${styles['nav-link']} ${isActive('/mastercustomer') ? styles.active : ''}`}
           >
-            Customer
+            Customer Details
           </a>
         </li>
         <li className={styles['nav-itemm']}>

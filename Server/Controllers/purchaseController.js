@@ -1,14 +1,12 @@
 import { PrismaClient } from "../generated/prisma/index.js";
 const prisma = new PrismaClient();
 
-
-
 export const savePurchase = async (req, res) => {
   try {
     const { id } = req.params;
     const {
       supplierId,
-      createdAt,
+      purchaseDate,
       item,        // Gold / Silver (enum ITEMTYPE)
       weight,
       touch_id,
@@ -41,7 +39,7 @@ export const savePurchase = async (req, res) => {
         where: { id: Number(id) },
         data: {
           supplierId,
-          createdAt: new Date(createdAt),
+          purchaseDate: new Date(purchaseDate),
           item,
           weight,
           touch_id,
@@ -69,7 +67,7 @@ export const savePurchase = async (req, res) => {
       purchase = await prisma.addPurchaseStock.create({
         data: {
           supplierId,
-          createdAt: new Date(createdAt),
+          purchaseDate: new Date(purchaseDate),
           item,
           weight,
           touch_id,
@@ -106,89 +104,13 @@ export const savePurchase = async (req, res) => {
 };
 
 
-// export const savePurchase = async (req, res) => {
-//     try {
-//       const { id } = req.params; 
-//       const {
-//         supplierId,
-//         createdAt,
-//         item,
-//         weight,
-//         touch_id,
-//         purity,
-//         rate,
-//         totalValue,
-//         remarks,
-//       } = req.body;
-  
-//       // Validate supplier
-//       const supplierExists = await prisma.addSupplierItem.findUnique({
-//         where: { id: supplierId },
-//       });
-//       if (!supplierExists) {
-//         return res.status(400).json({ error: "Supplier not found" });
-//       }
-  
-//       // Validate touch
-//       const touchExists = await prisma.addTouch.findUnique({
-//         where: { id: touch_id },
-//       });
-//       if (!touchExists) {
-//         return res.status(400).json({ error: "Touch not found" });
-//       }
-  
-//       let purchase;
-//       if (id) {
-//         //  Update case
-//         purchase = await prisma.addPurchaseStock.update({
-//           where: { id: Number(id) },
-//           data: {
-//             supplierId,
-//             createdAt: new Date(createdAt),
-//             item,
-//             weight,
-//             touch_id,
-//             purity,
-//             rate,
-//             totalValue,
-//             remarks,
-//           },
-//           include: { SupplierId: true, TouchId: true },
-//         });
-//       } else {
-//         //  Create case
-//         purchase = await prisma.addPurchaseStock.create({
-//           data: {
-//             supplierId,
-//             createdAt: new Date(createdAt),
-//             item,
-//             weight,
-//             touch_id,
-//             purity,
-//             rate,
-//             totalValue,
-//             remarks,
-//           },
-//           include: { SupplierId: true, TouchId: true },
-//         });
-//       }
-  
-//       res.status(id ? 200 : 201).json(purchase);
-//     } catch (error) {
-//       console.error("Save Purchase Error:", error);
-//       res.status(400).json({
-//         error: "Failed to save purchase",
-//         detail: error.message,
-//       });
-//     }
-//   };
-  
+
 
 export const createPurchase = async (req, res) => {
   try {
     const {
       supplierId,
-      createdAt,
+      purchaseDate,
       item,
       weight,
       touch_id,
@@ -218,7 +140,7 @@ export const createPurchase = async (req, res) => {
     const newPurchase = await prisma.addPurchaseStock.create({
       data: {
         supplierId,
-        createdAt: new Date(createdAt),
+        purchaseDate: new Date(purchaseDate),
         item,
         weight,
         touch_id,
@@ -244,7 +166,7 @@ export const updatePurchase = async (req, res) => {
   const { id } = req.params;
   const {
     supplierId,
-    createdAt,
+    purchaseDate,
     item,
     weight,
     touch_id,
@@ -276,7 +198,7 @@ export const updatePurchase = async (req, res) => {
       where: { id: Number(id) },
       data: {
         supplierId,
-        createdAt: new Date(createdAt),
+        purchaseDate: new Date(purchaseDate),
         item,
         weight,
         touch_id,
@@ -306,7 +228,7 @@ export const getPurchase = async (req, res) => {
         TouchId: true,
       },
       orderBy: {
-        createdAt: "desc",
+        purchaseDate: "desc"
       },
     });
     res.status(200).json(purchases);

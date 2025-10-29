@@ -109,6 +109,7 @@ function MasterCustomer() {
     } catch (error) {
       console.error("Error deleting customer:", error.response?.data || error.message);
       toast.error("Error deleting customer");
+      // toast.error(" Customer cannot be deleted after Bill Creation, Error deleting customer");
     }
   };
 
