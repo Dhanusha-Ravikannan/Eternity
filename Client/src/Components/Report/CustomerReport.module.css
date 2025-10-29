@@ -125,44 +125,13 @@
     max-width: 400px;
   }
   
-  .balanceCard {
-    display: flex;
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: white;
-    width: 100%;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
-  .balanceCard:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-  }
-  
-  .balancepositive {
-       background-color:white; 
-       border-left: 8px solid #f06292 ;
-       color: black;
-  }
-  
-  .balancenegative {
-      background-color: white;
-      border-left:8px solid #43a047;
-      color: black;
-   
-  }
   .custRepTfoot {
     position: sticky;
     bottom: 0;
-    background: rgb(249, 248, 247);   /* so it doesn’t overlap rows */
-    z-index: 2;          /* positive z-index to stay above */
+    background: rgb(249, 248, 247);   
+    z-index: 2;         
   }
   
-  
-
   .customerReportHeader {
     display: flex;
     flex-direction: column;
@@ -267,4 +236,46 @@
   display: flex;
   justify-content: center;
   margin-top: 1.5rem;
+}
+
+.balanceCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background: #ffffff;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.balanceCard:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.balancenegative {
+  color: #e53935; /* Red for negative */
+  background: rgba(229, 57, 53, 0.08);
+  padding: 10px 18px;
+  border-radius: 8px;
+  flex: 1;
+  text-align: center;
+  border-left:8px solid #dc312e;
+  font-weight: bold;
+
+}
+
+.balancepositive {
+  font-weight: bold;
+  color: #2e7d32; 
+  background: rgba(46, 125, 50, 0.08);
+  padding: 10px 18px;
+  border-radius: 8px;
+  flex: 1;
+  text-align: center;
+  border-left:8px solid #216125;
+
 }

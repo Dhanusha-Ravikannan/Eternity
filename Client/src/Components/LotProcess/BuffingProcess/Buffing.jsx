@@ -94,31 +94,42 @@ const Buffing = () => {
                 </TableRow>
               </TableHead>
               
-<TableBody>
+              <TableBody>
   {filteredData.length > 0 ? (
-    filteredData.map((row, index) => (
-      <TableRow key={row.id} className={index % 2 === 0 ? styles.trEven : ""}>
-        <TableCell className={styles.tableCell}>{index + 1}</TableCell>
-        <TableCell className={styles.tableCell}>
-          {new Date(row.createdAt).toLocaleDateString()}
-        </TableCell>
-        <TableCell className={styles.tableCell}>
-          {new Date(row.createdAt).toLocaleTimeString()}
-        </TableCell>
-        <TableCell className={styles.tableCell}>{row.name}</TableCell>
-        <TableCell className={styles.tableCell}>{row.phoneNumber || "-"}</TableCell>
-        <TableCell className={styles.tableCell}>{row.address || "-"}</TableCell>
-        <TableCell className={styles.tableCell}>{row.balance || "-"}</TableCell>
-        <TableCell className={styles.tableCell}>
+    filteredData.map((row, index) => {
+      const createdAt = new Date(row.createdAt);
+      const dateString = createdAt.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+      const timeString = createdAt.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
 
-          <Link to={`/buffinglot/${row.id}/${encodeURIComponent(row.name)}/${row.lotInfo?.[0]?.lotNumber || 0}`}>
-  <IconButton>
-    <PreviewIcon color="primary" />
-  </IconButton>
-</Link>
-        </TableCell>       
-      </TableRow>
-    ))
+      return (
+        <TableRow key={row.id} className={index % 2 === 0 ? styles.trEven : ""}>
+          <TableCell className={styles.tableCell}>{index + 1}</TableCell>
+          <TableCell className={styles.tableCell}>{dateString}</TableCell>
+          <TableCell className={styles.tableCell}>{timeString}</TableCell>
+          <TableCell className={styles.tableCell}>{row.name}</TableCell>
+          <TableCell className={styles.tableCell}>{row.phoneNumber || "-"}</TableCell>
+          <TableCell className={styles.tableCell}>{row.address || "-"}</TableCell>
+          <TableCell className={styles.tableCell}>{row.balance || "-"}</TableCell>
+
+          <TableCell className={styles.tableCell}>
+            <Link
+              to={`/buffinglot/${row.id}/${encodeURIComponent(row.name)}/${row.lotInfo?.[0]?.lotNumber || 0}`}
+            >
+              <IconButton>
+                <PreviewIcon color="primary" />
+              </IconButton>
+            </Link>
+          </TableCell>
+        </TableRow>
+      );
+    })
   ) : (
     <TableRow>
       <TableCell colSpan={7} align="center">
@@ -127,6 +138,7 @@ const Buffing = () => {
     </TableRow>
   )}
 </TableBody>
+
             </Table>
           </TableContainer>
         </Paper>

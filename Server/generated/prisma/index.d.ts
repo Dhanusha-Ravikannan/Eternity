@@ -11771,6 +11771,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    purchaseDate: Date | null
     supplierId: number | null
     item: $Enums.ITEMTYPE | null
     weight: number | null
@@ -11785,6 +11786,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    purchaseDate: Date | null
     supplierId: number | null
     item: $Enums.ITEMTYPE | null
     weight: number | null
@@ -11799,6 +11801,7 @@ export namespace Prisma {
     id: number
     createdAt: number
     updatedAt: number
+    purchaseDate: number
     supplierId: number
     item: number
     weight: number
@@ -11835,6 +11838,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    purchaseDate?: true
     supplierId?: true
     item?: true
     weight?: true
@@ -11849,6 +11853,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    purchaseDate?: true
     supplierId?: true
     item?: true
     weight?: true
@@ -11863,6 +11868,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    purchaseDate?: true
     supplierId?: true
     item?: true
     weight?: true
@@ -11964,6 +11970,7 @@ export namespace Prisma {
     id: number
     createdAt: Date
     updatedAt: Date
+    purchaseDate: Date
     supplierId: number
     item: $Enums.ITEMTYPE
     weight: number
@@ -11997,6 +12004,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    purchaseDate?: boolean
     supplierId?: boolean
     item?: boolean
     weight?: boolean
@@ -12017,6 +12025,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    purchaseDate?: boolean
     supplierId?: boolean
     item?: boolean
     weight?: boolean
@@ -12027,7 +12036,7 @@ export namespace Prisma {
     remarks?: boolean
   }
 
-  export type AddPurchaseStockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "supplierId" | "item" | "weight" | "touch_id" | "purity" | "rate" | "totalValue" | "remarks", ExtArgs["result"]["addPurchaseStock"]>
+  export type AddPurchaseStockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "purchaseDate" | "supplierId" | "item" | "weight" | "touch_id" | "purity" | "rate" | "totalValue" | "remarks", ExtArgs["result"]["addPurchaseStock"]>
   export type AddPurchaseStockInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     SupplierId?: boolean | AddSupplierItemDefaultArgs<ExtArgs>
     TouchId?: boolean | AddTouchDefaultArgs<ExtArgs>
@@ -12046,6 +12055,7 @@ export namespace Prisma {
       id: number
       createdAt: Date
       updatedAt: Date
+      purchaseDate: Date
       supplierId: number
       item: $Enums.ITEMTYPE
       weight: number
@@ -12429,6 +12439,7 @@ export namespace Prisma {
     readonly id: FieldRef<"AddPurchaseStock", 'Int'>
     readonly createdAt: FieldRef<"AddPurchaseStock", 'DateTime'>
     readonly updatedAt: FieldRef<"AddPurchaseStock", 'DateTime'>
+    readonly purchaseDate: FieldRef<"AddPurchaseStock", 'DateTime'>
     readonly supplierId: FieldRef<"AddPurchaseStock", 'Int'>
     readonly item: FieldRef<"AddPurchaseStock", 'ITEMTYPE'>
     readonly weight: FieldRef<"AddPurchaseStock", 'Int'>
@@ -16372,6 +16383,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    date: Date | null
     item_id: number | null
     weight: number | null
     stone_weight: number | null
@@ -16385,6 +16397,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    date: Date | null
     item_id: number | null
     weight: number | null
     stone_weight: number | null
@@ -16398,6 +16411,7 @@ export namespace Prisma {
     id: number
     createdAt: number
     updatedAt: number
+    date: number
     item_id: number
     weight: number
     stone_weight: number
@@ -16433,6 +16447,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    date?: true
     item_id?: true
     weight?: true
     stone_weight?: true
@@ -16446,6 +16461,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    date?: true
     item_id?: true
     weight?: true
     stone_weight?: true
@@ -16459,6 +16475,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    date?: true
     item_id?: true
     weight?: true
     stone_weight?: true
@@ -16559,6 +16576,7 @@ export namespace Prisma {
     id: number
     createdAt: Date
     updatedAt: Date
+    date: Date
     item_id: number
     weight: number
     stone_weight: number
@@ -16591,6 +16609,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    date?: boolean
     item_id?: boolean
     weight?: boolean
     stone_weight?: boolean
@@ -16610,6 +16629,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    date?: boolean
     item_id?: boolean
     weight?: boolean
     stone_weight?: boolean
@@ -16619,7 +16639,7 @@ export namespace Prisma {
     remarks?: boolean
   }
 
-  export type QcStockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "item_id" | "weight" | "stone_weight" | "final_weight" | "touch_id" | "purity" | "remarks", ExtArgs["result"]["qcStock"]>
+  export type QcStockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "date" | "item_id" | "weight" | "stone_weight" | "final_weight" | "touch_id" | "purity" | "remarks", ExtArgs["result"]["qcStock"]>
   export type QcStockInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     itemId?: boolean | AddItemDefaultArgs<ExtArgs>
     touchId?: boolean | AddTouchDefaultArgs<ExtArgs>
@@ -16638,6 +16658,7 @@ export namespace Prisma {
       id: number
       createdAt: Date
       updatedAt: Date
+      date: Date
       item_id: number
       weight: number
       stone_weight: number
@@ -17020,6 +17041,7 @@ export namespace Prisma {
     readonly id: FieldRef<"QcStock", 'Int'>
     readonly createdAt: FieldRef<"QcStock", 'DateTime'>
     readonly updatedAt: FieldRef<"QcStock", 'DateTime'>
+    readonly date: FieldRef<"QcStock", 'DateTime'>
     readonly item_id: FieldRef<"QcStock", 'Int'>
     readonly weight: FieldRef<"QcStock", 'Float'>
     readonly stone_weight: FieldRef<"QcStock", 'Float'>
@@ -46351,6 +46373,7 @@ export namespace Prisma {
     id: 'id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
+    purchaseDate: 'purchaseDate',
     supplierId: 'supplierId',
     item: 'item',
     weight: 'weight',
@@ -46405,6 +46428,7 @@ export namespace Prisma {
     id: 'id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
+    date: 'date',
     item_id: 'item_id',
     weight: 'weight',
     stone_weight: 'stone_weight',
@@ -47562,6 +47586,7 @@ export namespace Prisma {
     id?: IntFilter<"AddPurchaseStock"> | number
     createdAt?: DateTimeFilter<"AddPurchaseStock"> | Date | string
     updatedAt?: DateTimeFilter<"AddPurchaseStock"> | Date | string
+    purchaseDate?: DateTimeFilter<"AddPurchaseStock"> | Date | string
     supplierId?: IntFilter<"AddPurchaseStock"> | number
     item?: EnumITEMTYPEFilter<"AddPurchaseStock"> | $Enums.ITEMTYPE
     weight?: IntFilter<"AddPurchaseStock"> | number
@@ -47579,6 +47604,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    purchaseDate?: SortOrder
     supplierId?: SortOrder
     item?: SortOrder
     weight?: SortOrder
@@ -47600,6 +47626,7 @@ export namespace Prisma {
     NOT?: AddPurchaseStockWhereInput | AddPurchaseStockWhereInput[]
     createdAt?: DateTimeFilter<"AddPurchaseStock"> | Date | string
     updatedAt?: DateTimeFilter<"AddPurchaseStock"> | Date | string
+    purchaseDate?: DateTimeFilter<"AddPurchaseStock"> | Date | string
     supplierId?: IntFilter<"AddPurchaseStock"> | number
     item?: EnumITEMTYPEFilter<"AddPurchaseStock"> | $Enums.ITEMTYPE
     weight?: IntFilter<"AddPurchaseStock"> | number
@@ -47617,6 +47644,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    purchaseDate?: SortOrder
     supplierId?: SortOrder
     item?: SortOrder
     weight?: SortOrder
@@ -47639,6 +47667,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"AddPurchaseStock"> | number
     createdAt?: DateTimeWithAggregatesFilter<"AddPurchaseStock"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AddPurchaseStock"> | Date | string
+    purchaseDate?: DateTimeWithAggregatesFilter<"AddPurchaseStock"> | Date | string
     supplierId?: IntWithAggregatesFilter<"AddPurchaseStock"> | number
     item?: EnumITEMTYPEWithAggregatesFilter<"AddPurchaseStock"> | $Enums.ITEMTYPE
     weight?: IntWithAggregatesFilter<"AddPurchaseStock"> | number
@@ -47903,6 +47932,7 @@ export namespace Prisma {
     id?: IntFilter<"QcStock"> | number
     createdAt?: DateTimeFilter<"QcStock"> | Date | string
     updatedAt?: DateTimeFilter<"QcStock"> | Date | string
+    date?: DateTimeFilter<"QcStock"> | Date | string
     item_id?: IntFilter<"QcStock"> | number
     weight?: FloatFilter<"QcStock"> | number
     stone_weight?: FloatFilter<"QcStock"> | number
@@ -47919,6 +47949,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    date?: SortOrder
     item_id?: SortOrder
     weight?: SortOrder
     stone_weight?: SortOrder
@@ -47939,6 +47970,7 @@ export namespace Prisma {
     NOT?: QcStockWhereInput | QcStockWhereInput[]
     createdAt?: DateTimeFilter<"QcStock"> | Date | string
     updatedAt?: DateTimeFilter<"QcStock"> | Date | string
+    date?: DateTimeFilter<"QcStock"> | Date | string
     item_id?: IntFilter<"QcStock"> | number
     weight?: FloatFilter<"QcStock"> | number
     stone_weight?: FloatFilter<"QcStock"> | number
@@ -47955,6 +47987,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    date?: SortOrder
     item_id?: SortOrder
     weight?: SortOrder
     stone_weight?: SortOrder
@@ -47976,6 +48009,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"QcStock"> | number
     createdAt?: DateTimeWithAggregatesFilter<"QcStock"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"QcStock"> | Date | string
+    date?: DateTimeWithAggregatesFilter<"QcStock"> | Date | string
     item_id?: IntWithAggregatesFilter<"QcStock"> | number
     weight?: FloatWithAggregatesFilter<"QcStock"> | number
     stone_weight?: FloatWithAggregatesFilter<"QcStock"> | number
@@ -50840,6 +50874,7 @@ export namespace Prisma {
   export type AddPurchaseStockCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    purchaseDate: Date | string
     item: $Enums.ITEMTYPE
     weight: number
     purity: number
@@ -50855,6 +50890,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    purchaseDate: Date | string
     supplierId: number
     item: $Enums.ITEMTYPE
     weight: number
@@ -50869,6 +50905,7 @@ export namespace Prisma {
   export type AddPurchaseStockUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
     purity?: FloatFieldUpdateOperationsInput | number
@@ -50884,6 +50921,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     supplierId?: IntFieldUpdateOperationsInput | number
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
@@ -50899,6 +50937,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    purchaseDate: Date | string
     supplierId: number
     item: $Enums.ITEMTYPE
     weight: number
@@ -50912,6 +50951,7 @@ export namespace Prisma {
   export type AddPurchaseStockUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
     purity?: FloatFieldUpdateOperationsInput | number
@@ -50924,6 +50964,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     supplierId?: IntFieldUpdateOperationsInput | number
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
@@ -51196,8 +51237,9 @@ export namespace Prisma {
   }
 
   export type QcStockCreateInput = {
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
+    date: Date | string
     weight: number
     stone_weight: number
     final_weight: number
@@ -51210,8 +51252,9 @@ export namespace Prisma {
 
   export type QcStockUncheckedCreateInput = {
     id?: number
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
+    date: Date | string
     item_id: number
     weight: number
     stone_weight: number
@@ -51225,6 +51268,7 @@ export namespace Prisma {
   export type QcStockUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
@@ -51239,6 +51283,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     item_id?: IntFieldUpdateOperationsInput | number
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number
@@ -51251,8 +51296,9 @@ export namespace Prisma {
 
   export type QcStockCreateManyInput = {
     id?: number
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
+    date: Date | string
     item_id: number
     weight: number
     stone_weight: number
@@ -51265,6 +51311,7 @@ export namespace Prisma {
   export type QcStockUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
@@ -51276,6 +51323,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     item_id?: IntFieldUpdateOperationsInput | number
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number
@@ -54253,6 +54301,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    purchaseDate?: SortOrder
     supplierId?: SortOrder
     item?: SortOrder
     weight?: SortOrder
@@ -54277,6 +54326,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    purchaseDate?: SortOrder
     supplierId?: SortOrder
     item?: SortOrder
     weight?: SortOrder
@@ -54291,6 +54341,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    purchaseDate?: SortOrder
     supplierId?: SortOrder
     item?: SortOrder
     weight?: SortOrder
@@ -54583,6 +54634,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    date?: SortOrder
     item_id?: SortOrder
     weight?: SortOrder
     stone_weight?: SortOrder
@@ -54606,6 +54658,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    date?: SortOrder
     item_id?: SortOrder
     weight?: SortOrder
     stone_weight?: SortOrder
@@ -54619,6 +54672,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    date?: SortOrder
     item_id?: SortOrder
     weight?: SortOrder
     stone_weight?: SortOrder
@@ -62617,6 +62671,7 @@ export namespace Prisma {
   export type AddPurchaseStockCreateWithoutSupplierIdInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    purchaseDate: Date | string
     item: $Enums.ITEMTYPE
     weight: number
     purity: number
@@ -62631,6 +62686,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    purchaseDate: Date | string
     item: $Enums.ITEMTYPE
     weight: number
     touch_id: number
@@ -62674,6 +62730,7 @@ export namespace Prisma {
     id?: IntFilter<"AddPurchaseStock"> | number
     createdAt?: DateTimeFilter<"AddPurchaseStock"> | Date | string
     updatedAt?: DateTimeFilter<"AddPurchaseStock"> | Date | string
+    purchaseDate?: DateTimeFilter<"AddPurchaseStock"> | Date | string
     supplierId?: IntFilter<"AddPurchaseStock"> | number
     item?: EnumITEMTYPEFilter<"AddPurchaseStock"> | $Enums.ITEMTYPE
     weight?: IntFilter<"AddPurchaseStock"> | number
@@ -63302,8 +63359,9 @@ export namespace Prisma {
   }
 
   export type QcStockCreateWithoutItemIdInput = {
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
+    date: Date | string
     weight: number
     stone_weight: number
     final_weight: number
@@ -63315,8 +63373,9 @@ export namespace Prisma {
 
   export type QcStockUncheckedCreateWithoutItemIdInput = {
     id?: number
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
+    date: Date | string
     weight: number
     stone_weight: number
     final_weight: number
@@ -63525,6 +63584,7 @@ export namespace Prisma {
     id?: IntFilter<"QcStock"> | number
     createdAt?: DateTimeFilter<"QcStock"> | Date | string
     updatedAt?: DateTimeFilter<"QcStock"> | Date | string
+    date?: DateTimeFilter<"QcStock"> | Date | string
     item_id?: IntFilter<"QcStock"> | number
     weight?: FloatFilter<"QcStock"> | number
     stone_weight?: FloatFilter<"QcStock"> | number
@@ -63822,6 +63882,7 @@ export namespace Prisma {
   export type AddPurchaseStockCreateWithoutTouchIdInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    purchaseDate: Date | string
     item: $Enums.ITEMTYPE
     weight: number
     purity: number
@@ -63836,6 +63897,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    purchaseDate: Date | string
     supplierId: number
     item: $Enums.ITEMTYPE
     weight: number
@@ -63894,8 +63956,9 @@ export namespace Prisma {
   }
 
   export type QcStockCreateWithoutTouchIdInput = {
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
+    date: Date | string
     weight: number
     stone_weight: number
     final_weight: number
@@ -63907,8 +63970,9 @@ export namespace Prisma {
 
   export type QcStockUncheckedCreateWithoutTouchIdInput = {
     id?: number
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
+    date: Date | string
     item_id: number
     weight: number
     stone_weight: number
@@ -70076,6 +70140,7 @@ export namespace Prisma {
   export type AddPurchaseStockCreateWithoutStockInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    purchaseDate: Date | string
     item: $Enums.ITEMTYPE
     weight: number
     purity: number
@@ -70090,6 +70155,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    purchaseDate: Date | string
     supplierId: number
     item: $Enums.ITEMTYPE
     weight: number
@@ -70435,6 +70501,7 @@ export namespace Prisma {
   export type AddPurchaseStockUpdateWithoutStockInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
     purity?: FloatFieldUpdateOperationsInput | number
@@ -70449,6 +70516,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     supplierId?: IntFieldUpdateOperationsInput | number
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
@@ -70816,8 +70884,9 @@ export namespace Prisma {
   }
 
   export type QcStockCreateWithoutBillItemInput = {
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
+    date: Date | string
     weight: number
     stone_weight: number
     final_weight: number
@@ -70829,8 +70898,9 @@ export namespace Prisma {
 
   export type QcStockUncheckedCreateWithoutBillItemInput = {
     id?: number
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
+    date: Date | string
     item_id: number
     weight: number
     stone_weight: number
@@ -70939,6 +71009,7 @@ export namespace Prisma {
   export type QcStockUpdateWithoutBillItemInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
@@ -70952,6 +71023,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     item_id?: IntFieldUpdateOperationsInput | number
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number
@@ -72222,6 +72294,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    purchaseDate: Date | string
     item: $Enums.ITEMTYPE
     weight: number
     touch_id: number
@@ -72234,6 +72307,7 @@ export namespace Prisma {
   export type AddPurchaseStockUpdateWithoutSupplierIdInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
     purity?: FloatFieldUpdateOperationsInput | number
@@ -72248,6 +72322,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
     touch_id?: IntFieldUpdateOperationsInput | number
@@ -72262,6 +72337,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
     touch_id?: IntFieldUpdateOperationsInput | number
@@ -72471,8 +72547,9 @@ export namespace Prisma {
 
   export type QcStockCreateManyItemIdInput = {
     id?: number
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
+    date: Date | string
     weight: number
     stone_weight: number
     final_weight: number
@@ -72720,6 +72797,7 @@ export namespace Prisma {
   export type QcStockUpdateWithoutItemIdInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
@@ -72733,6 +72811,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
@@ -72746,6 +72825,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
@@ -72881,6 +72961,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    purchaseDate: Date | string
     supplierId: number
     item: $Enums.ITEMTYPE
     weight: number
@@ -72905,8 +72986,9 @@ export namespace Prisma {
 
   export type QcStockCreateManyTouchIdInput = {
     id?: number
-    createdAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
+    date: Date | string
     item_id: number
     weight: number
     stone_weight: number
@@ -73210,6 +73292,7 @@ export namespace Prisma {
   export type AddPurchaseStockUpdateWithoutTouchIdInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
     purity?: FloatFieldUpdateOperationsInput | number
@@ -73224,6 +73307,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     supplierId?: IntFieldUpdateOperationsInput | number
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
@@ -73238,6 +73322,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     supplierId?: IntFieldUpdateOperationsInput | number
     item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
     weight?: IntFieldUpdateOperationsInput | number
@@ -73290,6 +73375,7 @@ export namespace Prisma {
   export type QcStockUpdateWithoutTouchIdInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number
     final_weight?: FloatFieldUpdateOperationsInput | number
@@ -73303,6 +73389,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     item_id?: IntFieldUpdateOperationsInput | number
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number
@@ -73316,6 +73403,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     item_id?: IntFieldUpdateOperationsInput | number
     weight?: FloatFieldUpdateOperationsInput | number
     stone_weight?: FloatFieldUpdateOperationsInput | number

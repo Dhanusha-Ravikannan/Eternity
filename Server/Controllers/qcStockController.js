@@ -24,6 +24,7 @@ export const createQCStock = async (req, res) => {
       qcStock = await prisma.qcStock.update({
         where: { id: Number(id) },
         data: {
+          date: date ? new Date(date) : new Date(),
           item_id: Number(item_id),
           weight: parseFloat(weight),
           stone_weight: parseFloat(stoneWeight),
@@ -41,7 +42,7 @@ export const createQCStock = async (req, res) => {
       // Create new record
       qcStock = await prisma.qcStock.create({
         data: {
-          createdAt: date ? new Date(date) : new Date(),
+          date: date ? new Date(date) : new Date(),
           item_id: Number(item_id),
           weight: parseFloat(weight),
           stone_weight: parseFloat(stoneWeight),
@@ -63,46 +64,6 @@ export const createQCStock = async (req, res) => {
     res.status(500).json({ error: "Failed to save QC Stock" });
   }
 };
-
-
-// export const createQCStock = async (req, res) => {
-//     try {
-//       const {
-//         date,
-//         item_id,
-//         weight,
-//         stoneWeight,  
-//         finalWeight,
-//         touch_id,
-//         purity,
-//         remarks,
-//       } = req.body;
-
-//       const created = await prisma.qcStock.create({
-//         data: {
-//           createdAt: date ? new Date(date) : new Date(),
-//           item_id: Number(item_id),
-//           touch_id: Number(touch_id),
-//           remarks: remarks,
-//           weight: parseFloat(weight),
-//           stone_weight: parseFloat(stoneWeight),
-//           final_weight: parseFloat(finalWeight),
-//           purity: parseFloat(purity)
-
-//         },
-//         include: {
-//           itemId: true,
-//           touchId: true,
-//         },
-//       });
-  
-//       res.status(201).json(created);
-//     } catch (error) {
-//       console.error("Error creating QC Stock:", error);
-//       res.status(500).json({ error: error.message });
-//     }
-//   };
-  
 
 //  Get All QC Stocks
 
@@ -174,20 +135,31 @@ export const getUnUsedQCStock = async (req, res) => {
 
 
 //  Update QC Stock
+
 export const updateQCStock = async (req, res) => {
   try {
     const { id } = req.params;
-    const { item_id, weight, stone_weight, final_weight, touch_id, purity, remarks } = req.body;
+    const {
+      date,
+      item_id,
+      weight,
+      stoneWeight,
+      finalWeight,
+      touch_id,
+      purity,
+      remarks,
+    } = req.body;
 
-    const qcStock = await prisma.qcStock.update({
+    const updated = await prisma.qcStock.update({
       where: { id: Number(id) },
       data: {
-        item_id,
-        weight,
-        stone_weight,
-        final_weight,
-        touch_id,
-        purity,
+        date: date ? new Date(date) : undefined,
+        item_id: Number(item_id),
+        weight: parseFloat(weight),
+        stone_weight: parseFloat(stoneWeight),
+        final_weight: parseFloat(finalWeight),
+        touch_id: Number(touch_id),
+        purity: parseFloat(purity),
         remarks,
       },
       include: {
@@ -196,7 +168,7 @@ export const updateQCStock = async (req, res) => {
       },
     });
 
-    res.json(qcStock);
+    res.status(200).json(updated);
   } catch (error) {
     console.error("Error updating QC Stock:", error);
     res.status(500).json({ error: "Failed to update QC Stock" });

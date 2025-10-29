@@ -80,3 +80,45 @@
 .trEven {
   background-color: #f5f5f5;
 }
+
+
+/* Make Save and Cancel buttons appear in one line */
+.itemlist td button {
+  display: inline-block;
+  padding: 6px 10px;
+  margin-right: 6px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Save button style */
+.itemlist td button:first-of-type {
+  color: white;
+  background-color: rgb(36, 124, 212);
+}
+
+/* Cancel button style */
+.itemlist td button:last-of-type {
+  background-color: #d6372c; 
+  color: white;
+}
+
+/* Hover effects */
+.itemlist td button:first-of-type:hover {
+  background-color: #27679c;
+}
+
+.itemlist td button:last-of-type:hover {
+  background-color: #aa1818;
+}
+
+/* Make actions column neat and centered */
+.itemlist td {
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+}

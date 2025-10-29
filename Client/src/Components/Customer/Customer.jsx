@@ -110,7 +110,13 @@ const Customer = () => {
 <TableBody>
   {filteredCustomers.map((customer, index) => {
     const updatedAt = new Date(customer.updatedAt);
-    const dateString = updatedAt.toLocaleDateString();
+    // const dateString = updatedAt.toLocaleDateString();
+    const dateString = updatedAt.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+    
     const timeString = updatedAt.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",

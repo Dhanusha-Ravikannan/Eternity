@@ -118,19 +118,20 @@ model AddSupplierItem {
 }
 
 model AddPurchaseStock {
-  id         Int             @id @default(autoincrement())
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
-  supplierId Int
-  SupplierId AddSupplierItem @relation(fields: [supplierId], references: [id])
-  item       ITEMTYPE
-  weight     Int
-  touch_id   Int
-  TouchId    AddTouch        @relation(fields: [touch_id], references: [id])
-  purity     Float
-  rate       Float
-  totalValue Float
-  remarks    String?
+  id           Int             @id @default(autoincrement())
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  purchaseDate DateTime
+  supplierId   Int
+  SupplierId   AddSupplierItem @relation(fields: [supplierId], references: [id])
+  item         ITEMTYPE
+  weight       Int
+  touch_id     Int
+  TouchId      AddTouch        @relation(fields: [touch_id], references: [id])
+  purity       Float
+  rate         Float
+  totalValue   Float
+  remarks      String?
 
   Stock Stock[]
 }
@@ -186,8 +187,9 @@ model AddTouch {
 
 model QcStock {
   id           Int        @id @default(autoincrement())
-  createdAt    DateTime
+  createdAt    DateTime   @default(now())
   updatedAt    DateTime   @default(now()) @updatedAt
+  date         DateTime
   item_id      Int
   itemId       AddItem    @relation(fields: [item_id], references: [id])
   weight       Float
@@ -603,7 +605,7 @@ model BillItem {
   updatedAt    DateTime @updatedAt
 
   bill      Bill     @relation(fields: [bill_id], references: [id])
-  qcStock   QcStock  @relation(fields: [qc_stock_id], references: [id])
+  qcStock   QcStock  @relation(fields: [qc_stock_id], references: [id], onDelete: Cascade)
   AddItem   AddItem? @relation(fields: [addItemId], references: [id])
   addItemId Int?
 }

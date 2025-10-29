@@ -8,6 +8,11 @@ import { Edit, Delete, Search  } from "@mui/icons-material";
 import { TextField, MenuItem, Button, Box, InputAdornment,  FormControl,   InputLabel, Select,  Dialog,  DialogTitle,  DialogContent } from "@mui/material";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Tooltip } from "@mui/material";
+
+
 
 const QCStock = () => {
   const [open, setOpen] = useState(false);
@@ -107,25 +112,66 @@ const QCStock = () => {
     setFormData(updated);
   };
 
-
-const handleSave = async () => {
+  const handleSave = async () => {
+    //  Validation before API call
+    const { date, item_id, weight, stoneWeight, finalWeight, touch_id, purity } = formData;
+  
+    if (
+      !date ||
+      !item_id ||
+      !weight ||
+      !stoneWeight ||
+      !finalWeight ||
+      !touch_id ||
+      !purity
+    ) {
+      toast.error("Please fill all required fields. Remarks is optional.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
+      return;
+    }
+  
     try {
       await axios.post(`${BACKEND_SERVER_URL}/api/qcstock`, {
         ...formData,
-        id: editingId, 
+        id: editingId,
       });
       fetchEntries();
       handleClose();
+  
+      toast.success("QC Stock saved successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
     } catch (err) {
       console.error("Error saving QC stock:", err);
+      toast.error("Failed to save QC Stock. Please check your inputs.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
     }
   };
   
-
   const handleEdit = (index) => {
     const entry = entries[index];
     setFormData({
-      date: entry.createdAt?.split("T")[0],
+      date: entry.date ? entry.date.split("T")[0] : "", 
       item_id: entry.item_id,
       weight: entry.weight,
       stoneWeight: entry.stone_weight,
@@ -177,12 +223,8 @@ const totalFinalWeight = filteredEntries.reduce((sum, entry) => sum + (entry.fin
 const totalPurity = filteredEntries.reduce((sum, entry) => sum + (entry.purity || 0), 0);
 
 
-
-
-
 const handleDownloadPDF = () => {
   const doc = new jsPDF();
-
    // Title centered
    doc.setFontSize(16);
    const pageWidth = doc.internal.pageSize.getWidth();
@@ -364,7 +406,7 @@ const handleDownloadPDF = () => {
     </div>
     <div className={styles.summaryItem}>
             <span>Total Purity :</span>
-            <span>{totalPurity}</span>
+            <span>{totalPurity.toFixed(3)}</span>
     </div>
         </div>
       </div> 
@@ -389,21 +431,22 @@ const handleDownloadPDF = () => {
           />
 
           <Box display="flex" gap={2}>
-            <FormControl fullWidth margin="dense">
-              <InputLabel>Jewel Name</InputLabel>
-              <Select
-                name="item_id"
-                value={formData.item_id}
-                onChange={handleChange}
-              >
-                {items.map((item) => (
-                  <MenuItem key={item.id} value={item.id}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
+          <FormControl fullWidth margin="dense" variant="outlined">
+  <InputLabel id="jewel-name-label">Jewel Name</InputLabel>
+  <Select
+    labelId="jewel-name-label"
+    name="item_id"
+    value={formData.item_id}
+    onChange={handleChange}
+    label="Jewel Name" 
+  >
+    {items.map((item) => (
+      <MenuItem key={item.id} value={item.id}>
+        {item.name}
+      </MenuItem>
+    ))}
+  </Select>
+</FormControl>
             <TextField
               label="Weight"
               name="weight"
@@ -441,20 +484,23 @@ const handleDownloadPDF = () => {
           </Box>
 
           <Box display="flex" gap={2}>
-            <FormControl fullWidth margin="dense">
-              <InputLabel>Touch</InputLabel>
-              <Select
-                name="touch_id"
-                value={formData.touch_id}
-                onChange={handleChange}
-              >
-                {touches.map((t) => (
-                  <MenuItem key={t.id} value={t.id}>
-                    {t.touch}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+          <FormControl fullWidth margin="dense" variant="outlined">
+  <InputLabel id="touch-label">Touch</InputLabel>
+  <Select
+    labelId="touch-label"
+    name="touch_id"
+    value={formData.touch_id}
+    onChange={handleChange}
+    label="Touch"
+  >
+    {touches.map((t) => (
+      <MenuItem key={t.id} value={t.id}>
+        {t.touch}
+      </MenuItem>
+    ))}
+  </Select>
+</FormControl>
+
 
             <TextField
               label="Purity"
@@ -509,19 +555,18 @@ const handleDownloadPDF = () => {
           <tbody>
             {filteredEntries.length > 0 ? (
               filteredEntries.map((entry, index) => {
-
-                const updatedDateObj = entry.updatedAt ? new Date(entry.updatedAt) : null;
-
-const formattedUpdatedDate = updatedDateObj
-  ? updatedDateObj.toLocaleDateString("en-IN", {
+const dateObj = entry.date ? new Date(entry.date) : null;
+const formattedDate = dateObj
+  ? dateObj.toLocaleDateString("en-IN", {
       day: "2-digit",
       month: "short",
       year: "numeric",
     })
   : "—";
 
-const formattedUpdatedTime = updatedDateObj
-  ? updatedDateObj.toLocaleTimeString("en-IN", {
+const updatedAtObj = entry.updatedAt ? new Date(entry.updatedAt) : null;
+const formattedTime = updatedAtObj
+  ? updatedAtObj.toLocaleTimeString("en-IN", {
       hour: "2-digit",
       minute: "2-digit",
       hour12: true,
@@ -531,8 +576,8 @@ const formattedUpdatedTime = updatedDateObj
                 return (
                   <tr key={entry.id} className={index % 2 === 0 ? styles.trEven : ""}>
                     <td>{index + 1}</td>
-                    <td>{formattedUpdatedDate}</td>
-                    <td>{formattedUpdatedTime}</td>
+                    <td>{formattedDate}</td>
+                    <td>{formattedTime}</td>
                     <td>{entry.itemId?.name}</td>
                     <td>{entry.weight}</td>
                     <td>{entry.stone_weight}</td>
@@ -541,17 +586,57 @@ const formattedUpdatedTime = updatedDateObj
                     <td>{entry.purity}</td>
                     <td>{entry.remarks}</td>
                     <td>{entry.status}</td>
-                    <td>
-                      <Edit
+                    {/* <td>
+                       <Edit
                         style={{ cursor: "pointer" }}
                         onClick={() => handleEdit(index)}
-                      />
-                    
+                      />      
                       <Delete
              onClick={() => handleDelete(entry.id)}
               className={styles.deleteIcon}
             />
-                    </td>
+                    </td> */}
+
+<td>
+  {entry.status === "Moved" ? (
+    <>
+      <Tooltip title="Cannot edit a moved entry">
+        <span>
+          <Edit
+            style={{
+              cursor: "not-allowed",
+              opacity: 0.4,
+            }}
+          />
+        </span>
+      </Tooltip>
+
+      <Tooltip title="Cannot delete a moved entry">
+        <span>
+          <Delete
+            style={{
+              cursor: "not-allowed",
+              opacity: 0.4,
+              marginLeft: "0.5rem",
+            }}
+          />
+        </span>
+      </Tooltip>
+    </>
+  ) : (
+    <>
+      <Edit
+        style={{ cursor: "pointer" }}
+        onClick={() => handleEdit(index)}
+      />
+      <Delete
+        onClick={() => handleDelete(entry.id)}
+        className={styles.deleteIcon}
+        style={{ marginLeft: "0.5rem" }}
+      />
+    </>
+  )}
+</td>
                   </tr>
                 );
               })
@@ -585,6 +670,7 @@ const formattedUpdatedTime = updatedDateObj
   </Button> */}
 </div>
 
+<ToastContainer />
      
     </>
   );
