@@ -655,7 +655,17 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
                   {i === 0 && (
                     <>
                       <td rowSpan={entry.items.length}>{index + 1}</td>
-                      <td rowSpan={entry.items.length}>{entry.date}</td>
+                      {/* <td rowSpan={entry.items.length}>{entry.date}</td> */}
+                      <td rowSpan={entry.items.length}>
+  {entry.date
+    ? new Date(entry.date).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+    : "-"}
+</td>
+
                     </>
                   )}
                   <td>{item.item}</td>

@@ -317,7 +317,16 @@ const CastingEntry = () => {
     {entries.map((entry, index) => (
       <tr key={entry.id}>
         <td>{index + 1}</td>
-        <td>{entry.date ? new Date(entry.date).toLocaleDateString() : "-"}</td>
+        <td>
+  {entry.date
+    ? new Date(entry.date).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+    : "-"}
+</td>
+
         <td>{entry.createdAt ? new Date(entry.createdAt).toLocaleTimeString() : "-"}</td>
         <td>{entry.customer?.name || "-"}</td>
         <td>{entry.final_weight ?? "-"}</td>

@@ -205,6 +205,13 @@ export const createBuffingEntry = async (req, res) => {
       });
     }
 
+       // ✅ Block if lot is closed / inactive
+       if (LotId.IsActive === false || LotId.status === "Closed") {
+        return res.status(400).json({
+          error: "This jobcard/lot is closed. You cannot assign new items.",
+        });
+      }
+
     // Get castingItemId from first filing or setting item
     let castingItemId = null;
 

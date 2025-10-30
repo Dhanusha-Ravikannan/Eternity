@@ -348,7 +348,7 @@ model FilingWastage {
   total_receipt      Float
   total_wastage      Float
   balance            Float
-  wastage_percentage Int
+  wastage_percentage Float
   given_gold         Float?
   add_wastage        Float?
   overall_wastage    Float
@@ -432,7 +432,7 @@ model SettingWastage {
   total_stone_count  Float
   total_wastage      Float
   balance            Float
-  wastage_percentage Int
+  wastage_percentage Float
   given_gold         Float?
   add_wastage        Float?
   overall_wastage    Float
@@ -513,7 +513,7 @@ model BuffingWastage {
   total_receipt      Float
   total_wastage      Float
   balance            Float
-  wastage_percentage Int
+  wastage_percentage Float
   given_gold         Float?
   add_wastage        Float?
   overall_wastage    Float

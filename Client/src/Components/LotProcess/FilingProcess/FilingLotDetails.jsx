@@ -444,9 +444,8 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
       alert("Data saved successfully!");
       // fetchAssignedEntries();
       await fetchAssignedEntries();
-
-          // Refetch opening balance immediately
-          await fetchOpeningBalance();
+      // Refetch opening balance immediately
+      await fetchOpeningBalance();
 
       setViewDialogOpen(false);
       setProductItems([]);
@@ -569,7 +568,12 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
                 <tr className={styles.groupHeader}>
                   <td rowSpan={entry.castingItems.length}>{index + 1}</td>
                   <td rowSpan={entry.castingItems.length}>
-                    {new Date(entry.createdAt).toLocaleDateString()}
+                  {new Date(entry.createdAt).toLocaleDateString("en-GB", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+})}
+
                   </td>
                   <td rowSpan={entry.castingItems.length}>
                     {new Date(entry.createdAt).toLocaleTimeString([], {
@@ -786,6 +790,8 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
             value={givenGold}
             onChange={(e) => setGivenGold(parseFloat(e.target.value))}
             sx={{ mt: 2 }}
+            onWheel={(e) => e.target.blur()}
+     
           />
         )}
 
@@ -1017,7 +1023,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
   {/* Right-aligned balances */}
   <Box sx={{ textAlign: "right", minWidth: "150px" }}>
     <Typography sx={{ color: openingBalanceTotal >= 0 ? "green" : "red" }}>
-      <strong>Opening Balance:</strong> {openingBalanceTotal.toFixed(2)}
+      <strong>Opening Balance:</strong> {openingBalanceTotal}
     </Typography>
     <Typography sx={{ color: totalSumBalance >= 0 ? "green" : "red" }}>
       <strong>Total Sum Balance:</strong> {totalSumBalance.toFixed(2)}
@@ -1079,7 +1085,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
                 <b>Balance</b> = Sum of Balance column (main table)
               </li>
               <li>
-                <b>Overall Wastage</b> = Balance − Total Receipt
+                <b>Overall Wastage</b> = Balance − Total Wastage + opening balance
               </li>
               <li>
                 <b>Total Wastage</b> = (Total Receipt × Wastage % / 100) +{" "}

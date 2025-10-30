@@ -27135,7 +27135,7 @@ export namespace Prisma {
     readonly total_receipt: FieldRef<"FilingWastage", 'Float'>
     readonly total_wastage: FieldRef<"FilingWastage", 'Float'>
     readonly balance: FieldRef<"FilingWastage", 'Float'>
-    readonly wastage_percentage: FieldRef<"FilingWastage", 'Int'>
+    readonly wastage_percentage: FieldRef<"FilingWastage", 'Float'>
     readonly given_gold: FieldRef<"FilingWastage", 'Float'>
     readonly add_wastage: FieldRef<"FilingWastage", 'Float'>
     readonly overall_wastage: FieldRef<"FilingWastage", 'Float'>
@@ -32641,7 +32641,7 @@ export namespace Prisma {
     readonly total_stone_count: FieldRef<"SettingWastage", 'Float'>
     readonly total_wastage: FieldRef<"SettingWastage", 'Float'>
     readonly balance: FieldRef<"SettingWastage", 'Float'>
-    readonly wastage_percentage: FieldRef<"SettingWastage", 'Int'>
+    readonly wastage_percentage: FieldRef<"SettingWastage", 'Float'>
     readonly given_gold: FieldRef<"SettingWastage", 'Float'>
     readonly add_wastage: FieldRef<"SettingWastage", 'Float'>
     readonly overall_wastage: FieldRef<"SettingWastage", 'Float'>
@@ -38097,7 +38097,7 @@ export namespace Prisma {
     readonly total_receipt: FieldRef<"BuffingWastage", 'Float'>
     readonly total_wastage: FieldRef<"BuffingWastage", 'Float'>
     readonly balance: FieldRef<"BuffingWastage", 'Float'>
-    readonly wastage_percentage: FieldRef<"BuffingWastage", 'Int'>
+    readonly wastage_percentage: FieldRef<"BuffingWastage", 'Float'>
     readonly given_gold: FieldRef<"BuffingWastage", 'Float'>
     readonly add_wastage: FieldRef<"BuffingWastage", 'Float'>
     readonly overall_wastage: FieldRef<"BuffingWastage", 'Float'>
@@ -48729,7 +48729,7 @@ export namespace Prisma {
     total_receipt?: FloatFilter<"FilingWastage"> | number
     total_wastage?: FloatFilter<"FilingWastage"> | number
     balance?: FloatFilter<"FilingWastage"> | number
-    wastage_percentage?: IntFilter<"FilingWastage"> | number
+    wastage_percentage?: FloatFilter<"FilingWastage"> | number
     given_gold?: FloatNullableFilter<"FilingWastage"> | number | null
     add_wastage?: FloatNullableFilter<"FilingWastage"> | number | null
     overall_wastage?: FloatFilter<"FilingWastage"> | number
@@ -48770,7 +48770,7 @@ export namespace Prisma {
     total_receipt?: FloatFilter<"FilingWastage"> | number
     total_wastage?: FloatFilter<"FilingWastage"> | number
     balance?: FloatFilter<"FilingWastage"> | number
-    wastage_percentage?: IntFilter<"FilingWastage"> | number
+    wastage_percentage?: FloatFilter<"FilingWastage"> | number
     given_gold?: FloatNullableFilter<"FilingWastage"> | number | null
     add_wastage?: FloatNullableFilter<"FilingWastage"> | number | null
     overall_wastage?: FloatFilter<"FilingWastage"> | number
@@ -48813,7 +48813,7 @@ export namespace Prisma {
     total_receipt?: FloatWithAggregatesFilter<"FilingWastage"> | number
     total_wastage?: FloatWithAggregatesFilter<"FilingWastage"> | number
     balance?: FloatWithAggregatesFilter<"FilingWastage"> | number
-    wastage_percentage?: IntWithAggregatesFilter<"FilingWastage"> | number
+    wastage_percentage?: FloatWithAggregatesFilter<"FilingWastage"> | number
     given_gold?: FloatNullableWithAggregatesFilter<"FilingWastage"> | number | null
     add_wastage?: FloatNullableWithAggregatesFilter<"FilingWastage"> | number | null
     overall_wastage?: FloatWithAggregatesFilter<"FilingWastage"> | number
@@ -49164,7 +49164,7 @@ export namespace Prisma {
     total_stone_count?: FloatFilter<"SettingWastage"> | number
     total_wastage?: FloatFilter<"SettingWastage"> | number
     balance?: FloatFilter<"SettingWastage"> | number
-    wastage_percentage?: IntFilter<"SettingWastage"> | number
+    wastage_percentage?: FloatFilter<"SettingWastage"> | number
     given_gold?: FloatNullableFilter<"SettingWastage"> | number | null
     add_wastage?: FloatNullableFilter<"SettingWastage"> | number | null
     overall_wastage?: FloatFilter<"SettingWastage"> | number
@@ -49205,7 +49205,7 @@ export namespace Prisma {
     total_stone_count?: FloatFilter<"SettingWastage"> | number
     total_wastage?: FloatFilter<"SettingWastage"> | number
     balance?: FloatFilter<"SettingWastage"> | number
-    wastage_percentage?: IntFilter<"SettingWastage"> | number
+    wastage_percentage?: FloatFilter<"SettingWastage"> | number
     given_gold?: FloatNullableFilter<"SettingWastage"> | number | null
     add_wastage?: FloatNullableFilter<"SettingWastage"> | number | null
     overall_wastage?: FloatFilter<"SettingWastage"> | number
@@ -49248,7 +49248,7 @@ export namespace Prisma {
     total_stone_count?: FloatWithAggregatesFilter<"SettingWastage"> | number
     total_wastage?: FloatWithAggregatesFilter<"SettingWastage"> | number
     balance?: FloatWithAggregatesFilter<"SettingWastage"> | number
-    wastage_percentage?: IntWithAggregatesFilter<"SettingWastage"> | number
+    wastage_percentage?: FloatWithAggregatesFilter<"SettingWastage"> | number
     given_gold?: FloatNullableWithAggregatesFilter<"SettingWastage"> | number | null
     add_wastage?: FloatNullableWithAggregatesFilter<"SettingWastage"> | number | null
     overall_wastage?: FloatWithAggregatesFilter<"SettingWastage"> | number
@@ -49584,7 +49584,7 @@ export namespace Prisma {
     total_receipt?: FloatFilter<"BuffingWastage"> | number
     total_wastage?: FloatFilter<"BuffingWastage"> | number
     balance?: FloatFilter<"BuffingWastage"> | number
-    wastage_percentage?: IntFilter<"BuffingWastage"> | number
+    wastage_percentage?: FloatFilter<"BuffingWastage"> | number
     given_gold?: FloatNullableFilter<"BuffingWastage"> | number | null
     add_wastage?: FloatNullableFilter<"BuffingWastage"> | number | null
     overall_wastage?: FloatFilter<"BuffingWastage"> | number
@@ -49625,7 +49625,7 @@ export namespace Prisma {
     total_receipt?: FloatFilter<"BuffingWastage"> | number
     total_wastage?: FloatFilter<"BuffingWastage"> | number
     balance?: FloatFilter<"BuffingWastage"> | number
-    wastage_percentage?: IntFilter<"BuffingWastage"> | number
+    wastage_percentage?: FloatFilter<"BuffingWastage"> | number
     given_gold?: FloatNullableFilter<"BuffingWastage"> | number | null
     add_wastage?: FloatNullableFilter<"BuffingWastage"> | number | null
     overall_wastage?: FloatFilter<"BuffingWastage"> | number
@@ -49668,7 +49668,7 @@ export namespace Prisma {
     total_receipt?: FloatWithAggregatesFilter<"BuffingWastage"> | number
     total_wastage?: FloatWithAggregatesFilter<"BuffingWastage"> | number
     balance?: FloatWithAggregatesFilter<"BuffingWastage"> | number
-    wastage_percentage?: IntWithAggregatesFilter<"BuffingWastage"> | number
+    wastage_percentage?: FloatWithAggregatesFilter<"BuffingWastage"> | number
     given_gold?: FloatNullableWithAggregatesFilter<"BuffingWastage"> | number | null
     add_wastage?: FloatNullableWithAggregatesFilter<"BuffingWastage"> | number | null
     overall_wastage?: FloatWithAggregatesFilter<"BuffingWastage"> | number
@@ -52056,7 +52056,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -52073,7 +52073,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -52105,7 +52105,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -52119,7 +52119,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -52486,7 +52486,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -52503,7 +52503,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -52535,7 +52535,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -52549,7 +52549,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -52890,7 +52890,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -52907,7 +52907,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -52939,7 +52939,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -52953,7 +52953,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -62104,7 +62104,7 @@ export namespace Prisma {
     total_receipt?: FloatFilter<"FilingWastage"> | number
     total_wastage?: FloatFilter<"FilingWastage"> | number
     balance?: FloatFilter<"FilingWastage"> | number
-    wastage_percentage?: IntFilter<"FilingWastage"> | number
+    wastage_percentage?: FloatFilter<"FilingWastage"> | number
     given_gold?: FloatNullableFilter<"FilingWastage"> | number | null
     add_wastage?: FloatNullableFilter<"FilingWastage"> | number | null
     overall_wastage?: FloatFilter<"FilingWastage"> | number
@@ -62350,7 +62350,7 @@ export namespace Prisma {
     total_stone_count?: FloatFilter<"SettingWastage"> | number
     total_wastage?: FloatFilter<"SettingWastage"> | number
     balance?: FloatFilter<"SettingWastage"> | number
-    wastage_percentage?: IntFilter<"SettingWastage"> | number
+    wastage_percentage?: FloatFilter<"SettingWastage"> | number
     given_gold?: FloatNullableFilter<"SettingWastage"> | number | null
     add_wastage?: FloatNullableFilter<"SettingWastage"> | number | null
     overall_wastage?: FloatFilter<"SettingWastage"> | number
@@ -62658,7 +62658,7 @@ export namespace Prisma {
     total_receipt?: FloatFilter<"BuffingWastage"> | number
     total_wastage?: FloatFilter<"BuffingWastage"> | number
     balance?: FloatFilter<"BuffingWastage"> | number
-    wastage_percentage?: IntFilter<"BuffingWastage"> | number
+    wastage_percentage?: FloatFilter<"BuffingWastage"> | number
     given_gold?: FloatNullableFilter<"BuffingWastage"> | number | null
     add_wastage?: FloatNullableFilter<"BuffingWastage"> | number | null
     overall_wastage?: FloatFilter<"BuffingWastage"> | number
@@ -71839,7 +71839,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -71855,7 +71855,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -71871,7 +71871,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -72001,7 +72001,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -72017,7 +72017,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -72033,7 +72033,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -72249,7 +72249,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -72265,7 +72265,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -72281,7 +72281,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -73956,7 +73956,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -73972,7 +73972,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -73988,7 +73988,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74002,7 +74002,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74018,7 +74018,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74034,7 +74034,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74048,7 +74048,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74064,7 +74064,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74080,7 +74080,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74436,7 +74436,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74452,7 +74452,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74468,7 +74468,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74794,7 +74794,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74810,7 +74810,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -74826,7 +74826,7 @@ export namespace Prisma {
     total_stone_count?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -75267,7 +75267,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -75283,7 +75283,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number
@@ -75299,7 +75299,7 @@ export namespace Prisma {
     total_receipt?: FloatFieldUpdateOperationsInput | number
     total_wastage?: FloatFieldUpdateOperationsInput | number
     balance?: FloatFieldUpdateOperationsInput | number
-    wastage_percentage?: IntFieldUpdateOperationsInput | number
+    wastage_percentage?: FloatFieldUpdateOperationsInput | number
     given_gold?: NullableFloatFieldUpdateOperationsInput | number | null
     add_wastage?: NullableFloatFieldUpdateOperationsInput | number | null
     overall_wastage?: FloatFieldUpdateOperationsInput | number

@@ -46,6 +46,13 @@ export const createSettingEntry = async (req, res) => {
         .status(404)
         .json({ error: "Lot not found with the given lot_number" });
     }
+
+      // ✅ Block creation if the lot is closed or inactive
+      if (LotId.IsActive === false || LotId.status === "Closed") {
+        return res.status(400).json({
+          error: "This jobcard/lot is closed. You cannot assign new items.",
+        });
+      }
  
 
     // Get the first filing item's casting_item_id from its filing_entry relation
