@@ -208,6 +208,7 @@ const SettingLotDetails = () => {
   
     } catch (err) {
       console.error("Error saving setting entry:", err);
+      alert("This jobcard/lot is closed. You cannot assign new items.");
     }
   };
 
@@ -540,7 +541,13 @@ const SettingLotDetails = () => {
                       <>
                         <td rowSpan={entry.filingItems.length}>{index + 1}</td>
                         <td rowSpan={entry.filingItems.length}>
-                          {new Date(entry.createdAt).toLocaleDateString()}
+                          {/* {new Date(entry.createdAt).toLocaleDateString()} */}
+                          {new Date(entry.createdAt).toLocaleDateString("en-GB", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+})}
+
                         </td>
                         <td rowSpan={entry.filingItems.length}>
                           {new Date(entry.createdAt).toLocaleTimeString([], {

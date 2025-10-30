@@ -65,7 +65,7 @@ export const calculatePurity = (givenGold, givenTouch) => {
 
 // Total Receipt: Sum of Weight column(main table ) 
 // Balance: Sum of balance column(main table ) 
-// Overall Wastage: Balance - Total Receipt
+// Overall Wastage: Balance - Total Wastage
 // Total wastage = Total Receipt *  Wastage(%) / 100 + Wastage Values (g) Optional:
 // </>
 
