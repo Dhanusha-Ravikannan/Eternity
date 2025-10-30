@@ -78,7 +78,8 @@ const FilingLotDetails = () => {
   const fetchAssignedEntries = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/filingentry/person/${filingPersonId}/${lotNumber}`
+        `${BACKEND_SERVER_URL}/api/filingentry/person/${filingPersonId}/${lotNumber}`
+    
       );
       setAssignedEntries(res.data);
       setFilteredEntries(res.data);
@@ -149,7 +150,7 @@ const FilingLotDetails = () => {
   const fetchAvailableItems = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/castingitems/castingitems/available"
+        `${BACKEND_SERVER_URL}/api/castingitems/castingitems/available`
       );
       const unassignedItems = res.data.filter(
         (item) => item.status === "Unassigned"
@@ -171,7 +172,7 @@ const FilingLotDetails = () => {
     setIsLoading(true);
 
     try {
-      await axios.post("http://localhost:5000/api/filingentry", {
+      await axios.post(`${BACKEND_SERVER_URL}/api/filingentry`, {
         filing_person_id: parseInt(filingPersonId),
         lot_number: parseInt(lotNumber),
         itemIds: selectedItemIds,
@@ -465,7 +466,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
     console.log("Delete id:", id);
 
     try {
-      await axios.delete(`http://localhost:5000/api/filingitems/${id}`);
+      await axios.delete(`${BACKEND_SERVER_URL}/api/filingitems/${id}`);
       alert("Item deleted successfully");
 
       if (type === "product") {

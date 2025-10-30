@@ -163,7 +163,7 @@ const SettingLotDetails = () => {
   useEffect(() => {
     if (open) {
       axios
-        .get("http://localhost:5000/api/filingitems/filingitems/available")
+        .get(`${BACKEND_SERVER_URL}/api/filingitems/filingitems/available`)
         .then((res) => {
           const filtered = res.data.filter(
             (item) =>
@@ -196,7 +196,7 @@ const SettingLotDetails = () => {
         // filingItemIds: selectedItems, // just array of ids
       };
       console.log("Posting payload:", payload);
-      await axios.post("http://localhost:5000/api/settingentry", payload);
+      await axios.post(`${BACKEND_SERVER_URL}/api/settingentry`, payload);
       setSelectedItems([]);
       handleClose();
       // fetchAssignedItems();

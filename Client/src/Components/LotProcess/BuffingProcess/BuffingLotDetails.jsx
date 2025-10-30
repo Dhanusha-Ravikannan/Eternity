@@ -91,7 +91,7 @@ const BuffingLotDetails = () => {
   const fetchBuffingEntries = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/buffingentry/person/${id}/${lotNumber}`
+        `${BACKEND_SERVER_URL}/api/buffingentry/person/${id}/${lotNumber}`
       );
       const isActive = res.data?.[0]?.lotBuffingMapper?.[0]?.isactive ?? false;
       console.log("isActive value:", isActive);
@@ -310,7 +310,7 @@ const BuffingLotDetails = () => {
 
       console.log("Posting Buffing Entry:", payload);
 
-      const res = await axios.post(  "http://localhost:5000/api/buffingentry",   payload   );
+      const res = await axios.post( `${BACKEND_SERVER_URL}/api/buffingentry`,   payload   );
       const newEntry = {
         id: res.data.entry.id,
         date,
@@ -374,7 +374,7 @@ const BuffingLotDetails = () => {
     const fetchItems = async () => {
       try {
         // Filing items (flat structure, as before)
-        const filingRes = await axios.get( "http://localhost:5000/api/filingitems/filingitems/available"  );
+        const filingRes = await axios.get( `${BACKEND_SERVER_URL}/api/filingitems/filingitems/available`  );
         const filingFiltered = filingRes.data.filter(
           (item) =>
             item.stone_option === "WithoutStone" && item.status === "Unassigned" );
@@ -393,7 +393,7 @@ const BuffingLotDetails = () => {
 
         // Lot setting mappers (grouped)
         const lotSettingRes = await axios.get(
-          "http://localhost:5000/api/settingentry/lotsettingmapper"
+          `${BACKEND_SERVER_URL}/api/settingentry/lotsettingmapper`
         );
 
         // Filter only entries with status 'Unassigned'
