@@ -28,7 +28,6 @@ const Billing = lazy(() => import("./Components/Billing/Billing"));
 const MasterAddTouch = lazy(() => import("./Components/Master/MasterAddTouch"));
 const SalesReport = lazy(() => import("./Components/Report/SalesReport"));
 const StockReport = lazy(() => import("./Components/Report/StockReport"));
-const ReceiptReport = lazy(() => import("./Components/Report/ReceiptReport"));
 const CastingMeltingReports = lazy(() => import("./Components/Report/CastingMeltingReports"));
 const SettingReports = lazy(() => import("./Components/Report/SettingReports"));
 const FilingReports = lazy(() => import("./Components/Report/FilingReports"));
@@ -101,7 +100,6 @@ const App = () => {
           <Route path="/customerreport" element={<CustomerReport />} />
           <Route path="/salesreport" element={<SalesReport />} />
           <Route path="/stockreport" element={<StockReport />} />
-          <Route path="/receiptreport" element={<ReceiptReport />} />
           <Route path="/workerreport" element={<WorkerReport />} />
           <Route path="/purchasereport" element={<TouchWisePurchaseReport />} />
           <Route path="/receiptvoucher" element={<ReceiptVoucher/>} />
