@@ -7,8 +7,6 @@ import styles from "./Stock.module.css";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-
-
 const Stock = () => {
   const [stockItems, setStockItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -16,23 +14,6 @@ const Stock = () => {
   const [toDate, setToDate] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [touchSummary, setTouchSummary] = useState({});
-
-  // useEffect(() => {
-  //   const fetchStockItems = async () => {
-  //     try {
-  //       const response = await axios.get(`${BACKEND_SERVER_URL}/api/stock`);
-  //       const allItems = response.data;
-  //       console.log("Available stock Items:", allItems);
-  //       setStockItems(allItems);
-  //       setFilteredItems(allItems);
-  //       calculateSummary(allItems);
-  //     } catch (error) {
-  //       console.error("Error fetching stock items:", error);
-  //     }
-  //   };
-
-  //   fetchStockItems();
-  // }, []);
 
   const fetchStockItems = async () => {
     try {
