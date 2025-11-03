@@ -334,10 +334,10 @@ const CastingEntry = () => {
         <td>{entry.productQty || "-"}</td>
         <td>{Array.isArray(entry.scrapItems) ? entry.scrapItems.join(", ") : "-"}</td>
         <td>{entry.scrapQty || "-"}</td>
-        <td>{entry.totalItemWeight ? entry.totalItemWeight.toFixed(2) : '-'}</td>
-        <td>{entry.currentBalanceWeight ? entry.currentBalanceWeight.toFixed(2) : '-'}</td>
-        <td>{entry.totalScrapWeight ? entry.totalScrapWeight.toFixed(2) : '-'}</td>
-        <td>{entry.totalWastage ? entry.totalWastage.toFixed(2) : '-'}</td>
+        <td>{entry.totalItemWeight ? entry.totalItemWeight.toFixed(3) : '-'}</td>
+        <td>{entry.currentBalanceWeight ? entry.currentBalanceWeight.toFixed(3) : '-'}</td>
+        <td>{entry.totalScrapWeight ? entry.totalScrapWeight.toFixed(3) : '-'}</td>
+        <td>{entry.totalWastage ? entry.totalWastage.toFixed(3) : '-'}</td>
         <td>
           <FaEye onClick={() => handleView(entry)} style={{ cursor: "pointer", marginRight: "0.5rem" }} />
           <Delete onClick={() => handleDelete(entry.id)} style={{ cursor: "pointer", color:'rgb(178, 21, 21)' }} />

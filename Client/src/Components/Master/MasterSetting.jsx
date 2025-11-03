@@ -108,7 +108,7 @@ function MasterSetting() {
     setPhoneNumber(customer.phoneNumber || "");
     setAddress(customer.address || "");
     setEmail(customer.email || "");
-    setBalance(customer.balance !== null && customer.balance !== undefined ? customer.balance.toString() : "");
+    setBalance(customer.balance !== null && customer.balance !== undefined ? parseFloat(customer.balance).toFixed(3) .toString() : "");
     setEditIndex(originalIndex);
     openModal();
   };

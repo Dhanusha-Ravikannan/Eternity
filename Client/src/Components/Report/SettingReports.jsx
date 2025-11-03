@@ -110,13 +110,13 @@ const SettingReports = () => {
       // Summary Section
   const summaryY = 25; // Y position to start summary
   doc.setFontSize(10);
-  doc.text(`Total Stone Weight: ${totals.stoneWeight.toFixed(2)}`, 14, summaryY);
-  doc.text(`Total Stone Count: ${totals.stoneCount.toFixed(2)}`, 80, summaryY);
-  doc.text(`Total Receipt Weight: ${totals.receiptWeight.toFixed(2)}`, 150, summaryY);
-  doc.text(`Total Product Weight: ${totals.productWeight.toFixed(2)}`, 14, summaryY + 6);
-  doc.text(`Total Scrap Weight: ${totals.scrapWeight.toFixed(2)}`, 80, summaryY + 6);
-  doc.text(`Total Current Balance: ${totals.currentBalance.toFixed(2)}`, 150, summaryY + 6);
-  doc.text(`Total Balance: ${totals.balance.toFixed(2)}`, 14, summaryY + 12);
+  doc.text(`Total Stone Weight: ${totals.stoneWeight.toFixed(3)}`, 14, summaryY);
+  doc.text(`Total Stone Count: ${totals.stoneCount.toFixed(3)}`, 80, summaryY);
+  doc.text(`Total Receipt Weight: ${totals.receiptWeight.toFixed(3)}`, 150, summaryY);
+  doc.text(`Total Product Weight: ${totals.productWeight.toFixed(3)}`, 14, summaryY + 6);
+  doc.text(`Total Scrap Weight: ${totals.scrapWeight.toFixed(3)}`, 80, summaryY + 6);
+  doc.text(`Total Current Balance: ${totals.currentBalance.toFixed(3)}`, 150, summaryY + 6);
+  doc.text(`Total Balance: ${totals.balance.toFixed(3)}`, 14, summaryY + 12);
 
     // Table columns
     const columns = [
@@ -164,10 +164,10 @@ const SettingReports = () => {
               settingBalance.wastage ? "Yes" : "No",
               (entry.scrapItems || []).map((si) => si.itemName).join(", ") || "-",
               (entry.scrapItems || []).length || 0,
-              settingBalance.total_product_weight?.toFixed(2) || 0,
-              settingBalance.current_balance_weight?.toFixed(2) || 0,
-              settingBalance.total_scrap_weight?.toFixed(2) || 0,
-              settingBalance.balance?.toFixed(2) || 0
+              settingBalance.total_product_weight?.toFixed(3) || 0,
+              settingBalance.current_balance_weight?.toFixed(3) || 0,
+              settingBalance.total_scrap_weight?.toFixed(3) || 0,
+              settingBalance.balance?.toFixed(3) || 0
             );
           } else {
             row.push(...Array(10).fill(""));
@@ -190,10 +190,10 @@ const SettingReports = () => {
           settingBalance.wastage ? "Yes" : "No",
           "-",
           0,
-          settingBalance.total_product_weight?.toFixed(2) || 0,
-          settingBalance.current_balance_weight?.toFixed(2) || 0,
-          settingBalance.total_scrap_weight?.toFixed(2) || 0,
-          settingBalance.balance?.toFixed(2) || 0
+          settingBalance.total_product_weight?.toFixed(3) || 0,
+          settingBalance.current_balance_weight?.toFixed(3) || 0,
+          settingBalance.total_scrap_weight?.toFixed(3) || 0,
+          settingBalance.balance?.toFixed(3) || 0
         ]);
       }
     });
@@ -269,31 +269,31 @@ const SettingReports = () => {
   <div className={styles.summaryGrid}>
     <div className={styles.summaryItem}>
             <span>Stone Weight :</span>
-            <span>{totals.stoneWeight.toFixed(2)}</span>
+            <span>{totals.stoneWeight.toFixed(3)}</span>
     </div>
     <div className={styles.summaryItem}>
             <span>Stone Count :</span>
-            <span>{totals.stoneCount.toFixed(2)}</span>
+            <span>{totals.stoneCount.toFixed(3)}</span>
     </div>
     <div className={styles.summaryItem}>
             <span> Receipt Weight  :</span>
-            <span>{totals.receiptWeight.toFixed(2)}</span>
+            <span>{totals.receiptWeight.toFixed(3)}</span>
     </div>
     <div className={styles.summaryItem}>
             <span> Product Weight  :</span>
-            <span>{totals.productWeight.toFixed(2)}</span>
+            <span>{totals.productWeight.toFixed(3)}</span>
     </div>
     <div className={styles.summaryItem}>
             <span> Scrap Weight:  :</span>
-            <span>{totals.scrapWeight.toFixed(2)}</span>
+            <span>{totals.scrapWeight.toFixed(3)}</span>
     </div>
     <div className={styles.summaryItem}>
             <span>Current Balance Weight :</span>
-            <span>{totals.currentBalance.toFixed(2)}</span>
+            <span>{totals.currentBalance.toFixed(3)}</span>
     </div>
     <div className={styles.summaryItem}>
             <span>Balance: </span>
-            <span>{totals.balance.toFixed(2)}</span>
+            <span>{totals.balance.toFixed(3)}</span>
     </div>
   </div>
 </div>
@@ -389,16 +389,16 @@ const SettingReports = () => {
                           {(entry.scrapItems || []).length || 0}
                         </td> */}
                         <td rowSpan={filingItems.length}>
-                          {settingBalance.total_product_weight?.toFixed(2) || 0}
+                          {settingBalance.total_product_weight?.toFixed(3) || 0}
                         </td>
                         <td rowSpan={filingItems.length}>
-                          {settingBalance.current_balance_weight?.toFixed(2) || 0}
+                          {settingBalance.current_balance_weight?.toFixed(3) || 0}
                         </td>
                         <td rowSpan={filingItems.length}>
-                          {settingBalance.total_scrap_weight?.toFixed(2) || 0}
+                          {settingBalance.total_scrap_weight?.toFixed(3) || 0}
                         </td>
                         {/* <td rowSpan={filingItems.length}>
-                          {settingBalance.balance?.toFixed(2) || 0}
+                          {settingBalance.balance?.toFixed(3) || 0}
                         </td> */}
                       </>
                     )}
@@ -419,10 +419,10 @@ const SettingReports = () => {
                   <td>{settingBalance.receipt_weight || 0}</td>
                   <td>{settingBalance.wastage ? "Yes" : "No"}</td>
                   <td colSpan={2}>-</td>
-                  <td>{settingBalance.total_product_weight?.toFixed(2) || 0}</td>
-                  <td>{settingBalance.current_balance_weight?.toFixed(2) || 0}</td>
-                  <td>{settingBalance.total_scrap_weight?.toFixed(2) || 0}</td>
-                  <td>{settingBalance.balance?.toFixed(2) || 0}</td>
+                  <td>{settingBalance.total_product_weight?.toFixed(3) || 0}</td>
+                  <td>{settingBalance.current_balance_weight?.toFixed(3) || 0}</td>
+                  <td>{settingBalance.total_scrap_weight?.toFixed(3) || 0}</td>
+                  <td>{settingBalance.balance?.toFixed(3) || 0}</td>
                 </tr>
               );
             })

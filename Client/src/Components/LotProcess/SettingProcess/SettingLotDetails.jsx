@@ -407,7 +407,7 @@ const SettingLotDetails = () => {
       return sum + (isNaN(balance) ? 0 : balance);
     }, 0);
   
-    return total.toFixed(2);
+    return total.toFixed(3);
   };
   
   const handleWastageInputChange = (index, value) => {
@@ -422,7 +422,7 @@ const SettingLotDetails = () => {
         const count = parseFloat(group.stoneCount || 0);
         return total + (isNaN(count) ? 0 : count);
       }, 0)
-      .toFixed(2);
+      .toFixed(3);
   };
 
   const totalStoneCount = getTotalStoneCount();
@@ -586,16 +586,16 @@ const SettingLotDetails = () => {
                           {(entry.scrapItems || []).length}
                         </td>
                         <td rowSpan={entry.filingItems.length}>
-                          {entry.totalProductWeight?.toFixed(2)}
+                          {entry.totalProductWeight?.toFixed(3)}
                         </td>
                         <td rowSpan={entry.filingItems.length}>
-                          {entry.currentBalanceWeight?.toFixed(2)}
+                          {entry.currentBalanceWeight?.toFixed(3)}
                         </td>
                         <td rowSpan={entry.filingItems.length}>
-                          {entry.totalScrapWeight?.toFixed(2)}
+                          {entry.totalScrapWeight?.toFixed(3)}
                         </td>
                         <td rowSpan={entry.filingItems.length}>
-                          {entry.balance?.toFixed(2)}
+                          {entry.balance?.toFixed(3)}
                         </td>
                         <td rowSpan={entry.filingItems.length}>
                           <Button
@@ -687,10 +687,10 @@ const SettingLotDetails = () => {
                   </Button> */}
         </Box>
         <Typography sx={{ mt: 2 }}>
-          <strong>Total Wastage  :</strong> {Number(totalStoneCount).toFixed(2)} ×{" "}
+          <strong>Total Wastage  :</strong> {Number(totalStoneCount).toFixed(3)} ×{" "}
           {Number(wastagePercent) || 0} / 100 ={" "}
           <strong>
-            {!isNaN(totalWastage) ? Number(totalWastage).toFixed(2) : "0.00"} g
+            {!isNaN(totalWastage) ? Number(totalWastage).toFixed(3) : "0.00"} g
           </strong>
         </Typography>
         <Typography sx={{ mt: 2 }}>
@@ -698,7 +698,7 @@ const SettingLotDetails = () => {
           {getOverallBalance()}g
         </Typography>
         <Typography sx={{ mt: 1, color: "red" }}>
-          <strong>Closing Balance:</strong> {closingBalance.toFixed(2)}g
+          <strong>Closing Balance:</strong> {closingBalance.toFixed(3)}g
         </Typography>
         {closingBalance < 0 && (
           <TextField
@@ -724,9 +724,9 @@ const SettingLotDetails = () => {
           }}
         >
           {finalClosingBalance > 0
-            ? `Worker should give ${Math.abs(finalClosingBalance).toFixed(2)}g to Owner`
+            ? `Worker should give ${Math.abs(finalClosingBalance).toFixed(3)}g to Owner`
             : finalClosingBalance < 0
-              ? `Owner should give ${Math.abs(finalClosingBalance).toFixed(2)}g to Worker`
+              ? `Owner should give ${Math.abs(finalClosingBalance).toFixed(3)}g to Worker`
               : "No balance due"}
         </Typography>
         <Button
@@ -900,7 +900,7 @@ const SettingLotDetails = () => {
                       <strong>
                         {viewData.filingItems
                           .reduce((sum, fi) => sum + Number(fi.weight || 0), 0)
-                          .toFixed(2)}
+                          .toFixed(3)}
                  
                       </strong>
                     </td>
@@ -975,7 +975,7 @@ const SettingLotDetails = () => {
               <div><b>  Opening Balance  :</b> {openingBalanceTotal}</div>
               <div> <b>  Total Sum Balance  : </b>  {(openingBalanceTotal +
       viewData.filingItems.reduce((sum, fi) => sum + Number(fi.weight || 0), 0)
-    ).toFixed(2)} </div>
+    ).toFixed(3)} </div>
 
               {/* Receipt / Stone / Remarks */}
               <Box sx={{ mt: 3, display: "flex", gap: 2 }}>
@@ -1045,7 +1045,7 @@ const SettingLotDetails = () => {
               >
                 <Typography>
                   <strong>Total Product Weight :</strong>
-                  {(viewData.receiptWeight || 0).toFixed(2)}
+                  {(viewData.receiptWeight || 0).toFixed(3)}
                 </Typography>
                 <Typography>
                   <strong>Current Balance Weight:</strong>
@@ -1053,10 +1053,10 @@ const SettingLotDetails = () => {
 
                     (openingBalanceTotal +
                       viewData.filingItems.reduce((sum, fi) => sum + Number(fi.weight || 0), 0)
-                    ).toFixed(2) -
+                    ).toFixed(3) -
                     (viewData.receiptWeight || 0) +
                     (viewData.stoneWeight || 0)
-                  ).toFixed(2)}
+                  ).toFixed(3)}
                 </Typography>
                 <Box
                   sx={{
@@ -1172,7 +1172,7 @@ const SettingLotDetails = () => {
                               updated[idx].purity = (
                                 (weight * touch) /
                                 100
-                              ).toFixed(2);
+                              ).toFixed(3);
 
                               setViewData({ ...viewData, scrapItems: updated });
                             }}
@@ -1241,22 +1241,20 @@ const SettingLotDetails = () => {
                         (sum, i) => sum + Number(i.weight || 0),
                         0
                       ) || 0
-                    ).toFixed(2)}
+                    ).toFixed(3)}
                   </Typography>
                   <Typography>
-                    <strong>Balance:</strong>{" "}
+                    <strong>Balance:</strong>
                     {(
 
                       (openingBalanceTotal +
                         viewData.filingItems.reduce((sum, fi) => sum + Number(fi.weight || 0), 0)
-                      ).toFixed(2) -
+                      ).toFixed(3) -
                       (viewData.receiptWeight || 0) +
                       (viewData.stoneWeight || 0) -
                       (viewData.scrapItems?.reduce(
                         (sum, i) => sum + Number(i.weight || 0),
-                        0
-                      ) || 0)
-                    ).toFixed(2)}
+                        0 ) || 0) ).toFixed(3)}
                   </Typography>
                 </Box>
               </Box>

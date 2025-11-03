@@ -200,7 +200,7 @@ const FilingLotDetails = () => {
   };
 
   const calculatePurity = (weight, touch) => {
-    return weight && touch ? ((weight * touch) / 100).toFixed(2) : "";
+    return weight && touch ? ((weight * touch) / 100).toFixed(3) : "";
   };
 
   const handleAddProductRow = () => {
@@ -604,20 +604,20 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
                             : "-"}
                         </td>
                         <td rowSpan={entry.castingItems.length}>
-                          {(balance?.total_product_weight ?? 0).toFixed(2)}
+                          {(balance?.total_product_weight ?? 0).toFixed(3)}
                         </td>
                         <td rowSpan={entry.castingItems.length}>
-                          {(balance?.current_balance_weight ?? 0).toFixed(2)}
+                          {(balance?.current_balance_weight ?? 0).toFixed(3)}
                         </td>
 
                         <td rowSpan={entry.castingItems.length}>
                           {balance?.wastage ? "Yes" : "No"}
                         </td>
                         <td rowSpan={entry.castingItems.length}>
-                          {(balance?.total_scrap_weight ?? 0).toFixed(2)}
+                          {(balance?.total_scrap_weight ?? 0).toFixed(3)}
                         </td>
                         <td rowSpan={entry.castingItems.length}>
-                          {(balance?.balance ?? 0).toFixed(2)}
+                          {(balance?.balance ?? 0).toFixed(3)}
                         </td>
                       
 <td rowSpan={entry.castingItems.length}>
@@ -720,7 +720,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
         }}
       >
         <Typography sx={{ marginLeft: "3rem", color: "darkblue" }}>
-          <b>Opening Balance:</b> {openingBalance.toFixed(2)}
+          <b>Opening Balance:</b> {openingBalance.toFixed(3)}
         </Typography>
         <hr />
 
@@ -732,7 +732,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
         <br />
 
         <Typography>
-          <strong>Total Receipt:</strong> {totalReceipt.toFixed(2)} g
+          <strong>Total Receipt:</strong> {totalReceipt.toFixed(3)} g
         </Typography>
 
         <TextField
@@ -770,15 +770,15 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
         </Box>
 
         <Typography sx={{ mt: 2 }}>
-          <strong>Total Wastage:</strong> {totalWastage.toFixed(2)} g
+          <strong>Total Wastage:</strong> {totalWastage.toFixed(3)} g
         </Typography>
 
         <Typography sx={{ mt: 2 }}>
-          <strong>Balance:</strong> {totalBalanceSum.toFixed(2)} g
+          <strong>Balance:</strong> {totalBalanceSum.toFixed(3)} g
         </Typography>
 
         <Typography sx={{ mt: 2 }}>
-          <strong>Overall Wastage:</strong> {overallWastage.toFixed(2)} g
+          <strong>Overall Wastage:</strong> {overallWastage.toFixed(3)} g
         </Typography>
 
 
@@ -797,7 +797,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
         )}
 
         <Typography sx={{ mt: 2, color: "red" }}>
-          <strong>Closing Balance:</strong> {closingBalance.toFixed(2)} g
+          <strong>Closing Balance:</strong> {closingBalance.toFixed(3)} g
         </Typography>
 
 
@@ -968,13 +968,13 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
                     <td>{item?.item_name || "-"}</td>
                     <td>
                       {item?.weight != null
-                        ? Number(item.weight).toFixed(2)
+                        ? (item.weight)
                         : "-"}
                     </td>
                     <td>{item?.touch || "-"}</td>
                     <td>
                       {item?.purity != null
-                        ? Number(item.purity).toFixed(2)
+                        ? (item.purity)
                         : "-"}
                     </td>
                     <td>{item?.remarks || "-"}</td>
@@ -993,7 +993,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
                         (acc, item) => acc + (parseFloat(item?.weight) || 0),
                         0
                       )
-                    ).toFixed(2)}
+                    ).toFixed(3)}
                   </strong>
                 </td>
                 <td colSpan={3}></td>
@@ -1027,7 +1027,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
       <strong>Opening Balance:</strong> {openingBalanceTotal}
     </Typography>
     <Typography sx={{ color: totalSumBalance >= 0 ? "green" : "red" }}>
-      <strong>Total Sum Balance:</strong> {totalSumBalance.toFixed(2)}
+      <strong>Total Sum Balance:</strong> {totalSumBalance.toFixed(3)}
     </Typography>
   </Box>
 </Box>
@@ -1238,11 +1238,11 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
                 <Box sx={{ display: "flex", gap: 5 }}>
                   <Typography variant="body1">
                     <b> Total Product Weight:</b>{" "}
-                    {(totalProductWeight ?? 0).toFixed(2)}
+                    {(totalProductWeight ?? 0).toFixed(3)}
                   </Typography>
                   <Typography variant="body1">
                     <b> Current Balance Weight:</b>
-                    {(currentBalanceWeight ?? 0).toFixed(2)}
+                    {(currentBalanceWeight ?? 0).toFixed(3)}
                   </Typography>
                 </Box>
 
@@ -1381,10 +1381,10 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
               <Box display="flex" alignItems="center" gap={8}>
                 <Typography variant="body1">
                   <b> Total Scrap Weight: </b>{" "}
-                  {(totalScrapWeight ?? 0).toFixed(2)}
+                  {(totalScrapWeight ?? 0).toFixed(3)}
                 </Typography>
                 <Typography variant="body1">
-                  <b> Balance: </b> {(finalBalance ?? 0).toFixed(2)}
+                  <b> Balance: </b> {(finalBalance ?? 0).toFixed(3)}
                 </Typography>
               </Box>
             </>

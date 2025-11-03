@@ -58,7 +58,7 @@ useEffect(() => {
   const totalPurity = (
     invoices.reduce((sum, inv) => sum + (inv.total_pure || 0), 0) /
     (invoices.length || 1)
-  ).toFixed(2);
+  ).toFixed(3);
   const totalAmount = invoices.reduce((sum, inv) => sum + (inv.total_amount || 0), 0);
   const totalAmountReceived = invoices.reduce(
     (sum, inv) => sum + (inv.amount_received || 0),

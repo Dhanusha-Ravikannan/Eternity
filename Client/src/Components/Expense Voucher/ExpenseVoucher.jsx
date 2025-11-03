@@ -467,9 +467,21 @@ const ExpenseVoucher = () => {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpen(false)} color="secondary">
-            Cancel
-          </Button>
+          <DialogActions>
+  <Button
+    onClick={() => {
+      setFormData({ description: "", gold: "", touch_id: "", purity: "" });
+      setAvailableInfo({ available: 0, after: 0 });
+      setPrevTouch(null);
+      setPrevGold(0);
+      setOpen(false);
+    }}
+    color="secondary"
+  >
+    Cancel
+  </Button>
+</DialogActions>
+
         </DialogActions>
       </Dialog>
     </>

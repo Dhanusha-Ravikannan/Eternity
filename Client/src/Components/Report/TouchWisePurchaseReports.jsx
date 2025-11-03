@@ -155,9 +155,9 @@ const TouchWisePurchaseReport = () => {
       head: [["Total Purchases", "Total Weight", "Total Value"]],
       body: [[
         overallTotals.count,
-        overallTotals.totalWeight.toFixed(2),
-        overallTotals.totalValue.toFixed(2),
-        // `₹${overallTotals.totalValue.toFixed(2)}`,
+        overallTotals.totalWeight.toFixed(3),
+        overallTotals.totalValue.toFixed(3),
+        // `₹${overallTotals.totalValue.toFixed(3)}`,
         
       ]],
       styles: { halign: "center" },
@@ -169,9 +169,9 @@ const TouchWisePurchaseReport = () => {
       const summaryRows = Object.entries(touchSummary).map(([touch, data]) => [
         `Touch ${touch}`,
         data.count,
-        data.totalWeight.toFixed(2),
-        data.totalValue.toFixed(2),
-        // `₹${data.totalValue.toFixed(2)}`,
+        data.totalWeight.toFixed(3),
+        data.totalValue.toFixed(3),
+        // `₹${data.totalValue.toFixed(3)}`,
       ]);
   
       autoTable(doc, {
@@ -308,11 +308,11 @@ const TouchWisePurchaseReport = () => {
             </div>
             <div className={styles.summaryItem}>
               <span>Total Weight:</span>
-              <span>{overallTotals.totalWeight.toFixed(2)}</span>
+              <span>{overallTotals.totalWeight.toFixed(3)}</span>
             </div>
             <div className={styles.summaryItem}>
               <span>Total Value:</span>
-              <span>₹{overallTotals.totalValue.toFixed(2)}</span>
+              <span>₹{overallTotals.totalValue.toFixed(3)}</span>
             </div>
           </div>
         </div>
@@ -329,11 +329,11 @@ const TouchWisePurchaseReport = () => {
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Touch {touch} Weight:</span>
-                    <span>{data.totalWeight.toFixed(2)}</span>
+                    <span>{data.totalWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Touch {touch} Value:</span>
-                    <span>₹{data.totalValue.toFixed(2)}</span>
+                    <span>₹{data.totalValue.toFixed(3)}</span>
                   </div>
                 </React.Fragment>
               ))}

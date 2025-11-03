@@ -310,7 +310,7 @@ function MasterFiling() {
                       <td>{formattedUpdatedTime}</td>
                       <td>{customer.name}</td>
                       <td>{customer.phoneNumber}</td>
-                      <td>{customer.balance !== null && customer.balance !== undefined ? customer.balance : "-"}</td>
+                      <td>{customer.balance !== null && customer.balance !== undefined ? parseFloat(customer.balance).toFixed(3) : "-"}</td>
                       <td>{customer.email}</td>
                       <td>{customer.address}</td>
                       <td className={styles.tableActions}>
