@@ -278,7 +278,7 @@ const Stock = () => {
               {Object.entries(touchSummary).map(([touch, weight]) => (
                 <div key={touch} className={styles.summaryItem}>
                   <span>Touch {touch} Total Weight:</span>
-                  <span>{weight.toFixed(2)}</span>
+                  <span>{weight.toFixed(3)}</span>
                 </div>
               ))}
             </div>
@@ -345,9 +345,7 @@ const Stock = () => {
                     <td>{customerName}</td>
                     <td>{itemName}</td>
                     <td>{item.weight ?? "-"}</td>
-                    {/* <td>{item.touch?.touch ?? item.touch_id ?? "-"}</td> */}
                     <td>{item.touch?.touch ?? item.touch_id ?? item.touchValue ?? "-"}</td>
-
                     <td>{item.item_purity ?? "-"}</td>
                     <td>{item.remarks || "-"}</td>
                     <td>{processName}</td>

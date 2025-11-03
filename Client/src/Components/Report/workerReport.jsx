@@ -362,13 +362,13 @@ const ProcessReport = () => {
         </TableCell>
         <TableCell>{entry.customer?.name || "-"}</TableCell>
         <TableCell>{entry.productItems.join(", ") || "-"}</TableCell>
-        <TableCell>{entry.totalItemWeight?.toFixed(2) || "0.00"}</TableCell>
+        <TableCell>{entry.totalItemWeight?.toFixed(3) || "0.00"}</TableCell>
         <TableCell colSpan={6}>-</TableCell>
-        <TableCell>{entry.totalItemWeight?.toFixed(2) || "0.00"}</TableCell>
-        <TableCell>{entry.totalScrapWeight?.toFixed(2) || "0.00"}</TableCell>
-        <TableCell>{entry.totalWastage?.toFixed(2) || "0.00"}</TableCell>
+        <TableCell>{entry.totalItemWeight?.toFixed(3) || "0.00"}</TableCell>
+        <TableCell>{entry.totalScrapWeight?.toFixed(3) || "0.00"}</TableCell>
+        <TableCell>{entry.totalWastage?.toFixed(3) || "0.00"}</TableCell>
         <TableCell>
-          {entry.currentBalanceWeight?.toFixed(2) || "0.00"}
+          {entry.currentBalanceWeight?.toFixed(3) || "0.00"}
         </TableCell>
       </TableRow>
     );
@@ -395,18 +395,18 @@ const ProcessReport = () => {
           <TableCell>{entry.item_name || "-"}</TableCell>
           <TableCell>
             {entry.casting_item_weight
-              ? entry.casting_item_weight.toFixed(2)
+              ? entry.casting_item_weight.toFixed(3)
               : "0.00"}
           </TableCell>
           <TableCell colSpan={6}>-</TableCell>
           <TableCell>
             {balanceData.total_product_weight
-              ? balanceData.total_product_weight.toFixed(2)
+              ? balanceData.total_product_weight.toFixed(3)
               : "0.00"}
           </TableCell>
           <TableCell>
             {balanceData.total_scrap_weight
-              ? balanceData.total_scrap_weight.toFixed(2)
+              ? balanceData.total_scrap_weight.toFixed(3)
               : "0.00"}
           </TableCell>
           <TableCell>
@@ -417,7 +417,7 @@ const ProcessReport = () => {
               : "-"}
           </TableCell>
           <TableCell>
-            {balanceData.balance ? balanceData.balance.toFixed(2) : "0.00"}
+            {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
           </TableCell>
         </TableRow>
       );
@@ -449,7 +449,7 @@ const ProcessReport = () => {
             </TableCell>
             <TableCell rowSpan={filingItems.length}>
               {entry.casting_item_weight
-                ? entry.casting_item_weight.toFixed(2)
+                ? entry.casting_item_weight.toFixed(3)
                 : "0.00"}
             </TableCell>
           </>
@@ -468,12 +468,12 @@ const ProcessReport = () => {
           <>
             <TableCell rowSpan={filingItems.length}>
               {balanceData.total_product_weight
-                ? balanceData.total_product_weight.toFixed(2)
+                ? balanceData.total_product_weight.toFixed(3)
                 : "0.00"}
             </TableCell>
             <TableCell rowSpan={filingItems.length}>
               {balanceData.total_scrap_weight
-                ? balanceData.total_scrap_weight.toFixed(2)
+                ? balanceData.total_scrap_weight.toFixed(3)
                 : "0.00"}
             </TableCell>
             <TableCell rowSpan={filingItems.length}>
@@ -484,7 +484,7 @@ const ProcessReport = () => {
                 : "-"}
             </TableCell>
             <TableCell rowSpan={filingItems.length}>
-              {balanceData.balance ? balanceData.balance.toFixed(2) : "0.00"}
+              {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
             </TableCell>
           </>
         )}
@@ -513,18 +513,18 @@ const ProcessReport = () => {
           <TableCell>{entry.item_name || "-"}</TableCell>
           <TableCell>
             {entry.casting_item_weight
-              ? entry.casting_item_weight.toFixed(2)
+              ? entry.casting_item_weight.toFixed(3)
               : "0.00"}
           </TableCell>
           <TableCell colSpan={6}>-</TableCell>
           <TableCell>
             {balanceData.total_product_weight
-              ? balanceData.total_product_weight.toFixed(2)
+              ? balanceData.total_product_weight.toFixed(3)
               : "0.00"}
           </TableCell>
           <TableCell>
             {balanceData.total_scrap_weight
-              ? balanceData.total_scrap_weight.toFixed(2)
+              ? balanceData.total_scrap_weight.toFixed(3)
               : "0.00"}
           </TableCell>
           <TableCell>
@@ -535,7 +535,7 @@ const ProcessReport = () => {
               : "-"}
           </TableCell>
           <TableCell>
-            {balanceData.balance ? balanceData.balance.toFixed(2) : "0.00"}
+            {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
           </TableCell>
         </TableRow>
       );
@@ -567,7 +567,7 @@ const ProcessReport = () => {
             </TableCell>
             <TableCell rowSpan={settingItems.length}>
               {entry.casting_item_weight
-                ? entry.casting_item_weight.toFixed(2)
+                ? entry.casting_item_weight.toFixed(3)
                 : "0.00"}
             </TableCell>
           </>
@@ -582,12 +582,12 @@ const ProcessReport = () => {
           <>
             <TableCell rowSpan={settingItems.length}>
               {balanceData.total_product_weight
-                ? balanceData.total_product_weight.toFixed(2)
+                ? balanceData.total_product_weight.toFixed(3)
                 : "0.00"}
             </TableCell>
             <TableCell rowSpan={settingItems.length}>
               {balanceData.total_scrap_weight
-                ? balanceData.total_scrap_weight.toFixed(2)
+                ? balanceData.total_scrap_weight.toFixed(3)
                 : "0.00"}
             </TableCell>
             <TableCell rowSpan={settingItems.length}>
@@ -598,7 +598,7 @@ const ProcessReport = () => {
                 : "-"}
             </TableCell>
             <TableCell rowSpan={settingItems.length}>
-              {balanceData.balance ? balanceData.balance.toFixed(2) : "0.00"}
+              {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
             </TableCell>
           </>
         )}
@@ -627,18 +627,18 @@ const ProcessReport = () => {
           <TableCell>{entry.item_name || "-"}</TableCell>
           <TableCell>
             {entry.casting_item_weight
-              ? entry.casting_item_weight.toFixed(2)
+              ? entry.casting_item_weight.toFixed(3)
               : "0.00"}
           </TableCell>
           <TableCell colSpan={6}>-</TableCell>
           <TableCell>
             {balanceData.total_product_weight
-              ? balanceData.total_product_weight.toFixed(2)
+              ? balanceData.total_product_weight.toFixed(3)
               : "0.00"}
           </TableCell>
           <TableCell>
             {balanceData.total_scrap_weight
-              ? balanceData.total_scrap_weight.toFixed(2)
+              ? balanceData.total_scrap_weight.toFixed(3)
               : "0.00"}
           </TableCell>
           <TableCell>
@@ -649,7 +649,7 @@ const ProcessReport = () => {
               : "-"}
           </TableCell>
           <TableCell>
-            {balanceData.balance ? balanceData.balance.toFixed(2) : "0.00"}
+            {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
           </TableCell>
         </TableRow>
       );
@@ -681,7 +681,7 @@ const ProcessReport = () => {
             </TableCell>
             <TableCell rowSpan={buffingItems.length}>
               {entry.casting_item_weight
-                ? entry.casting_item_weight.toFixed(2)
+                ? entry.casting_item_weight.toFixed(3)
                 : "0.00"}
             </TableCell>
           </>
@@ -696,12 +696,12 @@ const ProcessReport = () => {
           <>
             <TableCell rowSpan={buffingItems.length}>
               {balanceData.total_product_weight
-                ? balanceData.total_product_weight.toFixed(2)
+                ? balanceData.total_product_weight.toFixed(3)
                 : "0.00"}
             </TableCell>
             <TableCell rowSpan={buffingItems.length}>
               {balanceData.total_scrap_weight
-                ? balanceData.total_scrap_weight.toFixed(2)
+                ? balanceData.total_scrap_weight.toFixed(3)
                 : "0.00"}
             </TableCell>
             <TableCell rowSpan={buffingItems.length}>
@@ -712,7 +712,7 @@ const ProcessReport = () => {
                 : "-"}
             </TableCell>
             <TableCell rowSpan={buffingItems.length}>
-              {balanceData.balance ? balanceData.balance.toFixed(2) : "0.00"}
+              {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
             </TableCell>
           </>
         )}
@@ -754,29 +754,29 @@ const ProcessReport = () => {
         </TableCell>
         <TableCell colSpan={2} style={{ fontWeight: "bold" }}>
           Opening Balance:{" "}
-          {wastage.opening_balance ? wastage.opening_balance.toFixed(2) : 0}
+          {wastage.opening_balance ? wastage.opening_balance.toFixed(3) : 0}
         </TableCell>
         <TableCell colSpan={2} style={{ fontWeight: "bold" }}>
           Percentage: {wastage.wastage_percentage || 0}%
         </TableCell>
         <TableCell colSpan={2} style={{ fontWeight: "bold" }}>
           Add -On Wastage:{" "}
-          {wastage.add_wastage ? wastage.add_wastage.toFixed(2) : 0}
+          {wastage.add_wastage ? wastage.add_wastage.toFixed(3) : 0}
         </TableCell>
         <TableCell colSpan={2} style={{ fontWeight: "bold" }}>
           Total Receipt:{" "}
-          {wastage.total_receipt ? wastage.total_receipt.toFixed(2) : 0}
+          {wastage.total_receipt ? wastage.total_receipt.toFixed(3) : 0}
         </TableCell>
         <TableCell colSpan={2} style={{ fontWeight: "bold" }}>
-          Balance: {wastage.balance ? wastage.balance.toFixed(2) : 0}
+          Balance: {wastage.balance ? wastage.balance.toFixed(3) : 0}
         </TableCell>
         <TableCell colSpan={2} style={{ fontWeight: "bold" }}>
           Total Wastage:{" "}
-          {wastage.total_wastage ? wastage.total_wastage.toFixed(2) : 0}
+          {wastage.total_wastage ? wastage.total_wastage.toFixed(3) : 0}
         </TableCell>
         <TableCell colSpan={2} style={{ fontWeight: "bold" }}>
           Closing Balance:{" "}
-          {wastage.closing_balance ? wastage.closing_balance.toFixed(2) : 0}
+          {wastage.closing_balance ? wastage.closing_balance.toFixed(3) : 0}
         </TableCell>
       </TableRow>
     );
@@ -880,15 +880,15 @@ const ProcessReport = () => {
                 <>
                   <div className={styles.summaryItem}>
                     <span>Total Casting Weight:</span>
-                    <span>{totals.castingWeight.toFixed(2)}</span>
+                    <span>{totals.castingWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Product Weight:</span>
-                    <span>{totals.productWeight.toFixed(2)}</span>
+                    <span>{totals.productWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Scrap Weight:</span>
-                    <span>{totals.scrapWeight.toFixed(2)}</span>
+                    <span>{totals.scrapWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Wastage Entries:</span>
@@ -896,7 +896,7 @@ const ProcessReport = () => {
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Balance:</span>
-                    <span>{totals.balance.toFixed(2)}</span>
+                    <span>{totals.balance.toFixed(3)}</span>
                   </div>
                 </>
               )}
@@ -904,15 +904,15 @@ const ProcessReport = () => {
                 <>
                   <div className={styles.summaryItem}>
                     <span>Total Filing Weight:</span>
-                    <span>{totals.filingWeight.toFixed(2)}</span>
+                    <span>{totals.filingWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Product Weight:</span>
-                    <span>{totals.productWeight.toFixed(2)}</span>
+                    <span>{totals.productWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Scrap Weight:</span>
-                    <span>{totals.scrapWeight.toFixed(2)}</span>
+                    <span>{totals.scrapWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Wastage Entries:</span>
@@ -920,7 +920,7 @@ const ProcessReport = () => {
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Balance:</span>
-                    <span>{totals.balance.toFixed(2)}</span>
+                    <span>{totals.balance.toFixed(3)}</span>
                   </div>
                 </>
               )}
@@ -928,15 +928,15 @@ const ProcessReport = () => {
                 <>
                   <div className={styles.summaryItem}>
                     <span>Total Setting Weight:</span>
-                    <span>{totals.settingWeight.toFixed(2)}</span>
+                    <span>{totals.settingWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Product Weight:</span>
-                    <span>{totals.productWeight.toFixed(2)}</span>
+                    <span>{totals.productWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Scrap Weight:</span>
-                    <span>{totals.scrapWeight.toFixed(2)}</span>
+                    <span>{totals.scrapWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Wastage Entries:</span>
@@ -944,7 +944,7 @@ const ProcessReport = () => {
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Balance:</span>
-                    <span>{totals.balance.toFixed(2)}</span>
+                    <span>{totals.balance.toFixed(3)}</span>
                   </div>
                 </>
               )}
@@ -952,15 +952,15 @@ const ProcessReport = () => {
                 <>
                   <div className={styles.summaryItem}>
                     <span>Total Buffing Weight:</span>
-                    <span>{totals.buffingWeight.toFixed(2)}</span>
+                    <span>{totals.buffingWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Product Weight:</span>
-                    <span>{totals.productWeight.toFixed(2)}</span>
+                    <span>{totals.productWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Scrap Weight:</span>
-                    <span>{totals.scrapWeight.toFixed(2)}</span>
+                    <span>{totals.scrapWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Wastage Entries:</span>
@@ -968,7 +968,7 @@ const ProcessReport = () => {
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Balance:</span>
-                    <span>{totals.balance.toFixed(2)}</span>
+                    <span>{totals.balance.toFixed(3)}</span>
                   </div>
                 </>
               )}

@@ -99,9 +99,9 @@ const handleDownloadPDF = () => {
   // --- Summary Section ---
   const summaryY = 25;
   doc.setFontSize(10);
-  doc.text(`Total Receipt Weight: ${totals.receipt.toFixed(2)}`, 14, summaryY);
-  doc.text(`Total Scrap Weight: ${totals.scrap.toFixed(2)}`, 90, summaryY);
-  doc.text(`Total Balance: ${totals.balance.toFixed(2)}`, 160, summaryY);
+  doc.text(`Total Receipt Weight: ${totals.receipt.toFixed(3)}`, 14, summaryY);
+  doc.text(`Total Scrap Weight: ${totals.scrap.toFixed(3)}`, 90, summaryY);
+  doc.text(`Total Balance: ${totals.balance.toFixed(3)}`, 160, summaryY);
 
   // --- Table Columns ---
   const tableColumn = [
@@ -144,9 +144,9 @@ const handleDownloadPDF = () => {
           fi.touch || "-",
           fi.item_purity || "-",
           fi.remarks || "-",
-          i === 0 ? (balance.receipt_weight?.toFixed(2) ?? "-") : "",
-          i === 0 ? (balance.total_scrap_weight?.toFixed(2) ?? "-") : "",
-          i === 0 ? (balance.balance?.toFixed(2) ?? "-") : "",
+          i === 0 ? (balance.receipt_weight?.toFixed(3) ?? "-") : "",
+          i === 0 ? (balance.total_scrap_weight?.toFixed(3) ?? "-") : "",
+          i === 0 ? (balance.balance?.toFixed(3) ?? "-") : "",
           i === 0 ? (balance.wastage ? "Yes" : "No") : "",
         ]);
       });
@@ -159,9 +159,9 @@ const handleDownloadPDF = () => {
         "-",
         "No Filing Items",
         "-", "-", "-", "-",
-        balance.receipt_weight?.toFixed(2) ?? "-",
-        balance.total_scrap_weight?.toFixed(2) ?? "-",
-        balance.balance?.toFixed(2) ?? "-",
+        balance.receipt_weight?.toFixed(3) ?? "-",
+        balance.total_scrap_weight?.toFixed(3) ?? "-",
+        balance.balance?.toFixed(3) ?? "-",
         balance.wastage ? "Yes" : "No",
       ]);
     }
@@ -237,15 +237,15 @@ const handleDownloadPDF = () => {
 
         <div className={styles.summaryItem}>
             <span>Total Receipt Weight :</span>
-            <span>{totals.receipt.toFixed(2)}</span>
+            <span>{totals.receipt.toFixed(3)}</span>
         </div>
     <div className={styles.summaryItem}>
             <span>Total Scrap Weight :</span>
-            <span> {totals.scrap.toFixed(2)}</span>
+            <span> {totals.scrap.toFixed(3)}</span>
     </div>
     <div className={styles.summaryItem}>
             <span>Total Balance :</span>
-            <span>{totals.balance.toFixed(2)}</span>
+            <span>{totals.balance.toFixed(3)}</span>
     </div>
         </div>
       </div>
@@ -303,9 +303,9 @@ const handleDownloadPDF = () => {
                 {i === 0 && (
                   <>
                   
-                    <td rowSpan={items.length}>{balance.receipt_weight?.toFixed(2) ?? "-"}</td>
-                    <td rowSpan={items.length}>{balance.total_scrap_weight?.toFixed(2) ?? "-"}</td>
-                    <td rowSpan={items.length}>{balance.balance?.toFixed(2) ?? "-"}</td>
+                    <td rowSpan={items.length}>{balance.receipt_weight?.toFixed(3) ?? "-"}</td>
+                    <td rowSpan={items.length}>{balance.total_scrap_weight?.toFixed(3) ?? "-"}</td>
+                    <td rowSpan={items.length}>{balance.balance?.toFixed(3) ?? "-"}</td>
                     <td rowSpan={items.length}>
       {balance.wastage ? "Yes" : "No"}
     </td>
@@ -320,9 +320,9 @@ const handleDownloadPDF = () => {
                 <td>{entry.buffing_person_name}</td>
                 <td>-</td>
                 <td colSpan={5} style={{ textAlign: "center" }}>No Filing Items</td>
-                <td>{balance.receipt_weight?.toFixed(2) ?? "-"}</td>
-                <td>{balance.total_scrap_weight?.toFixed(2) ?? "-"}</td>
-                <td>{balance.balance?.toFixed(2) ?? "-"}</td>
+                <td>{balance.receipt_weight?.toFixed(3) ?? "-"}</td>
+                <td>{balance.total_scrap_weight?.toFixed(3) ?? "-"}</td>
+                <td>{balance.balance?.toFixed(3) ?? "-"}</td>
               </tr>
             );
           }) : (
@@ -365,9 +365,9 @@ const handleDownloadPDF = () => {
 
             {i === 0 && (
               <>
-                <td rowSpan={items.length}>{balance.receipt_weight?.toFixed(2) ?? "-"}</td>
-                <td rowSpan={items.length}>{balance.total_scrap_weight?.toFixed(2) ?? "-"}</td>
-                <td rowSpan={items.length}>{balance.balance?.toFixed(2) ?? "-"}</td>
+                <td rowSpan={items.length}>{balance.receipt_weight?.toFixed(3) ?? "-"}</td>
+                <td rowSpan={items.length}>{balance.total_scrap_weight?.toFixed(3) ?? "-"}</td>
+                <td rowSpan={items.length}>{balance.balance?.toFixed(3) ?? "-"}</td>
                 <td rowSpan={items.length}>{balance.wastage ? "Yes" : "No"}</td>
               </>
             )}
@@ -380,9 +380,9 @@ const handleDownloadPDF = () => {
             <td>{entry.buffing_person_name}</td>
             <td>-</td>
             <td colSpan={5} style={{ textAlign: "center" }}>No Filing Items</td>
-            <td>{balance.receipt_weight?.toFixed(2) ?? "-"}</td>
-            <td>{balance.total_scrap_weight?.toFixed(2) ?? "-"}</td>
-            <td>{balance.balance?.toFixed(2) ?? "-"}</td>
+            <td>{balance.receipt_weight?.toFixed(3) ?? "-"}</td>
+            <td>{balance.total_scrap_weight?.toFixed(3) ?? "-"}</td>
+            <td>{balance.balance?.toFixed(3) ?? "-"}</td>
             <td>{balance.wastage ? "Yes" : "No"}</td>
           </tr>
         )}

@@ -108,8 +108,8 @@ function MasterCustomer() {
       toast.success("Customer deleted successfully");
     } catch (error) {
       console.error("Error deleting customer:", error.response?.data || error.message);
-      toast.error("Error deleting customer");
-      // toast.error(" Customer cannot be deleted after Bill Creation, Error deleting customer");
+      // toast.error("Error deleting customer");
+      toast.error(" Customer cannot be deleted after Bill Creation, Error deleting customer");
     }
   };
 
@@ -125,10 +125,25 @@ function MasterCustomer() {
     setPhoneNumber(customer.phoneNumber || "");
     setAddress(customer.address || "");
     setEmail(customer.email || "");
-    setBalance(customer.balance !== null && customer.balance !== undefined ? customer.balance.toString() : "");
+
+    // setBalance(customer.balance !== null && customer.balance !== undefined ? customer.balance.toString() : "");
+//  Prefer openingBalance, fallback to balance
+  const displayBalance =
+  customer.openingBalance !== null && customer.openingBalance !== undefined
+    ? customer.openingBalance
+    : customer.balance;
+
+//  Show only up to 3 decimal places
+const formattedBalance =
+  displayBalance !== null && displayBalance !== undefined
+    ? parseFloat(displayBalance).toFixed(3)
+    : "";
+
+    setBalance(formattedBalance);
     setEditIndex(originalIndex);
     openModal();
   };
+
 
   const filteredCustomers = customers.filter(
     (c) =>

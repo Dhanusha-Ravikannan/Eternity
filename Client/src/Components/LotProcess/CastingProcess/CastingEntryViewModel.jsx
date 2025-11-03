@@ -497,9 +497,9 @@ const CastingEntryViewModal = ({
                     borderRadius: 1,
                   }}
                 >
-                  <Typography variant="body1">Touch {touch}:</Typography>
+                  <Typography variant="body1" >Touch {touch}: </Typography>
                   <Typography variant="body1" fontWeight="bold">
-                    {weight.toFixed(2)}
+                    {weight.toFixed(3)}
                   </Typography>
                 </Box>
               </Grid>
@@ -715,8 +715,8 @@ const CastingEntryViewModal = ({
       </Accordion>
 <br/>
 <div style={{textAlign:"end"}}> 
-<div> <b>Opening Balance:  </b> {openingBalance.toFixed(2)} </div>
-<div> <b> Total Balance:  </b> {totalBalance.toFixed(2)} </div>
+<div> <b>Opening Balance:  </b> {openingBalance.toFixed(3)} </div>
+<div> <b> Total Balance:  </b> {totalBalance.toFixed(3)} </div>
 </div>
         {/* Add Product Items Section */}
         <Button onClick={addProductItem} variant="outlined" sx={{ mt:1, backgroundColor:' #f8f9fa', fontWeight:'530' }}>
@@ -878,8 +878,8 @@ const CastingEntryViewModal = ({
         </Table>
 
         <Typography sx={{ mt: 1 }}>
-          <strong>Total Item Weight:</strong> {totalProductWeight.toFixed(2)}
-          <strong style={{marginLeft:'4rem'}}>Current Balance Weight: </strong>{currentBalanceWeight.toFixed(2)}
+          <strong>Total Item Weight:</strong> {totalProductWeight.toFixed(3)}
+          <strong style={{marginLeft:'4rem'}}>Current Balance Weight: </strong>{currentBalanceWeight.toFixed(3)}
         </Typography>
 
         {/* Add Scrap Items Section */}
@@ -1029,8 +1029,8 @@ const CastingEntryViewModal = ({
           </TableBody>
         </Table>
         <Typography sx={{ mt: 1 }}>
-          <strong>Total Scrap Weight:</strong> {totalScrapWeight.toFixed(2)}
-          <strong style={{marginLeft:'4rem'}}>Total Wastage:</strong> {totalWastage.toFixed(2)}
+          <strong>Total Scrap Weight:</strong> {totalScrapWeight.toFixed(3)}
+          <strong style={{marginLeft:'4rem'}}>Total Wastage:</strong> {totalWastage.toFixed(3)}
         </Typography>
       </DialogContent>
 

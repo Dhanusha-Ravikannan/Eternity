@@ -394,15 +394,15 @@ const handleDownloadPDF = () => {
 
         <div className={styles.summaryItem}>
             <span>Total Weight :</span>
-            <span>{totalWeight}</span>
+            <span>{totalWeight.toFixed(3)}</span>
         </div>
     <div className={styles.summaryItem}>
             <span>Total Stone Weight :</span>
-            <span> {totalStoneWeight}</span>
+            <span> {totalStoneWeight.toFixed(3)}</span>
     </div>
     <div className={styles.summaryItem}>
             <span>Total Final Weight :</span>
-            <span>{totalFinalWeight}</span>
+            <span>{totalFinalWeight.toFixed(3)}</span>
     </div>
     <div className={styles.summaryItem}>
             <span>Total Purity :</span>
@@ -586,17 +586,6 @@ const formattedTime = updatedAtObj
                     <td>{entry.purity}</td>
                     <td>{entry.remarks}</td>
                     <td>{entry.status}</td>
-                    {/* <td>
-                       <Edit
-                        style={{ cursor: "pointer" }}
-                        onClick={() => handleEdit(index)}
-                      />      
-                      <Delete
-             onClick={() => handleDelete(entry.id)}
-              className={styles.deleteIcon}
-            />
-                    </td> */}
-
 <td>
   {entry.status === "Moved" ? (
     <>

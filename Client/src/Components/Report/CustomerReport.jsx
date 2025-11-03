@@ -190,9 +190,9 @@ const CustomerReport = () => {
         </DemoContainer>
       </LocalizationProvider>
     </div>
-
+   
     {/* Customer Dropdown */}
-    <div className={styles.reportField}>
+    <div className={styles.reportField} style={{marginTop:'2.3rem'}}>
       <Autocomplete
         disablePortal
         options={customers}

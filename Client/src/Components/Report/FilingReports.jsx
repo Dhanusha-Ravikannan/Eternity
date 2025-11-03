@@ -116,23 +116,23 @@ const FilingReports = () => {
   doc.setFontSize(10);
 
   doc.text(
-    `Total Casting Weight: ${totals.castingWeight.toFixed(2)}`,
+    `Total Casting Weight: ${totals.castingWeight.toFixed(3)}`,
     14,
     summaryY
   );
   doc.text(
-    `Total Product Weight: ${totals.productWeight.toFixed(2)}`,
+    `Total Product Weight: ${totals.productWeight.toFixed(3)}`,
     70,
     summaryY
   );
   doc.text(
-    `Total Scrap Weight: ${totals.scrapWeight.toFixed(2)}`,
+    `Total Scrap Weight: ${totals.scrapWeight.toFixed(3)}`,
     140,
     summaryY
   );
 
-  doc.text(`Total Wastage: ${totals.wastage.toFixed(2)}`, 14, summaryY + 6);
-  doc.text(`Total Balance: ${totals.balance.toFixed(2)}`, 70, summaryY + 6);
+  doc.text(`Total Wastage: ${totals.wastage.toFixed(3)}`, 14, summaryY + 6);
+  doc.text(`Total Balance: ${totals.balance.toFixed(3)}`, 70, summaryY + 6);
 
     // Prepare table columns
     const tableColumn = [
@@ -181,7 +181,7 @@ const FilingReports = () => {
             i === 0 ? entry.item_name || "-" : "",
             i === 0
               ? entry.casting_item_weight
-                ? entry.casting_item_weight.toFixed(2)
+                ? entry.casting_item_weight.toFixed(3)
                 : "-"
               : "",
             item?.filingitem?.name || "-",
@@ -191,10 +191,10 @@ const FilingReports = () => {
             item?.stone_option === "WithStone" ? "Yes" : "No",
             item?.stone_option === "WithStone" ? "Setting" : "Buffing",
             i === 0
-              ? balanceData.total_product_weight?.toFixed(2) || "-"
+              ? balanceData.total_product_weight?.toFixed(3) || "-"
               : "",
             i === 0
-              ? balanceData.total_scrap_weight?.toFixed(2) || "-"
+              ? balanceData.total_scrap_weight?.toFixed(3) || "-"
               : "",
             i === 0
               ? entry?.filingTotalBalance?.[0]?.wastage != null
@@ -203,7 +203,7 @@ const FilingReports = () => {
                   : "No"
                 : "-"
               : "",
-            i === 0 ? balanceData.balance?.toFixed(2) || "-" : "",
+            i === 0 ? balanceData.balance?.toFixed(3) || "-" : "",
           ]);
         });
       } else {
@@ -219,7 +219,7 @@ const FilingReports = () => {
           lotInfo.lot_number || "-",
           entry.item_name || "-",
           entry.casting_item_weight
-            ? entry.casting_item_weight.toFixed(2)
+            ? entry.casting_item_weight.toFixed(3)
             : "-",
           "-",
           "-",
@@ -227,14 +227,14 @@ const FilingReports = () => {
           "-",
           "-",
           "-",
-          balanceData.total_product_weight?.toFixed(2) || "-",
-          balanceData.total_scrap_weight?.toFixed(2) || "-",
+          balanceData.total_product_weight?.toFixed(3) || "-",
+          balanceData.total_scrap_weight?.toFixed(3) || "-",
           entry?.filingTotalBalance?.[0]?.wastage != null
             ? entry.filingTotalBalance[0].wastage === true
               ? "Yes"
               : "No"
             : "-",
-          balanceData.balance?.toFixed(2) || "-",
+          balanceData.balance?.toFixed(3) || "-",
         ]);
       }
     });
@@ -318,23 +318,23 @@ const FilingReports = () => {
         <div className={styles.summaryGrid}>
           <div className={styles.summaryItem}>
             <span>Total Casting Weight:</span>
-            <span>{totals.castingWeight.toFixed(2)}</span>
+            <span>{totals.castingWeight.toFixed(3)}</span>
           </div>
           <div className={styles.summaryItem}>
             <span>Total Product Weight:</span>
-            <span>{totals.productWeight.toFixed(2)}</span>
+            <span>{totals.productWeight.toFixed(3)}</span>
           </div>
           <div className={styles.summaryItem}>
             <span>Total Scrap Weight:</span>
-            <span>{totals.scrapWeight.toFixed(2)}</span>
+            <span>{totals.scrapWeight.toFixed(3)}</span>
           </div>
           <div className={styles.summaryItem}>
             <span>Total Wastage:</span>
-            <span>{totals.wastage.toFixed(2)}</span>
+            <span>{totals.wastage.toFixed(3)}</span>
           </div>
           <div className={styles.summaryItem}>
             <span>Total Balance:</span>
-            <span>{totals.balance.toFixed(2)}</span>
+            <span>{totals.balance.toFixed(3)}</span>
           </div>
         </div>
       </div>
@@ -400,7 +400,7 @@ const FilingReports = () => {
                             </td>
                             <td rowSpan={filingItems.length}>
                               {entry.casting_item_weight
-                                ? entry.casting_item_weight.toFixed(2)
+                                ? entry.casting_item_weight.toFixed(3)
                                 : "-"}
                             </td>
                           </>
@@ -422,12 +422,12 @@ const FilingReports = () => {
                           <>
                             <td rowSpan={filingItems.length}>
                               {balanceData.total_product_weight
-                                ? balanceData.total_product_weight.toFixed(2)
+                                ? balanceData.total_product_weight.toFixed(3)
                                 : "-"}
                             </td>
                             <td rowSpan={filingItems.length}>
                               {balanceData.total_scrap_weight
-                                ? balanceData.total_scrap_weight.toFixed(2)
+                                ? balanceData.total_scrap_weight.toFixed(3)
                                 : "-"}
                             </td>
                             <td rowSpan={filingItems.length}>
@@ -439,7 +439,7 @@ const FilingReports = () => {
                             </td>
                             <td rowSpan={filingItems.length}>
                               {balanceData.balance
-                                ? balanceData.balance.toFixed(2)
+                                ? balanceData.balance.toFixed(3)
                                 : "-"}
                             </td>
                           </>
@@ -464,18 +464,18 @@ const FilingReports = () => {
                       <td>{entry.item_name || "-"}</td>
                       <td>
                         {entry.casting_item_weight
-                          ? entry.casting_item_weight.toFixed(2)
+                          ? entry.casting_item_weight.toFixed(3)
                           : "-"}
                       </td>
                       <td colSpan={6}>-</td>
                       <td>
                         {balanceData.total_product_weight
-                          ? balanceData.total_product_weight.toFixed(2)
+                          ? balanceData.total_product_weight.toFixed(3)
                           : "-"}
                       </td>
                       <td>
                         {balanceData.total_scrap_weight
-                          ? balanceData.total_scrap_weight.toFixed(2)
+                          ? balanceData.total_scrap_weight.toFixed(3)
                           : "-"}
                       </td>
                       <td>
@@ -487,7 +487,7 @@ const FilingReports = () => {
                       </td>
                       <td>
                         {balanceData.balance
-                          ? balanceData.balance.toFixed(2)
+                          ? balanceData.balance.toFixed(3)
                           : "-"}
                       </td>
                     </tr>

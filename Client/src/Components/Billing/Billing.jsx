@@ -191,7 +191,7 @@ useEffect(() => {
         return {
           ...item,
           pure: parseFloat(pure.toFixed(3)),
-          amount: parseFloat(amount.toFixed(2)),
+          amount: parseFloat(amount.toFixed(3)),
         };
       }
 
@@ -210,7 +210,7 @@ useEffect(() => {
     });
     return {
       totalPure: totalPure.toFixed(3),
-      totalAmount: totalAmount.toFixed(2),
+      totalAmount: totalAmount.toFixed(3),
     };
   };
 
@@ -228,7 +228,12 @@ useEffect(() => {
 
     setAvailableItems((prev) => [
       ...prev,
-      { weight: removedItem.weight, touch: removedItem.touch },
+      {
+        id: removedItem.id,
+        weight: removedItem.weight,
+        stone_weight: removedItem.stoneWeight || removedItem.stone_weight || 0,
+        touchId: removedItem.touchId || { touch: removedItem.touch || "-" },
+      },
     ]);
   };
 
@@ -277,7 +282,7 @@ useEffect(() => {
       const amount = rate ? pure * rate : 0;
 
       newBill[index].pure = parseFloat(pure.toFixed(3));
-      newBill[index].amount = parseFloat(amount.toFixed(2));
+      newBill[index].amount = parseFloat(amount.toFixed(3));
     }
     console.log(newBill);
     setBillItems(newBill);
@@ -352,7 +357,7 @@ if (pureBalanceValue > 0) {
   cashBalance = 0;
 }
 
-cashBalance = parseFloat(cashBalance.toFixed(2));
+cashBalance = parseFloat(cashBalance.toFixed(3));
 
   const handleSave = async () => {
     try {
@@ -365,7 +370,7 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
         totalAmount: totalAmount,
         customerBalance: customerBalance,
         grandTotal: grandTotal,
-        cashBalance: parseFloat(cashBalance).toFixed(2),
+        cashBalance: parseFloat(cashBalance).toFixed(3),
         pureBalance: pureBalanceValue,
         prevHallmark: prevHallmark,
         hallmarkBalance: hallmarkBalance,
@@ -523,14 +528,14 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
     <tr style={{ color: "green", fontWeight: "bold" }}>
       <td colSpan={5}>Customer Balance</td>
       <td>{parseFloat(customerBalance || 0).toFixed(3)}</td>
-      <td>{(parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)).toFixed(2)}</td>
+      <td>{(parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)).toFixed(3)}</td>
       <td></td>
     </tr>
   ) : (
     <tr style={{ color: "red", fontWeight: "bold" }}>
       <td colSpan={5}>Customer Excess Balance</td>
       <td>{parseFloat(customerBalance || 0).toFixed(3)}</td>
-      <td>{(parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)).toFixed(2)}</td>
+      <td>{(parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)).toFixed(3)}</td>
       <td></td>
     </tr>
   )}
@@ -540,7 +545,7 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
       <b>Final Bill Total</b>
     </td>
     <td>{parseFloat(totalPure || 0).toFixed(3)}</td>
-    <td>{parseFloat(totalAmount || 0).toFixed(2)}</td>
+    <td>{parseFloat(totalAmount || 0).toFixed(3)}</td>
     <td></td>
   </tr>
 <tr>
@@ -607,7 +612,7 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
     {(
       parseFloat(totalAmount || 0) +
       parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)
-    ).toFixed(2)}
+    ).toFixed(3)}
   </td>
   <td className={styles.trEven}> </td>
 </tr>
@@ -788,7 +793,7 @@ cashBalance = parseFloat(cashBalance.toFixed(2));
           <div className={styles.balance}>
             <p>
               <b>Cash Balance:</b> ₹{" "}
-              {cashBalance ? parseFloat(cashBalance).toFixed(2) : 0}
+              {cashBalance ? parseFloat(cashBalance).toFixed(3) : 0}
             </p>
             <p style={{color:'green'}}>
   <b>Pure Balance:</b> {pureBalance}

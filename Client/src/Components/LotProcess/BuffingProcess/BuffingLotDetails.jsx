@@ -766,7 +766,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
         <br />
 
         <Typography>
-          <strong>Total Receipt : </strong>  {totalReceipt.toFixed(2)} g  
+          <strong>Total Receipt : </strong>  {totalReceipt.toFixed(3)} g  
         </Typography>
 
         <TextField
@@ -817,13 +817,13 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
         </Box>
 
         <Typography sx={{ mt: 2 }}>
-          <strong>Total Wastage: </strong> {totalWastage.toFixed(2)} g
+          <strong>Total Wastage: </strong> {totalWastage.toFixed(3)} g
         </Typography>
         <Typography sx={{ mt: 2 }}>
-          <strong>Balance:</strong> {totalBalanceSum.toFixed(2)} g
+          <strong>Balance:</strong> {totalBalanceSum.toFixed(3)} g
         </Typography>
         <Typography sx={{ mt: 2 }}>
-          <strong>Overall Wastage:</strong> {overallWastage.toFixed(2)} g
+          <strong>Overall Wastage:</strong> {overallWastage.toFixed(3)} g
         </Typography>
 
         {parseFloat(overallWastage) < 0 && (
@@ -839,7 +839,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
         )}
 
         <Typography sx={{ mt: 2, color: "red" }}>
-          <strong>Closing Balance:</strong> {closingBalance.toFixed(2)} g
+          <strong>Closing Balance:</strong> {closingBalance.toFixed(3)} g
         </Typography>
 
         <Typography
@@ -1042,7 +1042,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
                     <td>
                       <b>
                         {viewEntry.items
-                          .reduce((sum, item) => sum + (parseFloat(item.weight) || 0), 0 )  .toFixed(2)}
+                          .reduce((sum, item) => sum + (parseFloat(item.weight) || 0), 0 )  .toFixed(3)}
                       </b>
                     </td>
                     <td colSpan={6}></td>
@@ -1148,8 +1148,8 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
 
 {viewEntry && (
   <Box sx={{ mt: 2, mb: 2 }}>
-    <Typography><b>Opening Balance :</b> {openingBalanceTotal.toFixed(2)}</Typography>
-    <Typography><b>Total Sum Balance :</b> {totalSumBalance.toFixed(2)}</Typography>
+    <Typography><b>Opening Balance :</b> {openingBalanceTotal.toFixed(3)}</Typography>
+    <Typography><b>Total Sum Balance :</b> {totalSumBalance.toFixed(3)}</Typography>
   </Box>
 )}
 
@@ -1297,7 +1297,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
                           (sum, s) => sum + (parseFloat(s.weight) || 0),
                           0
                         )
-                        .toFixed(2)}
+                        .toFixed(3)}
                     </Typography>
 
               
@@ -1305,7 +1305,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
   <strong>Balance   :</strong> 
   {(
     totalSumBalance - (parseFloat(receiptWeight) || 0) - scrapItems.reduce((sum, s) => sum + (parseFloat(s.weight) || 0), 0)
-  ).toFixed(2)}
+  ).toFixed(3)}
 </Typography>
 
                   </Box>
