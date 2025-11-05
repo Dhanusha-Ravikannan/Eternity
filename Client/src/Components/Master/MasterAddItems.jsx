@@ -6,6 +6,7 @@ import { BACKEND_SERVER_URL } from "../../../Config/config";
 import { Edit, Delete } from "@mui/icons-material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSaveButton } from "../../Utils/useSaveButton";
 
 
 const MasterAdditems = () => {
@@ -13,6 +14,8 @@ const MasterAdditems = () => {
   const [itemName, setItemName] = useState("");
   const [editItemId, setEditItemId] = useState(null);
   const [editItemName, setEditItemName] = useState("");
+  const { isSaving, handleSaveAction } = useSaveButton();
+
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -40,12 +43,13 @@ const MasterAdditems = () => {
 
 
   const handleAddItem = async () => {
+    handleSaveAction(async () => {
     if (!itemName.trim()) {
       toast.error("Please enter an item name.", { position: "top-right" });
       return;
     }
   
-    // 🔹 Prevent duplicate item name (case-insensitive)
+    //  Prevent duplicate item name (case-insensitive)
     const isDuplicate = items.some(
       (item) => item.name.toLowerCase() === itemName.trim().toLowerCase()
     );
@@ -66,6 +70,7 @@ const MasterAdditems = () => {
       toast.error("Error adding item.", { position: "top-right" });
       console.error("Error adding item:", error);
     }
+  });
   };
   
 
@@ -75,7 +80,7 @@ const MasterAdditems = () => {
       return;
     }
   
-    // 🔹 Prevent duplicate name except for current item
+    //  Prevent duplicate name except for current item
     const isDuplicate = items.some(
       (item) =>
         item.name.toLowerCase() === editItemName.trim().toLowerCase() &&
@@ -130,7 +135,7 @@ const MasterAdditems = () => {
       <Master />
       <div className={styles.mastercontainer}>
         <div className={styles.additemform}>
-          <h4 style={{ textAlign: "center" }}>Add Item</h4>
+          <h4 style={{ textAlign: "center" }}>Add Item</h4> 
           <label>Item Name:</label>
           <input
             type="text"
@@ -138,7 +143,9 @@ const MasterAdditems = () => {
             onChange={(e) => setItemName(e.target.value)}
             placeholder="Enter item name"
           />
-          <button onClick={handleAddItem}>Add Item</button>
+          <button onClick={handleAddItem} disabled={isSaving}>
+  {isSaving ? "Adding..." : "Add Item"}
+</button>
         </div>
 
 <div className={styles.itemlist}>
@@ -170,7 +177,7 @@ const MasterAdditems = () => {
             <td style={{ width: "6rem" }}>
               {editItemId === item.id ? (
                 <>
-                  <button onClick={() => handleSaveEdit(item.id)}>Save</button>
+                  <button onClick={() => handleSaveEdit(item.id)}>Update</button>
                   <button onClick={handleCancelEdit}>Cancel</button>
                 </>
               ) : (

@@ -16,6 +16,7 @@ import { BACKEND_SERVER_URL } from "../../../Config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { validateCustomer } from "../../Utils/validationSchemas";
+import { useSaveButton } from "../../Utils/useSaveButton";
 
 function MasterCasting() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,6 +29,7 @@ function MasterCasting() {
   const [searchTerm, setSearchTerm] = useState("");
   const [balance, setBalance] = useState("");
 
+  const { isSaving, handleSaveAction } = useSaveButton();
 
   const openModal = () => setIsModalOpen(true);
 
@@ -61,6 +63,7 @@ function MasterCasting() {
   }, []);
 
   const handleSave = async () => {
+    await handleSaveAction(async () => {
     const castingData = {
       name: customerName.trim() || "",
       phoneNumber: phoneNumber.trim() || "",
@@ -93,6 +96,7 @@ function MasterCasting() {
       console.error("Error saving casting member:", error.response?.data || error.message);
       toast.error("Failed to save casting member");
     }
+  });
   };
 
   const handleEdit = (index) => {
@@ -260,19 +264,21 @@ function MasterCasting() {
     <Button onClick={closeModal} color="primary" variant="outlined">
       Cancel
     </Button>
-    <Button
-      onClick={handleSave}
-      color="primary"
-      variant="contained"
-      sx={{ marginRight: "0.5rem" }}
-    >
-      Save
-    </Button>
+
+<Button
+    onClick={handleSave}
+    color="primary"
+    variant="contained"
+    sx={{ marginRight: "0.5rem" }}
+    disabled={isSaving}
+  >
+    {isSaving
+      ? (editIndex !== null ? "Updating..." : "Saving...")
+      : (editIndex !== null ? "Update" : "Save")}
+  </Button>
   </DialogActions>
 </Dialog>
 
-
-        {/* Table */}
         <div className={styles.itemList}>
           <table className={styles.purchaseTable}>
             <thead>

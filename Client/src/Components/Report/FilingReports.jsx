@@ -188,8 +188,17 @@ const FilingReports = () => {
             item?.item_purity || "-",
             item?.touch?.touch || "-",
             item?.type || "-",
-            item?.stone_option === "WithStone" ? "Yes" : "No",
-            item?.stone_option === "WithStone" ? "Setting" : "Buffing",
+            item?.type === "ScrapItems"
+  ? ""
+  : item?.stone_option === "WithStone"
+  ? "Yes"
+  : "No",
+item?.type === "ScrapItems"
+  ? ""
+  : item?.stone_option === "WithStone"
+  ? "Setting"
+  : "Buffing",
+
             i === 0
               ? balanceData.total_product_weight?.toFixed(3) || "-"
               : "",
@@ -408,7 +417,7 @@ const FilingReports = () => {
                         <td>{item?.filingitem?.name || "-"}</td>
                         <td>{item?.item_purity || "-"}</td>
                         <td>{item?.touch.touch || "-"}</td>
-                        <td>{item?.type || "-"}</td>
+                        {/* <td>{item?.type || "-"}</td>
                         <td>
                           {item?.stone_option === "WithStone" ? "Yes" : "No"}
                         </td>
@@ -416,7 +425,24 @@ const FilingReports = () => {
                           {item?.stone_option === "WithStone"
                             ? "Setting"
                             : "Buffing"}
-                        </td>
+                        </td> */}
+
+<td>{item?.type || "-"}</td>
+<td>
+  {item?.type === "ScrapItems"
+    ? ""
+    : item?.stone_option === "WithStone"
+    ? "Yes"
+    : "No"}
+</td>
+<td>
+  {item?.type === "ScrapItems"
+    ? ""
+    : item?.stone_option === "WithStone"
+    ? "Setting"
+    : "Buffing"}
+</td>
+
 
                         {itemIndex === 0 && (
                           <>

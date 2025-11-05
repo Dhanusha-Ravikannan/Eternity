@@ -297,12 +297,11 @@ const ReceiptVoucher = () => {
 
               <Button
             style={{
-              backgroundColor:"rgb(188, 18, 35)",
-              color:"white",
-              borderColor:'brown',
+              backgroundColor: "#F5F5F5",
+              color: "black",
+              borderColor: "#25274D",
               borderStyle: "solid",
               borderWidth: "2px",
-              size:'sm',
               marginLeft:'35.5rem'
             }}
             variant="contained"
@@ -311,8 +310,6 @@ const ReceiptVoucher = () => {
               }}
         
           > Add Row </Button>
-            
-             
             </div>
           </div>
 

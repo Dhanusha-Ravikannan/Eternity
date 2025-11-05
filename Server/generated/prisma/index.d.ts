@@ -3886,6 +3886,7 @@ export namespace Prisma {
     bills: number
     hallmarks: number
     receipt_voucher: number
+    Stock: number
   }
 
   export type AddCustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3893,6 +3894,7 @@ export namespace Prisma {
     bills?: boolean | AddCustomerCountOutputTypeCountBillsArgs
     hallmarks?: boolean | AddCustomerCountOutputTypeCountHallmarksArgs
     receipt_voucher?: boolean | AddCustomerCountOutputTypeCountReceipt_voucherArgs
+    Stock?: boolean | AddCustomerCountOutputTypeCountStockArgs
   }
 
   // Custom InputTypes
@@ -3932,6 +3934,13 @@ export namespace Prisma {
    */
   export type AddCustomerCountOutputTypeCountReceipt_voucherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReceiptVoucherWhereInput
+  }
+
+  /**
+   * AddCustomerCountOutputType without action
+   */
+  export type AddCustomerCountOutputTypeCountStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockWhereInput
   }
 
 
@@ -5429,6 +5438,7 @@ export namespace Prisma {
     bills?: boolean | AddCustomer$billsArgs<ExtArgs>
     hallmarks?: boolean | AddCustomer$hallmarksArgs<ExtArgs>
     receipt_voucher?: boolean | AddCustomer$receipt_voucherArgs<ExtArgs>
+    Stock?: boolean | AddCustomer$StockArgs<ExtArgs>
     _count?: boolean | AddCustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["addCustomer"]>
 
@@ -5452,6 +5462,7 @@ export namespace Prisma {
     bills?: boolean | AddCustomer$billsArgs<ExtArgs>
     hallmarks?: boolean | AddCustomer$hallmarksArgs<ExtArgs>
     receipt_voucher?: boolean | AddCustomer$receipt_voucherArgs<ExtArgs>
+    Stock?: boolean | AddCustomer$StockArgs<ExtArgs>
     _count?: boolean | AddCustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5462,6 +5473,7 @@ export namespace Prisma {
       bills: Prisma.$BillPayload<ExtArgs>[]
       hallmarks: Prisma.$HallmarkPayload<ExtArgs>[]
       receipt_voucher: Prisma.$ReceiptVoucherPayload<ExtArgs>[]
+      Stock: Prisma.$StockPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5817,6 +5829,7 @@ export namespace Prisma {
     bills<T extends AddCustomer$billsArgs<ExtArgs> = {}>(args?: Subset<T, AddCustomer$billsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hallmarks<T extends AddCustomer$hallmarksArgs<ExtArgs> = {}>(args?: Subset<T, AddCustomer$hallmarksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HallmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     receipt_voucher<T extends AddCustomer$receipt_voucherArgs<ExtArgs> = {}>(args?: Subset<T, AddCustomer$receipt_voucherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReceiptVoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Stock<T extends AddCustomer$StockArgs<ExtArgs> = {}>(args?: Subset<T, AddCustomer$StockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6291,6 +6304,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ReceiptVoucherScalarFieldEnum | ReceiptVoucherScalarFieldEnum[]
+  }
+
+  /**
+   * AddCustomer.Stock
+   */
+  export type AddCustomer$StockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    where?: StockWhereInput
+    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
+    cursor?: StockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
   }
 
   /**
@@ -38553,6 +38590,7 @@ export namespace Prisma {
     casting_customer_id: number | null
     purchase_id: number | null
     customer_transaction_id: number | null
+    customer_id: number | null
   }
 
   export type StockSumAggregateOutputType = {
@@ -38568,6 +38606,7 @@ export namespace Prisma {
     casting_customer_id: number | null
     purchase_id: number | null
     customer_transaction_id: number | null
+    customer_id: number | null
   }
 
   export type StockMinAggregateOutputType = {
@@ -38586,6 +38625,7 @@ export namespace Prisma {
     casting_customer_id: number | null
     purchase_id: number | null
     customer_transaction_id: number | null
+    customer_id: number | null
   }
 
   export type StockMaxAggregateOutputType = {
@@ -38604,6 +38644,7 @@ export namespace Prisma {
     casting_customer_id: number | null
     purchase_id: number | null
     customer_transaction_id: number | null
+    customer_id: number | null
   }
 
   export type StockCountAggregateOutputType = {
@@ -38622,6 +38663,7 @@ export namespace Prisma {
     casting_customer_id: number
     purchase_id: number
     customer_transaction_id: number
+    customer_id: number
     _all: number
   }
 
@@ -38639,6 +38681,7 @@ export namespace Prisma {
     casting_customer_id?: true
     purchase_id?: true
     customer_transaction_id?: true
+    customer_id?: true
   }
 
   export type StockSumAggregateInputType = {
@@ -38654,6 +38697,7 @@ export namespace Prisma {
     casting_customer_id?: true
     purchase_id?: true
     customer_transaction_id?: true
+    customer_id?: true
   }
 
   export type StockMinAggregateInputType = {
@@ -38672,6 +38716,7 @@ export namespace Prisma {
     casting_customer_id?: true
     purchase_id?: true
     customer_transaction_id?: true
+    customer_id?: true
   }
 
   export type StockMaxAggregateInputType = {
@@ -38690,6 +38735,7 @@ export namespace Prisma {
     casting_customer_id?: true
     purchase_id?: true
     customer_transaction_id?: true
+    customer_id?: true
   }
 
   export type StockCountAggregateInputType = {
@@ -38708,6 +38754,7 @@ export namespace Prisma {
     casting_customer_id?: true
     purchase_id?: true
     customer_transaction_id?: true
+    customer_id?: true
     _all?: true
   }
 
@@ -38813,6 +38860,7 @@ export namespace Prisma {
     casting_customer_id: number | null
     purchase_id: number | null
     customer_transaction_id: number | null
+    customer_id: number | null
     _count: StockCountAggregateOutputType | null
     _avg: StockAvgAggregateOutputType | null
     _sum: StockSumAggregateOutputType | null
@@ -38850,6 +38898,7 @@ export namespace Prisma {
     casting_customer_id?: boolean
     purchase_id?: boolean
     customer_transaction_id?: boolean
+    customer_id?: boolean
     castingItem?: boolean | Stock$castingItemArgs<ExtArgs>
     filingItem?: boolean | Stock$filingItemArgs<ExtArgs>
     settingItem?: boolean | Stock$settingItemArgs<ExtArgs>
@@ -38859,6 +38908,7 @@ export namespace Prisma {
     casting_customer?: boolean | Stock$casting_customerArgs<ExtArgs>
     purchaseId?: boolean | Stock$purchaseIdArgs<ExtArgs>
     customer_transaction?: boolean | Stock$customer_transactionArgs<ExtArgs>
+    customer?: boolean | Stock$customerArgs<ExtArgs>
   }, ExtArgs["result"]["stock"]>
 
 
@@ -38879,9 +38929,10 @@ export namespace Prisma {
     casting_customer_id?: boolean
     purchase_id?: boolean
     customer_transaction_id?: boolean
+    customer_id?: boolean
   }
 
-  export type StockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "casting_item_id" | "filing_item_id" | "setting_item_id" | "buffing_item_id" | "item_type" | "item_id" | "weight" | "touch_id" | "item_purity" | "remarks" | "casting_customer_id" | "purchase_id" | "customer_transaction_id", ExtArgs["result"]["stock"]>
+  export type StockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "casting_item_id" | "filing_item_id" | "setting_item_id" | "buffing_item_id" | "item_type" | "item_id" | "weight" | "touch_id" | "item_purity" | "remarks" | "casting_customer_id" | "purchase_id" | "customer_transaction_id" | "customer_id", ExtArgs["result"]["stock"]>
   export type StockInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     castingItem?: boolean | Stock$castingItemArgs<ExtArgs>
     filingItem?: boolean | Stock$filingItemArgs<ExtArgs>
@@ -38892,6 +38943,7 @@ export namespace Prisma {
     casting_customer?: boolean | Stock$casting_customerArgs<ExtArgs>
     purchaseId?: boolean | Stock$purchaseIdArgs<ExtArgs>
     customer_transaction?: boolean | Stock$customer_transactionArgs<ExtArgs>
+    customer?: boolean | Stock$customerArgs<ExtArgs>
   }
 
   export type $StockPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38906,6 +38958,7 @@ export namespace Prisma {
       casting_customer: Prisma.$AddCastingPayload<ExtArgs> | null
       purchaseId: Prisma.$AddPurchaseStockPayload<ExtArgs> | null
       customer_transaction: Prisma.$CustomerTransactionPayload<ExtArgs> | null
+      customer: Prisma.$AddCustomerPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -38923,6 +38976,7 @@ export namespace Prisma {
       casting_customer_id: number | null
       purchase_id: number | null
       customer_transaction_id: number | null
+      customer_id: number | null
     }, ExtArgs["result"]["stock"]>
     composites: {}
   }
@@ -39272,6 +39326,7 @@ export namespace Prisma {
     casting_customer<T extends Stock$casting_customerArgs<ExtArgs> = {}>(args?: Subset<T, Stock$casting_customerArgs<ExtArgs>>): Prisma__AddCastingClient<$Result.GetResult<Prisma.$AddCastingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     purchaseId<T extends Stock$purchaseIdArgs<ExtArgs> = {}>(args?: Subset<T, Stock$purchaseIdArgs<ExtArgs>>): Prisma__AddPurchaseStockClient<$Result.GetResult<Prisma.$AddPurchaseStockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     customer_transaction<T extends Stock$customer_transactionArgs<ExtArgs> = {}>(args?: Subset<T, Stock$customer_transactionArgs<ExtArgs>>): Prisma__CustomerTransactionClient<$Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    customer<T extends Stock$customerArgs<ExtArgs> = {}>(args?: Subset<T, Stock$customerArgs<ExtArgs>>): Prisma__AddCustomerClient<$Result.GetResult<Prisma.$AddCustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -39316,6 +39371,7 @@ export namespace Prisma {
     readonly casting_customer_id: FieldRef<"Stock", 'Int'>
     readonly purchase_id: FieldRef<"Stock", 'Int'>
     readonly customer_transaction_id: FieldRef<"Stock", 'Int'>
+    readonly customer_id: FieldRef<"Stock", 'Int'>
   }
     
 
@@ -39827,6 +39883,25 @@ export namespace Prisma {
      */
     include?: CustomerTransactionInclude<ExtArgs> | null
     where?: CustomerTransactionWhereInput
+  }
+
+  /**
+   * Stock.customer
+   */
+  export type Stock$customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddCustomer
+     */
+    select?: AddCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddCustomer
+     */
+    omit?: AddCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddCustomerInclude<ExtArgs> | null
+    where?: AddCustomerWhereInput
   }
 
   /**
@@ -45304,6 +45379,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    date: Date | null
     description: string | null
     gold: number | null
     touch_id: number | null
@@ -45314,6 +45390,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    date: Date | null
     description: string | null
     gold: number | null
     touch_id: number | null
@@ -45324,6 +45401,7 @@ export namespace Prisma {
     id: number
     createdAt: number
     updatedAt: number
+    date: number
     description: number
     gold: number
     touch_id: number
@@ -45350,6 +45428,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    date?: true
     description?: true
     gold?: true
     touch_id?: true
@@ -45360,6 +45439,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    date?: true
     description?: true
     gold?: true
     touch_id?: true
@@ -45370,6 +45450,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    date?: true
     description?: true
     gold?: true
     touch_id?: true
@@ -45467,6 +45548,7 @@ export namespace Prisma {
     id: number
     createdAt: Date
     updatedAt: Date
+    date: Date | null
     description: string | null
     gold: number
     touch_id: number
@@ -45496,6 +45578,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    date?: boolean
     description?: boolean
     gold?: boolean
     touch_id?: boolean
@@ -45509,13 +45592,14 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    date?: boolean
     description?: boolean
     gold?: boolean
     touch_id?: boolean
     purity?: boolean
   }
 
-  export type ExpenseVoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "description" | "gold" | "touch_id" | "purity", ExtArgs["result"]["expenseVoucher"]>
+  export type ExpenseVoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "date" | "description" | "gold" | "touch_id" | "purity", ExtArgs["result"]["expenseVoucher"]>
   export type ExpenseVoucherInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     touchId?: boolean | AddTouchDefaultArgs<ExtArgs>
   }
@@ -45529,6 +45613,7 @@ export namespace Prisma {
       id: number
       createdAt: Date
       updatedAt: Date
+      date: Date | null
       description: string | null
       gold: number
       touch_id: number
@@ -45906,6 +45991,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ExpenseVoucher", 'Int'>
     readonly createdAt: FieldRef<"ExpenseVoucher", 'DateTime'>
     readonly updatedAt: FieldRef<"ExpenseVoucher", 'DateTime'>
+    readonly date: FieldRef<"ExpenseVoucher", 'DateTime'>
     readonly description: FieldRef<"ExpenseVoucher", 'String'>
     readonly gold: FieldRef<"ExpenseVoucher", 'Float'>
     readonly touch_id: FieldRef<"ExpenseVoucher", 'Int'>
@@ -46737,7 +46823,8 @@ export namespace Prisma {
     remarks: 'remarks',
     casting_customer_id: 'casting_customer_id',
     purchase_id: 'purchase_id',
-    customer_transaction_id: 'customer_transaction_id'
+    customer_transaction_id: 'customer_transaction_id',
+    customer_id: 'customer_id'
   };
 
   export type StockScalarFieldEnum = (typeof StockScalarFieldEnum)[keyof typeof StockScalarFieldEnum]
@@ -46835,6 +46922,7 @@ export namespace Prisma {
     id: 'id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
+    date: 'date',
     description: 'description',
     gold: 'gold',
     touch_id: 'touch_id',
@@ -47116,6 +47204,7 @@ export namespace Prisma {
     bills?: BillListRelationFilter
     hallmarks?: HallmarkListRelationFilter
     receipt_voucher?: ReceiptVoucherListRelationFilter
+    Stock?: StockListRelationFilter
   }
 
   export type AddCustomerOrderByWithRelationInput = {
@@ -47132,6 +47221,7 @@ export namespace Prisma {
     bills?: BillOrderByRelationAggregateInput
     hallmarks?: HallmarkOrderByRelationAggregateInput
     receipt_voucher?: ReceiptVoucherOrderByRelationAggregateInput
+    Stock?: StockOrderByRelationAggregateInput
     _relevance?: AddCustomerOrderByRelevanceInput
   }
 
@@ -47152,6 +47242,7 @@ export namespace Prisma {
     bills?: BillListRelationFilter
     hallmarks?: HallmarkListRelationFilter
     receipt_voucher?: ReceiptVoucherListRelationFilter
+    Stock?: StockListRelationFilter
   }, "id">
 
   export type AddCustomerOrderByWithAggregationInput = {
@@ -49697,6 +49788,7 @@ export namespace Prisma {
     casting_customer_id?: IntNullableFilter<"Stock"> | number | null
     purchase_id?: IntNullableFilter<"Stock"> | number | null
     customer_transaction_id?: IntNullableFilter<"Stock"> | number | null
+    customer_id?: IntNullableFilter<"Stock"> | number | null
     castingItem?: XOR<CastingItemsNullableScalarRelationFilter, CastingItemsWhereInput> | null
     filingItem?: XOR<FilingItemsNullableScalarRelationFilter, FilingItemsWhereInput> | null
     settingItem?: XOR<SettingItemsNullableScalarRelationFilter, SettingItemsWhereInput> | null
@@ -49706,6 +49798,7 @@ export namespace Prisma {
     casting_customer?: XOR<AddCastingNullableScalarRelationFilter, AddCastingWhereInput> | null
     purchaseId?: XOR<AddPurchaseStockNullableScalarRelationFilter, AddPurchaseStockWhereInput> | null
     customer_transaction?: XOR<CustomerTransactionNullableScalarRelationFilter, CustomerTransactionWhereInput> | null
+    customer?: XOR<AddCustomerNullableScalarRelationFilter, AddCustomerWhereInput> | null
   }
 
   export type StockOrderByWithRelationInput = {
@@ -49724,6 +49817,7 @@ export namespace Prisma {
     casting_customer_id?: SortOrderInput | SortOrder
     purchase_id?: SortOrderInput | SortOrder
     customer_transaction_id?: SortOrderInput | SortOrder
+    customer_id?: SortOrderInput | SortOrder
     castingItem?: CastingItemsOrderByWithRelationInput
     filingItem?: FilingItemsOrderByWithRelationInput
     settingItem?: SettingItemsOrderByWithRelationInput
@@ -49733,6 +49827,7 @@ export namespace Prisma {
     casting_customer?: AddCastingOrderByWithRelationInput
     purchaseId?: AddPurchaseStockOrderByWithRelationInput
     customer_transaction?: CustomerTransactionOrderByWithRelationInput
+    customer?: AddCustomerOrderByWithRelationInput
     _relevance?: StockOrderByRelevanceInput
   }
 
@@ -49755,6 +49850,7 @@ export namespace Prisma {
     casting_customer_id?: IntNullableFilter<"Stock"> | number | null
     purchase_id?: IntNullableFilter<"Stock"> | number | null
     customer_transaction_id?: IntNullableFilter<"Stock"> | number | null
+    customer_id?: IntNullableFilter<"Stock"> | number | null
     castingItem?: XOR<CastingItemsNullableScalarRelationFilter, CastingItemsWhereInput> | null
     filingItem?: XOR<FilingItemsNullableScalarRelationFilter, FilingItemsWhereInput> | null
     settingItem?: XOR<SettingItemsNullableScalarRelationFilter, SettingItemsWhereInput> | null
@@ -49764,6 +49860,7 @@ export namespace Prisma {
     casting_customer?: XOR<AddCastingNullableScalarRelationFilter, AddCastingWhereInput> | null
     purchaseId?: XOR<AddPurchaseStockNullableScalarRelationFilter, AddPurchaseStockWhereInput> | null
     customer_transaction?: XOR<CustomerTransactionNullableScalarRelationFilter, CustomerTransactionWhereInput> | null
+    customer?: XOR<AddCustomerNullableScalarRelationFilter, AddCustomerWhereInput> | null
   }, "id">
 
   export type StockOrderByWithAggregationInput = {
@@ -49782,6 +49879,7 @@ export namespace Prisma {
     casting_customer_id?: SortOrderInput | SortOrder
     purchase_id?: SortOrderInput | SortOrder
     customer_transaction_id?: SortOrderInput | SortOrder
+    customer_id?: SortOrderInput | SortOrder
     _count?: StockCountOrderByAggregateInput
     _avg?: StockAvgOrderByAggregateInput
     _max?: StockMaxOrderByAggregateInput
@@ -49808,6 +49906,7 @@ export namespace Prisma {
     casting_customer_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
     purchase_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
     customer_transaction_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
+    customer_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
   }
 
   export type HallmarkWhereInput = {
@@ -50286,6 +50385,7 @@ export namespace Prisma {
     id?: IntFilter<"ExpenseVoucher"> | number
     createdAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
     updatedAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
+    date?: DateTimeNullableFilter<"ExpenseVoucher"> | Date | string | null
     description?: StringNullableFilter<"ExpenseVoucher"> | string | null
     gold?: FloatFilter<"ExpenseVoucher"> | number
     touch_id?: IntFilter<"ExpenseVoucher"> | number
@@ -50297,6 +50397,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    date?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     gold?: SortOrder
     touch_id?: SortOrder
@@ -50312,6 +50413,7 @@ export namespace Prisma {
     NOT?: ExpenseVoucherWhereInput | ExpenseVoucherWhereInput[]
     createdAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
     updatedAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
+    date?: DateTimeNullableFilter<"ExpenseVoucher"> | Date | string | null
     description?: StringNullableFilter<"ExpenseVoucher"> | string | null
     gold?: FloatFilter<"ExpenseVoucher"> | number
     touch_id?: IntFilter<"ExpenseVoucher"> | number
@@ -50323,6 +50425,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    date?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     gold?: SortOrder
     touch_id?: SortOrder
@@ -50341,6 +50444,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"ExpenseVoucher"> | number
     createdAt?: DateTimeWithAggregatesFilter<"ExpenseVoucher"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ExpenseVoucher"> | Date | string
+    date?: DateTimeNullableWithAggregatesFilter<"ExpenseVoucher"> | Date | string | null
     description?: StringNullableWithAggregatesFilter<"ExpenseVoucher"> | string | null
     gold?: FloatWithAggregatesFilter<"ExpenseVoucher"> | number
     touch_id?: IntWithAggregatesFilter<"ExpenseVoucher"> | number
@@ -50360,6 +50464,7 @@ export namespace Prisma {
     bills?: BillCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
+    Stock?: StockCreateNestedManyWithoutCustomerInput
   }
 
   export type AddCustomerUncheckedCreateInput = {
@@ -50376,6 +50481,7 @@ export namespace Prisma {
     bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
+    Stock?: StockUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type AddCustomerUpdateInput = {
@@ -50391,6 +50497,7 @@ export namespace Prisma {
     bills?: BillUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
+    Stock?: StockUpdateManyWithoutCustomerNestedInput
   }
 
   export type AddCustomerUncheckedUpdateInput = {
@@ -50407,6 +50514,7 @@ export namespace Prisma {
     bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
+    Stock?: StockUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type AddCustomerCreateManyInput = {
@@ -52978,6 +53086,7 @@ export namespace Prisma {
     casting_customer?: AddCastingCreateNestedOneWithoutStockInput
     purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
     customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+    customer?: AddCustomerCreateNestedOneWithoutStockInput
   }
 
   export type StockUncheckedCreateInput = {
@@ -52996,6 +53105,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockUpdateInput = {
@@ -53013,6 +53123,7 @@ export namespace Prisma {
     casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
     purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
     customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+    customer?: AddCustomerUpdateOneWithoutStockNestedInput
   }
 
   export type StockUncheckedUpdateInput = {
@@ -53031,6 +53142,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockCreateManyInput = {
@@ -53049,6 +53161,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockUpdateManyMutationInput = {
@@ -53075,6 +53188,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type HallmarkCreateInput = {
@@ -53576,6 +53690,7 @@ export namespace Prisma {
   export type ExpenseVoucherCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    date?: Date | string | null
     description?: string | null
     gold: number
     purity: number
@@ -53586,6 +53701,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    date?: Date | string | null
     description?: string | null
     gold: number
     touch_id: number
@@ -53595,6 +53711,7 @@ export namespace Prisma {
   export type ExpenseVoucherUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     gold?: FloatFieldUpdateOperationsInput | number
     purity?: FloatFieldUpdateOperationsInput | number
@@ -53605,6 +53722,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     gold?: FloatFieldUpdateOperationsInput | number
     touch_id?: IntFieldUpdateOperationsInput | number
@@ -53615,6 +53733,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    date?: Date | string | null
     description?: string | null
     gold: number
     touch_id: number
@@ -53624,6 +53743,7 @@ export namespace Prisma {
   export type ExpenseVoucherUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     gold?: FloatFieldUpdateOperationsInput | number
     purity?: FloatFieldUpdateOperationsInput | number
@@ -53633,6 +53753,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     gold?: FloatFieldUpdateOperationsInput | number
     touch_id?: IntFieldUpdateOperationsInput | number
@@ -53726,6 +53847,12 @@ export namespace Prisma {
     none?: ReceiptVoucherWhereInput
   }
 
+  export type StockListRelationFilter = {
+    every?: StockWhereInput
+    some?: StockWhereInput
+    none?: StockWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -53744,6 +53871,10 @@ export namespace Prisma {
   }
 
   export type ReceiptVoucherOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StockOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -53895,21 +54026,11 @@ export namespace Prisma {
     none?: CastingItemsWhereInput
   }
 
-  export type StockListRelationFilter = {
-    every?: StockWhereInput
-    some?: StockWhereInput
-    none?: StockWhereInput
-  }
-
   export type CastingEntryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type CastingItemsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type StockOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -56012,6 +56133,11 @@ export namespace Prisma {
     isNot?: CustomerTransactionWhereInput | null
   }
 
+  export type AddCustomerNullableScalarRelationFilter = {
+    is?: AddCustomerWhereInput | null
+    isNot?: AddCustomerWhereInput | null
+  }
+
   export type StockOrderByRelevanceInput = {
     fields: StockOrderByRelevanceFieldEnum | StockOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -56034,6 +56160,7 @@ export namespace Prisma {
     casting_customer_id?: SortOrder
     purchase_id?: SortOrder
     customer_transaction_id?: SortOrder
+    customer_id?: SortOrder
   }
 
   export type StockAvgOrderByAggregateInput = {
@@ -56049,6 +56176,7 @@ export namespace Prisma {
     casting_customer_id?: SortOrder
     purchase_id?: SortOrder
     customer_transaction_id?: SortOrder
+    customer_id?: SortOrder
   }
 
   export type StockMaxOrderByAggregateInput = {
@@ -56067,6 +56195,7 @@ export namespace Prisma {
     casting_customer_id?: SortOrder
     purchase_id?: SortOrder
     customer_transaction_id?: SortOrder
+    customer_id?: SortOrder
   }
 
   export type StockMinOrderByAggregateInput = {
@@ -56085,6 +56214,7 @@ export namespace Prisma {
     casting_customer_id?: SortOrder
     purchase_id?: SortOrder
     customer_transaction_id?: SortOrder
+    customer_id?: SortOrder
   }
 
   export type StockSumOrderByAggregateInput = {
@@ -56100,6 +56230,7 @@ export namespace Prisma {
     casting_customer_id?: SortOrder
     purchase_id?: SortOrder
     customer_transaction_id?: SortOrder
+    customer_id?: SortOrder
   }
 
   export type EnumITEMTYPENullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -56485,6 +56616,17 @@ export namespace Prisma {
     hallmark?: SortOrder
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type ExpenseVoucherOrderByRelevanceInput = {
     fields: ExpenseVoucherOrderByRelevanceFieldEnum | ExpenseVoucherOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -56495,6 +56637,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    date?: SortOrder
     description?: SortOrder
     gold?: SortOrder
     touch_id?: SortOrder
@@ -56512,6 +56655,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    date?: SortOrder
     description?: SortOrder
     gold?: SortOrder
     touch_id?: SortOrder
@@ -56522,6 +56666,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    date?: SortOrder
     description?: SortOrder
     gold?: SortOrder
     touch_id?: SortOrder
@@ -56533,6 +56678,20 @@ export namespace Prisma {
     gold?: SortOrder
     touch_id?: SortOrder
     purity?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type CustomerTransactionCreateNestedManyWithoutCustomerInput = {
@@ -56563,6 +56722,13 @@ export namespace Prisma {
     connect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
   }
 
+  export type StockCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<StockCreateWithoutCustomerInput, StockUncheckedCreateWithoutCustomerInput> | StockCreateWithoutCustomerInput[] | StockUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutCustomerInput | StockCreateOrConnectWithoutCustomerInput[]
+    createMany?: StockCreateManyCustomerInputEnvelope
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+  }
+
   export type CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<CustomerTransactionCreateWithoutCustomerInput, CustomerTransactionUncheckedCreateWithoutCustomerInput> | CustomerTransactionCreateWithoutCustomerInput[] | CustomerTransactionUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerTransactionCreateOrConnectWithoutCustomerInput | CustomerTransactionCreateOrConnectWithoutCustomerInput[]
@@ -56589,6 +56755,13 @@ export namespace Prisma {
     connectOrCreate?: ReceiptVoucherCreateOrConnectWithoutCustomerIdInput | ReceiptVoucherCreateOrConnectWithoutCustomerIdInput[]
     createMany?: ReceiptVoucherCreateManyCustomerIdInputEnvelope
     connect?: ReceiptVoucherWhereUniqueInput | ReceiptVoucherWhereUniqueInput[]
+  }
+
+  export type StockUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<StockCreateWithoutCustomerInput, StockUncheckedCreateWithoutCustomerInput> | StockCreateWithoutCustomerInput[] | StockUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutCustomerInput | StockCreateOrConnectWithoutCustomerInput[]
+    createMany?: StockCreateManyCustomerInputEnvelope
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -56667,6 +56840,20 @@ export namespace Prisma {
     deleteMany?: ReceiptVoucherScalarWhereInput | ReceiptVoucherScalarWhereInput[]
   }
 
+  export type StockUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<StockCreateWithoutCustomerInput, StockUncheckedCreateWithoutCustomerInput> | StockCreateWithoutCustomerInput[] | StockUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutCustomerInput | StockCreateOrConnectWithoutCustomerInput[]
+    upsert?: StockUpsertWithWhereUniqueWithoutCustomerInput | StockUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: StockCreateManyCustomerInputEnvelope
+    set?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    disconnect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    delete?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    update?: StockUpdateWithWhereUniqueWithoutCustomerInput | StockUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: StockUpdateManyWithWhereWithoutCustomerInput | StockUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -56729,6 +56916,20 @@ export namespace Prisma {
     update?: ReceiptVoucherUpdateWithWhereUniqueWithoutCustomerIdInput | ReceiptVoucherUpdateWithWhereUniqueWithoutCustomerIdInput[]
     updateMany?: ReceiptVoucherUpdateManyWithWhereWithoutCustomerIdInput | ReceiptVoucherUpdateManyWithWhereWithoutCustomerIdInput[]
     deleteMany?: ReceiptVoucherScalarWhereInput | ReceiptVoucherScalarWhereInput[]
+  }
+
+  export type StockUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<StockCreateWithoutCustomerInput, StockUncheckedCreateWithoutCustomerInput> | StockCreateWithoutCustomerInput[] | StockUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: StockCreateOrConnectWithoutCustomerInput | StockCreateOrConnectWithoutCustomerInput[]
+    upsert?: StockUpsertWithWhereUniqueWithoutCustomerInput | StockUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: StockCreateManyCustomerInputEnvelope
+    set?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    disconnect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    delete?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+    update?: StockUpdateWithWhereUniqueWithoutCustomerInput | StockUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: StockUpdateManyWithWhereWithoutCustomerInput | StockUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
   }
 
   export type CastingEntryCreateNestedManyWithoutCasting_customerInput = {
@@ -60833,6 +61034,12 @@ export namespace Prisma {
     connect?: CustomerTransactionWhereUniqueInput
   }
 
+  export type AddCustomerCreateNestedOneWithoutStockInput = {
+    create?: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddCustomerCreateOrConnectWithoutStockInput
+    connect?: AddCustomerWhereUniqueInput
+  }
+
   export type NullableEnumITEMTYPEFieldUpdateOperationsInput = {
     set?: $Enums.ITEMTYPE | null
   }
@@ -60925,6 +61132,16 @@ export namespace Prisma {
     delete?: CustomerTransactionWhereInput | boolean
     connect?: CustomerTransactionWhereUniqueInput
     update?: XOR<XOR<CustomerTransactionUpdateToOneWithWhereWithoutStockInput, CustomerTransactionUpdateWithoutStockInput>, CustomerTransactionUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddCustomerUpdateOneWithoutStockNestedInput = {
+    create?: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddCustomerCreateOrConnectWithoutStockInput
+    upsert?: AddCustomerUpsertWithoutStockInput
+    disconnect?: AddCustomerWhereInput | boolean
+    delete?: AddCustomerWhereInput | boolean
+    connect?: AddCustomerWhereUniqueInput
+    update?: XOR<XOR<AddCustomerUpdateToOneWithWhereWithoutStockInput, AddCustomerUpdateWithoutStockInput>, AddCustomerUncheckedUpdateWithoutStockInput>
   }
 
   export type AddCustomerCreateNestedOneWithoutHallmarksInput = {
@@ -61131,6 +61348,10 @@ export namespace Prisma {
     create?: XOR<AddTouchCreateWithoutExpenseVoucherInput, AddTouchUncheckedCreateWithoutExpenseVoucherInput>
     connectOrCreate?: AddTouchCreateOrConnectWithoutExpenseVoucherInput
     connect?: AddTouchWhereUniqueInput
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type AddTouchUpdateOneRequiredWithoutExpenseVoucherNestedInput = {
@@ -61438,6 +61659,31 @@ export namespace Prisma {
     _max?: NestedEnumITEMTYPENullableFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type CustomerTransactionCreateWithoutCustomerInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -61584,6 +61830,51 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StockCreateWithoutCustomerInput = {
+    createdAt?: Date | string
+    item_type?: $Enums.ITEMTYPE | null
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    castingItem?: CastingItemsCreateNestedOneWithoutStockInput
+    filingItem?: FilingItemsCreateNestedOneWithoutStockInput
+    settingItem?: SettingItemsCreateNestedOneWithoutStockInput
+    buffingItem?: BuffingItemsCreateNestedOneWithoutStockInput
+    item?: AddItemCreateNestedOneWithoutStockInput
+    touch?: AddTouchCreateNestedOneWithoutStockInput
+    casting_customer?: AddCastingCreateNestedOneWithoutStockInput
+    purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
+    customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+  }
+
+  export type StockUncheckedCreateWithoutCustomerInput = {
+    id?: number
+    createdAt?: Date | string
+    casting_item_id?: number | null
+    filing_item_id?: number | null
+    setting_item_id?: number | null
+    buffing_item_id?: number | null
+    item_type?: $Enums.ITEMTYPE | null
+    item_id?: number | null
+    weight: number
+    touch_id?: number | null
+    item_purity: number
+    remarks?: string | null
+    casting_customer_id?: number | null
+    purchase_id?: number | null
+    customer_transaction_id?: number | null
+  }
+
+  export type StockCreateOrConnectWithoutCustomerInput = {
+    where: StockWhereUniqueInput
+    create: XOR<StockCreateWithoutCustomerInput, StockUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type StockCreateManyCustomerInputEnvelope = {
+    data: StockCreateManyCustomerInput | StockCreateManyCustomerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CustomerTransactionUpsertWithWhereUniqueWithoutCustomerInput = {
     where: CustomerTransactionWhereUniqueInput
     update: XOR<CustomerTransactionUpdateWithoutCustomerInput, CustomerTransactionUncheckedUpdateWithoutCustomerInput>
@@ -61716,6 +62007,44 @@ export namespace Prisma {
     hallmark?: FloatNullableFilter<"ReceiptVoucher"> | number | null
   }
 
+  export type StockUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: StockWhereUniqueInput
+    update: XOR<StockUpdateWithoutCustomerInput, StockUncheckedUpdateWithoutCustomerInput>
+    create: XOR<StockCreateWithoutCustomerInput, StockUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type StockUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: StockWhereUniqueInput
+    data: XOR<StockUpdateWithoutCustomerInput, StockUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type StockUpdateManyWithWhereWithoutCustomerInput = {
+    where: StockScalarWhereInput
+    data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyWithoutCustomerInput>
+  }
+
+  export type StockScalarWhereInput = {
+    AND?: StockScalarWhereInput | StockScalarWhereInput[]
+    OR?: StockScalarWhereInput[]
+    NOT?: StockScalarWhereInput | StockScalarWhereInput[]
+    id?: IntFilter<"Stock"> | number
+    createdAt?: DateTimeFilter<"Stock"> | Date | string
+    casting_item_id?: IntNullableFilter<"Stock"> | number | null
+    filing_item_id?: IntNullableFilter<"Stock"> | number | null
+    setting_item_id?: IntNullableFilter<"Stock"> | number | null
+    buffing_item_id?: IntNullableFilter<"Stock"> | number | null
+    item_type?: EnumITEMTYPENullableFilter<"Stock"> | $Enums.ITEMTYPE | null
+    item_id?: IntNullableFilter<"Stock"> | number | null
+    weight?: FloatFilter<"Stock"> | number
+    touch_id?: IntNullableFilter<"Stock"> | number | null
+    item_purity?: FloatFilter<"Stock"> | number
+    remarks?: StringNullableFilter<"Stock"> | string | null
+    casting_customer_id?: IntNullableFilter<"Stock"> | number | null
+    purchase_id?: IntNullableFilter<"Stock"> | number | null
+    customer_transaction_id?: IntNullableFilter<"Stock"> | number | null
+    customer_id?: IntNullableFilter<"Stock"> | number | null
+  }
+
   export type CastingEntryCreateWithoutCasting_customerInput = {
     createdAt?: Date | string
     date: Date | string
@@ -61816,6 +62145,7 @@ export namespace Prisma {
     touch?: AddTouchCreateNestedOneWithoutStockInput
     purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
     customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+    customer?: AddCustomerCreateNestedOneWithoutStockInput
   }
 
   export type StockUncheckedCreateWithoutCasting_customerInput = {
@@ -61833,6 +62163,7 @@ export namespace Prisma {
     remarks?: string | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockCreateOrConnectWithoutCasting_customerInput = {
@@ -61926,27 +62257,6 @@ export namespace Prisma {
   export type StockUpdateManyWithWhereWithoutCasting_customerInput = {
     where: StockScalarWhereInput
     data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyWithoutCasting_customerInput>
-  }
-
-  export type StockScalarWhereInput = {
-    AND?: StockScalarWhereInput | StockScalarWhereInput[]
-    OR?: StockScalarWhereInput[]
-    NOT?: StockScalarWhereInput | StockScalarWhereInput[]
-    id?: IntFilter<"Stock"> | number
-    createdAt?: DateTimeFilter<"Stock"> | Date | string
-    casting_item_id?: IntNullableFilter<"Stock"> | number | null
-    filing_item_id?: IntNullableFilter<"Stock"> | number | null
-    setting_item_id?: IntNullableFilter<"Stock"> | number | null
-    buffing_item_id?: IntNullableFilter<"Stock"> | number | null
-    item_type?: EnumITEMTYPENullableFilter<"Stock"> | $Enums.ITEMTYPE | null
-    item_id?: IntNullableFilter<"Stock"> | number | null
-    weight?: FloatFilter<"Stock"> | number
-    touch_id?: IntNullableFilter<"Stock"> | number | null
-    item_purity?: FloatFilter<"Stock"> | number
-    remarks?: StringNullableFilter<"Stock"> | string | null
-    casting_customer_id?: IntNullableFilter<"Stock"> | number | null
-    purchase_id?: IntNullableFilter<"Stock"> | number | null
-    customer_transaction_id?: IntNullableFilter<"Stock"> | number | null
   }
 
   export type FilingWastageCreateWithoutFilingPersonIdInput = {
@@ -62817,6 +63127,7 @@ export namespace Prisma {
     touch?: AddTouchCreateNestedOneWithoutStockInput
     casting_customer?: AddCastingCreateNestedOneWithoutStockInput
     customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+    customer?: AddCustomerCreateNestedOneWithoutStockInput
   }
 
   export type StockUncheckedCreateWithoutPurchaseIdInput = {
@@ -62834,6 +63145,7 @@ export namespace Prisma {
     remarks?: string | null
     casting_customer_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockCreateOrConnectWithoutPurchaseIdInput = {
@@ -62948,6 +63260,7 @@ export namespace Prisma {
     bills?: BillCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
+    Stock?: StockCreateNestedManyWithoutCustomerInput
   }
 
   export type AddCustomerUncheckedCreateWithoutTransactionsInput = {
@@ -62963,6 +63276,7 @@ export namespace Prisma {
     bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
+    Stock?: StockUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type AddCustomerCreateOrConnectWithoutTransactionsInput = {
@@ -63022,6 +63336,7 @@ export namespace Prisma {
     touch?: AddTouchCreateNestedOneWithoutStockInput
     casting_customer?: AddCastingCreateNestedOneWithoutStockInput
     purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
+    customer?: AddCustomerCreateNestedOneWithoutStockInput
   }
 
   export type StockUncheckedCreateWithoutCustomer_transactionInput = {
@@ -63039,6 +63354,7 @@ export namespace Prisma {
     remarks?: string | null
     casting_customer_id?: number | null
     purchase_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockCreateOrConnectWithoutCustomer_transactionInput = {
@@ -63074,6 +63390,7 @@ export namespace Prisma {
     bills?: BillUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
+    Stock?: StockUpdateManyWithoutCustomerNestedInput
   }
 
   export type AddCustomerUncheckedUpdateWithoutTransactionsInput = {
@@ -63089,6 +63406,7 @@ export namespace Prisma {
     bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
+    Stock?: StockUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type AddTouchUpsertWithoutCustomer_transactionInput = {
@@ -63208,6 +63526,7 @@ export namespace Prisma {
     casting_customer?: AddCastingCreateNestedOneWithoutStockInput
     purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
     customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+    customer?: AddCustomerCreateNestedOneWithoutStockInput
   }
 
   export type StockUncheckedCreateWithoutItemInput = {
@@ -63225,6 +63544,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockCreateOrConnectWithoutItemInput = {
@@ -63850,6 +64170,7 @@ export namespace Prisma {
     casting_customer?: AddCastingCreateNestedOneWithoutStockInput
     purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
     customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+    customer?: AddCustomerCreateNestedOneWithoutStockInput
   }
 
   export type StockUncheckedCreateWithoutTouchInput = {
@@ -63867,6 +64188,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockCreateOrConnectWithoutTouchInput = {
@@ -64032,6 +64354,7 @@ export namespace Prisma {
   export type ExpenseVoucherCreateWithoutTouchIdInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    date?: Date | string | null
     description?: string | null
     gold: number
     purity: number
@@ -64041,6 +64364,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    date?: Date | string | null
     description?: string | null
     gold: number
     purity: number
@@ -64239,6 +64563,7 @@ export namespace Prisma {
     id?: IntFilter<"ExpenseVoucher"> | number
     createdAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
     updatedAt?: DateTimeFilter<"ExpenseVoucher"> | Date | string
+    date?: DateTimeNullableFilter<"ExpenseVoucher"> | Date | string | null
     description?: StringNullableFilter<"ExpenseVoucher"> | string | null
     gold?: FloatFilter<"ExpenseVoucher"> | number
     touch_id?: IntFilter<"ExpenseVoucher"> | number
@@ -64918,6 +65243,7 @@ export namespace Prisma {
     casting_customer?: AddCastingCreateNestedOneWithoutStockInput
     purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
     customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+    customer?: AddCustomerCreateNestedOneWithoutStockInput
   }
 
   export type StockUncheckedCreateWithoutCastingItemInput = {
@@ -64935,6 +65261,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockCreateOrConnectWithoutCastingItemInput = {
@@ -66589,6 +66916,7 @@ export namespace Prisma {
     casting_customer?: AddCastingCreateNestedOneWithoutStockInput
     purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
     customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+    customer?: AddCustomerCreateNestedOneWithoutStockInput
   }
 
   export type StockUncheckedCreateWithoutFilingItemInput = {
@@ -66606,6 +66934,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockCreateOrConnectWithoutFilingItemInput = {
@@ -67775,6 +68104,7 @@ export namespace Prisma {
     casting_customer?: AddCastingCreateNestedOneWithoutStockInput
     purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
     customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+    customer?: AddCustomerCreateNestedOneWithoutStockInput
   }
 
   export type StockUncheckedCreateWithoutSettingItemInput = {
@@ -67792,6 +68122,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockCreateOrConnectWithoutSettingItemInput = {
@@ -69054,6 +69385,7 @@ export namespace Prisma {
     casting_customer?: AddCastingCreateNestedOneWithoutStockInput
     purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
     customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+    customer?: AddCustomerCreateNestedOneWithoutStockInput
   }
 
   export type StockUncheckedCreateWithoutBuffingItemInput = {
@@ -69071,6 +69403,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockCreateOrConnectWithoutBuffingItemInput = {
@@ -70203,6 +70536,42 @@ export namespace Prisma {
     create: XOR<CustomerTransactionCreateWithoutStockInput, CustomerTransactionUncheckedCreateWithoutStockInput>
   }
 
+  export type AddCustomerCreateWithoutStockInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    phoneNumber?: string | null
+    address?: string | null
+    email?: string | null
+    balance?: number | null
+    openingBalance?: number | null
+    transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
+    bills?: BillCreateNestedManyWithoutCustomerInput
+    hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
+  }
+
+  export type AddCustomerUncheckedCreateWithoutStockInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    phoneNumber?: string | null
+    address?: string | null
+    email?: string | null
+    balance?: number | null
+    openingBalance?: number | null
+    transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+    bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
+    hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
+  }
+
+  export type AddCustomerCreateOrConnectWithoutStockInput = {
+    where: AddCustomerWhereUniqueInput
+    create: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
+  }
+
   export type CastingItemsUpsertWithoutStockInput = {
     update: XOR<CastingItemsUpdateWithoutStockInput, CastingItemsUncheckedUpdateWithoutStockInput>
     create: XOR<CastingItemsCreateWithoutStockInput, CastingItemsUncheckedCreateWithoutStockInput>
@@ -70565,6 +70934,48 @@ export namespace Prisma {
     usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
+  export type AddCustomerUpsertWithoutStockInput = {
+    update: XOR<AddCustomerUpdateWithoutStockInput, AddCustomerUncheckedUpdateWithoutStockInput>
+    create: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
+    where?: AddCustomerWhereInput
+  }
+
+  export type AddCustomerUpdateToOneWithWhereWithoutStockInput = {
+    where?: AddCustomerWhereInput
+    data: XOR<AddCustomerUpdateWithoutStockInput, AddCustomerUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddCustomerUpdateWithoutStockInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
+    transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
+    bills?: BillUpdateManyWithoutCustomerNestedInput
+    hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
+  }
+
+  export type AddCustomerUncheckedUpdateWithoutStockInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
+    transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+    bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
+    hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
+  }
+
   export type AddCustomerCreateWithoutHallmarksInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -70577,6 +70988,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
     bills?: BillCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
+    Stock?: StockCreateNestedManyWithoutCustomerInput
   }
 
   export type AddCustomerUncheckedCreateWithoutHallmarksInput = {
@@ -70592,6 +71004,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
     bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
+    Stock?: StockUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type AddCustomerCreateOrConnectWithoutHallmarksInput = {
@@ -70622,6 +71035,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
     bills?: BillUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
+    Stock?: StockUpdateManyWithoutCustomerNestedInput
   }
 
   export type AddCustomerUncheckedUpdateWithoutHallmarksInput = {
@@ -70637,6 +71051,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
     bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
+    Stock?: StockUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type AddCustomerCreateWithoutBillsInput = {
@@ -70651,6 +71066,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
+    Stock?: StockCreateNestedManyWithoutCustomerInput
   }
 
   export type AddCustomerUncheckedCreateWithoutBillsInput = {
@@ -70666,6 +71082,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
     receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
+    Stock?: StockUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type AddCustomerCreateOrConnectWithoutBillsInput = {
@@ -70772,6 +71189,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
+    Stock?: StockUpdateManyWithoutCustomerNestedInput
   }
 
   export type AddCustomerUncheckedUpdateWithoutBillsInput = {
@@ -70787,6 +71205,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
     receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
+    Stock?: StockUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type BillItemUpsertWithWhereUniqueWithoutBillInput = {
@@ -71175,6 +71594,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
     bills?: BillCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
+    Stock?: StockCreateNestedManyWithoutCustomerInput
   }
 
   export type AddCustomerUncheckedCreateWithoutReceipt_voucherInput = {
@@ -71190,6 +71610,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
     bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
     hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
+    Stock?: StockUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type AddCustomerCreateOrConnectWithoutReceipt_voucherInput = {
@@ -71258,6 +71679,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
     bills?: BillUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
+    Stock?: StockUpdateManyWithoutCustomerNestedInput
   }
 
   export type AddCustomerUncheckedUpdateWithoutReceipt_voucherInput = {
@@ -71273,6 +71695,7 @@ export namespace Prisma {
     transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
     bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
     hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
+    Stock?: StockUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type AddTouchUpsertWithoutReceiptVoucherInput = {
@@ -71453,6 +71876,24 @@ export namespace Prisma {
     hallmark?: number | null
   }
 
+  export type StockCreateManyCustomerInput = {
+    id?: number
+    createdAt?: Date | string
+    casting_item_id?: number | null
+    filing_item_id?: number | null
+    setting_item_id?: number | null
+    buffing_item_id?: number | null
+    item_type?: $Enums.ITEMTYPE | null
+    item_id?: number | null
+    weight: number
+    touch_id?: number | null
+    item_purity: number
+    remarks?: string | null
+    casting_customer_id?: number | null
+    purchase_id?: number | null
+    customer_transaction_id?: number | null
+  }
+
   export type CustomerTransactionUpdateWithoutCustomerInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -71611,6 +72052,59 @@ export namespace Prisma {
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
+  export type StockUpdateWithoutCustomerInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    castingItem?: CastingItemsUpdateOneWithoutStockNestedInput
+    filingItem?: FilingItemsUpdateOneWithoutStockNestedInput
+    settingItem?: SettingItemsUpdateOneWithoutStockNestedInput
+    buffingItem?: BuffingItemsUpdateOneWithoutStockNestedInput
+    item?: AddItemUpdateOneWithoutStockNestedInput
+    touch?: AddTouchUpdateOneWithoutStockNestedInput
+    casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
+    purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
+    customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+  }
+
+  export type StockUncheckedUpdateWithoutCustomerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    touch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type StockUncheckedUpdateManyWithoutCustomerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    touch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
   export type CastingEntryCreateManyCasting_customerInput = {
     id?: number
     createdAt?: Date | string
@@ -71653,6 +72147,7 @@ export namespace Prisma {
     remarks?: string | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type CastingEntryUpdateWithoutCasting_customerInput = {
@@ -71762,6 +72257,7 @@ export namespace Prisma {
     touch?: AddTouchUpdateOneWithoutStockNestedInput
     purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
     customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+    customer?: AddCustomerUpdateOneWithoutStockNestedInput
   }
 
   export type StockUncheckedUpdateWithoutCasting_customerInput = {
@@ -71779,6 +72275,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockUncheckedUpdateManyWithoutCasting_customerInput = {
@@ -71796,6 +72293,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type FilingWastageCreateManyFilingPersonIdInput = {
@@ -72362,6 +72860,7 @@ export namespace Prisma {
     remarks?: string | null
     casting_customer_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockUpdateWithoutPurchaseIdInput = {
@@ -72378,6 +72877,7 @@ export namespace Prisma {
     touch?: AddTouchUpdateOneWithoutStockNestedInput
     casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
     customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+    customer?: AddCustomerUpdateOneWithoutStockNestedInput
   }
 
   export type StockUncheckedUpdateWithoutPurchaseIdInput = {
@@ -72395,6 +72895,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockUncheckedUpdateManyWithoutPurchaseIdInput = {
@@ -72412,6 +72913,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockCreateManyCustomer_transactionInput = {
@@ -72429,6 +72931,7 @@ export namespace Prisma {
     remarks?: string | null
     casting_customer_id?: number | null
     purchase_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockUpdateWithoutCustomer_transactionInput = {
@@ -72445,6 +72948,7 @@ export namespace Prisma {
     touch?: AddTouchUpdateOneWithoutStockNestedInput
     casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
     purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
+    customer?: AddCustomerUpdateOneWithoutStockNestedInput
   }
 
   export type StockUncheckedUpdateWithoutCustomer_transactionInput = {
@@ -72462,6 +72966,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockUncheckedUpdateManyWithoutCustomer_transactionInput = {
@@ -72479,6 +72984,7 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CastingItemsCreateManyItemInput = {
@@ -72508,6 +73014,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type FilingItemsCreateManyFilingitemInput = {
@@ -72632,6 +73139,7 @@ export namespace Prisma {
     casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
     purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
     customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+    customer?: AddCustomerUpdateOneWithoutStockNestedInput
   }
 
   export type StockUncheckedUpdateWithoutItemInput = {
@@ -72649,6 +73157,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockUncheckedUpdateManyWithoutItemInput = {
@@ -72666,6 +73175,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type FilingItemsUpdateWithoutFilingitemInput = {
@@ -72955,6 +73465,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type AddPurchaseStockCreateManyTouchIdInput = {
@@ -73015,6 +73526,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    date?: Date | string | null
     description?: string | null
     gold: number
     purity: number
@@ -73253,6 +73765,7 @@ export namespace Prisma {
     casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
     purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
     customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+    customer?: AddCustomerUpdateOneWithoutStockNestedInput
   }
 
   export type StockUncheckedUpdateWithoutTouchInput = {
@@ -73270,6 +73783,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockUncheckedUpdateManyWithoutTouchInput = {
@@ -73287,6 +73801,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type AddPurchaseStockUpdateWithoutTouchIdInput = {
@@ -73456,6 +73971,7 @@ export namespace Prisma {
   export type ExpenseVoucherUpdateWithoutTouchIdInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     gold?: FloatFieldUpdateOperationsInput | number
     purity?: FloatFieldUpdateOperationsInput | number
@@ -73465,6 +73981,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     gold?: FloatFieldUpdateOperationsInput | number
     purity?: FloatFieldUpdateOperationsInput | number
@@ -73474,6 +73991,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     gold?: FloatFieldUpdateOperationsInput | number
     purity?: FloatFieldUpdateOperationsInput | number
@@ -73663,6 +74181,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type LotFilingMapperCreateManyItemIdInput = {
@@ -73761,6 +74280,7 @@ export namespace Prisma {
     casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
     purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
     customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+    customer?: AddCustomerUpdateOneWithoutStockNestedInput
   }
 
   export type StockUncheckedUpdateWithoutCastingItemInput = {
@@ -73778,6 +74298,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockUncheckedUpdateManyWithoutCastingItemInput = {
@@ -73795,6 +74316,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type LotFilingMapperUpdateWithoutItemIdInput = {
@@ -74310,6 +74832,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type LotSettingMapperCreateManyItemIdInput = {
@@ -74341,6 +74864,7 @@ export namespace Prisma {
     casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
     purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
     customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+    customer?: AddCustomerUpdateOneWithoutStockNestedInput
   }
 
   export type StockUncheckedUpdateWithoutFilingItemInput = {
@@ -74358,6 +74882,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockUncheckedUpdateManyWithoutFilingItemInput = {
@@ -74375,6 +74900,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type SettingEntryUpdateWithoutFilingItemsInput = {
@@ -74779,6 +75305,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type LotBuffingMapperCreateManySettingItemIdInput = {
@@ -74878,6 +75405,7 @@ export namespace Prisma {
     casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
     purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
     customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+    customer?: AddCustomerUpdateOneWithoutStockNestedInput
   }
 
   export type StockUncheckedUpdateWithoutSettingItemInput = {
@@ -74895,6 +75423,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockUncheckedUpdateManyWithoutSettingItemInput = {
@@ -74912,6 +75441,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type LotBuffingMapperUpdateWithoutSettingItemIdInput = {
@@ -75210,6 +75740,7 @@ export namespace Prisma {
     casting_customer_id?: number | null
     purchase_id?: number | null
     customer_transaction_id?: number | null
+    customer_id?: number | null
   }
 
   export type StockUpdateWithoutBuffingItemInput = {
@@ -75226,6 +75757,7 @@ export namespace Prisma {
     casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
     purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
     customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+    customer?: AddCustomerUpdateOneWithoutStockNestedInput
   }
 
   export type StockUncheckedUpdateWithoutBuffingItemInput = {
@@ -75243,6 +75775,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockUncheckedUpdateManyWithoutBuffingItemInput = {
@@ -75260,6 +75793,7 @@ export namespace Prisma {
     casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
     purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
     customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type BuffingWastageUpdateWithoutBuffing_itemsInput = {

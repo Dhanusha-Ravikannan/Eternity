@@ -96,25 +96,6 @@ export const createReceiptVoucher = async (req, res) => {
     }
   };
   
-
-  // Controller to get all receipt vouchers
-// export const getAllReceiptVouchers = async (req, res) => {
-//   try {
-//     const receipts = await prisma.receiptVoucher.findMany({
-//       orderBy: { date: "desc" }, 
-//       include: {
-//         customerId: true,
-//         touchId:true,
-//       },
-//     });
-
-//     return res.status(200).json({ receipts });
-//   } catch (error) {
-//     console.error("Error fetching receipt vouchers:", error.message || error);
-//     return res.status(500).json({ error: "Internal server error" });
-//   }
-// };
-
 export const getAllReceiptVouchers = async (req, res) => {
   try {
     const receipts = await prisma.receiptVoucher.findMany({

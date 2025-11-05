@@ -278,7 +278,7 @@ const Stock = () => {
               {Object.entries(touchSummary).map(([touch, weight]) => (
                 <div key={touch} className={styles.summaryItem}>
                   <span>Touch {touch} Total Weight:</span>
-                  <span>{weight.toFixed(3)}</span>
+                  <span>{weight.toFixed(2)}</span>
                 </div>
               ))}
             </div>

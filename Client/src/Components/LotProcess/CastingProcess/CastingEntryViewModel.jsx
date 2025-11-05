@@ -240,9 +240,8 @@ const CastingEntryViewModal = ({
   const deleteScrapItem = async (index, itemId) => {
     try {
       if (itemId) {
-        await axios.delete(`${BACKEND_SERVER_URL}/api/stock/${itemId}`);
+        await axios.delete(`${BACKEND_SERVER_URL}/api/castingitems/${itemId}`)
       }
-
       setScrapItems(scrapItems.filter((_, i) => i !== index));
     } catch (error) {
       console.error("Failed to delete scrap item:", error);
@@ -278,12 +277,9 @@ const CastingEntryViewModal = ({
     (sum, item) => sum + parseFloat(item.weight || 0),
     0
   );
-  // const currentBalanceWeight =
-  //   parseFloat(form.beforeWeight || 0) - totalProductWeight;
 
   const currentBalanceWeight =
   parseFloat(totalBalance || 0) - totalProductWeight;
-
 
   const totalScrapWeight = scrapItems.reduce(
     (sum, item) => sum + parseFloat(item.weight || 0),
@@ -420,20 +416,16 @@ const CastingEntryViewModal = ({
         }
       }
     }
-
     return summary;
   };
 
   const stockSummary = adjustedStockSummary();
 
 
-
-
   useEffect(() => {
     const fetchBalanceByName = async () => {
       if (!form.name) {
         setOpeningBalance(0);
-        // handleChange("beforeWeight")({ target: { value: 0 } });
         return;
       }
   
@@ -447,11 +439,10 @@ const CastingEntryViewModal = ({
   
         setOpeningBalance(balance);
         // Update the form's beforeWeight
-        // handleChange("beforeWeight")({ target: { value: balance } });
       } catch (err) {
         console.error("Failed to fetch balance:", err);
         setOpeningBalance(0);
-        // handleChange("beforeWeight")({ target: { value: 0 } });
+
       }
     };
   
@@ -466,7 +457,20 @@ const CastingEntryViewModal = ({
   
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+    
+    <Dialog 
+  open={open}
+  maxWidth={false} 
+  PaperProps={{
+    sx: { width: "90%", maxWidth: "970px"}, 
+  }}
+  disableEscapeKeyDown
+  onClose={(event, reason) => {
+    if (reason !== "backdropClick") {
+      handleClose();
+    }
+  }}
+>
       <div
         style={{
           fontSize: "1.3rem",
@@ -478,172 +482,196 @@ const CastingEntryViewModal = ({
         {isView ? "View Casting Entry" : "Add Casting Entry"}
       </div>
 
-      {Object.keys(stockSummary).length > 0 && (
-        <Box sx={{ mt: 0, p: 2, border: "1px solid #ddd", borderRadius: 1, backgroundColor:' #f8f9fa' }}>
-          <Typography variant="h6" gutterBottom color="primary">
-            Available Stock
-          </Typography>
-          <Grid container spacing={2}>
-            {Object.entries(stockSummary).map(([touch, weight]) => (
-              <Grid item xs={6} sm={4} md={3} key={touch}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    p: 1,
-                    // backgroundColor: "#f5f5f5",
-                    backgroundColor:"#38383e",
-                    color:'white',
-                    borderRadius: 1,
-                  }}
-                >
-                  <Typography variant="body1" >Touch {touch}: </Typography>
-                  <Typography variant="body1" fontWeight="bold">
-                    {weight.toFixed(3)}
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      )}
-
-      <DialogContent>
- 
-
-     <Grid container spacing={6}>
-     <Grid item xs={3}>
-          <TextField
+      <Grid container spacing={2} sx={{padding:'0rem'}}>
+  {/* LEFT SIDE — Form Section */}
+  <Grid item xs={12} md={8} sx={{ml:'2rem'}}>
+    <Grid container spacing={3}>
+      <Grid item xs={3}>
+        <TextField
           label="Date"
           type="date"
-          sx={{ width: "180px" }}
+          sx={{ width: "140px" }}
           margin="dense"
           value={form.date}
           onChange={handleChange("date")}
           InputLabelProps={{ shrink: true }}
           InputProps={{ readOnly: isView }}
         />
-          </Grid>
+      </Grid>
 
+      <Grid item xs={3}>
+        <TextField
+          label="Name"
+          select
+          sx={{ width: "140px" }}
+          margin="dense"
+          value={form.name}
+          onChange={handleChange("name")}
+          InputProps={{ readOnly: isView }}
+        >
+          {nameOptions.map((nameObj) => (
+            <MenuItem key={nameObj.id} value={nameObj.name}>
+              {nameObj.name}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
+
+      <Grid item xs={3}>
+        <TextField
+          label="Touch"
+          select
+          sx={{ width: "140px" }}
+          margin="dense"
+          value={form.touch}
+          onChange={handleChange("touch")}
+          InputProps={{ readOnly: isView }}
+        >
+          {touchOptions.map((touchObj) => (
+            <MenuItem key={touchObj.id} value={touchObj.touch}>
+              {touchObj.touch}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
+
+      <Grid item xs={3}>
+        <TextField
+          label="Given Gold"
+          type="number"
+          autoComplete="off"
+          onWheel={(e) => e.target.blur()}
+          sx={{ width: "140px" }}
+          margin="dense"
+          value={form.givenGold}
+          onChange={handleChange("givenGold")}
+          InputProps={{ readOnly: isView }}
+          error={!stockValidation.isValid}
+          helperText={stockValidation.message}
+        />
+      </Grid>
+    </Grid>
+
+    {!stockValidation.isValid && (
+      <Alert severity="error" sx={{ mt: 1 }}>
+        Insufficient stock for this touch! Available:{" "}
+        {stockValidation.available.toFixed(2)}, Requested:{" "}
+        {stockValidation.requested.toFixed(2)}
+      </Alert>
+    )}
+
+    <Grid container spacing={3} sx={{ mt: 1 }}>
+
+      <Grid item xs={3}>
+        <TextField
+          label="Purity"
+          sx={{ width: "140px" }}
+          margin="dense"
+          value={form.purity}
+          InputProps={{ readOnly: true }}
+        />
+      </Grid>
+
+      <Grid item xs={3}>
+        <TextField
+          label="Final Touch"
+          type="number"
+          autoComplete="off"
+          onWheel={(e) => e.target.blur()}
+          sx={{ width: "140px" }}
+          margin="dense"
+          value={form.finalTouch}
+          onChange={handleChange("finalTouch")}
+          InputProps={{ readOnly: isView }}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <TextField
+          label="Before Weight"
+          sx={{ width: "140px" }}
+          margin="dense"
+          value={form.beforeWeight}
+          InputProps={{ readOnly: true }}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <TextField
+          label="Copper"
+          sx={{ width: "140px" }}
+          margin="dense"
+          value={form.copper}
+          InputProps={{ readOnly: true }}
+        />
+      </Grid>
+      </Grid>
       
-<Grid item xs={3}>
-            <TextField
-              label="Name"
-              select
-              sx={{ width: "180px" }}
-              margin="dense"
-              value={form.name}
-              onChange={handleChange("name")}
-              InputProps={{ readOnly: isView }}
-            >
-              {nameOptions.map((nameObj) => (
-                <MenuItem key={nameObj.id} value={nameObj.name}>
-                  {nameObj.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
+  </Grid>
 
-          <Grid item xs={3}>
-            <TextField
-              label="Touch"
-              select
-              sx={{ width: "160px" }}
-              margin="dense"
-              value={form.touch}
-              onChange={handleChange("touch")}
-              InputProps={{ readOnly: isView }}
-            >
-              {touchOptions.map((touchObj) => (
-                <MenuItem key={touchObj.id} value={touchObj.touch}>
-                  {touchObj.touch}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-          
-          <Grid item xs={3}>
-            <TextField
-              label="Given Gold"
-              type="number"
-              autoComplete="off"
-              onWheel={(e) => e.target.blur()}
-              sx={{ width: "160px" }}
-              margin="dense"
-              value={form.givenGold}
-              onChange={handleChange("givenGold")}
-              InputProps={{ readOnly: isView }}
-              error={!stockValidation.isValid}
-              helperText={stockValidation.message}
-            />
-          </Grid>
-      
-        </Grid>
+  {/* RIGHT SIDE — Available Stock Table */}
+  <Grid item xs={12} md={4} sx={{marginLeft:'2rem'}}>
+  <Box sx={{ maxHeight: 200, overflowY: "auto" }}>
+    {Object.keys(stockSummary).length > 0 && (
+      <Box
+        sx={{
+          p: 2,
+          border: "1px solid #ddd",
+          borderRadius: 1,
+          backgroundColor: "#f8f9fa",
+        }}
+      >
+        <Typography
+          variant="h6"
+          gutterBottom
+          color="primary"
+          sx={{ textAlign: "center" }}
+        >
+          Available Stock
+        </Typography>
 
-        {!stockValidation.isValid && (
-          <Alert severity="error" sx={{ mt: 1 }}>
-            Insufficient stock for this touch! Available:{" "}
-            {stockValidation.available.toFixed(2)}, Requested:{" "}
-            {stockValidation.requested.toFixed(2)}
-          </Alert>
-        )}
-
-        <Grid container spacing={6}>
-          {/* 2nd Row */}
-
-          <Grid item xs={3}>
-            <TextField
-              label="Purity"
-              sx={{ width: "180px" }}
-              margin="dense"
-              value={form.purity}
-              InputProps={{ readOnly: true }}
-            />
-          </Grid>
-
-          <Grid item xs={3}>
-            <TextField
-              label="Final Touch"
-              type="number"
-              autoComplete="off"
-              onWheel={(e) => e.target.blur()}
-              sx={{ width: "180px" }}
-              margin="dense"
-              value={form.finalTouch}
-              onChange={handleChange("finalTouch")}
-              InputProps={{ readOnly: isView }}
-            />
-          </Grid>
-          {/* <Grid item xs={2}>
-            <TextField
-              label="Pure Value"
-              sx={{ width: "160px" }}
-              margin="dense"
-              value={form.pureValue}
-              InputProps={{ readOnly: true }}
-            />
-          </Grid> */}
-          <Grid item xs={2}>
-            <TextField
-              label="Before Weight"
-              sx={{ width: "160px" }}
-              margin="dense"
-              value={form.beforeWeight}
-              InputProps={{ readOnly: true }}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <TextField
-              label="Copper"
-              sx={{ width: "160px" }}
-              margin="dense"
-              value={form.copper}
-              InputProps={{ readOnly: true }}
-            />
-          </Grid>
-        </Grid>
-
-<br/>
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            backgroundColor: "white",
+            borderRadius: "5px",
+            overflow: "hidden",
+          }}
+        >
+          <thead style={{ backgroundColor: "#38383e", color: "white" }}>
+            <tr>
+              <th style={{ padding: "8px", textAlign: "left" }}>Touch</th>
+              <th style={{ padding: "8px", textAlign: "right" }}>Weight (g)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(stockSummary).map(([touch, weight]) => (
+              <tr
+                key={touch}
+                style={{
+                  borderBottom: "1px solid #ddd",
+                  backgroundColor: "#fdfdfd",
+                }}
+              >
+                <td style={{ padding: "8px" }}>Touch {touch}</td>
+                <td
+                  style={{
+                    padding: "8px",
+                    textAlign: "right",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {weight.toFixed(3)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Box>
+    )}
+      </Box>
+  </Grid>
+</Grid>
+      <DialogContent>
  {/* Accordion for Calculation Details */}
  <Accordion className={styles.calculationAccordion}>
         <AccordionSummary
@@ -713,10 +741,20 @@ const CastingEntryViewModal = ({
           </div>
         </AccordionDetails>
       </Accordion>
-<br/>
+
 <div style={{textAlign:"end"}}> 
-<div> <b>Opening Balance:  </b> {openingBalance.toFixed(3)} </div>
-<div> <b> Total Balance:  </b> {totalBalance.toFixed(3)} </div>
+<div>
+  <span
+    style={{
+      color: openingBalance > 0 ? "green" : openingBalance < 0 ? "red" : "black",
+      fontWeight: "bold",
+    }}
+  >  Opening Balance:  
+       <span style={{marginLeft:'1rem'}}> {openingBalance.toFixed(3)}</span>  
+  </span>
+</div>
+
+<div> <b> Total Balance:  </b>  <span style={{marginLeft:'1rem'}}> {totalBalance.toFixed(3)} </span>  </div>
 </div>
         {/* Add Product Items Section */}
         <Button onClick={addProductItem} variant="outlined" sx={{ mt:1, backgroundColor:' #f8f9fa', fontWeight:'530' }}>

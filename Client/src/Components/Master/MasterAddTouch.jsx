@@ -6,12 +6,16 @@ import { BACKEND_SERVER_URL } from '../../../Config/config';
 import { Delete, Edit } from "@mui/icons-material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSaveButton } from '../../Utils/useSaveButton';
 
 const MasterAddTouch = () => {
   const [touchValue, setTouchValue] = useState("");
   const [touchItems, setTouchItems] = useState([]);
   const [editId, setEditId] = useState(null);
   const [editValue, setEditValue] = useState("");
+
+  const { isSaving, handleSaveAction } = useSaveButton();
+
 
   useEffect(() => {
     fetchTouchItems();
@@ -29,6 +33,7 @@ const MasterAddTouch = () => {
 
 
   const handleAddTouch = async () => {
+    handleSaveAction(async () => {
     if (!touchValue.trim()) {
       toast.error("Please enter a touch value", { position: "top-right" });
       return;
@@ -41,7 +46,7 @@ const MasterAddTouch = () => {
       return;
     }
   
-    // 🔹 Prevent duplicate touch values
+    //  Prevent duplicate touch values
     const isDuplicate = touchItems.some(
       (item) => parseFloat(item.touch) === parsedValue
     );
@@ -61,6 +66,7 @@ const MasterAddTouch = () => {
       console.error("Error adding touch:", error);
       toast.error("Failed to add touch", { position: "top-right" });
     }
+  });
   };
   
   const handleUpdate = async (id) => {
@@ -76,7 +82,7 @@ const MasterAddTouch = () => {
       return;
     }
   
-    // 🔹 Prevent duplicate touch values (excluding current one)
+    //  Prevent duplicate touch values (excluding current one)
     const isDuplicate = touchItems.some(
       (item) => parseFloat(item.touch) === parsedValue && item.id !== id
     );
@@ -133,9 +139,9 @@ const MasterAddTouch = () => {
             onChange={(e) => setTouchValue(e.target.value)}
             placeholder="Enter Touch value"
           />
-          <button onClick={handleAddTouch}>Add Touch</button>
+          <button onClick={handleAddTouch} disabled={isSaving}>
+            {isSaving ? "Adding..." : "Add Touch"} </button>
         </div>
-
         <div className={styles.itemlist}>
           <h4 style={{ textAlign: "center" }}>Added Touch Items</h4>
           <table>
@@ -164,11 +170,16 @@ const MasterAddTouch = () => {
                     </td>
                     <td style={{ width: "6rem" }}>
                       {editId === item.id ? (
-                        <>
-                          <button onClick={() => handleUpdate(item.id)}>Save</button>
-                          <button onClick={() => setEditId(null)}>Cancel</button>
-                        </>
-                      ) : (  
+  <div className={styles.actionButtons}>
+    <button className={styles.updateBtn} onClick={() => handleUpdate(item.id)}>
+      Update
+    </button>
+    <button className={styles.cancelBtn} onClick={() => setEditId(null)}>
+      Cancel
+    </button>
+  </div>
+) : (
+
                       <>
                         <Edit
                           onClick={() => handleEdit(item)}

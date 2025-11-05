@@ -14,6 +14,7 @@ import Master from "./MasterNavbar";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSaveButton } from "../../Utils/useSaveButton";
 
 function MasterAddSupplier() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +25,8 @@ function MasterAddSupplier() {
   const [email, setEmail] = useState(""); 
   const [editIndex, setEditIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const { isSaving, handleSaveAction } = useSaveButton();
 
   const openModal = () => setIsModalOpen(true);
 
@@ -121,7 +124,7 @@ const validateForm = () => {
 
   const handleSave = async () => {
     if (!validateForm()) return;
-
+    await handleSaveAction(async () => {
     const customerData = {
       name: customerName.trim(),
       phoneNumber: phoneNumber.trim(),
@@ -149,6 +152,7 @@ const validateForm = () => {
       console.error("Error saving customer:", error.response?.data || error.message);
       toast.error("Error saving supplier");
     }
+  });
   };
 
   const handleEdit = (index) => {
@@ -285,7 +289,21 @@ const validateForm = () => {
           </DialogContent>
           <DialogActions sx={{padding:'1rem'}}>
             <Button onClick={closeModal} color="primary" variant="outlined">Cancel</Button>
-            <Button onClick={handleSave} color="primary" variant="contained" sx={{marginRight:'0.5rem'}}>Save</Button>
+<Button
+    onClick={handleSave}
+    color="primary"
+    variant="contained"
+    sx={{ marginRight: "0.5rem" }}
+    disabled={isSaving}
+  >
+    {isSaving
+      ? editIndex !== null
+        ? "Updating..."
+        : "Saving..."
+      : editIndex !== null
+      ? "Update"
+      : "Save"}
+  </Button>
           </DialogActions>
         </Dialog>
 

@@ -11,8 +11,7 @@ import autoTable from "jspdf-autotable";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Tooltip } from "@mui/material";
-
-
+import { useSaveButton } from "../../Utils/useSaveButton";
 
 const QCStock = () => {
   const [open, setOpen] = useState(false);
@@ -37,6 +36,8 @@ const QCStock = () => {
     purity: "",
     remarks: "",
   });
+
+  const { isSaving, handleSaveAction } = useSaveButton();
 
   useEffect(() => {
     fetchEntries();
@@ -113,6 +114,7 @@ const QCStock = () => {
   };
 
   const handleSave = async () => {
+    await handleSaveAction(async () => {
     //  Validation before API call
     const { date, item_id, weight, stoneWeight, finalWeight, touch_id, purity } = formData;
   
@@ -166,6 +168,7 @@ const QCStock = () => {
         theme: "colored",
       });
     }
+  });
   };
   
   const handleEdit = (index) => {
@@ -529,9 +532,18 @@ const handleDownloadPDF = () => {
           <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="contained" color="primary" onClick={handleSave}  sx={{marginRight:'0.5rem'}}>
-            {editingIndex !== null ? "Update" : "Save"}
-          </Button>
+          <Button
+  variant="contained"
+  color="primary"
+  onClick={handleSave}
+  sx={{ marginRight: "0.5rem" }}
+  disabled={isSaving} 
+>
+  {isSaving
+    ? (editingIndex !== null ? "Updating..." : "Saving...")
+    : (editingIndex !== null ? "Update" : "Save")}
+</Button>
+
         </Box>
       </Dialog>
 <div>

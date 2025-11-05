@@ -3,164 +3,6 @@ const prisma = new PrismaClient();
 
 // CREATE - Single BuffingEntry for multiple setting/filing items
 
-// export const createBuffingEntry = async (req, res) => {
-//   try {
-//     const { buffing_person_id, lot_number, items } = req.body;
-
-//     // Extract setting/filing item IDs
-//     const settingItemIds =
-//       items?.map((i) => i.setting_item_id).filter(Boolean) || [];
-//     const filingItemIds =
-//       items?.map((i) => i.filing_item_id).filter(Boolean) || [];
-
-//     if (
-//       !buffing_person_id ||
-//       !lot_number ||
-//       (settingItemIds.length === 0 && filingItemIds.length === 0)
-//     ) {
-//       return res.status(400).json({
-//         error:
-//           "buffing_person_id, lot_number, and at least one setting_item_id or filing_item_id are required",
-//       });
-//     }
-
-//     // Find lot by lot_number
-//     // const lot = await prisma.lotInfo.findFirst({
-//     //   where: {
-//     //     lotNumber: parseInt(lot_number),
-//     //     IsActive: true,
-//     //     buffing_customer_id: buffing_person_id,
-//     //   },
-//     // });
-
-//     const LotId = await prisma.LotInfo.findFirst({
-//       where: {
-//         lotNumber: parseInt(lot_number),
-//         buffing_customer_id: parseInt(buffing_person_id),
-//       },
-//     });
-
-
-//     if (!LotId) {
-//       return res.status(404).json({
-//         error: "Lot not found with the given lot_number or Not Active",
-//       });
-//     }
-
-//     // Get castingItemId from first filing or setting item
-//     let castingItemId = null;
-
-//     if (filingItemIds.length > 0) {
-//       const firstFilingItem = await prisma.filingItems.findUnique({
-//         where: { id: filingItemIds[0] },
-//         select: {
-//           filing_entry: {
-//             select: { casting_item_id: true },
-//           },
-//         },
-//       });
-//       if (!firstFilingItem) {
-//         return res.status(400).json({ error: "First filing item not found" });
-//       }
-//       castingItemId = firstFilingItem.filing_entry.casting_item_id;
-//     } else if (settingItemIds.length > 0) {
-//       const firstSettingItem = await prisma.settingItems.findUnique({
-//         where: { id: settingItemIds[0] },
-//         select: {
-//           settingEntryId: {
-//             select: { casting_item_id: true },
-//           },
-//         },
-//       });
-//       if (!firstSettingItem) {
-//         return res.status(400).json({ error: "First setting item not found" });
-//       }
-//       castingItemId = firstSettingItem.settingEntryId.casting_item_id;
-//     }
-
-//     // Create BuffingEntry
-//     // const buffingEntry = await prisma.buffingEntry.create({
-//     //   data: {
-//     //     buffing_person: { connect: { id: buffing_person_id } },
-//     //     castingItem: { connect: { id: castingItemId } },
-//     //   },
-//     //   include: {
-//     //     buffing_person: true,
-//     //     filing_items: true,
-//     //     setting_items: true,
-//     //   },
-//     // });
-
-//     // Upsert BuffingEntry (create if not exists, update if already exists)
-//     const buffingEntry = await prisma.buffingEntry.upsert({
-//       where: { casting_item_id: castingItemId },
-//       update: {
-//         buffing_person: { connect: { id: buffing_person_id } },
-//       },
-//       create: {
-//         buffing_person: { connect: { id: buffing_person_id } },
-//         castingItem: { connect: { id: castingItemId } },
-//       },
-//       include: {
-//         buffing_person: true,
-//         filing_items: true,
-//         setting_items: true,
-//       },
-//     });
-    
-//     // Map all selected filing + setting items in LotBuffingMapper
-//     await Promise.all([
-//       ...filingItemIds.map((filingItemId) =>
-//         prisma.lotBuffingMapper.create({
-//           data: {
-//             buffing_id: buffing_person_id,
-//             lot_id: LotId.id,
-//             filing_item_id: filingItemId,
-//             buffing_entry_id: buffingEntry.id,
-//           },
-//         })
-//       ),
-//       ...settingItemIds.map((settingItemId) =>
-//         prisma.lotBuffingMapper.create({
-//           data: {
-//             buffing_id: buffing_person_id,
-//             lot_id: LotId.id,
-//             setting_item_id: settingItemId,
-//             buffing_entry_id: buffingEntry.id,
-//           },
-//         })
-//       ),
-//     ]);
-
-//     // Fetch full item details
-//     const fullFilingItems = await prisma.filingItems.findMany({
-//       where: { id: { in: filingItemIds } },
-//       include: { filingitem: true, touch: true },
-//     });
-
-//     const fullSettingItems = await prisma.settingItems.findMany({
-//       where: { id: { in: settingItemIds } },
-//       include: { item: true, touch: true },
-//     });
-
-//     return res.status(201).json({
-//       message: "Single BuffingEntry created for multiple items successfully",
-//       entry: {
-//         ...buffingEntry,
-//         filing_items: fullFilingItems,
-//         setting_items: fullSettingItems,
-//       },
-//     });
-//   } catch (error) {
-//     console.error("Error creating single buffing entry:", error);
-//     return res.status(500).json({
-//       error: "Internal server error",
-//       details: error?.message || error,
-//     });
-//   }
-// };
-
-
 export const createBuffingEntry = async (req, res) => {
   try {
     const { buffing_person_id, lot_number, items } = req.body;
@@ -183,13 +25,6 @@ export const createBuffingEntry = async (req, res) => {
     }
 
     // Find lot by lot_number
-    // const lot = await prisma.lotInfo.findFirst({
-    //   where: {
-    //     lotNumber: parseInt(lot_number),
-    //     IsActive: true,
-    //     buffing_customer_id: buffing_person_id,
-    //   },
-    // });
 
     const LotId = await prisma.LotInfo.findFirst({
       where: {
@@ -205,7 +40,7 @@ export const createBuffingEntry = async (req, res) => {
       });
     }
 
-       // ✅ Block if lot is closed / inactive
+       //  Block if lot is closed / inactive
        if (LotId.IsActive === false || LotId.status === "Closed") {
         return res.status(400).json({
           error: "This jobcard/lot is closed. You cannot assign new items.",
@@ -528,17 +363,6 @@ console.log('Entries', entries)
     res.status(500).json({ error: error.message });
   }
 };
-
-
-
-// export const getReportSettingEntries = async (req,res)=>{
-//   try{
-
-//   }catch(error){
-//     console.error("Error in getReportBuffingEntries:", error);
-//     res.status(500).json({ error: error.message });
-//   }
-// }
 
 
 export const getReportBuffingEntries = async (req, res) => {

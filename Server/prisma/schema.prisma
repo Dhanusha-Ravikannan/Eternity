@@ -44,6 +44,8 @@ model  AddCustomer {
   bills        Bill[]
   hallmarks    Hallmark[]
   receipt_voucher ReceiptVoucher[]
+
+  Stock Stock[]
 }
 
 model AddCasting {
@@ -557,6 +559,9 @@ model Stock {
   purchaseId  AddPurchaseStock? @relation(fields: [purchase_id], references: [id], onDelete: Cascade)
   customer_transaction_id Int?
   customer_transaction  CustomerTransaction? @relation(fields: [customer_transaction_id], references: [id])
+
+  customer_id  Int? 
+  customer AddCustomer? @relation(fields: [customer_id], references: [id])
 }
 
 model Hallmark {
@@ -652,6 +657,7 @@ model ExpenseVoucher {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  date DateTime?
   description String?
   gold Float
   touch_id Int 

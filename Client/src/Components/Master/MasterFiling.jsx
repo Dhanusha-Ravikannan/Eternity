@@ -16,6 +16,7 @@ import styles from "./MasterFiling.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { validateCustomer } from "../../Utils/validationSchemas";
+import { useSaveButton } from "../../Utils/useSaveButton";
 
 function MasterFiling() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,6 +28,8 @@ function MasterFiling() {
   const [editIndex, setEditIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [balance, setBalance] = useState("");
+
+  const { isSaving, handleSaveAction } = useSaveButton();
 
   const openModal = () => setIsModalOpen(true);
 
@@ -59,6 +62,7 @@ function MasterFiling() {
   }, []);
 
   const handleSave = async () => {
+    await handleSaveAction(async () => {
     const customerData = {
       name: customerName.trim() || "",
       phoneNumber: phoneNumber.trim() || "",
@@ -91,6 +95,7 @@ function MasterFiling() {
       console.error("Error saving filing member:", error.response?.data || error.message);
       toast.error("Failed to save filing member");
     }
+  });
   };
   
 
@@ -252,14 +257,17 @@ function MasterFiling() {
             <Button onClick={closeModal} color="primary" variant="outlined">
               Cancel
             </Button>
-            <Button
-              onClick={handleSave}
-              color="primary"
-              variant="contained"
-              sx={{ marginRight: "0.5rem" }}
-            >
-              Save
-            </Button>
+              <Button
+    onClick={handleSave}
+    color="primary"
+    variant="contained"
+    sx={{ marginRight: "0.5rem" }}
+    disabled={isSaving}
+  >
+    {isSaving
+      ? (editIndex !== null ? "Updating..." : "Saving...")
+      : (editIndex !== null ? "Update" : "Save")}
+  </Button>
           </DialogActions>
         </Dialog>
 
