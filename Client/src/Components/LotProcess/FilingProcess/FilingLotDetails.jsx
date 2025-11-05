@@ -867,12 +867,13 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
             InputLabelProps={{ shrink: true }}
             sx={{ mb: 2, mt: 0 }}
           />
-       {/* <Typography sx={{ color: openingBalanceTotal >= 0 ? "green" : "red", fontWeight: "bold" }}>
-    Open Balance: {openingBalanceTotal.toFixed(2)} g
-  </Typography> */}
+
           <Typography variant="h6" gutterBottom>
             Available Filing Items
           </Typography>
+          <Typography sx={{ color: openingBalanceTotal >= 0 ? "green" : "red", fontWeight: "bold" }}>
+    Open Balance: {openingBalanceTotal.toFixed(2)} g
+  </Typography>
           <div className={styles.tableContainer}>
             <table className={styles.table} >
               <thead>
@@ -1114,7 +1115,7 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
                       <th style={{ width: "7rem" }}>Weight</th>
                       <th>Touch</th>
                       <th>Purity</th>
-                      <th style={{ width: "4rem" }}>Remarks</th>
+                      <th >Remarks</th>
                       <th>Has Stone</th>
                       <th>Process</th>
                       <th>Actions</th>

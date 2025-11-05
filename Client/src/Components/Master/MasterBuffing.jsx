@@ -16,6 +16,7 @@ import { BACKEND_SERVER_URL } from "../../../Config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { validateCustomer } from "../../Utils/validationSchemas";
+import { useSaveButton } from "../../Utils/useSaveButton";
 
 function MasterBuffing() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,6 +28,8 @@ function MasterBuffing() {
   const [editIndex, setEditIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [balance, setBalance] = useState("");
+
+  const { isSaving, handleSaveAction } = useSaveButton();
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -58,7 +61,7 @@ function MasterBuffing() {
 
 
   const handleSave = async () => {
-
+    await handleSaveAction(async () => {
     const customerData = {
       name: customerName.trim() || "",
       phoneNumber: phoneNumber.trim() || "",
@@ -99,6 +102,7 @@ function MasterBuffing() {
       console.error("Error saving buffing member:", error.response?.data || error.message);
       toast.error("Error saving buffing member", { position: "top-right" });
     }
+  });
   };
 
   const handleEdit = (index) => {
@@ -263,18 +267,20 @@ function MasterBuffing() {
             <Button onClick={closeModal} color="primary" variant="outlined">
               Cancel
             </Button>
-            <Button
-              onClick={handleSave}
-              color="primary"
-              variant="contained"
-              sx={{ marginRight: "0.5rem" }}
-            >
-              Save
-            </Button>
+<Button
+    onClick={handleSave}
+    color="primary"
+    variant="contained"
+    sx={{ marginRight: "0.5rem" }}
+    disabled={isSaving}
+  >
+    {isSaving
+      ? (editIndex !== null ? "Updating..." : "Saving...")
+      : (editIndex !== null ? "Update" : "Save")}
+  </Button>
           </DialogActions>
         </Dialog>
 
-        {/* Table */}
         <div className={styles.itemList}>
           <table className={styles.purchaseTable}>
             <thead>

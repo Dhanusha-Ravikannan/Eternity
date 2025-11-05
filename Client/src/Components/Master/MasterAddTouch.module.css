@@ -81,3 +81,39 @@
   .trEven {
     background-color: #f5f5f5;
   }
+
+
+  .actionButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem; 
+}
+
+.actionButtons button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.updateBtn {
+  background-color: #2985c1;
+  color: white;
+  font-weight: bold;
+}
+
+.updateBtn:hover {
+  background-color: #307aae;
+}
+
+.cancelBtn {
+  background-color: #ce2626;
+  color: #ebdfdf;
+  font-weight: bold;
+}
+
+.cancelBtn:hover {
+  background-color: #cb2d2d;
+}

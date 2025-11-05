@@ -13,6 +13,7 @@ import {
   Box,
   InputAdornment,
 } from "@mui/material";
+import { useSaveButton } from "../../Utils/useSaveButton";
 
 const MasterPurchaseStock = () => {
   const [showModal, setShowModal] = useState(false);
@@ -21,6 +22,8 @@ const MasterPurchaseStock = () => {
   const [supplierList, setSupplierList] = useState([]);
   const [touchList, setTouchList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const { isSaving, handleSaveAction } = useSaveButton();
 
   const getTodayDate = () => new Date().toISOString().split("T")[0];
 
@@ -119,7 +122,7 @@ const MasterPurchaseStock = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    await handleSaveAction(async () => {
     const payload = {
       supplierId: parseInt(formData.supplierId, 10),
       // createdAt: formData.purchaseDate,
@@ -171,6 +174,7 @@ const MasterPurchaseStock = () => {
     } catch (err) {
       toast.error(`Error: ${err.response?.data?.message || err.message}`);
     }
+  });
   };
 
   const handleEdit = (index) => {
@@ -400,11 +404,16 @@ const MasterPurchaseStock = () => {
                     >
                       Cancel
                     </Button>
-                    <Button variant="contained" type="submit">
-                      {editingIndex !== null
-                        ? "Update "
-                        : "Submit "}
-                    </Button>
+                    <Button
+  variant="contained"
+  type="submit"
+  disabled={isSaving} 
+>
+  {isSaving
+    ? (editingIndex !== null ? "Updating..." : "Saving...")
+    : (editingIndex !== null ? "Update" : "Save")}
+</Button>
+
                   
                   </Box>
                 </Box>

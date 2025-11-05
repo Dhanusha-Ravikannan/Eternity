@@ -14,6 +14,8 @@ import {
 import Navbar from "../Navbar/Navbar";
 import styles from "./ExpenseVoucher.module.css";
 import { FaWallet } from "react-icons/fa";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Edit , Delete } from "@mui/icons-material";
 
 const ExpenseVoucher = () => {
   const [summary, setSummary] = useState([]);
@@ -22,6 +24,7 @@ const ExpenseVoucher = () => {
   const [open, setOpen] = useState(false);
 
   const [formData, setFormData] = useState({
+    date: new Date().toISOString().split("T")[0],
     description: "",
     gold: "",
     touch_id: "",
@@ -34,6 +37,9 @@ const ExpenseVoucher = () => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [filteredExpenses, setFilteredExpenses] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState(null);
+
 
 
   useEffect(() => {
@@ -103,7 +109,7 @@ const ExpenseVoucher = () => {
     const to = toDate ? new Date(toDate) : null;
   
     const filtered = expenseList.filter((item) => {
-      const itemDate = new Date(item.createdAt);
+      const itemDate = new Date(item.date);
       if (from && itemDate < from) return false;
       if (to && itemDate > to) return false;
       return true;
@@ -198,32 +204,81 @@ const ExpenseVoucher = () => {
     setFormData(updatedForm);
   };
 
-  const handleSave = async () => {
-    if (!formData.gold || !formData.touch_id) {
-      alert("Please fill all required fields");
-      return;
-    }
-    try {
+  //  CREATE or UPDATE
+const handleSave = async () => {
+  if (!formData.gold || !formData.touch_id) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  try {
+    if (isEditing && editId) {
+      //  Update existing voucher
+      await axios.put(`${BACKEND_SERVER_URL}/api/expense-voucher/${editId}`, formData);
+      alert("Expense voucher updated successfully");
+    } else {
+      //  Create new voucher
       await axios.post(`${BACKEND_SERVER_URL}/api/expense-voucher`, formData);
       alert("Expense voucher added successfully");
-
-      fetchExpenseVouchers();
-      setFormData({ description: "", gold: "", touch_id: "", purity: "" });
-      setAvailableInfo({ available: 0, after: 0 });
-      setPrevTouch(null);
-      setPrevGold(0);
-      setOpen(false);
-    } catch (err) {
-      console.error("Error saving voucher:", err);
-      alert("Error saving voucher");
     }
-  };
+
+    // Refresh data and reset form
+    fetchExpenseVouchers();
+    setFormData({
+      date: new Date().toISOString().split("T")[0],
+      description: "",
+      gold: "",
+      touch_id: "",
+      purity: "",
+    });
+    setAvailableInfo({ available: 0, after: 0 });
+    setPrevTouch(null);
+    setPrevGold(0);
+    setOpen(false);
+    setIsEditing(false);
+    setEditId(null);
+  } catch (err) {
+    console.error("Error saving voucher:", err);
+    alert("Error saving voucher");
+  }
+};
+
+//  DELETE EXPENSE
+const handleDelete = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this expense voucher?")) {
+    return;
+  }
+
+  try {
+    await axios.delete(`${BACKEND_SERVER_URL}/api/expense-voucher/${id}`);
+    alert("Expense voucher deleted successfully");
+    fetchExpenseVouchers();
+  } catch (err) {
+    console.error("Error deleting expense voucher:", err);
+    alert("Error deleting expense voucher");
+  }
+};
+
 
   const handleResetFilter = () => {
     setFromDate("");
     setToDate("");
     setFilteredExpenses(expenseList);
   };
+
+  const handleEdit = (item) => {
+    setFormData({
+      date: item.date ? new Date(item.date).toISOString().split("T")[0] : new Date().toISOString().split("T")[0],
+      description: item.description || "",
+      gold: item.gold || "",
+      touch_id: item.touch_id || (item.touchId?.id || ""),
+      purity: item.purity || "",
+    });
+    setEditId(item.id);
+    setIsEditing(true);
+    setOpen(true);
+  };
+  
   
 
   return (
@@ -263,12 +318,12 @@ const ExpenseVoucher = () => {
     </Button>
     <Button
       style={{
-        backgroundColor: "rgb(188, 18, 35)",
-        color: "white",
-        borderColor: "brown",
+        backgroundColor: "#F5F5F5",
+        color: "black",
+        borderColor: "#25274D",
         borderStyle: "solid",
         borderWidth: "2px",
-        marginLeft: "48rem",
+        marginLeft:'48rem'
       }}
       variant="contained"
       onClick={() => setOpen(true)}
@@ -288,6 +343,7 @@ const ExpenseVoucher = () => {
       <th>Touch</th>
       <th>Purity</th>
       <th>Description</th>
+      <th>Actions</th>
 
     </tr>
   </thead>
@@ -309,19 +365,29 @@ const ExpenseVoucher = () => {
         const formattedTime = createdAt.toLocaleTimeString("en-IN", {
           hour: "2-digit",
           minute: "2-digit",
-          second: "2-digit",
+
         });
 
         return (
           <tr key={item.id}>
             <td>{index + 1}</td>
-            <td>{formattedDate}</td>
+            <td>{new Date(item.date).toLocaleDateString("en-GB")}</td>
             <td>{formattedTime}</td>
             <td>{item.gold}</td>
             <td>{item.touchId?.touch || "-"}</td>
             <td>{item.purity}</td>
             <td>{item.description || "-"}</td>
-       
+<td>
+  <Edit 
+  onClick={() => handleEdit(item)}/> 
+
+ <Delete 
+   color="error"
+   sx={{marginLeft:"1rem"}}
+   onClick={() => handleDelete(item.id)}
+   />
+</td>
+
           </tr>
         );
       })
@@ -340,12 +406,28 @@ const ExpenseVoucher = () => {
   PaperProps={{
     style: { maxWidth: "1050px", borderRadius: "12px" },
   }} >
-
-        <h5 style={{padding:'1rem 0rem 0rem 1rem'}}>Add New Expense </h5>
+   <h5 style={{padding:'1rem 0rem 0rem 1rem'}}>  
+    {
+      isEditing? "Edit Expense" : "Add New Expense"
+    }
+   </h5>
+    
         <DialogContent dividers>
           <div className={styles.container} style={{ display: "flex", gap: "20px" }}>
             {/* Left Section (Form) */}
             <div className={styles.formSection} style={{ flex: 1 }}>
+
+            <TextField
+  label="Date"
+  name="date"
+  type="date"
+  fullWidth
+  margin="dense"
+  value={formData.date}
+  onChange={handleChange}
+  InputLabelProps={{ shrink: true }}
+/>
+
               <TextField
   label="Description"
   name="description"
@@ -357,7 +439,6 @@ const ExpenseVoucher = () => {
   onChange={handleChange}
   placeholder="Enter expense details here..."
 />
-
 
               <TextField
                 label="Given Gold"
@@ -414,14 +495,15 @@ const ExpenseVoucher = () => {
               />
 
               <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSave}
-                fullWidth
-                sx={{ mt: 2 }}
-              >
-                Save
-              </Button>
+  variant="contained"
+  color="primary"
+  onClick={handleSave}
+  fullWidth
+  sx={{ mt: 2 }}
+>
+  {isEditing ? "Update" : "Save"}
+</Button>
+
             </div>
 
             {/* Right Section (Touch Summary) */}
@@ -468,18 +550,27 @@ const ExpenseVoucher = () => {
         </DialogContent>
         <DialogActions>
           <DialogActions>
-  <Button
-    onClick={() => {
-      setFormData({ description: "", gold: "", touch_id: "", purity: "" });
-      setAvailableInfo({ available: 0, after: 0 });
-      setPrevTouch(null);
-      setPrevGold(0);
-      setOpen(false);
-    }}
-    color="secondary"
-  >
-    Cancel
-  </Button>
+<Button
+  onClick={() => {
+    setFormData({
+      date: new Date().toISOString().split("T")[0],
+      description: "",
+      gold: "",
+      touch_id: "",
+      purity: "",
+    });
+    setAvailableInfo({ available: 0, after: 0 });
+    setPrevTouch(null);
+    setPrevGold(0);
+    setIsEditing(false);
+    setEditId(null);
+    setOpen(false);
+  }}
+  color="secondary"
+>
+  Cancel
+</Button>
+
 </DialogActions>
 
         </DialogActions>

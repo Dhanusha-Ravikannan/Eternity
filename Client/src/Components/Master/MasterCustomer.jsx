@@ -27,6 +27,8 @@ function MasterCustomer() {
   const [balance, setBalance] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+
 
   const nameRef = useRef();
   const phoneRef = useRef();
@@ -76,6 +78,7 @@ function MasterCustomer() {
     }
 
     try {
+      setIsSaving(true); //
       if (editIndex !== null) {
         const id = customers[editIndex].id;
         const response = await axios.put(
@@ -93,6 +96,8 @@ function MasterCustomer() {
     } catch (error) {
       console.error("Error saving customer:", error.response?.data || error.message);
       toast.error("Error saving customer");
+    }finally {
+      setIsSaving(false); //  Re-enable button
     }
   };
 
@@ -265,7 +270,16 @@ const formattedBalance =
           </DialogContent>
           <DialogActions sx={{ padding:'1rem' }}>
             <Button onClick={closeModal} variant="outlined">Cancel</Button>
-            <Button onClick={handleSave} variant="contained">Save</Button>
+  <Button
+    onClick={handleSave}
+    variant="contained"
+    disabled={isSaving}
+  >
+    {isSaving
+      ? (editIndex !== null ? "Updating..." : "Saving...")
+      : (editIndex !== null ? "Update" : "Save")}
+  </Button>
+
           </DialogActions>
         </Dialog>
 
@@ -293,7 +307,6 @@ const formattedBalance =
                   <td>{updatedDateObj?.toLocaleTimeString("en-IN", {hour: "2-digit", minute: "2-digit"}) || "-"}</td>
                   <td>{c.name}</td>
                   <td>{c.phoneNumber}</td>
-                  {/* <td>{((c.balance ?? c.openingBalance) ?? 0).toFixed(3)}</td> */}
                   <td>{((c.openingBalance ?? c.balance) ?? 0).toFixed(3)}</td>
                   <td>{c.email}</td>
                   <td>{c.address}</td>

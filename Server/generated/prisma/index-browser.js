@@ -482,7 +482,8 @@ exports.Prisma.StockScalarFieldEnum = {
   remarks: 'remarks',
   casting_customer_id: 'casting_customer_id',
   purchase_id: 'purchase_id',
-  customer_transaction_id: 'customer_transaction_id'
+  customer_transaction_id: 'customer_transaction_id',
+  customer_id: 'customer_id'
 };
 
 exports.Prisma.HallmarkScalarFieldEnum = {
@@ -562,6 +563,7 @@ exports.Prisma.ExpenseVoucherScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  date: 'date',
   description: 'description',
   gold: 'gold',
   touch_id: 'touch_id',
