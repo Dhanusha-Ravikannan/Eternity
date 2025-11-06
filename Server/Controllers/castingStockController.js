@@ -111,6 +111,7 @@ export const getAllStock = async (req, res) => {
             touch: true,
           }
         },
+        customer: true
 
       },
     });

@@ -249,14 +249,35 @@ item?.type === "ScrapItems"
     });
 
     // AutoTable from row 25
+    // autoTable(doc, {
+    //   startY: 35,
+    //   head: [tableColumn],
+    //   body: tableRows,
+    //   styles: { fontSize: 8 },
+    //   margin: { left: 1, right: 1, top: 20 },
+    //   tableWidth: "auto",
+    // });
+
+
     autoTable(doc, {
-      startY: 35,
+      startY: 35, // bring table closer to title
       head: [tableColumn],
       body: tableRows,
-      styles: { fontSize: 8 },
-      margin: { left: 1, right: 1, top: 20 },
+      styles: { fontSize: 8, cellPadding: 1.5 }, // smaller padding overall
+      headStyles: {
+        fontSize: 8,
+        halign: "center",
+        valign: "middle",
+        cellPadding: 1, // reduce space between headings
+      },
+      bodyStyles: {
+        valign: "middle",
+        cellPadding: 1.5, // compact row spacing
+      },
+      margin: { left: 2, right: 2 },
       tableWidth: "auto",
     });
+    
 
     doc.save("Filing_Report.pdf");
   };

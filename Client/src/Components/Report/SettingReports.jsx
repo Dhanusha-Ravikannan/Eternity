@@ -123,7 +123,9 @@ const SettingReports = () => {
       "S.No", "Date", "Time", "Person", "Lot Number",
       "Item", "Weight", "Touch", "Purity", "Remarks",
       "Stone Wt", "Stone Count", "Receipt Wt", "Wastage",
-      "Scrap Item", "Scrap Item Qty", "Total Product Wt",
+      "Scrap Item",
+      //  "Scrap Item Qty", 
+      "Total Product Wt",
       "Current Balance Wt", "Total Scrap Wt", "Balance"
     ];
 
@@ -162,8 +164,20 @@ const SettingReports = () => {
               settingBalance.stone_count || 0,
               settingBalance.receipt_weight || 0,
               settingBalance.wastage ? "Yes" : "No",
-              (entry.scrapItems || []).map((si) => si.itemName).join(", ") || "-",
-              (entry.scrapItems || []).length || 0,
+              // (entry.scrapItems || []).map((si) => si.itemName).join(", ") || "-",
+              // (entry.scrapItems || []).length || 0,
+//               (entry.settingItems || [])
+//   .filter((si) => si.type === "ScrapItems")
+//   .map((si) => si.item_name)
+//   .join(", ") || "-",
+// (entry.settingItems || []).filter((si) => si.type === "ScrapItems").length || 0,
+
+(entry.settingItems || [])
+  .filter((si) => si.type === "ScrapItems")
+  .map((si) => si.item_name)
+  .join(", ") || "-",
+
+
               settingBalance.total_product_weight?.toFixed(3) || 0,
               settingBalance.current_balance_weight?.toFixed(3) || 0,
               settingBalance.total_scrap_weight?.toFixed(3) || 0,
@@ -198,18 +212,38 @@ const SettingReports = () => {
       }
     });
 
+    // autoTable(doc, {
+    //   startY: 40,
+    //   head: [columns],
+    //   body: rows,
+    //   styles: { fontSize: 7 },
+    //   margin: { left: 1, right: 1, top: 20 },
+    //   tableWidth: "auto",
+    // });
+
     autoTable(doc, {
-      startY: 40,
+      startY: 40, 
       head: [columns],
       body: rows,
-      styles: { fontSize: 7 },
-      margin: { left: 1, right: 1, top: 20 },
+      styles: {
+        fontSize: 7,
+        cellPadding: 1.5, 
+      },
+      headStyles: {
+        fontSize: 7,
+        cellPadding: 1, 
+        halign: "center",
+        valign: "middle",
+      },
+      bodyStyles: {
+        cellPadding: 1.2,
+        valign: "middle",
+      },
+      margin: { left: 1, right: 1 }, 
       tableWidth: "auto",
     });
-
     doc.save("SettingReport.pdf");
   };
-
 
   return (
     <>
@@ -299,8 +333,6 @@ const SettingReports = () => {
 </div>
 
       {/* Main Table */}
-
- 
       <table className={styles.table}>
         <thead>
           <tr>
@@ -381,9 +413,13 @@ const SettingReports = () => {
                           {settingBalance.wastage ? "Yes" : "No"}
                         </td>
                         <td rowSpan={filingItems.length}>
-                          {(entry.scrapItems || [])
+                          {/* {(entry.scrapItems || [])
                             .map((item) => item.itemName)
-                            .join(", ") || "-"}
+                            .join(", ") || "-"} */}
+                            {(entry.settingItems || [])
+  .filter((item) => item.type === "ScrapItems")
+  .map((item) => item.item_name)
+  .join(", ") || "-" }
                         </td>
                         {/* <td rowSpan={filingItems.length}>
                           {(entry.scrapItems || []).length || 0}

@@ -7,6 +7,7 @@ import Navbar from '../../Navbar/Navbar';
 import { FaEye } from "react-icons/fa";
 import styles from './CastingEntry.module.css'
 import { Delete  } from "@mui/icons-material";
+import { ImFire } from "react-icons/im";
 
 
 const CastingEntry = () => {
@@ -252,7 +253,7 @@ const CastingEntry = () => {
     <>
     <Navbar/>
    
-    <h5 className={styles.heading}>Casting/Melting Process</h5>
+    <h5 className={styles.heading}>  Casting/Melting Process </h5>
       <Stack direction="row" spacing={2} alignItems="center" mb={2} ml={6} mt={1}>
         <TextField
           type="date"

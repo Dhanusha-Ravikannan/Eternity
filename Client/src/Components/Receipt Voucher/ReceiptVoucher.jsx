@@ -3,14 +3,14 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import styles from "./ReceiptVoucher.module.css"
-import { MdDeleteForever } from "react-icons/md";
 import ReactDOMServer from "react-dom/server";
 import Navbar from "../Navbar/Navbar";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import { receiptValidation } from "./ReceiptValidation";
 import PrintReceipt from "./PrintReceipt";
 import { TextField, MenuItem, Button } from "@mui/material";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IoReceipt } from "react-icons/io5";
 
 const ReceiptVoucher = () => {
   const today = new Date();
@@ -258,7 +258,7 @@ const ReceiptVoucher = () => {
     <Navbar/>
       <div>
         <div className={styles.receiptTitle}>
-          <h4>Receipt Voucher</h4>
+          <h4> <IoReceipt />  Receipt Voucher </h4>
         </div>
 
         <div>
@@ -467,11 +467,11 @@ const ReceiptVoucher = () => {
                       )}
                     </td>
                     <td className={styles.delIcon}>
-                      <MdDeleteForever
-                        onClick={() => {
-                          handleRemoveRow(index);
-                        }}
-                      ></MdDeleteForever>
+                         <DeleteIcon 
+                          onClick={() => {
+                            handleRemoveRow(index);
+                          }}
+                          />
                     </td>
                   </tr>
                 ))}
@@ -503,20 +503,39 @@ const ReceiptVoucher = () => {
               <p>
                 CashBalance ₹
                 {Number(cashBalance).toLocaleString("en-IN", {
-                  // minimumFractionDigits: 2,
-                  // maximumFractionDigits: 2,
                 })}
               </p>
             </div>
-            <div>
-              <p>
-                {pureBalance < 0 ? "ExcessBalance" : "PureBalance"}{" "}
-                {pureBalance.toFixed(3)}gr
-              </p>
-            </div>
-            <div>
-              <p>Hall Mark Balance {hallmarkBalance.toFixed(3)}gr</p>
-            </div>
+<div>
+  <p>
+    {pureBalance < 0 ? "ExcessBalance" : "PureBalance"}
+    <span
+      style={{
+        marginLeft: "1rem",
+        color: pureBalance < 0 ? "red" : "green",
+        fontWeight: "bold",
+      }}
+    >
+      {pureBalance.toFixed(3)}
+    </span>
+  </p>
+</div>
+
+<div>
+  <p>
+    Hall Mark Balance
+    <span
+      style={{
+        marginLeft: "1rem",
+        color: hallmarkBalance < 0 ? "red" : "green",
+        fontWeight: "bold",
+      }}
+    >
+      {hallmarkBalance.toFixed(3)}
+    </span>
+  </p>
+</div>
+
           </div>
         </div>
       </div>

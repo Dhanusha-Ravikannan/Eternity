@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import styles from "./Billing.module.css";
+import { formatNumber } from "../../Utils/formatNumber";
 
 const BillDetailsNo = ({ viewBill, setViewBill, printRef }) => {
   if (!viewBill) return null;
@@ -10,7 +11,6 @@ const isNegative = total < 0;
 
   return (
     <div id="print-section" ref={printRef}>
-      {/* ====== Bill Header ====== */}
       <div className="bill-header">
         <div className="bill-row">
           <span className="left">
@@ -35,7 +35,24 @@ const isNegative = total < 0;
         </div>
       </div>
 
-      {/* ====== Bill Details ====== */}
+{/* <div className={styles.billHeader}>
+  <div className={styles.billRow}>
+ 
+    <div className={styles.leftSection}>
+      <div><b>Bill No:</b> {viewBill.bill_no}</div>
+      <div><b>Customer Name:</b> {viewBill.customer?.name}</div>
+      <div><b>Gold Rate:</b> {viewBill.gold_rate}</div>
+    </div>
+
+
+    <div className={styles.rightSection}>
+      <div><b>Date:</b> {viewBill.date}</div>
+      <div><b>Time:</b> {viewBill.time}</div>
+    </div>
+  </div>
+</div> */}
+
+
       <div className={styles.billdetails}>Bill Details:</div>
       <div className={styles.table}>
         <table>
@@ -63,27 +80,29 @@ const isNegative = total < 0;
               </tr>
             ))}
           </tbody>
+
 <tfoot>
+
   {viewBill.customer_balance >= 0 ? (
-    <tr style={{ color: "green", fontWeight: "bold" }}>
+    <tr style={{ color: "red", fontWeight: "bold" }}>
       <td colSpan={5}>Customer Balance</td>
-      <td>{parseFloat(viewBill.customer_balance || 0).toFixed(3)}</td>
+      <td>{formatNumber(viewBill.customer_balance || 0)}</td>
       <td>
-        {(
-          parseFloat(viewBill.customer_balance || 0) *
-          parseFloat(viewBill.gold_rate || 0)
-        ).toFixed(2)}
+        {formatNumber(
+          (parseFloat(viewBill.customer_balance || 0) *
+            parseFloat(viewBill.gold_rate || 0)) || 0
+        )}
       </td>
     </tr>
   ) : (
-    <tr style={{ color: "red", fontWeight: "bold" }}>
+    <tr style={{ color: "green", fontWeight: "bold" }}>
       <td colSpan={5}>Customer Excess Balance</td>
-      <td>{parseFloat(viewBill.customer_balance || 0).toFixed(3)}</td>
+      <td>{formatNumber(viewBill.customer_balance || 0)}</td>
       <td>
-        {(
-          parseFloat(viewBill.customer_balance || 0) *
-          parseFloat(viewBill.gold_rate || 0)
-        ).toFixed(2)}
+        {formatNumber(
+          (parseFloat(viewBill.customer_balance || 0) *
+            parseFloat(viewBill.gold_rate || 0)) || 0
+        )}
       </td>
     </tr>
   )}
@@ -92,95 +111,69 @@ const isNegative = total < 0;
     <td colSpan={5}>
       <b>Final Bill Total</b>
     </td>
-    <td>{parseFloat(viewBill.total_pure || 0).toFixed(3)}</td>
-    <td>{parseFloat(viewBill.total_amount || 0).toFixed(2)}</td>
+    <td>{formatNumber(viewBill.total_pure || 0)}</td>
+    <td>{formatNumber(viewBill.total_amount || 0)}</td>
   </tr>
 
-  <tr>
-    <td colSpan={5} className={styles.trEven}>
-      <b>
-        Total{" "}
-        {(() => {
-          const total =
-            parseFloat(viewBill.total_pure || 0) +
-            parseFloat(viewBill.customer_balance || 0);
 
-          if (total === 0) return "";
-          return (
-            <span
-              style={{
-                color: total > 0 ? "green" : "red",
-                marginLeft: "8px",
-                fontWeight: "bold",
-              }}
-            >
-              ({total > 0
-                ? "Customer must give to Owner"
-                : "Owner must give to Customer"}
-              )
-            </span>
-          );
-        })()}
-      </b>
-    </td>
+  {(() => {
+    const totalPure = parseFloat(viewBill.total_pure || 0);
+    const totalAmount = parseFloat(viewBill.total_amount || 0);
+    const custBal = parseFloat(viewBill.customer_balance || 0);
+    const goldRate = parseFloat(viewBill.gold_rate || 0);
 
-    <td
-      className={styles.trEven}
-      style={{
-        color:
-          parseFloat(viewBill.total_pure || 0) +
-            parseFloat(viewBill.customer_balance || 0) >
-          0
-            ? "green"
-            : parseFloat(viewBill.total_pure || 0) +
-                parseFloat(viewBill.customer_balance || 0) <
-              0
-            ? "red"
-            : "inherit",
-        fontWeight: "bold",
-      }}
-    >
-      {(() => {
-        const total =
-          parseFloat(viewBill.total_pure || 0) +
-          parseFloat(viewBill.customer_balance || 0);
-        return total === 0 ? "" : total.toFixed(3);
-      })()}
-    </td>
+    const total = totalPure + custBal;
+    const totalAmt = totalAmount + custBal * goldRate;
 
-    <td
-      colSpan={1}
-      className={styles.trEven}
-      style={{
-        color:
-          parseFloat(viewBill.total_amount || 0) +
-            parseFloat(viewBill.customer_balance || 0) *
-              parseFloat(viewBill.gold_rate || 0) >=
-          0
-            ? "green"
-            : "red",
-        fontWeight: "bold",
-      }}
-    >
-      {(
-        parseFloat(viewBill.total_amount || 0) +
-        parseFloat(viewBill.customer_balance || 0) *
-          parseFloat(viewBill.gold_rate || 0)
-      ).toFixed(2)}
-    </td>
-  </tr>
+    const color =
+      total > 0
+        ? "red" // Customer owes Owner
+        : total < 0
+        ? "green" // Owner owes Customer
+        : "inherit"; // Balanced
+
+    return (
+      <tr style={{ color, fontWeight: "bold" }}>
+        <td colSpan={5} className={styles.trEven}>
+          <b>
+            Total
+            {total !== 0 && (
+              <span
+                style={{
+                  color,
+                  marginLeft: "8px",
+                  fontWeight: "bold",
+                }}
+              >
+                ({total > 0
+                  ? "Customer must give to Owner"
+                  : "Owner must give to Customer"}
+                )
+              </span>
+            )}
+          </b>
+        </td>
+
+        <td className={styles.trEven}>
+          {total === 0 ? "" : formatNumber(total)}
+        </td>
+
+        <td className={styles.trEven}>{formatNumber(totalAmt)}</td>
+      </tr>
+    );
+  })()}
 </tfoot>
+
+
         </table>
       </div>
       
-      {/* ====== Previous Hallmark Balance ====== */}
       <div className={styles.bal}>
         <p>
           <b>Prev Hallmark Balance:</b> {viewBill.prev_hallmark}
         </p>
       </div>
 
-      {/* ====== Received Details ====== */}
       <div className={styles.billdetails}>Received Details:</div>
       <div className={styles.table}>
         <table>
@@ -212,51 +205,50 @@ const isNegative = total < 0;
               </tr>
             ))}
           </tbody>
-          <tfoot className={styles.trEven}>
-            <tr>
-              <td colSpan={6}>
-                <b>Total Purity</b>
-              </td>
-              <td>
-                <b>
-                  {(
-                    viewBill.receivedItems?.reduce(
-                      (sum, row) => sum + (Number(row.purity_weight) || 0),
-                      0
-                    ) ?? 0
-                  ).toFixed(3)}
-                </b>
-              </td>
-              <td colSpan={2}></td>
-            </tr>
-          </tfoot>
+   
+<tfoot className={styles.trEven}>
+  <tr>
+    <td colSpan={6}>
+      <b>Total Purity</b>
+    </td>
+    <td>
+      <b>
+        {formatNumber(
+          viewBill.receivedItems?.reduce(
+            (sum, row) => sum + (Number(row.purity_weight) || 0),
+            0
+          ) ?? 0
+        )}
+      </b>
+    </td>
+    <td colSpan={2}></td>
+  </tr>
+</tfoot> 
+
         </table>
       </div>
 
-<div className="balance-line" style={{marginTop:'1rem'}}>
+
+<div className="balance-line" style={{ marginTop: "1rem" }}>
   <span>
     <b>Cash Balance:</b> ₹
-    {viewBill.cash_balance
-      ? parseFloat(viewBill.cash_balance).toFixed(2)
-      : 0}
+    {formatNumber(viewBill.cash_balance)}
   </span>
 
-  <span style={{ color: "green", marginLeft:'4rem' }}>
-    <b>Pure Balance:</b>
-    {viewBill.pure_balance >= 0
-      ? viewBill.pure_balance.toFixed(3)
-      : "0.000"}
+  <span style={{ color: "green", marginLeft: "2rem" }}>
+    <b>Pure Balance:</b> {formatNumber(
+      viewBill.pure_balance >= 0 ? viewBill.pure_balance : 0
+    )}
   </span>
 
-  <span style={{ color: "red", marginLeft:'4rem' }}>
-    <b>Excess Pure:</b>
-    {viewBill.pure_balance < 0
-      ? viewBill.pure_balance.toFixed(3)
-      : "0.000"}
+  <span style={{ color: "red", marginLeft: "2rem" }}>
+    <b>Excess Pure:</b> {formatNumber(
+      viewBill.pure_balance < 0 ? viewBill.pure_balance : 0
+    )}
   </span>
 
-  <span style={{  marginLeft:'4rem' }}>
-    <b>Hallmark Balance:</b> {viewBill.hallmark_balance}
+  <span style={{ marginLeft: "2rem" }}>
+    <b>Hallmark Balance:</b> {formatNumber(viewBill.hallmark_balance)}
   </span>
 </div>
 
