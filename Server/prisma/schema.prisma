@@ -529,40 +529,6 @@ model BuffingWastage {
   buffing_items BuffingItems[]
 }
 
-model Stock {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-
-  casting_item_id Int?
-  castingItem     CastingItems? @relation(fields: [casting_item_id], references: [id], onDelete: Cascade)
-
-  filing_item_id Int?
-  filingItem     FilingItems? @relation(fields: [filing_item_id], references: [id], onDelete: Cascade)
-
-  setting_item_id Int?
-  settingItem     SettingItems? @relation(fields: [setting_item_id], references: [id], onDelete: Cascade)
-
-  buffing_item_id     Int?
-  buffingItem         BuffingItems? @relation(fields: [buffing_item_id], references: [id], onDelete: Cascade)
-  item_type           ITEMTYPE?
-  item_id             Int?
-  item                AddItem?      @relation(fields: [item_id], references: [id])
-  weight              Float
-  touch_id            Int?
-  touch               AddTouch?     @relation(fields: [touch_id], references: [id])
-  item_purity         Float
-  remarks             String?
-  casting_customer_id Int?
-  casting_customer    AddCasting?   @relation(fields: [casting_customer_id], references: [id])
-
-  purchase_id Int?
-  purchaseId  AddPurchaseStock? @relation(fields: [purchase_id], references: [id], onDelete: Cascade)
-  customer_transaction_id Int?
-  customer_transaction  CustomerTransaction? @relation(fields: [customer_transaction_id], references: [id])
-
-  customer_id  Int? 
-  customer AddCustomer? @relation(fields: [customer_id], references: [id])
-}
 
 model Hallmark {
   id          Int      @id @default(autoincrement())
@@ -651,6 +617,42 @@ model ReceiptVoucher {
   touchId AddTouch? @relation(fields: [touch_id], references: [id])
   purity Float?
   hallmark Float?
+}
+
+
+model Stock {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  casting_item_id Int?
+  castingItem     CastingItems? @relation(fields: [casting_item_id], references: [id], onDelete: Cascade)
+
+  filing_item_id Int?
+  filingItem     FilingItems? @relation(fields: [filing_item_id], references: [id], onDelete: Cascade)
+
+  setting_item_id Int?
+  settingItem     SettingItems? @relation(fields: [setting_item_id], references: [id], onDelete: Cascade)
+
+  buffing_item_id     Int?
+  buffingItem         BuffingItems? @relation(fields: [buffing_item_id], references: [id], onDelete: Cascade)
+  item_type           ITEMTYPE?
+  item_id             Int?
+  item                AddItem?      @relation(fields: [item_id], references: [id])
+  weight              Float
+  touch_id            Int?
+  touch               AddTouch?     @relation(fields: [touch_id], references: [id])
+  item_purity         Float
+  remarks             String?
+  casting_customer_id Int?
+  casting_customer    AddCasting?   @relation(fields: [casting_customer_id], references: [id])
+
+  purchase_id Int?
+  purchaseId  AddPurchaseStock? @relation(fields: [purchase_id], references: [id], onDelete: Cascade)
+  customer_transaction_id Int?
+  customer_transaction  CustomerTransaction? @relation(fields: [customer_transaction_id], references: [id])
+
+  customer_id  Int? 
+  customer AddCustomer? @relation(fields: [customer_id], references: [id], onDelete: Cascade)
 }
 
 model ExpenseVoucher {

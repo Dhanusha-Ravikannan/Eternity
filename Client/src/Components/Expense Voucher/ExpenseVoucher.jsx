@@ -310,7 +310,7 @@ const handleDelete = async (id) => {
     />
     <Button
       variant="outlined"
-      color="secondary"
+      color="primary"
       onClick={handleResetFilter}
       sx={{ height: "40px", marginLeft: "10px" }}
     >
@@ -323,7 +323,7 @@ const handleDelete = async (id) => {
         borderColor: "#25274D",
         borderStyle: "solid",
         borderWidth: "2px",
-        marginLeft:'48rem'
+        marginLeft:'50rem'
       }}
       variant="contained"
       onClick={() => setOpen(true)}

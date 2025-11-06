@@ -6,6 +6,8 @@ import { Button, TextField } from "@mui/material";
 import styles from "./Stock.module.css";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { GiGoldBar } from "react-icons/gi";
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 const Stock = () => {
   const [stockItems, setStockItems] = useState([]);
@@ -219,7 +221,7 @@ const Stock = () => {
       <Navbar />
       <div style={{ margin: "2rem" }}>
         <h4 style={{ textAlign: "center", color: "black" }}>
-          Scrap Items (Stock)
+        <GiGoldBar />  Scrap Items Stock  
         </h4>
         <br />
 
@@ -333,6 +335,8 @@ const Stock = () => {
                       ? "Setting"
                       : item.buffingItem
                         ? "Buffing"
+                        :item.customer
+                        ? "Receipt Voucher"
                         : item.purchaseId
                           ? "Purchase"
                           : "Customer Transaction";

@@ -87,6 +87,7 @@ const SavedBills = ({
       maxWidth="md"
       fullWidth
     >
+
       <br />
       <div id="print-section" ref={printRef}>
         <h4>
@@ -94,7 +95,6 @@ const SavedBills = ({
         </h4>
 
         <DialogContent>
-          {/* ====== Bill List View ====== */}
           {!viewBill ? (
             <div className={styles.table}>
               <div style={{ marginLeft: "1rem" }}>

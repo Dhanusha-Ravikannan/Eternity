@@ -7,6 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "./Billing.module.css";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import SavedBills from "./SavedBills";
+import { formatNumber } from "../../Utils/formatNumber";
 
 const Billing = () => {
   const [customers, setCustomers] = useState([]);
@@ -178,7 +179,7 @@ useEffect(() => {
   };
 
   useEffect(() => {
-    if (!goldRate) return;
+    // if (!goldRate) return;
     const updated = billItems.map((item) => {
       const totalWeight = parseFloat(item.totalWeight || 0);
       const percent = parseFloat(item.percent || 0);
@@ -300,12 +301,9 @@ useEffect(() => {
 
   console.log("billin", billItems);
 
-  const totalBillingPure = billItems.reduce( (sum, item) => sum + (item.pure || 0), 0 );
-  // Total pure from the footer "Total" row
+const totalBillingPure = billItems.reduce( (sum, item) => sum + (item.pure || 0), 0 );
 const totalFinalPure = parseFloat(totalPure || 0) + parseFloat(customerBalance || 0);
-// Pure balance calculation (directly from Total)
 const pureBalanceValue = totalFinalPure - parseFloat(totalReceivedPurity || 0);
-// Keep both positive and negative separately for display
 const pureBalance = pureBalanceValue >= 0 ? pureBalanceValue.toFixed(3) : "0.000";
 const excessPure = pureBalanceValue < 0 ? Math.abs(pureBalanceValue).toFixed(3) : "0.000";
 
@@ -415,7 +413,7 @@ cashBalance = parseFloat(cashBalance.toFixed(3));
         <div className={styles.card}>
           <h3>Estimate Only</h3>
 
-          <p className={styles.billNo}>Bill No: 01</p>
+          {/* <p className={styles.billNo}>Bill No: 01</p> */}
           <div className={styles.datetime}>
             <p>Date: {currentDate}</p>
             <p>Time: {time}</p>
@@ -468,6 +466,7 @@ cashBalance = parseFloat(cashBalance.toFixed(3));
               type="number"
               value={goldRate}
               onChange={(e) => setGoldRate(e.target.value)}
+              onWheel={(e) => e.target.blur()}
             />
           </div>
 
@@ -508,9 +507,8 @@ cashBalance = parseFloat(cashBalance.toFixed(3));
   onWheel={(e) => e.target.blur()} 
 />
 </td>
-
-                    <td>{item.pure}</td>
-                    <td>{item.amount}</td>
+                    <td>{formatNumber(item.pure)}</td>
+                    <td>{formatNumber(item.amount)}</td>
                     <td>
                       <IconButton
                         onClick={() => deleteBillItem(index)}
@@ -522,20 +520,20 @@ cashBalance = parseFloat(cashBalance.toFixed(3));
                   </tr>
                 ))}
               </tbody>
-            
+          
 <tfoot>
   {customerBalance >= 0 ? (
-    <tr style={{ color: "green", fontWeight: "bold" }}>
+    <tr style={{ color: "red", fontWeight: "bold" }}>
       <td colSpan={5}>Customer Balance</td>
-      <td>{parseFloat(customerBalance || 0).toFixed(3)}</td>
-      <td>{(parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)).toFixed(3)}</td>
+      <td>{formatNumber(customerBalance)}</td>
+      <td>{formatNumber(customerBalance * goldRate)}</td>
       <td></td>
     </tr>
   ) : (
-    <tr style={{ color: "red", fontWeight: "bold" }}>
+    <tr style={{ color: "green", fontWeight: "bold" }}>
       <td colSpan={5}>Customer Excess Balance</td>
-      <td>{parseFloat(customerBalance || 0).toFixed(3)}</td>
-      <td>{(parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)).toFixed(3)}</td>
+      <td>{formatNumber(customerBalance)}</td>
+      <td>{formatNumber(customerBalance * goldRate)}</td>
       <td></td>
     </tr>
   )}
@@ -544,80 +542,62 @@ cashBalance = parseFloat(cashBalance.toFixed(3));
     <td colSpan={5}>
       <b>Final Bill Total</b>
     </td>
-    <td>{parseFloat(totalPure || 0).toFixed(3)}</td>
-    <td>{parseFloat(totalAmount || 0).toFixed(3)}</td>
+    <td>{formatNumber(totalPure)}</td>
+    <td>{formatNumber(totalAmount)}</td>
     <td></td>
   </tr>
-<tr>
-  <td colSpan={5} className={styles.trEven}>
-    <b>
-      Total{" "}
-      {(() => {
-        const total = (
-          parseFloat(totalPure || 0) + parseFloat(customerBalance || 0)
-        ).toFixed(3);
 
-        if (total === "0.000") return ""; 
-        return (
-          <span
-            style={{
-              color: total > 0 ? "green" : "red",
-              marginLeft: "8px",
-              fontWeight: "bold",
-            }}
-          >
-            ({total > 0
-              ? "Customer must give to Owner"
-              : "Owner must give to Customer"}
-            )
-          </span>
-        );
-      })()}
-    </b>
-  </td>
 
-  <td
-    className={styles.trEven}
-    style={{
-      color:
-        (parseFloat(totalPure || 0) + parseFloat(customerBalance || 0)).toFixed(3) > 0
-          ? "green"
-          : (parseFloat(totalPure || 0) + parseFloat(customerBalance || 0)).toFixed(3) < 0
-          ? "red"
-          : "inherit",
-      fontWeight: "bold",
-    }}
-  >
-    {(() => {
-      const total = (
-        parseFloat(totalPure || 0) + parseFloat(customerBalance || 0)
-      ).toFixed(3);
-      return total === "0.000" ? "" : total;
-    })()}
-  </td>
+  {(() => {
+    const totalPureValue = parseFloat(totalPure || 0);
+    const totalAmountValue = parseFloat(totalAmount || 0);
+    const customerBalValue = parseFloat(customerBalance || 0);
+    const goldRateValue = parseFloat(goldRate || 0);
 
-  <td
-    colSpan={1}  
-    className={styles.trEven}
-    style={{
-      color:
-        parseFloat(totalAmount || 0) +
-          parseFloat(customerBalance || 0) * parseFloat(goldRate || 0) >=
-        0
-          ? "green"
-          : "red",
-      fontWeight: "bold",
-    }}
-  >
-    {(
-      parseFloat(totalAmount || 0) +
-      parseFloat(customerBalance || 0) * parseFloat(goldRate || 0)
-    ).toFixed(3)}
-  </td>
-  <td className={styles.trEven}> </td>
-</tr>
+    const total = totalPureValue + customerBalValue;
+    const totalAmt = totalAmountValue + customerBalValue * goldRateValue;
 
+    const color =
+      total > 0
+        ? "red" // Customer owes Owner
+        : total < 0
+        ? "green" // Owner owes Customer
+        : "inherit"; // Balanced
+
+    return (
+      <tr style={{ color: color, fontWeight: "bold" }}>
+        <td colSpan={5} className={styles.trEven}>
+          <b>
+            Total
+            {total !== 0 && (
+              <span
+                style={{
+                  color: color,
+                  marginLeft: "8px",
+                  fontWeight: "bold",
+                }}
+              >
+                ({total > 0
+                  ? "Customer must give to Owner"
+                  : "Owner must give to Customer"}
+                )
+              </span>
+            )}
+          </b>
+        </td>
+
+        <td className={styles.trEven}>{total === 0 ? "" : formatNumber(total)}</td>
+
+        <td className={styles.trEven}>{formatNumber(totalAmt)}</td>
+
+        <td className={styles.trEven}></td>
+      </tr>
+    );
+  })()}
 </tfoot>
+
+
+
             </table>
           </div>
           <br />
@@ -668,152 +648,204 @@ cashBalance = parseFloat(cashBalance.toFixed(3));
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                {receivedRows.map((row, idx) => (
-                  <tr key={row.id}>
-                    <td>{idx + 1}</td>
-                    <td>{row.date}</td>
-                    <td>
-                      <TextField
-                        select
-                        size="small"
-                        value={row.type}
-                        onChange={(e) =>
-                          handleReceivedInput(idx, "type", e.target.value)
-                        }
-                      >
-                        <MenuItem value="Gold">Gold</MenuItem>
-                        <MenuItem value="Cash">Cash</MenuItem>
-                      </TextField>
-                    </td>
-                    <td style={{padding:'0.3rem'}}>
-                      <TextField
-                        type="number"
-                        size="small"
-                        value={row.goldRate}
-                        disabled={row.type === "Gold"}
-                        onChange={(e) =>
-                          handleReceivedInput(idx, "goldRate", e.target.value)
-                        }
-                        autoComplete="off"
-                        onWheel={(e) => e.target.blur()}                      
-                      />
-                    </td>
-                    <td style={{padding:'0.3rem'}} >
-                      <TextField
-                        type="number"
-                        size="small"
-                        value={row.gold}
-                        disabled={row.type === "Cash"}
-                        onChange={(e) =>
-                          handleReceivedInput(idx, "gold", e.target.value)
-                        }
-                        autoComplete="off"
-                        onWheel={(e) => e.target.blur()}
-                      />
-                    </td>
-                    <td style={{padding:'0.3rem'}}>
-                      
-<TextField
-  type="number"
-  size="small"
-  value={row.touchValue || ""}
-  disabled={row.type === "Cash"}
-  onChange={(e) => handleReceivedInput(idx, "touchValue", e.target.value)}
-  autoComplete="off"
-  onWheel={(e) => e.target.blur()} 
-/>
-                    </td>
-                    <td style={{padding:'0.3rem'}}>
-                      <TextField
-                        type="number"
-                        size="small"
-                        value={
-                          row.purityWeight ? row.purityWeight.toFixed(3) : ""
-                        }
-                        InputProps={{ readOnly: true }}
-                      />
-                    </td>
-                    <td style={{padding:'0.3rem'}}>
-                      <TextField
-                        type="number"
-                        size="small"
-                        value={row.amount}
-                        disabled={row.type === "Gold"}
-                        onChange={(e) =>
-                          handleReceivedInput(idx, "amount", e.target.value)
-                        }
-                        autoComplete="off"
-                        onWheel={(e) => e.target.blur()}
-                      />
-                    </td>
-                    <td style={{padding:'0.3rem'}}>
-                      <TextField
-                        type="number"
-                        size="small"
-                        value={row.hallmarkCharge}
-                        onChange={(e) =>
-                          handleReceivedInput(
-                            idx,
-                            "hallmarkCharge",
-                            e.target.value
-                          )
-                        }
-                        autoComplete="off"
-                        onWheel={(e) => e.target.blur()}
-                      />
-                    </td>
-                    <td>
-                      <IconButton
-                        onClick={() => deleteReceivedRow(row.id)}
-                        size="small"
-                      >
-                        <DeleteIcon color="error" />
-                      </IconButton>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+   <tbody>
+    {receivedRows.map((row, idx) => (
+      <tr key={row.id}>
+        <td style={{ border: "1px solid #ccc", padding: "4px" }}>{idx + 1}</td>
+        <td style={{ border: "1px solid #ccc", padding: "4px" }}>{row.date}</td>
 
-              <tfoot className={styles.trEven}>
-                <tr>
-                  <td colSpan={6}>
-                    <b>Total Purity</b>
-                  </td>
-                  <td>
-                    <b>{totalReceivedPurity.toFixed(3)}</b>
-                  </td>
-                  <td colSpan={3}></td>
-                </tr>
-              </tfoot>
+        <td style={{ border: "1px solid #ccc", padding: "4px" }}>
+          <TextField
+            select
+            size="small"
+            value={row.type}
+            onChange={(e) => handleReceivedInput(idx, "type", e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": { borderColor: "#1976d2" },
+              },
+              "& .MuiInputBase-root": { height: "35px" },
+            }}
+          >
+            <MenuItem value="Gold">Gold</MenuItem>
+            <MenuItem value="Cash">Cash</MenuItem>
+          </TextField>
+        </td>
+
+        <td style={{ border: "1px solid #ccc", padding: "4px" }}>
+          <TextField
+            type="number"
+            size="small"
+            value={row.goldRate}
+            disabled={row.type === "Gold"}
+            onChange={(e) => handleReceivedInput(idx, "goldRate", e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: row.type === "Cash" ? "#1976d2" : "#ccc",
+                  borderWidth: row.type === "Cash" ? "2px" : "1px",
+                },
+              },
+              "& .MuiInputBase-root": { height: "35px" },
+            }}
+            autoComplete="off"
+            onWheel={(e) => e.target.blur()}
+          />
+        </td>
+
+        <td style={{ border: "1px solid #ccc", padding: "4px" }}>
+          <TextField
+            type="number"
+            size="small"
+            value={row.gold}
+            disabled={row.type === "Cash"}
+            onChange={(e) => handleReceivedInput(idx, "gold", e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: row.type === "Gold" ? "#1976d2" : "#ccc",
+                  borderWidth: row.type === "Gold" ? "2px" : "1px",
+                },
+              },
+              "& .MuiInputBase-root": { height: "35px" },
+            }}
+            autoComplete="off"
+            onWheel={(e) => e.target.blur()}
+          />
+        </td>
+
+        <td style={{ border: "1px solid #ccc", padding: "4px" }}>
+          <TextField
+            type="number"
+            size="small"
+            value={row.touchValue || ""}
+            disabled={row.type === "Cash"}
+            onChange={(e) => handleReceivedInput(idx, "touchValue", e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: row.type === "Gold" ? "#1976d2" : "#ccc",
+                  borderWidth: row.type === "Gold" ? "2px" : "1px",
+                },
+              },
+              "& .MuiInputBase-root": { height: "35px" },
+            }}
+            autoComplete="off"
+            onWheel={(e) => e.target.blur()}
+          />
+        </td>
+
+        <td style={{ border: "1px solid #ccc", padding: "4px" }}>
+          <TextField
+            type="number"
+            size="small"
+            value={row.purityWeight ? row.purityWeight.toFixed(3) : ""}
+            InputProps={{ readOnly: true }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": { borderColor: "#ccc" },
+              },
+              "& .MuiInputBase-root": { height: "35px" },
+            }}
+          />
+        </td>
+
+        <td style={{ border: "1px solid #ccc", padding: "4px" }}>
+          <TextField
+            type="number"
+            size="small"
+            value={row.amount}
+            disabled={row.type === "Gold"}
+            onChange={(e) => handleReceivedInput(idx, "amount", e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: row.type === "Cash" ? "#1976d2" : "#ccc",
+                  borderWidth: row.type === "Cash" ? "2px" : "1px",
+                },
+              },
+              "& .MuiInputBase-root": { height: "35px" },
+            }}
+            autoComplete="off"
+            onWheel={(e) => e.target.blur()}
+          />
+        </td>
+
+
+        <td style={{ border: "1px solid #ccc", padding: "4px" }}>
+          <TextField
+            type="number"
+            size="small"
+            value={row.hallmarkCharge}
+            onChange={(e) =>
+              handleReceivedInput(idx, "hallmarkCharge", e.target.value)
+            }
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": { borderColor: "#1976d2" },
+              },
+              "& .MuiInputBase-root": { height: "35px" },
+            }}
+            autoComplete="off"
+            onWheel={(e) => e.target.blur()}
+          />
+        </td>
+
+        <td style={{ border: "1px solid #ccc", textAlign: "center" }}>
+          <IconButton onClick={() => deleteReceivedRow(row.id)} size="small">
+            <DeleteIcon color="error" />
+          </IconButton>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+
+
+<tfoot className={styles.trEven}>
+  <tr>
+    <td colSpan={6}>
+      <b>Total Purity</b>
+    </td>
+    <td>
+      <b>{formatNumber(totalReceivedPurity)}</b>
+    </td>
+    <td colSpan={3}></td>
+  </tr>
+</tfoot>
+
             </table>
           </div>
           <br />
 
-          <div className={styles.balance}>
-            <p>
-              <b>Cash Balance:</b> ₹{" "}
-              {cashBalance ? parseFloat(cashBalance).toFixed(3) : 0}
-            </p>
-            <p style={{color:'green'}}>
-  <b>Pure Balance:</b> {pureBalance}
-</p>
-<p style={{color:'red'}}>
-  <b>Excess Pure:</b> {excessPure}
-</p>
+<div className={styles.balance}>
+  <p>
+    <b>Cash Balance:</b> ₹ {formatNumber(cashBalance)}
+  </p>
 
-            <p>
-              <b>Hallmark Balance:</b> {hallmarkBalance}
-            </p>
-          </div>
-
+  <p style={{ color: "green" }}>
+    <b>Pure Balance:</b> {formatNumber(pureBalance)}
+  </p>
+  <p style={{ color: "red" }}>
+    <b>Excess Pure:</b> -{formatNumber(excessPure)}
+  </p>
+  <p>
+    <b>Hallmark Balance:</b> {formatNumber(hallmarkBalance)}
+  </p>
+</div>
           <Button
-            variant="contained"
-            sx={{ mt: 5}}
-            onClick={handleSave}
-          >
-            Save
-          </Button> 
+  variant="contained"
+  sx={{ mt: 5 }}
+  onClick={handleSave}
+  disabled={
+    !selectedCustomer ||
+    !selectedProduct ||
+    billItems.length === 0 ||
+    billItems.some((item) => !item.percent || isNaN(item.percent))
+  }
+>
+  Save
+</Button>
+
  
           <Button
   variant="contained"

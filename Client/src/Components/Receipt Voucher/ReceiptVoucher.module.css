@@ -38,6 +38,7 @@
  .delIcon{
     font-size: x-large;
     cursor: pointer;
+    color: rgb(208, 61, 61);
   }
   .receiptcommanbtnn button{
     background-color: #F5F5F5;

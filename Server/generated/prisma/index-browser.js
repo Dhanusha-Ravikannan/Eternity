@@ -467,25 +467,6 @@ exports.Prisma.BuffingWastageScalarFieldEnum = {
   buffing_lot_id: 'buffing_lot_id'
 };
 
-exports.Prisma.StockScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  casting_item_id: 'casting_item_id',
-  filing_item_id: 'filing_item_id',
-  setting_item_id: 'setting_item_id',
-  buffing_item_id: 'buffing_item_id',
-  item_type: 'item_type',
-  item_id: 'item_id',
-  weight: 'weight',
-  touch_id: 'touch_id',
-  item_purity: 'item_purity',
-  remarks: 'remarks',
-  casting_customer_id: 'casting_customer_id',
-  purchase_id: 'purchase_id',
-  customer_transaction_id: 'customer_transaction_id',
-  customer_id: 'customer_id'
-};
-
 exports.Prisma.HallmarkScalarFieldEnum = {
   id: 'id',
   customer_id: 'customer_id',
@@ -557,6 +538,25 @@ exports.Prisma.ReceiptVoucherScalarFieldEnum = {
   touch_id: 'touch_id',
   purity: 'purity',
   hallmark: 'hallmark'
+};
+
+exports.Prisma.StockScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  casting_item_id: 'casting_item_id',
+  filing_item_id: 'filing_item_id',
+  setting_item_id: 'setting_item_id',
+  buffing_item_id: 'buffing_item_id',
+  item_type: 'item_type',
+  item_id: 'item_id',
+  weight: 'weight',
+  touch_id: 'touch_id',
+  item_purity: 'item_purity',
+  remarks: 'remarks',
+  casting_customer_id: 'casting_customer_id',
+  purchase_id: 'purchase_id',
+  customer_transaction_id: 'customer_transaction_id',
+  customer_id: 'customer_id'
 };
 
 exports.Prisma.ExpenseVoucherScalarFieldEnum = {
@@ -662,10 +662,6 @@ exports.Prisma.BuffingTotalBalanceOrderByRelevanceFieldEnum = {
   remarks: 'remarks'
 };
 
-exports.Prisma.StockOrderByRelevanceFieldEnum = {
-  remarks: 'remarks'
-};
-
 exports.Prisma.BillOrderByRelevanceFieldEnum = {
   bill_no: 'bill_no',
   date: 'date',
@@ -683,6 +679,10 @@ exports.Prisma.ReceivedItemOrderByRelevanceFieldEnum = {
 exports.Prisma.ReceiptVoucherOrderByRelevanceFieldEnum = {
   date: 'date',
   type: 'type'
+};
+
+exports.Prisma.StockOrderByRelevanceFieldEnum = {
+  remarks: 'remarks'
 };
 
 exports.Prisma.ExpenseVoucherOrderByRelevanceFieldEnum = {
@@ -735,12 +735,12 @@ exports.Prisma.ModelName = {
   BuffingTotalBalance: 'BuffingTotalBalance',
   LotBuffingMapper: 'LotBuffingMapper',
   BuffingWastage: 'BuffingWastage',
-  Stock: 'Stock',
   Hallmark: 'Hallmark',
   Bill: 'Bill',
   BillItem: 'BillItem',
   ReceivedItem: 'ReceivedItem',
   ReceiptVoucher: 'ReceiptVoucher',
+  Stock: 'Stock',
   ExpenseVoucher: 'ExpenseVoucher'
 };
 

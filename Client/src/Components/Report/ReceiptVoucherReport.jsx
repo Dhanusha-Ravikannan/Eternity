@@ -11,7 +11,6 @@ const ReceiptVoucherReport = () => {
   const [filteredReceipts, setFilteredReceipts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Filters
   const [searchTerm, setSearchTerm] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
@@ -20,7 +19,6 @@ const ReceiptVoucherReport = () => {
     hallMarkBalance: 0,
   });
 
-  // Fetch all receipts
   useEffect(() => {
     const fetchReceipts = async () => {
       setLoading(true);
@@ -40,17 +38,14 @@ const ReceiptVoucherReport = () => {
     fetchReceipts();
   }, []);
 
-  // ---------------- Filter Logic ----------------
   useEffect(() => {
     let result = [...receipts];
 
-    // Filter by customer name
     if (searchTerm) {
       result = result.filter((r) =>
         r.customerId?.name?.toLowerCase().includes(searchTerm.toLowerCase())
       );
 
-      // Update balances for first matched customer
       if (result.length > 0) {
         const firstCustomer = result[0].customerId;
         setSelectedCustomerBalances({
@@ -64,7 +59,6 @@ const ReceiptVoucherReport = () => {
       setSelectedCustomerBalances({ openingBalance: 0, hallMarkBalance: 0 });
     }
 
-    // Filter by date range
     if (fromDate) {
       result = result.filter((r) => new Date(r.date) >= new Date(fromDate));
     }
@@ -83,9 +77,6 @@ const ReceiptVoucherReport = () => {
     setSelectedCustomerBalances({ openingBalance: 0, hallMarkBalance: 0 });
   };
 
-
-
-  // ---------------- Print ----------------
   const handlePrintReport = () => {
     const printContent = document.getElementById("receiptReport").innerHTML;
     const printWindow = window.open("", "_blank", "width=1000,height=800");
@@ -169,7 +160,6 @@ const ReceiptVoucherReport = () => {
       </Stack>
 
 <div id="receiptReport">
-  {/* Display balances */}
   {searchTerm && (
     <div
       className={styles.balances}
@@ -183,8 +173,6 @@ const ReceiptVoucherReport = () => {
       </div>
     </div>
   )}
-
-  {/* Table */}
   <div className={styles.tablecontainer}>
     <table className={styles.table}>
       <thead>
@@ -205,7 +193,7 @@ const ReceiptVoucherReport = () => {
           filteredReceipts.map((r, index) => (
             <tr key={r.id}>
               <td>{index + 1}</td>
-              <td>{r.date || "-"}</td>
+              <td>{r.date ? new Date (r.date). toLocaleDateString("en-GB") : "-"}</td>
               <td>{r.customerId?.name || "-"}</td>
               <td>{r.type || "-"}</td>
               <td>{r.gold_rate || "-"}</td>

@@ -164,11 +164,6 @@ export type LotBuffingMapper = $Result.DefaultSelection<Prisma.$LotBuffingMapper
  */
 export type BuffingWastage = $Result.DefaultSelection<Prisma.$BuffingWastagePayload>
 /**
- * Model Stock
- * 
- */
-export type Stock = $Result.DefaultSelection<Prisma.$StockPayload>
-/**
  * Model Hallmark
  * 
  */
@@ -193,6 +188,11 @@ export type ReceivedItem = $Result.DefaultSelection<Prisma.$ReceivedItemPayload>
  * 
  */
 export type ReceiptVoucher = $Result.DefaultSelection<Prisma.$ReceiptVoucherPayload>
+/**
+ * Model Stock
+ * 
+ */
+export type Stock = $Result.DefaultSelection<Prisma.$StockPayload>
 /**
  * Model ExpenseVoucher
  * 
@@ -660,16 +660,6 @@ export class PrismaClient<
   get buffingWastage(): Prisma.BuffingWastageDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.stock`: Exposes CRUD operations for the **Stock** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Stocks
-    * const stocks = await prisma.stock.findMany()
-    * ```
-    */
-  get stock(): Prisma.StockDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.hallmark`: Exposes CRUD operations for the **Hallmark** model.
     * Example usage:
     * ```ts
@@ -718,6 +708,16 @@ export class PrismaClient<
     * ```
     */
   get receiptVoucher(): Prisma.ReceiptVoucherDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.stock`: Exposes CRUD operations for the **Stock** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Stocks
+    * const stocks = await prisma.stock.findMany()
+    * ```
+    */
+  get stock(): Prisma.StockDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.expenseVoucher`: Exposes CRUD operations for the **ExpenseVoucher** model.
@@ -1198,12 +1198,12 @@ export namespace Prisma {
     BuffingTotalBalance: 'BuffingTotalBalance',
     LotBuffingMapper: 'LotBuffingMapper',
     BuffingWastage: 'BuffingWastage',
-    Stock: 'Stock',
     Hallmark: 'Hallmark',
     Bill: 'Bill',
     BillItem: 'BillItem',
     ReceivedItem: 'ReceivedItem',
     ReceiptVoucher: 'ReceiptVoucher',
+    Stock: 'Stock',
     ExpenseVoucher: 'ExpenseVoucher'
   };
 
@@ -1223,7 +1223,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "addCustomer" | "addCasting" | "addFiling" | "addSetting" | "addBuffing" | "addSupplierItem" | "addPurchaseStock" | "customerTransaction" | "addItem" | "addTouch" | "qcStock" | "castingEntry" | "castingItems" | "castiingTotalBalance" | "lotInfo" | "filingEntry" | "lotFilingMapper" | "filingItems" | "filingTotalBalance" | "filingWastage" | "settingEntry" | "settingItems" | "lotSettingMapper" | "settingTotalBalance" | "settingWastage" | "buffingEntry" | "buffingItems" | "buffingTotalBalance" | "lotBuffingMapper" | "buffingWastage" | "stock" | "hallmark" | "bill" | "billItem" | "receivedItem" | "receiptVoucher" | "expenseVoucher"
+      modelProps: "addCustomer" | "addCasting" | "addFiling" | "addSetting" | "addBuffing" | "addSupplierItem" | "addPurchaseStock" | "customerTransaction" | "addItem" | "addTouch" | "qcStock" | "castingEntry" | "castingItems" | "castiingTotalBalance" | "lotInfo" | "filingEntry" | "lotFilingMapper" | "filingItems" | "filingTotalBalance" | "filingWastage" | "settingEntry" | "settingItems" | "lotSettingMapper" | "settingTotalBalance" | "settingWastage" | "buffingEntry" | "buffingItems" | "buffingTotalBalance" | "lotBuffingMapper" | "buffingWastage" | "hallmark" | "bill" | "billItem" | "receivedItem" | "receiptVoucher" | "stock" | "expenseVoucher"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3207,72 +3207,6 @@ export namespace Prisma {
           }
         }
       }
-      Stock: {
-        payload: Prisma.$StockPayload<ExtArgs>
-        fields: Prisma.StockFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.StockFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StockPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.StockFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StockPayload>
-          }
-          findFirst: {
-            args: Prisma.StockFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StockPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.StockFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StockPayload>
-          }
-          findMany: {
-            args: Prisma.StockFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StockPayload>[]
-          }
-          create: {
-            args: Prisma.StockCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StockPayload>
-          }
-          createMany: {
-            args: Prisma.StockCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.StockDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StockPayload>
-          }
-          update: {
-            args: Prisma.StockUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StockPayload>
-          }
-          deleteMany: {
-            args: Prisma.StockDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.StockUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.StockUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StockPayload>
-          }
-          aggregate: {
-            args: Prisma.StockAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateStock>
-          }
-          groupBy: {
-            args: Prisma.StockGroupByArgs<ExtArgs>
-            result: $Utils.Optional<StockGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.StockCountArgs<ExtArgs>
-            result: $Utils.Optional<StockCountAggregateOutputType> | number
-          }
-        }
-      }
       Hallmark: {
         payload: Prisma.$HallmarkPayload<ExtArgs>
         fields: Prisma.HallmarkFieldRefs
@@ -3603,6 +3537,72 @@ export namespace Prisma {
           }
         }
       }
+      Stock: {
+        payload: Prisma.$StockPayload<ExtArgs>
+        fields: Prisma.StockFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StockFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StockFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockPayload>
+          }
+          findFirst: {
+            args: Prisma.StockFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StockFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockPayload>
+          }
+          findMany: {
+            args: Prisma.StockFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockPayload>[]
+          }
+          create: {
+            args: Prisma.StockCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockPayload>
+          }
+          createMany: {
+            args: Prisma.StockCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.StockDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockPayload>
+          }
+          update: {
+            args: Prisma.StockUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockPayload>
+          }
+          deleteMany: {
+            args: Prisma.StockDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StockUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StockUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockPayload>
+          }
+          aggregate: {
+            args: Prisma.StockAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStock>
+          }
+          groupBy: {
+            args: Prisma.StockGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StockGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StockCountArgs<ExtArgs>
+            result: $Utils.Optional<StockCountAggregateOutputType> | number
+          }
+        }
+      }
       ExpenseVoucher: {
         payload: Prisma.$ExpenseVoucherPayload<ExtArgs>
         fields: Prisma.ExpenseVoucherFieldRefs
@@ -3795,12 +3795,12 @@ export namespace Prisma {
     buffingTotalBalance?: BuffingTotalBalanceOmit
     lotBuffingMapper?: LotBuffingMapperOmit
     buffingWastage?: BuffingWastageOmit
-    stock?: StockOmit
     hallmark?: HallmarkOmit
     bill?: BillOmit
     billItem?: BillItemOmit
     receivedItem?: ReceivedItemOmit
     receiptVoucher?: ReceiptVoucherOmit
+    stock?: StockOmit
     expenseVoucher?: ExpenseVoucherOmit
   }
 
@@ -38566,1364 +38566,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Stock
-   */
-
-  export type AggregateStock = {
-    _count: StockCountAggregateOutputType | null
-    _avg: StockAvgAggregateOutputType | null
-    _sum: StockSumAggregateOutputType | null
-    _min: StockMinAggregateOutputType | null
-    _max: StockMaxAggregateOutputType | null
-  }
-
-  export type StockAvgAggregateOutputType = {
-    id: number | null
-    casting_item_id: number | null
-    filing_item_id: number | null
-    setting_item_id: number | null
-    buffing_item_id: number | null
-    item_id: number | null
-    weight: number | null
-    touch_id: number | null
-    item_purity: number | null
-    casting_customer_id: number | null
-    purchase_id: number | null
-    customer_transaction_id: number | null
-    customer_id: number | null
-  }
-
-  export type StockSumAggregateOutputType = {
-    id: number | null
-    casting_item_id: number | null
-    filing_item_id: number | null
-    setting_item_id: number | null
-    buffing_item_id: number | null
-    item_id: number | null
-    weight: number | null
-    touch_id: number | null
-    item_purity: number | null
-    casting_customer_id: number | null
-    purchase_id: number | null
-    customer_transaction_id: number | null
-    customer_id: number | null
-  }
-
-  export type StockMinAggregateOutputType = {
-    id: number | null
-    createdAt: Date | null
-    casting_item_id: number | null
-    filing_item_id: number | null
-    setting_item_id: number | null
-    buffing_item_id: number | null
-    item_type: $Enums.ITEMTYPE | null
-    item_id: number | null
-    weight: number | null
-    touch_id: number | null
-    item_purity: number | null
-    remarks: string | null
-    casting_customer_id: number | null
-    purchase_id: number | null
-    customer_transaction_id: number | null
-    customer_id: number | null
-  }
-
-  export type StockMaxAggregateOutputType = {
-    id: number | null
-    createdAt: Date | null
-    casting_item_id: number | null
-    filing_item_id: number | null
-    setting_item_id: number | null
-    buffing_item_id: number | null
-    item_type: $Enums.ITEMTYPE | null
-    item_id: number | null
-    weight: number | null
-    touch_id: number | null
-    item_purity: number | null
-    remarks: string | null
-    casting_customer_id: number | null
-    purchase_id: number | null
-    customer_transaction_id: number | null
-    customer_id: number | null
-  }
-
-  export type StockCountAggregateOutputType = {
-    id: number
-    createdAt: number
-    casting_item_id: number
-    filing_item_id: number
-    setting_item_id: number
-    buffing_item_id: number
-    item_type: number
-    item_id: number
-    weight: number
-    touch_id: number
-    item_purity: number
-    remarks: number
-    casting_customer_id: number
-    purchase_id: number
-    customer_transaction_id: number
-    customer_id: number
-    _all: number
-  }
-
-
-  export type StockAvgAggregateInputType = {
-    id?: true
-    casting_item_id?: true
-    filing_item_id?: true
-    setting_item_id?: true
-    buffing_item_id?: true
-    item_id?: true
-    weight?: true
-    touch_id?: true
-    item_purity?: true
-    casting_customer_id?: true
-    purchase_id?: true
-    customer_transaction_id?: true
-    customer_id?: true
-  }
-
-  export type StockSumAggregateInputType = {
-    id?: true
-    casting_item_id?: true
-    filing_item_id?: true
-    setting_item_id?: true
-    buffing_item_id?: true
-    item_id?: true
-    weight?: true
-    touch_id?: true
-    item_purity?: true
-    casting_customer_id?: true
-    purchase_id?: true
-    customer_transaction_id?: true
-    customer_id?: true
-  }
-
-  export type StockMinAggregateInputType = {
-    id?: true
-    createdAt?: true
-    casting_item_id?: true
-    filing_item_id?: true
-    setting_item_id?: true
-    buffing_item_id?: true
-    item_type?: true
-    item_id?: true
-    weight?: true
-    touch_id?: true
-    item_purity?: true
-    remarks?: true
-    casting_customer_id?: true
-    purchase_id?: true
-    customer_transaction_id?: true
-    customer_id?: true
-  }
-
-  export type StockMaxAggregateInputType = {
-    id?: true
-    createdAt?: true
-    casting_item_id?: true
-    filing_item_id?: true
-    setting_item_id?: true
-    buffing_item_id?: true
-    item_type?: true
-    item_id?: true
-    weight?: true
-    touch_id?: true
-    item_purity?: true
-    remarks?: true
-    casting_customer_id?: true
-    purchase_id?: true
-    customer_transaction_id?: true
-    customer_id?: true
-  }
-
-  export type StockCountAggregateInputType = {
-    id?: true
-    createdAt?: true
-    casting_item_id?: true
-    filing_item_id?: true
-    setting_item_id?: true
-    buffing_item_id?: true
-    item_type?: true
-    item_id?: true
-    weight?: true
-    touch_id?: true
-    item_purity?: true
-    remarks?: true
-    casting_customer_id?: true
-    purchase_id?: true
-    customer_transaction_id?: true
-    customer_id?: true
-    _all?: true
-  }
-
-  export type StockAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Stock to aggregate.
-     */
-    where?: StockWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Stocks to fetch.
-     */
-    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: StockWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Stocks from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Stocks.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Stocks
-    **/
-    _count?: true | StockCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: StockAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: StockSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: StockMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: StockMaxAggregateInputType
-  }
-
-  export type GetStockAggregateType<T extends StockAggregateArgs> = {
-        [P in keyof T & keyof AggregateStock]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateStock[P]>
-      : GetScalarType<T[P], AggregateStock[P]>
-  }
-
-
-
-
-  export type StockGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StockWhereInput
-    orderBy?: StockOrderByWithAggregationInput | StockOrderByWithAggregationInput[]
-    by: StockScalarFieldEnum[] | StockScalarFieldEnum
-    having?: StockScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: StockCountAggregateInputType | true
-    _avg?: StockAvgAggregateInputType
-    _sum?: StockSumAggregateInputType
-    _min?: StockMinAggregateInputType
-    _max?: StockMaxAggregateInputType
-  }
-
-  export type StockGroupByOutputType = {
-    id: number
-    createdAt: Date
-    casting_item_id: number | null
-    filing_item_id: number | null
-    setting_item_id: number | null
-    buffing_item_id: number | null
-    item_type: $Enums.ITEMTYPE | null
-    item_id: number | null
-    weight: number
-    touch_id: number | null
-    item_purity: number
-    remarks: string | null
-    casting_customer_id: number | null
-    purchase_id: number | null
-    customer_transaction_id: number | null
-    customer_id: number | null
-    _count: StockCountAggregateOutputType | null
-    _avg: StockAvgAggregateOutputType | null
-    _sum: StockSumAggregateOutputType | null
-    _min: StockMinAggregateOutputType | null
-    _max: StockMaxAggregateOutputType | null
-  }
-
-  type GetStockGroupByPayload<T extends StockGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<StockGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof StockGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], StockGroupByOutputType[P]>
-            : GetScalarType<T[P], StockGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type StockSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    createdAt?: boolean
-    casting_item_id?: boolean
-    filing_item_id?: boolean
-    setting_item_id?: boolean
-    buffing_item_id?: boolean
-    item_type?: boolean
-    item_id?: boolean
-    weight?: boolean
-    touch_id?: boolean
-    item_purity?: boolean
-    remarks?: boolean
-    casting_customer_id?: boolean
-    purchase_id?: boolean
-    customer_transaction_id?: boolean
-    customer_id?: boolean
-    castingItem?: boolean | Stock$castingItemArgs<ExtArgs>
-    filingItem?: boolean | Stock$filingItemArgs<ExtArgs>
-    settingItem?: boolean | Stock$settingItemArgs<ExtArgs>
-    buffingItem?: boolean | Stock$buffingItemArgs<ExtArgs>
-    item?: boolean | Stock$itemArgs<ExtArgs>
-    touch?: boolean | Stock$touchArgs<ExtArgs>
-    casting_customer?: boolean | Stock$casting_customerArgs<ExtArgs>
-    purchaseId?: boolean | Stock$purchaseIdArgs<ExtArgs>
-    customer_transaction?: boolean | Stock$customer_transactionArgs<ExtArgs>
-    customer?: boolean | Stock$customerArgs<ExtArgs>
-  }, ExtArgs["result"]["stock"]>
-
-
-
-  export type StockSelectScalar = {
-    id?: boolean
-    createdAt?: boolean
-    casting_item_id?: boolean
-    filing_item_id?: boolean
-    setting_item_id?: boolean
-    buffing_item_id?: boolean
-    item_type?: boolean
-    item_id?: boolean
-    weight?: boolean
-    touch_id?: boolean
-    item_purity?: boolean
-    remarks?: boolean
-    casting_customer_id?: boolean
-    purchase_id?: boolean
-    customer_transaction_id?: boolean
-    customer_id?: boolean
-  }
-
-  export type StockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "casting_item_id" | "filing_item_id" | "setting_item_id" | "buffing_item_id" | "item_type" | "item_id" | "weight" | "touch_id" | "item_purity" | "remarks" | "casting_customer_id" | "purchase_id" | "customer_transaction_id" | "customer_id", ExtArgs["result"]["stock"]>
-  export type StockInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    castingItem?: boolean | Stock$castingItemArgs<ExtArgs>
-    filingItem?: boolean | Stock$filingItemArgs<ExtArgs>
-    settingItem?: boolean | Stock$settingItemArgs<ExtArgs>
-    buffingItem?: boolean | Stock$buffingItemArgs<ExtArgs>
-    item?: boolean | Stock$itemArgs<ExtArgs>
-    touch?: boolean | Stock$touchArgs<ExtArgs>
-    casting_customer?: boolean | Stock$casting_customerArgs<ExtArgs>
-    purchaseId?: boolean | Stock$purchaseIdArgs<ExtArgs>
-    customer_transaction?: boolean | Stock$customer_transactionArgs<ExtArgs>
-    customer?: boolean | Stock$customerArgs<ExtArgs>
-  }
-
-  export type $StockPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Stock"
-    objects: {
-      castingItem: Prisma.$CastingItemsPayload<ExtArgs> | null
-      filingItem: Prisma.$FilingItemsPayload<ExtArgs> | null
-      settingItem: Prisma.$SettingItemsPayload<ExtArgs> | null
-      buffingItem: Prisma.$BuffingItemsPayload<ExtArgs> | null
-      item: Prisma.$AddItemPayload<ExtArgs> | null
-      touch: Prisma.$AddTouchPayload<ExtArgs> | null
-      casting_customer: Prisma.$AddCastingPayload<ExtArgs> | null
-      purchaseId: Prisma.$AddPurchaseStockPayload<ExtArgs> | null
-      customer_transaction: Prisma.$CustomerTransactionPayload<ExtArgs> | null
-      customer: Prisma.$AddCustomerPayload<ExtArgs> | null
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      createdAt: Date
-      casting_item_id: number | null
-      filing_item_id: number | null
-      setting_item_id: number | null
-      buffing_item_id: number | null
-      item_type: $Enums.ITEMTYPE | null
-      item_id: number | null
-      weight: number
-      touch_id: number | null
-      item_purity: number
-      remarks: string | null
-      casting_customer_id: number | null
-      purchase_id: number | null
-      customer_transaction_id: number | null
-      customer_id: number | null
-    }, ExtArgs["result"]["stock"]>
-    composites: {}
-  }
-
-  type StockGetPayload<S extends boolean | null | undefined | StockDefaultArgs> = $Result.GetResult<Prisma.$StockPayload, S>
-
-  type StockCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<StockFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: StockCountAggregateInputType | true
-    }
-
-  export interface StockDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Stock'], meta: { name: 'Stock' } }
-    /**
-     * Find zero or one Stock that matches the filter.
-     * @param {StockFindUniqueArgs} args - Arguments to find a Stock
-     * @example
-     * // Get one Stock
-     * const stock = await prisma.stock.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends StockFindUniqueArgs>(args: SelectSubset<T, StockFindUniqueArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Stock that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {StockFindUniqueOrThrowArgs} args - Arguments to find a Stock
-     * @example
-     * // Get one Stock
-     * const stock = await prisma.stock.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends StockFindUniqueOrThrowArgs>(args: SelectSubset<T, StockFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Stock that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {StockFindFirstArgs} args - Arguments to find a Stock
-     * @example
-     * // Get one Stock
-     * const stock = await prisma.stock.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends StockFindFirstArgs>(args?: SelectSubset<T, StockFindFirstArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Stock that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {StockFindFirstOrThrowArgs} args - Arguments to find a Stock
-     * @example
-     * // Get one Stock
-     * const stock = await prisma.stock.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends StockFindFirstOrThrowArgs>(args?: SelectSubset<T, StockFindFirstOrThrowArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Stocks that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {StockFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Stocks
-     * const stocks = await prisma.stock.findMany()
-     * 
-     * // Get first 10 Stocks
-     * const stocks = await prisma.stock.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const stockWithIdOnly = await prisma.stock.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends StockFindManyArgs>(args?: SelectSubset<T, StockFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Stock.
-     * @param {StockCreateArgs} args - Arguments to create a Stock.
-     * @example
-     * // Create one Stock
-     * const Stock = await prisma.stock.create({
-     *   data: {
-     *     // ... data to create a Stock
-     *   }
-     * })
-     * 
-     */
-    create<T extends StockCreateArgs>(args: SelectSubset<T, StockCreateArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Stocks.
-     * @param {StockCreateManyArgs} args - Arguments to create many Stocks.
-     * @example
-     * // Create many Stocks
-     * const stock = await prisma.stock.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends StockCreateManyArgs>(args?: SelectSubset<T, StockCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Stock.
-     * @param {StockDeleteArgs} args - Arguments to delete one Stock.
-     * @example
-     * // Delete one Stock
-     * const Stock = await prisma.stock.delete({
-     *   where: {
-     *     // ... filter to delete one Stock
-     *   }
-     * })
-     * 
-     */
-    delete<T extends StockDeleteArgs>(args: SelectSubset<T, StockDeleteArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Stock.
-     * @param {StockUpdateArgs} args - Arguments to update one Stock.
-     * @example
-     * // Update one Stock
-     * const stock = await prisma.stock.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends StockUpdateArgs>(args: SelectSubset<T, StockUpdateArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Stocks.
-     * @param {StockDeleteManyArgs} args - Arguments to filter Stocks to delete.
-     * @example
-     * // Delete a few Stocks
-     * const { count } = await prisma.stock.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends StockDeleteManyArgs>(args?: SelectSubset<T, StockDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Stocks.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {StockUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Stocks
-     * const stock = await prisma.stock.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends StockUpdateManyArgs>(args: SelectSubset<T, StockUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Stock.
-     * @param {StockUpsertArgs} args - Arguments to update or create a Stock.
-     * @example
-     * // Update or create a Stock
-     * const stock = await prisma.stock.upsert({
-     *   create: {
-     *     // ... data to create a Stock
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Stock we want to update
-     *   }
-     * })
-     */
-    upsert<T extends StockUpsertArgs>(args: SelectSubset<T, StockUpsertArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Stocks.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {StockCountArgs} args - Arguments to filter Stocks to count.
-     * @example
-     * // Count the number of Stocks
-     * const count = await prisma.stock.count({
-     *   where: {
-     *     // ... the filter for the Stocks we want to count
-     *   }
-     * })
-    **/
-    count<T extends StockCountArgs>(
-      args?: Subset<T, StockCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], StockCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Stock.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {StockAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends StockAggregateArgs>(args: Subset<T, StockAggregateArgs>): Prisma.PrismaPromise<GetStockAggregateType<T>>
-
-    /**
-     * Group by Stock.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {StockGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends StockGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: StockGroupByArgs['orderBy'] }
-        : { orderBy?: StockGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, StockGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStockGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Stock model
-   */
-  readonly fields: StockFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Stock.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__StockClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    castingItem<T extends Stock$castingItemArgs<ExtArgs> = {}>(args?: Subset<T, Stock$castingItemArgs<ExtArgs>>): Prisma__CastingItemsClient<$Result.GetResult<Prisma.$CastingItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    filingItem<T extends Stock$filingItemArgs<ExtArgs> = {}>(args?: Subset<T, Stock$filingItemArgs<ExtArgs>>): Prisma__FilingItemsClient<$Result.GetResult<Prisma.$FilingItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    settingItem<T extends Stock$settingItemArgs<ExtArgs> = {}>(args?: Subset<T, Stock$settingItemArgs<ExtArgs>>): Prisma__SettingItemsClient<$Result.GetResult<Prisma.$SettingItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    buffingItem<T extends Stock$buffingItemArgs<ExtArgs> = {}>(args?: Subset<T, Stock$buffingItemArgs<ExtArgs>>): Prisma__BuffingItemsClient<$Result.GetResult<Prisma.$BuffingItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    item<T extends Stock$itemArgs<ExtArgs> = {}>(args?: Subset<T, Stock$itemArgs<ExtArgs>>): Prisma__AddItemClient<$Result.GetResult<Prisma.$AddItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    touch<T extends Stock$touchArgs<ExtArgs> = {}>(args?: Subset<T, Stock$touchArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    casting_customer<T extends Stock$casting_customerArgs<ExtArgs> = {}>(args?: Subset<T, Stock$casting_customerArgs<ExtArgs>>): Prisma__AddCastingClient<$Result.GetResult<Prisma.$AddCastingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    purchaseId<T extends Stock$purchaseIdArgs<ExtArgs> = {}>(args?: Subset<T, Stock$purchaseIdArgs<ExtArgs>>): Prisma__AddPurchaseStockClient<$Result.GetResult<Prisma.$AddPurchaseStockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    customer_transaction<T extends Stock$customer_transactionArgs<ExtArgs> = {}>(args?: Subset<T, Stock$customer_transactionArgs<ExtArgs>>): Prisma__CustomerTransactionClient<$Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    customer<T extends Stock$customerArgs<ExtArgs> = {}>(args?: Subset<T, Stock$customerArgs<ExtArgs>>): Prisma__AddCustomerClient<$Result.GetResult<Prisma.$AddCustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Stock model
-   */
-  interface StockFieldRefs {
-    readonly id: FieldRef<"Stock", 'Int'>
-    readonly createdAt: FieldRef<"Stock", 'DateTime'>
-    readonly casting_item_id: FieldRef<"Stock", 'Int'>
-    readonly filing_item_id: FieldRef<"Stock", 'Int'>
-    readonly setting_item_id: FieldRef<"Stock", 'Int'>
-    readonly buffing_item_id: FieldRef<"Stock", 'Int'>
-    readonly item_type: FieldRef<"Stock", 'ITEMTYPE'>
-    readonly item_id: FieldRef<"Stock", 'Int'>
-    readonly weight: FieldRef<"Stock", 'Float'>
-    readonly touch_id: FieldRef<"Stock", 'Int'>
-    readonly item_purity: FieldRef<"Stock", 'Float'>
-    readonly remarks: FieldRef<"Stock", 'String'>
-    readonly casting_customer_id: FieldRef<"Stock", 'Int'>
-    readonly purchase_id: FieldRef<"Stock", 'Int'>
-    readonly customer_transaction_id: FieldRef<"Stock", 'Int'>
-    readonly customer_id: FieldRef<"Stock", 'Int'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Stock findUnique
-   */
-  export type StockFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Stock
-     */
-    select?: StockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Stock
-     */
-    omit?: StockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockInclude<ExtArgs> | null
-    /**
-     * Filter, which Stock to fetch.
-     */
-    where: StockWhereUniqueInput
-  }
-
-  /**
-   * Stock findUniqueOrThrow
-   */
-  export type StockFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Stock
-     */
-    select?: StockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Stock
-     */
-    omit?: StockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockInclude<ExtArgs> | null
-    /**
-     * Filter, which Stock to fetch.
-     */
-    where: StockWhereUniqueInput
-  }
-
-  /**
-   * Stock findFirst
-   */
-  export type StockFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Stock
-     */
-    select?: StockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Stock
-     */
-    omit?: StockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockInclude<ExtArgs> | null
-    /**
-     * Filter, which Stock to fetch.
-     */
-    where?: StockWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Stocks to fetch.
-     */
-    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Stocks.
-     */
-    cursor?: StockWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Stocks from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Stocks.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Stocks.
-     */
-    distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
-  }
-
-  /**
-   * Stock findFirstOrThrow
-   */
-  export type StockFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Stock
-     */
-    select?: StockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Stock
-     */
-    omit?: StockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockInclude<ExtArgs> | null
-    /**
-     * Filter, which Stock to fetch.
-     */
-    where?: StockWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Stocks to fetch.
-     */
-    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Stocks.
-     */
-    cursor?: StockWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Stocks from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Stocks.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Stocks.
-     */
-    distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
-  }
-
-  /**
-   * Stock findMany
-   */
-  export type StockFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Stock
-     */
-    select?: StockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Stock
-     */
-    omit?: StockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockInclude<ExtArgs> | null
-    /**
-     * Filter, which Stocks to fetch.
-     */
-    where?: StockWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Stocks to fetch.
-     */
-    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Stocks.
-     */
-    cursor?: StockWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Stocks from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Stocks.
-     */
-    skip?: number
-    distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
-  }
-
-  /**
-   * Stock create
-   */
-  export type StockCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Stock
-     */
-    select?: StockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Stock
-     */
-    omit?: StockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Stock.
-     */
-    data: XOR<StockCreateInput, StockUncheckedCreateInput>
-  }
-
-  /**
-   * Stock createMany
-   */
-  export type StockCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Stocks.
-     */
-    data: StockCreateManyInput | StockCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Stock update
-   */
-  export type StockUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Stock
-     */
-    select?: StockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Stock
-     */
-    omit?: StockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Stock.
-     */
-    data: XOR<StockUpdateInput, StockUncheckedUpdateInput>
-    /**
-     * Choose, which Stock to update.
-     */
-    where: StockWhereUniqueInput
-  }
-
-  /**
-   * Stock updateMany
-   */
-  export type StockUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Stocks.
-     */
-    data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyInput>
-    /**
-     * Filter which Stocks to update
-     */
-    where?: StockWhereInput
-    /**
-     * Limit how many Stocks to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Stock upsert
-   */
-  export type StockUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Stock
-     */
-    select?: StockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Stock
-     */
-    omit?: StockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Stock to update in case it exists.
-     */
-    where: StockWhereUniqueInput
-    /**
-     * In case the Stock found by the `where` argument doesn't exist, create a new Stock with this data.
-     */
-    create: XOR<StockCreateInput, StockUncheckedCreateInput>
-    /**
-     * In case the Stock was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<StockUpdateInput, StockUncheckedUpdateInput>
-  }
-
-  /**
-   * Stock delete
-   */
-  export type StockDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Stock
-     */
-    select?: StockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Stock
-     */
-    omit?: StockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockInclude<ExtArgs> | null
-    /**
-     * Filter which Stock to delete.
-     */
-    where: StockWhereUniqueInput
-  }
-
-  /**
-   * Stock deleteMany
-   */
-  export type StockDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Stocks to delete
-     */
-    where?: StockWhereInput
-    /**
-     * Limit how many Stocks to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Stock.castingItem
-   */
-  export type Stock$castingItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CastingItems
-     */
-    select?: CastingItemsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CastingItems
-     */
-    omit?: CastingItemsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CastingItemsInclude<ExtArgs> | null
-    where?: CastingItemsWhereInput
-  }
-
-  /**
-   * Stock.filingItem
-   */
-  export type Stock$filingItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FilingItems
-     */
-    select?: FilingItemsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FilingItems
-     */
-    omit?: FilingItemsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FilingItemsInclude<ExtArgs> | null
-    where?: FilingItemsWhereInput
-  }
-
-  /**
-   * Stock.settingItem
-   */
-  export type Stock$settingItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SettingItems
-     */
-    select?: SettingItemsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SettingItems
-     */
-    omit?: SettingItemsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingItemsInclude<ExtArgs> | null
-    where?: SettingItemsWhereInput
-  }
-
-  /**
-   * Stock.buffingItem
-   */
-  export type Stock$buffingItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BuffingItems
-     */
-    select?: BuffingItemsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BuffingItems
-     */
-    omit?: BuffingItemsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BuffingItemsInclude<ExtArgs> | null
-    where?: BuffingItemsWhereInput
-  }
-
-  /**
-   * Stock.item
-   */
-  export type Stock$itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddItem
-     */
-    select?: AddItemSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddItem
-     */
-    omit?: AddItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddItemInclude<ExtArgs> | null
-    where?: AddItemWhereInput
-  }
-
-  /**
-   * Stock.touch
-   */
-  export type Stock$touchArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddTouch
-     */
-    select?: AddTouchSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddTouch
-     */
-    omit?: AddTouchOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddTouchInclude<ExtArgs> | null
-    where?: AddTouchWhereInput
-  }
-
-  /**
-   * Stock.casting_customer
-   */
-  export type Stock$casting_customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddCasting
-     */
-    select?: AddCastingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddCasting
-     */
-    omit?: AddCastingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddCastingInclude<ExtArgs> | null
-    where?: AddCastingWhereInput
-  }
-
-  /**
-   * Stock.purchaseId
-   */
-  export type Stock$purchaseIdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddPurchaseStock
-     */
-    select?: AddPurchaseStockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddPurchaseStock
-     */
-    omit?: AddPurchaseStockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddPurchaseStockInclude<ExtArgs> | null
-    where?: AddPurchaseStockWhereInput
-  }
-
-  /**
-   * Stock.customer_transaction
-   */
-  export type Stock$customer_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CustomerTransaction
-     */
-    select?: CustomerTransactionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CustomerTransaction
-     */
-    omit?: CustomerTransactionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CustomerTransactionInclude<ExtArgs> | null
-    where?: CustomerTransactionWhereInput
-  }
-
-  /**
-   * Stock.customer
-   */
-  export type Stock$customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AddCustomer
-     */
-    select?: AddCustomerSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AddCustomer
-     */
-    omit?: AddCustomerOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AddCustomerInclude<ExtArgs> | null
-    where?: AddCustomerWhereInput
-  }
-
-  /**
-   * Stock without action
-   */
-  export type StockDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Stock
-     */
-    select?: StockSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Stock
-     */
-    omit?: StockOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Hallmark
    */
 
@@ -45350,6 +43992,1364 @@ export namespace Prisma {
 
 
   /**
+   * Model Stock
+   */
+
+  export type AggregateStock = {
+    _count: StockCountAggregateOutputType | null
+    _avg: StockAvgAggregateOutputType | null
+    _sum: StockSumAggregateOutputType | null
+    _min: StockMinAggregateOutputType | null
+    _max: StockMaxAggregateOutputType | null
+  }
+
+  export type StockAvgAggregateOutputType = {
+    id: number | null
+    casting_item_id: number | null
+    filing_item_id: number | null
+    setting_item_id: number | null
+    buffing_item_id: number | null
+    item_id: number | null
+    weight: number | null
+    touch_id: number | null
+    item_purity: number | null
+    casting_customer_id: number | null
+    purchase_id: number | null
+    customer_transaction_id: number | null
+    customer_id: number | null
+  }
+
+  export type StockSumAggregateOutputType = {
+    id: number | null
+    casting_item_id: number | null
+    filing_item_id: number | null
+    setting_item_id: number | null
+    buffing_item_id: number | null
+    item_id: number | null
+    weight: number | null
+    touch_id: number | null
+    item_purity: number | null
+    casting_customer_id: number | null
+    purchase_id: number | null
+    customer_transaction_id: number | null
+    customer_id: number | null
+  }
+
+  export type StockMinAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    casting_item_id: number | null
+    filing_item_id: number | null
+    setting_item_id: number | null
+    buffing_item_id: number | null
+    item_type: $Enums.ITEMTYPE | null
+    item_id: number | null
+    weight: number | null
+    touch_id: number | null
+    item_purity: number | null
+    remarks: string | null
+    casting_customer_id: number | null
+    purchase_id: number | null
+    customer_transaction_id: number | null
+    customer_id: number | null
+  }
+
+  export type StockMaxAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    casting_item_id: number | null
+    filing_item_id: number | null
+    setting_item_id: number | null
+    buffing_item_id: number | null
+    item_type: $Enums.ITEMTYPE | null
+    item_id: number | null
+    weight: number | null
+    touch_id: number | null
+    item_purity: number | null
+    remarks: string | null
+    casting_customer_id: number | null
+    purchase_id: number | null
+    customer_transaction_id: number | null
+    customer_id: number | null
+  }
+
+  export type StockCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    casting_item_id: number
+    filing_item_id: number
+    setting_item_id: number
+    buffing_item_id: number
+    item_type: number
+    item_id: number
+    weight: number
+    touch_id: number
+    item_purity: number
+    remarks: number
+    casting_customer_id: number
+    purchase_id: number
+    customer_transaction_id: number
+    customer_id: number
+    _all: number
+  }
+
+
+  export type StockAvgAggregateInputType = {
+    id?: true
+    casting_item_id?: true
+    filing_item_id?: true
+    setting_item_id?: true
+    buffing_item_id?: true
+    item_id?: true
+    weight?: true
+    touch_id?: true
+    item_purity?: true
+    casting_customer_id?: true
+    purchase_id?: true
+    customer_transaction_id?: true
+    customer_id?: true
+  }
+
+  export type StockSumAggregateInputType = {
+    id?: true
+    casting_item_id?: true
+    filing_item_id?: true
+    setting_item_id?: true
+    buffing_item_id?: true
+    item_id?: true
+    weight?: true
+    touch_id?: true
+    item_purity?: true
+    casting_customer_id?: true
+    purchase_id?: true
+    customer_transaction_id?: true
+    customer_id?: true
+  }
+
+  export type StockMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    casting_item_id?: true
+    filing_item_id?: true
+    setting_item_id?: true
+    buffing_item_id?: true
+    item_type?: true
+    item_id?: true
+    weight?: true
+    touch_id?: true
+    item_purity?: true
+    remarks?: true
+    casting_customer_id?: true
+    purchase_id?: true
+    customer_transaction_id?: true
+    customer_id?: true
+  }
+
+  export type StockMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    casting_item_id?: true
+    filing_item_id?: true
+    setting_item_id?: true
+    buffing_item_id?: true
+    item_type?: true
+    item_id?: true
+    weight?: true
+    touch_id?: true
+    item_purity?: true
+    remarks?: true
+    casting_customer_id?: true
+    purchase_id?: true
+    customer_transaction_id?: true
+    customer_id?: true
+  }
+
+  export type StockCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    casting_item_id?: true
+    filing_item_id?: true
+    setting_item_id?: true
+    buffing_item_id?: true
+    item_type?: true
+    item_id?: true
+    weight?: true
+    touch_id?: true
+    item_purity?: true
+    remarks?: true
+    casting_customer_id?: true
+    purchase_id?: true
+    customer_transaction_id?: true
+    customer_id?: true
+    _all?: true
+  }
+
+  export type StockAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Stock to aggregate.
+     */
+    where?: StockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stocks to fetch.
+     */
+    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Stocks
+    **/
+    _count?: true | StockCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StockAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StockSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StockMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StockMaxAggregateInputType
+  }
+
+  export type GetStockAggregateType<T extends StockAggregateArgs> = {
+        [P in keyof T & keyof AggregateStock]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStock[P]>
+      : GetScalarType<T[P], AggregateStock[P]>
+  }
+
+
+
+
+  export type StockGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockWhereInput
+    orderBy?: StockOrderByWithAggregationInput | StockOrderByWithAggregationInput[]
+    by: StockScalarFieldEnum[] | StockScalarFieldEnum
+    having?: StockScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StockCountAggregateInputType | true
+    _avg?: StockAvgAggregateInputType
+    _sum?: StockSumAggregateInputType
+    _min?: StockMinAggregateInputType
+    _max?: StockMaxAggregateInputType
+  }
+
+  export type StockGroupByOutputType = {
+    id: number
+    createdAt: Date
+    casting_item_id: number | null
+    filing_item_id: number | null
+    setting_item_id: number | null
+    buffing_item_id: number | null
+    item_type: $Enums.ITEMTYPE | null
+    item_id: number | null
+    weight: number
+    touch_id: number | null
+    item_purity: number
+    remarks: string | null
+    casting_customer_id: number | null
+    purchase_id: number | null
+    customer_transaction_id: number | null
+    customer_id: number | null
+    _count: StockCountAggregateOutputType | null
+    _avg: StockAvgAggregateOutputType | null
+    _sum: StockSumAggregateOutputType | null
+    _min: StockMinAggregateOutputType | null
+    _max: StockMaxAggregateOutputType | null
+  }
+
+  type GetStockGroupByPayload<T extends StockGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StockGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StockGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StockGroupByOutputType[P]>
+            : GetScalarType<T[P], StockGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StockSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    casting_item_id?: boolean
+    filing_item_id?: boolean
+    setting_item_id?: boolean
+    buffing_item_id?: boolean
+    item_type?: boolean
+    item_id?: boolean
+    weight?: boolean
+    touch_id?: boolean
+    item_purity?: boolean
+    remarks?: boolean
+    casting_customer_id?: boolean
+    purchase_id?: boolean
+    customer_transaction_id?: boolean
+    customer_id?: boolean
+    castingItem?: boolean | Stock$castingItemArgs<ExtArgs>
+    filingItem?: boolean | Stock$filingItemArgs<ExtArgs>
+    settingItem?: boolean | Stock$settingItemArgs<ExtArgs>
+    buffingItem?: boolean | Stock$buffingItemArgs<ExtArgs>
+    item?: boolean | Stock$itemArgs<ExtArgs>
+    touch?: boolean | Stock$touchArgs<ExtArgs>
+    casting_customer?: boolean | Stock$casting_customerArgs<ExtArgs>
+    purchaseId?: boolean | Stock$purchaseIdArgs<ExtArgs>
+    customer_transaction?: boolean | Stock$customer_transactionArgs<ExtArgs>
+    customer?: boolean | Stock$customerArgs<ExtArgs>
+  }, ExtArgs["result"]["stock"]>
+
+
+
+  export type StockSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    casting_item_id?: boolean
+    filing_item_id?: boolean
+    setting_item_id?: boolean
+    buffing_item_id?: boolean
+    item_type?: boolean
+    item_id?: boolean
+    weight?: boolean
+    touch_id?: boolean
+    item_purity?: boolean
+    remarks?: boolean
+    casting_customer_id?: boolean
+    purchase_id?: boolean
+    customer_transaction_id?: boolean
+    customer_id?: boolean
+  }
+
+  export type StockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "casting_item_id" | "filing_item_id" | "setting_item_id" | "buffing_item_id" | "item_type" | "item_id" | "weight" | "touch_id" | "item_purity" | "remarks" | "casting_customer_id" | "purchase_id" | "customer_transaction_id" | "customer_id", ExtArgs["result"]["stock"]>
+  export type StockInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    castingItem?: boolean | Stock$castingItemArgs<ExtArgs>
+    filingItem?: boolean | Stock$filingItemArgs<ExtArgs>
+    settingItem?: boolean | Stock$settingItemArgs<ExtArgs>
+    buffingItem?: boolean | Stock$buffingItemArgs<ExtArgs>
+    item?: boolean | Stock$itemArgs<ExtArgs>
+    touch?: boolean | Stock$touchArgs<ExtArgs>
+    casting_customer?: boolean | Stock$casting_customerArgs<ExtArgs>
+    purchaseId?: boolean | Stock$purchaseIdArgs<ExtArgs>
+    customer_transaction?: boolean | Stock$customer_transactionArgs<ExtArgs>
+    customer?: boolean | Stock$customerArgs<ExtArgs>
+  }
+
+  export type $StockPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Stock"
+    objects: {
+      castingItem: Prisma.$CastingItemsPayload<ExtArgs> | null
+      filingItem: Prisma.$FilingItemsPayload<ExtArgs> | null
+      settingItem: Prisma.$SettingItemsPayload<ExtArgs> | null
+      buffingItem: Prisma.$BuffingItemsPayload<ExtArgs> | null
+      item: Prisma.$AddItemPayload<ExtArgs> | null
+      touch: Prisma.$AddTouchPayload<ExtArgs> | null
+      casting_customer: Prisma.$AddCastingPayload<ExtArgs> | null
+      purchaseId: Prisma.$AddPurchaseStockPayload<ExtArgs> | null
+      customer_transaction: Prisma.$CustomerTransactionPayload<ExtArgs> | null
+      customer: Prisma.$AddCustomerPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      createdAt: Date
+      casting_item_id: number | null
+      filing_item_id: number | null
+      setting_item_id: number | null
+      buffing_item_id: number | null
+      item_type: $Enums.ITEMTYPE | null
+      item_id: number | null
+      weight: number
+      touch_id: number | null
+      item_purity: number
+      remarks: string | null
+      casting_customer_id: number | null
+      purchase_id: number | null
+      customer_transaction_id: number | null
+      customer_id: number | null
+    }, ExtArgs["result"]["stock"]>
+    composites: {}
+  }
+
+  type StockGetPayload<S extends boolean | null | undefined | StockDefaultArgs> = $Result.GetResult<Prisma.$StockPayload, S>
+
+  type StockCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StockFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StockCountAggregateInputType | true
+    }
+
+  export interface StockDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Stock'], meta: { name: 'Stock' } }
+    /**
+     * Find zero or one Stock that matches the filter.
+     * @param {StockFindUniqueArgs} args - Arguments to find a Stock
+     * @example
+     * // Get one Stock
+     * const stock = await prisma.stock.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StockFindUniqueArgs>(args: SelectSubset<T, StockFindUniqueArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Stock that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StockFindUniqueOrThrowArgs} args - Arguments to find a Stock
+     * @example
+     * // Get one Stock
+     * const stock = await prisma.stock.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StockFindUniqueOrThrowArgs>(args: SelectSubset<T, StockFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Stock that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockFindFirstArgs} args - Arguments to find a Stock
+     * @example
+     * // Get one Stock
+     * const stock = await prisma.stock.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StockFindFirstArgs>(args?: SelectSubset<T, StockFindFirstArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Stock that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockFindFirstOrThrowArgs} args - Arguments to find a Stock
+     * @example
+     * // Get one Stock
+     * const stock = await prisma.stock.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StockFindFirstOrThrowArgs>(args?: SelectSubset<T, StockFindFirstOrThrowArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Stocks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Stocks
+     * const stocks = await prisma.stock.findMany()
+     * 
+     * // Get first 10 Stocks
+     * const stocks = await prisma.stock.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const stockWithIdOnly = await prisma.stock.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StockFindManyArgs>(args?: SelectSubset<T, StockFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Stock.
+     * @param {StockCreateArgs} args - Arguments to create a Stock.
+     * @example
+     * // Create one Stock
+     * const Stock = await prisma.stock.create({
+     *   data: {
+     *     // ... data to create a Stock
+     *   }
+     * })
+     * 
+     */
+    create<T extends StockCreateArgs>(args: SelectSubset<T, StockCreateArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Stocks.
+     * @param {StockCreateManyArgs} args - Arguments to create many Stocks.
+     * @example
+     * // Create many Stocks
+     * const stock = await prisma.stock.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StockCreateManyArgs>(args?: SelectSubset<T, StockCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Stock.
+     * @param {StockDeleteArgs} args - Arguments to delete one Stock.
+     * @example
+     * // Delete one Stock
+     * const Stock = await prisma.stock.delete({
+     *   where: {
+     *     // ... filter to delete one Stock
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StockDeleteArgs>(args: SelectSubset<T, StockDeleteArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Stock.
+     * @param {StockUpdateArgs} args - Arguments to update one Stock.
+     * @example
+     * // Update one Stock
+     * const stock = await prisma.stock.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StockUpdateArgs>(args: SelectSubset<T, StockUpdateArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Stocks.
+     * @param {StockDeleteManyArgs} args - Arguments to filter Stocks to delete.
+     * @example
+     * // Delete a few Stocks
+     * const { count } = await prisma.stock.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StockDeleteManyArgs>(args?: SelectSubset<T, StockDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Stocks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Stocks
+     * const stock = await prisma.stock.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StockUpdateManyArgs>(args: SelectSubset<T, StockUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Stock.
+     * @param {StockUpsertArgs} args - Arguments to update or create a Stock.
+     * @example
+     * // Update or create a Stock
+     * const stock = await prisma.stock.upsert({
+     *   create: {
+     *     // ... data to create a Stock
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Stock we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StockUpsertArgs>(args: SelectSubset<T, StockUpsertArgs<ExtArgs>>): Prisma__StockClient<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Stocks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockCountArgs} args - Arguments to filter Stocks to count.
+     * @example
+     * // Count the number of Stocks
+     * const count = await prisma.stock.count({
+     *   where: {
+     *     // ... the filter for the Stocks we want to count
+     *   }
+     * })
+    **/
+    count<T extends StockCountArgs>(
+      args?: Subset<T, StockCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StockCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Stock.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StockAggregateArgs>(args: Subset<T, StockAggregateArgs>): Prisma.PrismaPromise<GetStockAggregateType<T>>
+
+    /**
+     * Group by Stock.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StockGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StockGroupByArgs['orderBy'] }
+        : { orderBy?: StockGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StockGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStockGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Stock model
+   */
+  readonly fields: StockFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Stock.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StockClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    castingItem<T extends Stock$castingItemArgs<ExtArgs> = {}>(args?: Subset<T, Stock$castingItemArgs<ExtArgs>>): Prisma__CastingItemsClient<$Result.GetResult<Prisma.$CastingItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    filingItem<T extends Stock$filingItemArgs<ExtArgs> = {}>(args?: Subset<T, Stock$filingItemArgs<ExtArgs>>): Prisma__FilingItemsClient<$Result.GetResult<Prisma.$FilingItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    settingItem<T extends Stock$settingItemArgs<ExtArgs> = {}>(args?: Subset<T, Stock$settingItemArgs<ExtArgs>>): Prisma__SettingItemsClient<$Result.GetResult<Prisma.$SettingItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    buffingItem<T extends Stock$buffingItemArgs<ExtArgs> = {}>(args?: Subset<T, Stock$buffingItemArgs<ExtArgs>>): Prisma__BuffingItemsClient<$Result.GetResult<Prisma.$BuffingItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    item<T extends Stock$itemArgs<ExtArgs> = {}>(args?: Subset<T, Stock$itemArgs<ExtArgs>>): Prisma__AddItemClient<$Result.GetResult<Prisma.$AddItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    touch<T extends Stock$touchArgs<ExtArgs> = {}>(args?: Subset<T, Stock$touchArgs<ExtArgs>>): Prisma__AddTouchClient<$Result.GetResult<Prisma.$AddTouchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    casting_customer<T extends Stock$casting_customerArgs<ExtArgs> = {}>(args?: Subset<T, Stock$casting_customerArgs<ExtArgs>>): Prisma__AddCastingClient<$Result.GetResult<Prisma.$AddCastingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    purchaseId<T extends Stock$purchaseIdArgs<ExtArgs> = {}>(args?: Subset<T, Stock$purchaseIdArgs<ExtArgs>>): Prisma__AddPurchaseStockClient<$Result.GetResult<Prisma.$AddPurchaseStockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    customer_transaction<T extends Stock$customer_transactionArgs<ExtArgs> = {}>(args?: Subset<T, Stock$customer_transactionArgs<ExtArgs>>): Prisma__CustomerTransactionClient<$Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    customer<T extends Stock$customerArgs<ExtArgs> = {}>(args?: Subset<T, Stock$customerArgs<ExtArgs>>): Prisma__AddCustomerClient<$Result.GetResult<Prisma.$AddCustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Stock model
+   */
+  interface StockFieldRefs {
+    readonly id: FieldRef<"Stock", 'Int'>
+    readonly createdAt: FieldRef<"Stock", 'DateTime'>
+    readonly casting_item_id: FieldRef<"Stock", 'Int'>
+    readonly filing_item_id: FieldRef<"Stock", 'Int'>
+    readonly setting_item_id: FieldRef<"Stock", 'Int'>
+    readonly buffing_item_id: FieldRef<"Stock", 'Int'>
+    readonly item_type: FieldRef<"Stock", 'ITEMTYPE'>
+    readonly item_id: FieldRef<"Stock", 'Int'>
+    readonly weight: FieldRef<"Stock", 'Float'>
+    readonly touch_id: FieldRef<"Stock", 'Int'>
+    readonly item_purity: FieldRef<"Stock", 'Float'>
+    readonly remarks: FieldRef<"Stock", 'String'>
+    readonly casting_customer_id: FieldRef<"Stock", 'Int'>
+    readonly purchase_id: FieldRef<"Stock", 'Int'>
+    readonly customer_transaction_id: FieldRef<"Stock", 'Int'>
+    readonly customer_id: FieldRef<"Stock", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Stock findUnique
+   */
+  export type StockFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    /**
+     * Filter, which Stock to fetch.
+     */
+    where: StockWhereUniqueInput
+  }
+
+  /**
+   * Stock findUniqueOrThrow
+   */
+  export type StockFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    /**
+     * Filter, which Stock to fetch.
+     */
+    where: StockWhereUniqueInput
+  }
+
+  /**
+   * Stock findFirst
+   */
+  export type StockFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    /**
+     * Filter, which Stock to fetch.
+     */
+    where?: StockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stocks to fetch.
+     */
+    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Stocks.
+     */
+    cursor?: StockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Stocks.
+     */
+    distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
+  }
+
+  /**
+   * Stock findFirstOrThrow
+   */
+  export type StockFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    /**
+     * Filter, which Stock to fetch.
+     */
+    where?: StockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stocks to fetch.
+     */
+    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Stocks.
+     */
+    cursor?: StockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Stocks.
+     */
+    distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
+  }
+
+  /**
+   * Stock findMany
+   */
+  export type StockFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    /**
+     * Filter, which Stocks to fetch.
+     */
+    where?: StockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stocks to fetch.
+     */
+    orderBy?: StockOrderByWithRelationInput | StockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Stocks.
+     */
+    cursor?: StockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stocks.
+     */
+    skip?: number
+    distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
+  }
+
+  /**
+   * Stock create
+   */
+  export type StockCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Stock.
+     */
+    data: XOR<StockCreateInput, StockUncheckedCreateInput>
+  }
+
+  /**
+   * Stock createMany
+   */
+  export type StockCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Stocks.
+     */
+    data: StockCreateManyInput | StockCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Stock update
+   */
+  export type StockUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Stock.
+     */
+    data: XOR<StockUpdateInput, StockUncheckedUpdateInput>
+    /**
+     * Choose, which Stock to update.
+     */
+    where: StockWhereUniqueInput
+  }
+
+  /**
+   * Stock updateMany
+   */
+  export type StockUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Stocks.
+     */
+    data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyInput>
+    /**
+     * Filter which Stocks to update
+     */
+    where?: StockWhereInput
+    /**
+     * Limit how many Stocks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Stock upsert
+   */
+  export type StockUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Stock to update in case it exists.
+     */
+    where: StockWhereUniqueInput
+    /**
+     * In case the Stock found by the `where` argument doesn't exist, create a new Stock with this data.
+     */
+    create: XOR<StockCreateInput, StockUncheckedCreateInput>
+    /**
+     * In case the Stock was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StockUpdateInput, StockUncheckedUpdateInput>
+  }
+
+  /**
+   * Stock delete
+   */
+  export type StockDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+    /**
+     * Filter which Stock to delete.
+     */
+    where: StockWhereUniqueInput
+  }
+
+  /**
+   * Stock deleteMany
+   */
+  export type StockDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Stocks to delete
+     */
+    where?: StockWhereInput
+    /**
+     * Limit how many Stocks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Stock.castingItem
+   */
+  export type Stock$castingItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CastingItems
+     */
+    select?: CastingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CastingItems
+     */
+    omit?: CastingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CastingItemsInclude<ExtArgs> | null
+    where?: CastingItemsWhereInput
+  }
+
+  /**
+   * Stock.filingItem
+   */
+  export type Stock$filingItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FilingItems
+     */
+    select?: FilingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FilingItems
+     */
+    omit?: FilingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FilingItemsInclude<ExtArgs> | null
+    where?: FilingItemsWhereInput
+  }
+
+  /**
+   * Stock.settingItem
+   */
+  export type Stock$settingItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SettingItems
+     */
+    select?: SettingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SettingItems
+     */
+    omit?: SettingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SettingItemsInclude<ExtArgs> | null
+    where?: SettingItemsWhereInput
+  }
+
+  /**
+   * Stock.buffingItem
+   */
+  export type Stock$buffingItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuffingItems
+     */
+    select?: BuffingItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BuffingItems
+     */
+    omit?: BuffingItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BuffingItemsInclude<ExtArgs> | null
+    where?: BuffingItemsWhereInput
+  }
+
+  /**
+   * Stock.item
+   */
+  export type Stock$itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddItem
+     */
+    select?: AddItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddItem
+     */
+    omit?: AddItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddItemInclude<ExtArgs> | null
+    where?: AddItemWhereInput
+  }
+
+  /**
+   * Stock.touch
+   */
+  export type Stock$touchArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddTouch
+     */
+    select?: AddTouchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddTouch
+     */
+    omit?: AddTouchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddTouchInclude<ExtArgs> | null
+    where?: AddTouchWhereInput
+  }
+
+  /**
+   * Stock.casting_customer
+   */
+  export type Stock$casting_customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddCasting
+     */
+    select?: AddCastingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddCasting
+     */
+    omit?: AddCastingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddCastingInclude<ExtArgs> | null
+    where?: AddCastingWhereInput
+  }
+
+  /**
+   * Stock.purchaseId
+   */
+  export type Stock$purchaseIdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddPurchaseStock
+     */
+    select?: AddPurchaseStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddPurchaseStock
+     */
+    omit?: AddPurchaseStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddPurchaseStockInclude<ExtArgs> | null
+    where?: AddPurchaseStockWhereInput
+  }
+
+  /**
+   * Stock.customer_transaction
+   */
+  export type Stock$customer_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerTransaction
+     */
+    select?: CustomerTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerTransaction
+     */
+    omit?: CustomerTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerTransactionInclude<ExtArgs> | null
+    where?: CustomerTransactionWhereInput
+  }
+
+  /**
+   * Stock.customer
+   */
+  export type Stock$customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddCustomer
+     */
+    select?: AddCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AddCustomer
+     */
+    omit?: AddCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddCustomerInclude<ExtArgs> | null
+    where?: AddCustomerWhereInput
+  }
+
+  /**
+   * Stock without action
+   */
+  export type StockDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stock
+     */
+    select?: StockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Stock
+     */
+    omit?: StockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model ExpenseVoucher
    */
 
@@ -46808,28 +46808,6 @@ export namespace Prisma {
   export type BuffingWastageScalarFieldEnum = (typeof BuffingWastageScalarFieldEnum)[keyof typeof BuffingWastageScalarFieldEnum]
 
 
-  export const StockScalarFieldEnum: {
-    id: 'id',
-    createdAt: 'createdAt',
-    casting_item_id: 'casting_item_id',
-    filing_item_id: 'filing_item_id',
-    setting_item_id: 'setting_item_id',
-    buffing_item_id: 'buffing_item_id',
-    item_type: 'item_type',
-    item_id: 'item_id',
-    weight: 'weight',
-    touch_id: 'touch_id',
-    item_purity: 'item_purity',
-    remarks: 'remarks',
-    casting_customer_id: 'casting_customer_id',
-    purchase_id: 'purchase_id',
-    customer_transaction_id: 'customer_transaction_id',
-    customer_id: 'customer_id'
-  };
-
-  export type StockScalarFieldEnum = (typeof StockScalarFieldEnum)[keyof typeof StockScalarFieldEnum]
-
-
   export const HallmarkScalarFieldEnum: {
     id: 'id',
     customer_id: 'customer_id',
@@ -46916,6 +46894,28 @@ export namespace Prisma {
   };
 
   export type ReceiptVoucherScalarFieldEnum = (typeof ReceiptVoucherScalarFieldEnum)[keyof typeof ReceiptVoucherScalarFieldEnum]
+
+
+  export const StockScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    casting_item_id: 'casting_item_id',
+    filing_item_id: 'filing_item_id',
+    setting_item_id: 'setting_item_id',
+    buffing_item_id: 'buffing_item_id',
+    item_type: 'item_type',
+    item_id: 'item_id',
+    weight: 'weight',
+    touch_id: 'touch_id',
+    item_purity: 'item_purity',
+    remarks: 'remarks',
+    casting_customer_id: 'casting_customer_id',
+    purchase_id: 'purchase_id',
+    customer_transaction_id: 'customer_transaction_id',
+    customer_id: 'customer_id'
+  };
+
+  export type StockScalarFieldEnum = (typeof StockScalarFieldEnum)[keyof typeof StockScalarFieldEnum]
 
 
   export const ExpenseVoucherScalarFieldEnum: {
@@ -47078,13 +47078,6 @@ export namespace Prisma {
   export type BuffingTotalBalanceOrderByRelevanceFieldEnum = (typeof BuffingTotalBalanceOrderByRelevanceFieldEnum)[keyof typeof BuffingTotalBalanceOrderByRelevanceFieldEnum]
 
 
-  export const StockOrderByRelevanceFieldEnum: {
-    remarks: 'remarks'
-  };
-
-  export type StockOrderByRelevanceFieldEnum = (typeof StockOrderByRelevanceFieldEnum)[keyof typeof StockOrderByRelevanceFieldEnum]
-
-
   export const BillOrderByRelevanceFieldEnum: {
     bill_no: 'bill_no',
     date: 'date',
@@ -47114,6 +47107,13 @@ export namespace Prisma {
   };
 
   export type ReceiptVoucherOrderByRelevanceFieldEnum = (typeof ReceiptVoucherOrderByRelevanceFieldEnum)[keyof typeof ReceiptVoucherOrderByRelevanceFieldEnum]
+
+
+  export const StockOrderByRelevanceFieldEnum: {
+    remarks: 'remarks'
+  };
+
+  export type StockOrderByRelevanceFieldEnum = (typeof StockOrderByRelevanceFieldEnum)[keyof typeof StockOrderByRelevanceFieldEnum]
 
 
   export const ExpenseVoucherOrderByRelevanceFieldEnum: {
@@ -49769,146 +49769,6 @@ export namespace Prisma {
     buffing_lot_id?: IntNullableWithAggregatesFilter<"BuffingWastage"> | number | null
   }
 
-  export type StockWhereInput = {
-    AND?: StockWhereInput | StockWhereInput[]
-    OR?: StockWhereInput[]
-    NOT?: StockWhereInput | StockWhereInput[]
-    id?: IntFilter<"Stock"> | number
-    createdAt?: DateTimeFilter<"Stock"> | Date | string
-    casting_item_id?: IntNullableFilter<"Stock"> | number | null
-    filing_item_id?: IntNullableFilter<"Stock"> | number | null
-    setting_item_id?: IntNullableFilter<"Stock"> | number | null
-    buffing_item_id?: IntNullableFilter<"Stock"> | number | null
-    item_type?: EnumITEMTYPENullableFilter<"Stock"> | $Enums.ITEMTYPE | null
-    item_id?: IntNullableFilter<"Stock"> | number | null
-    weight?: FloatFilter<"Stock"> | number
-    touch_id?: IntNullableFilter<"Stock"> | number | null
-    item_purity?: FloatFilter<"Stock"> | number
-    remarks?: StringNullableFilter<"Stock"> | string | null
-    casting_customer_id?: IntNullableFilter<"Stock"> | number | null
-    purchase_id?: IntNullableFilter<"Stock"> | number | null
-    customer_transaction_id?: IntNullableFilter<"Stock"> | number | null
-    customer_id?: IntNullableFilter<"Stock"> | number | null
-    castingItem?: XOR<CastingItemsNullableScalarRelationFilter, CastingItemsWhereInput> | null
-    filingItem?: XOR<FilingItemsNullableScalarRelationFilter, FilingItemsWhereInput> | null
-    settingItem?: XOR<SettingItemsNullableScalarRelationFilter, SettingItemsWhereInput> | null
-    buffingItem?: XOR<BuffingItemsNullableScalarRelationFilter, BuffingItemsWhereInput> | null
-    item?: XOR<AddItemNullableScalarRelationFilter, AddItemWhereInput> | null
-    touch?: XOR<AddTouchNullableScalarRelationFilter, AddTouchWhereInput> | null
-    casting_customer?: XOR<AddCastingNullableScalarRelationFilter, AddCastingWhereInput> | null
-    purchaseId?: XOR<AddPurchaseStockNullableScalarRelationFilter, AddPurchaseStockWhereInput> | null
-    customer_transaction?: XOR<CustomerTransactionNullableScalarRelationFilter, CustomerTransactionWhereInput> | null
-    customer?: XOR<AddCustomerNullableScalarRelationFilter, AddCustomerWhereInput> | null
-  }
-
-  export type StockOrderByWithRelationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    casting_item_id?: SortOrderInput | SortOrder
-    filing_item_id?: SortOrderInput | SortOrder
-    setting_item_id?: SortOrderInput | SortOrder
-    buffing_item_id?: SortOrderInput | SortOrder
-    item_type?: SortOrderInput | SortOrder
-    item_id?: SortOrderInput | SortOrder
-    weight?: SortOrder
-    touch_id?: SortOrderInput | SortOrder
-    item_purity?: SortOrder
-    remarks?: SortOrderInput | SortOrder
-    casting_customer_id?: SortOrderInput | SortOrder
-    purchase_id?: SortOrderInput | SortOrder
-    customer_transaction_id?: SortOrderInput | SortOrder
-    customer_id?: SortOrderInput | SortOrder
-    castingItem?: CastingItemsOrderByWithRelationInput
-    filingItem?: FilingItemsOrderByWithRelationInput
-    settingItem?: SettingItemsOrderByWithRelationInput
-    buffingItem?: BuffingItemsOrderByWithRelationInput
-    item?: AddItemOrderByWithRelationInput
-    touch?: AddTouchOrderByWithRelationInput
-    casting_customer?: AddCastingOrderByWithRelationInput
-    purchaseId?: AddPurchaseStockOrderByWithRelationInput
-    customer_transaction?: CustomerTransactionOrderByWithRelationInput
-    customer?: AddCustomerOrderByWithRelationInput
-    _relevance?: StockOrderByRelevanceInput
-  }
-
-  export type StockWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: StockWhereInput | StockWhereInput[]
-    OR?: StockWhereInput[]
-    NOT?: StockWhereInput | StockWhereInput[]
-    createdAt?: DateTimeFilter<"Stock"> | Date | string
-    casting_item_id?: IntNullableFilter<"Stock"> | number | null
-    filing_item_id?: IntNullableFilter<"Stock"> | number | null
-    setting_item_id?: IntNullableFilter<"Stock"> | number | null
-    buffing_item_id?: IntNullableFilter<"Stock"> | number | null
-    item_type?: EnumITEMTYPENullableFilter<"Stock"> | $Enums.ITEMTYPE | null
-    item_id?: IntNullableFilter<"Stock"> | number | null
-    weight?: FloatFilter<"Stock"> | number
-    touch_id?: IntNullableFilter<"Stock"> | number | null
-    item_purity?: FloatFilter<"Stock"> | number
-    remarks?: StringNullableFilter<"Stock"> | string | null
-    casting_customer_id?: IntNullableFilter<"Stock"> | number | null
-    purchase_id?: IntNullableFilter<"Stock"> | number | null
-    customer_transaction_id?: IntNullableFilter<"Stock"> | number | null
-    customer_id?: IntNullableFilter<"Stock"> | number | null
-    castingItem?: XOR<CastingItemsNullableScalarRelationFilter, CastingItemsWhereInput> | null
-    filingItem?: XOR<FilingItemsNullableScalarRelationFilter, FilingItemsWhereInput> | null
-    settingItem?: XOR<SettingItemsNullableScalarRelationFilter, SettingItemsWhereInput> | null
-    buffingItem?: XOR<BuffingItemsNullableScalarRelationFilter, BuffingItemsWhereInput> | null
-    item?: XOR<AddItemNullableScalarRelationFilter, AddItemWhereInput> | null
-    touch?: XOR<AddTouchNullableScalarRelationFilter, AddTouchWhereInput> | null
-    casting_customer?: XOR<AddCastingNullableScalarRelationFilter, AddCastingWhereInput> | null
-    purchaseId?: XOR<AddPurchaseStockNullableScalarRelationFilter, AddPurchaseStockWhereInput> | null
-    customer_transaction?: XOR<CustomerTransactionNullableScalarRelationFilter, CustomerTransactionWhereInput> | null
-    customer?: XOR<AddCustomerNullableScalarRelationFilter, AddCustomerWhereInput> | null
-  }, "id">
-
-  export type StockOrderByWithAggregationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    casting_item_id?: SortOrderInput | SortOrder
-    filing_item_id?: SortOrderInput | SortOrder
-    setting_item_id?: SortOrderInput | SortOrder
-    buffing_item_id?: SortOrderInput | SortOrder
-    item_type?: SortOrderInput | SortOrder
-    item_id?: SortOrderInput | SortOrder
-    weight?: SortOrder
-    touch_id?: SortOrderInput | SortOrder
-    item_purity?: SortOrder
-    remarks?: SortOrderInput | SortOrder
-    casting_customer_id?: SortOrderInput | SortOrder
-    purchase_id?: SortOrderInput | SortOrder
-    customer_transaction_id?: SortOrderInput | SortOrder
-    customer_id?: SortOrderInput | SortOrder
-    _count?: StockCountOrderByAggregateInput
-    _avg?: StockAvgOrderByAggregateInput
-    _max?: StockMaxOrderByAggregateInput
-    _min?: StockMinOrderByAggregateInput
-    _sum?: StockSumOrderByAggregateInput
-  }
-
-  export type StockScalarWhereWithAggregatesInput = {
-    AND?: StockScalarWhereWithAggregatesInput | StockScalarWhereWithAggregatesInput[]
-    OR?: StockScalarWhereWithAggregatesInput[]
-    NOT?: StockScalarWhereWithAggregatesInput | StockScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Stock"> | number
-    createdAt?: DateTimeWithAggregatesFilter<"Stock"> | Date | string
-    casting_item_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
-    filing_item_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
-    setting_item_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
-    buffing_item_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
-    item_type?: EnumITEMTYPENullableWithAggregatesFilter<"Stock"> | $Enums.ITEMTYPE | null
-    item_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
-    weight?: FloatWithAggregatesFilter<"Stock"> | number
-    touch_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
-    item_purity?: FloatWithAggregatesFilter<"Stock"> | number
-    remarks?: StringNullableWithAggregatesFilter<"Stock"> | string | null
-    casting_customer_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
-    purchase_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
-    customer_transaction_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
-    customer_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
-  }
-
   export type HallmarkWhereInput = {
     AND?: HallmarkWhereInput | HallmarkWhereInput[]
     OR?: HallmarkWhereInput[]
@@ -50376,6 +50236,146 @@ export namespace Prisma {
     touch_id?: IntNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
     purity?: FloatNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
     hallmark?: FloatNullableWithAggregatesFilter<"ReceiptVoucher"> | number | null
+  }
+
+  export type StockWhereInput = {
+    AND?: StockWhereInput | StockWhereInput[]
+    OR?: StockWhereInput[]
+    NOT?: StockWhereInput | StockWhereInput[]
+    id?: IntFilter<"Stock"> | number
+    createdAt?: DateTimeFilter<"Stock"> | Date | string
+    casting_item_id?: IntNullableFilter<"Stock"> | number | null
+    filing_item_id?: IntNullableFilter<"Stock"> | number | null
+    setting_item_id?: IntNullableFilter<"Stock"> | number | null
+    buffing_item_id?: IntNullableFilter<"Stock"> | number | null
+    item_type?: EnumITEMTYPENullableFilter<"Stock"> | $Enums.ITEMTYPE | null
+    item_id?: IntNullableFilter<"Stock"> | number | null
+    weight?: FloatFilter<"Stock"> | number
+    touch_id?: IntNullableFilter<"Stock"> | number | null
+    item_purity?: FloatFilter<"Stock"> | number
+    remarks?: StringNullableFilter<"Stock"> | string | null
+    casting_customer_id?: IntNullableFilter<"Stock"> | number | null
+    purchase_id?: IntNullableFilter<"Stock"> | number | null
+    customer_transaction_id?: IntNullableFilter<"Stock"> | number | null
+    customer_id?: IntNullableFilter<"Stock"> | number | null
+    castingItem?: XOR<CastingItemsNullableScalarRelationFilter, CastingItemsWhereInput> | null
+    filingItem?: XOR<FilingItemsNullableScalarRelationFilter, FilingItemsWhereInput> | null
+    settingItem?: XOR<SettingItemsNullableScalarRelationFilter, SettingItemsWhereInput> | null
+    buffingItem?: XOR<BuffingItemsNullableScalarRelationFilter, BuffingItemsWhereInput> | null
+    item?: XOR<AddItemNullableScalarRelationFilter, AddItemWhereInput> | null
+    touch?: XOR<AddTouchNullableScalarRelationFilter, AddTouchWhereInput> | null
+    casting_customer?: XOR<AddCastingNullableScalarRelationFilter, AddCastingWhereInput> | null
+    purchaseId?: XOR<AddPurchaseStockNullableScalarRelationFilter, AddPurchaseStockWhereInput> | null
+    customer_transaction?: XOR<CustomerTransactionNullableScalarRelationFilter, CustomerTransactionWhereInput> | null
+    customer?: XOR<AddCustomerNullableScalarRelationFilter, AddCustomerWhereInput> | null
+  }
+
+  export type StockOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    casting_item_id?: SortOrderInput | SortOrder
+    filing_item_id?: SortOrderInput | SortOrder
+    setting_item_id?: SortOrderInput | SortOrder
+    buffing_item_id?: SortOrderInput | SortOrder
+    item_type?: SortOrderInput | SortOrder
+    item_id?: SortOrderInput | SortOrder
+    weight?: SortOrder
+    touch_id?: SortOrderInput | SortOrder
+    item_purity?: SortOrder
+    remarks?: SortOrderInput | SortOrder
+    casting_customer_id?: SortOrderInput | SortOrder
+    purchase_id?: SortOrderInput | SortOrder
+    customer_transaction_id?: SortOrderInput | SortOrder
+    customer_id?: SortOrderInput | SortOrder
+    castingItem?: CastingItemsOrderByWithRelationInput
+    filingItem?: FilingItemsOrderByWithRelationInput
+    settingItem?: SettingItemsOrderByWithRelationInput
+    buffingItem?: BuffingItemsOrderByWithRelationInput
+    item?: AddItemOrderByWithRelationInput
+    touch?: AddTouchOrderByWithRelationInput
+    casting_customer?: AddCastingOrderByWithRelationInput
+    purchaseId?: AddPurchaseStockOrderByWithRelationInput
+    customer_transaction?: CustomerTransactionOrderByWithRelationInput
+    customer?: AddCustomerOrderByWithRelationInput
+    _relevance?: StockOrderByRelevanceInput
+  }
+
+  export type StockWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: StockWhereInput | StockWhereInput[]
+    OR?: StockWhereInput[]
+    NOT?: StockWhereInput | StockWhereInput[]
+    createdAt?: DateTimeFilter<"Stock"> | Date | string
+    casting_item_id?: IntNullableFilter<"Stock"> | number | null
+    filing_item_id?: IntNullableFilter<"Stock"> | number | null
+    setting_item_id?: IntNullableFilter<"Stock"> | number | null
+    buffing_item_id?: IntNullableFilter<"Stock"> | number | null
+    item_type?: EnumITEMTYPENullableFilter<"Stock"> | $Enums.ITEMTYPE | null
+    item_id?: IntNullableFilter<"Stock"> | number | null
+    weight?: FloatFilter<"Stock"> | number
+    touch_id?: IntNullableFilter<"Stock"> | number | null
+    item_purity?: FloatFilter<"Stock"> | number
+    remarks?: StringNullableFilter<"Stock"> | string | null
+    casting_customer_id?: IntNullableFilter<"Stock"> | number | null
+    purchase_id?: IntNullableFilter<"Stock"> | number | null
+    customer_transaction_id?: IntNullableFilter<"Stock"> | number | null
+    customer_id?: IntNullableFilter<"Stock"> | number | null
+    castingItem?: XOR<CastingItemsNullableScalarRelationFilter, CastingItemsWhereInput> | null
+    filingItem?: XOR<FilingItemsNullableScalarRelationFilter, FilingItemsWhereInput> | null
+    settingItem?: XOR<SettingItemsNullableScalarRelationFilter, SettingItemsWhereInput> | null
+    buffingItem?: XOR<BuffingItemsNullableScalarRelationFilter, BuffingItemsWhereInput> | null
+    item?: XOR<AddItemNullableScalarRelationFilter, AddItemWhereInput> | null
+    touch?: XOR<AddTouchNullableScalarRelationFilter, AddTouchWhereInput> | null
+    casting_customer?: XOR<AddCastingNullableScalarRelationFilter, AddCastingWhereInput> | null
+    purchaseId?: XOR<AddPurchaseStockNullableScalarRelationFilter, AddPurchaseStockWhereInput> | null
+    customer_transaction?: XOR<CustomerTransactionNullableScalarRelationFilter, CustomerTransactionWhereInput> | null
+    customer?: XOR<AddCustomerNullableScalarRelationFilter, AddCustomerWhereInput> | null
+  }, "id">
+
+  export type StockOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    casting_item_id?: SortOrderInput | SortOrder
+    filing_item_id?: SortOrderInput | SortOrder
+    setting_item_id?: SortOrderInput | SortOrder
+    buffing_item_id?: SortOrderInput | SortOrder
+    item_type?: SortOrderInput | SortOrder
+    item_id?: SortOrderInput | SortOrder
+    weight?: SortOrder
+    touch_id?: SortOrderInput | SortOrder
+    item_purity?: SortOrder
+    remarks?: SortOrderInput | SortOrder
+    casting_customer_id?: SortOrderInput | SortOrder
+    purchase_id?: SortOrderInput | SortOrder
+    customer_transaction_id?: SortOrderInput | SortOrder
+    customer_id?: SortOrderInput | SortOrder
+    _count?: StockCountOrderByAggregateInput
+    _avg?: StockAvgOrderByAggregateInput
+    _max?: StockMaxOrderByAggregateInput
+    _min?: StockMinOrderByAggregateInput
+    _sum?: StockSumOrderByAggregateInput
+  }
+
+  export type StockScalarWhereWithAggregatesInput = {
+    AND?: StockScalarWhereWithAggregatesInput | StockScalarWhereWithAggregatesInput[]
+    OR?: StockScalarWhereWithAggregatesInput[]
+    NOT?: StockScalarWhereWithAggregatesInput | StockScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Stock"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Stock"> | Date | string
+    casting_item_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
+    filing_item_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
+    setting_item_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
+    buffing_item_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
+    item_type?: EnumITEMTYPENullableWithAggregatesFilter<"Stock"> | $Enums.ITEMTYPE | null
+    item_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
+    weight?: FloatWithAggregatesFilter<"Stock"> | number
+    touch_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
+    item_purity?: FloatWithAggregatesFilter<"Stock"> | number
+    remarks?: StringNullableWithAggregatesFilter<"Stock"> | string | null
+    casting_customer_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
+    purchase_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
+    customer_transaction_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
+    customer_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
   }
 
   export type ExpenseVoucherWhereInput = {
@@ -53071,126 +53071,6 @@ export namespace Prisma {
     buffing_lot_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type StockCreateInput = {
-    createdAt?: Date | string
-    item_type?: $Enums.ITEMTYPE | null
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    castingItem?: CastingItemsCreateNestedOneWithoutStockInput
-    filingItem?: FilingItemsCreateNestedOneWithoutStockInput
-    settingItem?: SettingItemsCreateNestedOneWithoutStockInput
-    buffingItem?: BuffingItemsCreateNestedOneWithoutStockInput
-    item?: AddItemCreateNestedOneWithoutStockInput
-    touch?: AddTouchCreateNestedOneWithoutStockInput
-    casting_customer?: AddCastingCreateNestedOneWithoutStockInput
-    purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
-    customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
-    customer?: AddCustomerCreateNestedOneWithoutStockInput
-  }
-
-  export type StockUncheckedCreateInput = {
-    id?: number
-    createdAt?: Date | string
-    casting_item_id?: number | null
-    filing_item_id?: number | null
-    setting_item_id?: number | null
-    buffing_item_id?: number | null
-    item_type?: $Enums.ITEMTYPE | null
-    item_id?: number | null
-    weight: number
-    touch_id?: number | null
-    item_purity: number
-    remarks?: string | null
-    casting_customer_id?: number | null
-    purchase_id?: number | null
-    customer_transaction_id?: number | null
-    customer_id?: number | null
-  }
-
-  export type StockUpdateInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    castingItem?: CastingItemsUpdateOneWithoutStockNestedInput
-    filingItem?: FilingItemsUpdateOneWithoutStockNestedInput
-    settingItem?: SettingItemsUpdateOneWithoutStockNestedInput
-    buffingItem?: BuffingItemsUpdateOneWithoutStockNestedInput
-    item?: AddItemUpdateOneWithoutStockNestedInput
-    touch?: AddTouchUpdateOneWithoutStockNestedInput
-    casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
-    purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
-    customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
-    customer?: AddCustomerUpdateOneWithoutStockNestedInput
-  }
-
-  export type StockUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
-    item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: FloatFieldUpdateOperationsInput | number
-    touch_id?: NullableIntFieldUpdateOperationsInput | number | null
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
-    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
-    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
-    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type StockCreateManyInput = {
-    id?: number
-    createdAt?: Date | string
-    casting_item_id?: number | null
-    filing_item_id?: number | null
-    setting_item_id?: number | null
-    buffing_item_id?: number | null
-    item_type?: $Enums.ITEMTYPE | null
-    item_id?: number | null
-    weight: number
-    touch_id?: number | null
-    item_purity: number
-    remarks?: string | null
-    casting_customer_id?: number | null
-    purchase_id?: number | null
-    customer_transaction_id?: number | null
-    customer_id?: number | null
-  }
-
-  export type StockUpdateManyMutationInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type StockUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
-    item_id?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: FloatFieldUpdateOperationsInput | number
-    touch_id?: NullableIntFieldUpdateOperationsInput | number | null
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
-    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
-    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
-    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
   export type HallmarkCreateInput = {
     balance?: number
     createdAt?: Date | string
@@ -53685,6 +53565,126 @@ export namespace Prisma {
     touch_id?: NullableIntFieldUpdateOperationsInput | number | null
     purity?: NullableFloatFieldUpdateOperationsInput | number | null
     hallmark?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type StockCreateInput = {
+    createdAt?: Date | string
+    item_type?: $Enums.ITEMTYPE | null
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    castingItem?: CastingItemsCreateNestedOneWithoutStockInput
+    filingItem?: FilingItemsCreateNestedOneWithoutStockInput
+    settingItem?: SettingItemsCreateNestedOneWithoutStockInput
+    buffingItem?: BuffingItemsCreateNestedOneWithoutStockInput
+    item?: AddItemCreateNestedOneWithoutStockInput
+    touch?: AddTouchCreateNestedOneWithoutStockInput
+    casting_customer?: AddCastingCreateNestedOneWithoutStockInput
+    purchaseId?: AddPurchaseStockCreateNestedOneWithoutStockInput
+    customer_transaction?: CustomerTransactionCreateNestedOneWithoutStockInput
+    customer?: AddCustomerCreateNestedOneWithoutStockInput
+  }
+
+  export type StockUncheckedCreateInput = {
+    id?: number
+    createdAt?: Date | string
+    casting_item_id?: number | null
+    filing_item_id?: number | null
+    setting_item_id?: number | null
+    buffing_item_id?: number | null
+    item_type?: $Enums.ITEMTYPE | null
+    item_id?: number | null
+    weight: number
+    touch_id?: number | null
+    item_purity: number
+    remarks?: string | null
+    casting_customer_id?: number | null
+    purchase_id?: number | null
+    customer_transaction_id?: number | null
+    customer_id?: number | null
+  }
+
+  export type StockUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    castingItem?: CastingItemsUpdateOneWithoutStockNestedInput
+    filingItem?: FilingItemsUpdateOneWithoutStockNestedInput
+    settingItem?: SettingItemsUpdateOneWithoutStockNestedInput
+    buffingItem?: BuffingItemsUpdateOneWithoutStockNestedInput
+    item?: AddItemUpdateOneWithoutStockNestedInput
+    touch?: AddTouchUpdateOneWithoutStockNestedInput
+    casting_customer?: AddCastingUpdateOneWithoutStockNestedInput
+    purchaseId?: AddPurchaseStockUpdateOneWithoutStockNestedInput
+    customer_transaction?: CustomerTransactionUpdateOneWithoutStockNestedInput
+    customer?: AddCustomerUpdateOneWithoutStockNestedInput
+  }
+
+  export type StockUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    touch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type StockCreateManyInput = {
+    id?: number
+    createdAt?: Date | string
+    casting_item_id?: number | null
+    filing_item_id?: number | null
+    setting_item_id?: number | null
+    buffing_item_id?: number | null
+    item_type?: $Enums.ITEMTYPE | null
+    item_id?: number | null
+    weight: number
+    touch_id?: number | null
+    item_purity: number
+    remarks?: string | null
+    casting_customer_id?: number | null
+    purchase_id?: number | null
+    customer_transaction_id?: number | null
+    customer_id?: number | null
+  }
+
+  export type StockUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type StockUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    casting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    filing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    setting_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    buffing_item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_type?: NullableEnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE | null
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
+    touch_id?: NullableIntFieldUpdateOperationsInput | number | null
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_customer_id?: NullableIntFieldUpdateOperationsInput | number | null
+    purchase_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_transaction_id?: NullableIntFieldUpdateOperationsInput | number | null
+    customer_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ExpenseVoucherCreateInput = {
@@ -56096,153 +56096,6 @@ export namespace Prisma {
     buffing_lot_id?: SortOrder
   }
 
-  export type EnumITEMTYPENullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.ITEMTYPE | EnumITEMTYPEFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ITEMTYPE[] | null
-    notIn?: $Enums.ITEMTYPE[] | null
-    not?: NestedEnumITEMTYPENullableFilter<$PrismaModel> | $Enums.ITEMTYPE | null
-  }
-
-  export type CastingItemsNullableScalarRelationFilter = {
-    is?: CastingItemsWhereInput | null
-    isNot?: CastingItemsWhereInput | null
-  }
-
-  export type BuffingItemsNullableScalarRelationFilter = {
-    is?: BuffingItemsWhereInput | null
-    isNot?: BuffingItemsWhereInput | null
-  }
-
-  export type AddItemNullableScalarRelationFilter = {
-    is?: AddItemWhereInput | null
-    isNot?: AddItemWhereInput | null
-  }
-
-  export type AddCastingNullableScalarRelationFilter = {
-    is?: AddCastingWhereInput | null
-    isNot?: AddCastingWhereInput | null
-  }
-
-  export type AddPurchaseStockNullableScalarRelationFilter = {
-    is?: AddPurchaseStockWhereInput | null
-    isNot?: AddPurchaseStockWhereInput | null
-  }
-
-  export type CustomerTransactionNullableScalarRelationFilter = {
-    is?: CustomerTransactionWhereInput | null
-    isNot?: CustomerTransactionWhereInput | null
-  }
-
-  export type AddCustomerNullableScalarRelationFilter = {
-    is?: AddCustomerWhereInput | null
-    isNot?: AddCustomerWhereInput | null
-  }
-
-  export type StockOrderByRelevanceInput = {
-    fields: StockOrderByRelevanceFieldEnum | StockOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type StockCountOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    casting_item_id?: SortOrder
-    filing_item_id?: SortOrder
-    setting_item_id?: SortOrder
-    buffing_item_id?: SortOrder
-    item_type?: SortOrder
-    item_id?: SortOrder
-    weight?: SortOrder
-    touch_id?: SortOrder
-    item_purity?: SortOrder
-    remarks?: SortOrder
-    casting_customer_id?: SortOrder
-    purchase_id?: SortOrder
-    customer_transaction_id?: SortOrder
-    customer_id?: SortOrder
-  }
-
-  export type StockAvgOrderByAggregateInput = {
-    id?: SortOrder
-    casting_item_id?: SortOrder
-    filing_item_id?: SortOrder
-    setting_item_id?: SortOrder
-    buffing_item_id?: SortOrder
-    item_id?: SortOrder
-    weight?: SortOrder
-    touch_id?: SortOrder
-    item_purity?: SortOrder
-    casting_customer_id?: SortOrder
-    purchase_id?: SortOrder
-    customer_transaction_id?: SortOrder
-    customer_id?: SortOrder
-  }
-
-  export type StockMaxOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    casting_item_id?: SortOrder
-    filing_item_id?: SortOrder
-    setting_item_id?: SortOrder
-    buffing_item_id?: SortOrder
-    item_type?: SortOrder
-    item_id?: SortOrder
-    weight?: SortOrder
-    touch_id?: SortOrder
-    item_purity?: SortOrder
-    remarks?: SortOrder
-    casting_customer_id?: SortOrder
-    purchase_id?: SortOrder
-    customer_transaction_id?: SortOrder
-    customer_id?: SortOrder
-  }
-
-  export type StockMinOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    casting_item_id?: SortOrder
-    filing_item_id?: SortOrder
-    setting_item_id?: SortOrder
-    buffing_item_id?: SortOrder
-    item_type?: SortOrder
-    item_id?: SortOrder
-    weight?: SortOrder
-    touch_id?: SortOrder
-    item_purity?: SortOrder
-    remarks?: SortOrder
-    casting_customer_id?: SortOrder
-    purchase_id?: SortOrder
-    customer_transaction_id?: SortOrder
-    customer_id?: SortOrder
-  }
-
-  export type StockSumOrderByAggregateInput = {
-    id?: SortOrder
-    casting_item_id?: SortOrder
-    filing_item_id?: SortOrder
-    setting_item_id?: SortOrder
-    buffing_item_id?: SortOrder
-    item_id?: SortOrder
-    weight?: SortOrder
-    touch_id?: SortOrder
-    item_purity?: SortOrder
-    casting_customer_id?: SortOrder
-    purchase_id?: SortOrder
-    customer_transaction_id?: SortOrder
-    customer_id?: SortOrder
-  }
-
-  export type EnumITEMTYPENullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ITEMTYPE | EnumITEMTYPEFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ITEMTYPE[] | null
-    notIn?: $Enums.ITEMTYPE[] | null
-    not?: NestedEnumITEMTYPENullableWithAggregatesFilter<$PrismaModel> | $Enums.ITEMTYPE | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumITEMTYPENullableFilter<$PrismaModel>
-    _max?: NestedEnumITEMTYPENullableFilter<$PrismaModel>
-  }
-
   export type HallmarkCountOrderByAggregateInput = {
     id?: SortOrder
     customer_id?: SortOrder
@@ -56388,6 +56241,11 @@ export namespace Prisma {
   export type QcStockScalarRelationFilter = {
     is?: QcStockWhereInput
     isNot?: QcStockWhereInput
+  }
+
+  export type AddItemNullableScalarRelationFilter = {
+    is?: AddItemWhereInput | null
+    isNot?: AddItemWhereInput | null
   }
 
   export type BillItemOrderByRelevanceInput = {
@@ -56614,6 +56472,148 @@ export namespace Prisma {
     touch_id?: SortOrder
     purity?: SortOrder
     hallmark?: SortOrder
+  }
+
+  export type EnumITEMTYPENullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ITEMTYPE | EnumITEMTYPEFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ITEMTYPE[] | null
+    notIn?: $Enums.ITEMTYPE[] | null
+    not?: NestedEnumITEMTYPENullableFilter<$PrismaModel> | $Enums.ITEMTYPE | null
+  }
+
+  export type CastingItemsNullableScalarRelationFilter = {
+    is?: CastingItemsWhereInput | null
+    isNot?: CastingItemsWhereInput | null
+  }
+
+  export type BuffingItemsNullableScalarRelationFilter = {
+    is?: BuffingItemsWhereInput | null
+    isNot?: BuffingItemsWhereInput | null
+  }
+
+  export type AddCastingNullableScalarRelationFilter = {
+    is?: AddCastingWhereInput | null
+    isNot?: AddCastingWhereInput | null
+  }
+
+  export type AddPurchaseStockNullableScalarRelationFilter = {
+    is?: AddPurchaseStockWhereInput | null
+    isNot?: AddPurchaseStockWhereInput | null
+  }
+
+  export type CustomerTransactionNullableScalarRelationFilter = {
+    is?: CustomerTransactionWhereInput | null
+    isNot?: CustomerTransactionWhereInput | null
+  }
+
+  export type AddCustomerNullableScalarRelationFilter = {
+    is?: AddCustomerWhereInput | null
+    isNot?: AddCustomerWhereInput | null
+  }
+
+  export type StockOrderByRelevanceInput = {
+    fields: StockOrderByRelevanceFieldEnum | StockOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type StockCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    casting_item_id?: SortOrder
+    filing_item_id?: SortOrder
+    setting_item_id?: SortOrder
+    buffing_item_id?: SortOrder
+    item_type?: SortOrder
+    item_id?: SortOrder
+    weight?: SortOrder
+    touch_id?: SortOrder
+    item_purity?: SortOrder
+    remarks?: SortOrder
+    casting_customer_id?: SortOrder
+    purchase_id?: SortOrder
+    customer_transaction_id?: SortOrder
+    customer_id?: SortOrder
+  }
+
+  export type StockAvgOrderByAggregateInput = {
+    id?: SortOrder
+    casting_item_id?: SortOrder
+    filing_item_id?: SortOrder
+    setting_item_id?: SortOrder
+    buffing_item_id?: SortOrder
+    item_id?: SortOrder
+    weight?: SortOrder
+    touch_id?: SortOrder
+    item_purity?: SortOrder
+    casting_customer_id?: SortOrder
+    purchase_id?: SortOrder
+    customer_transaction_id?: SortOrder
+    customer_id?: SortOrder
+  }
+
+  export type StockMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    casting_item_id?: SortOrder
+    filing_item_id?: SortOrder
+    setting_item_id?: SortOrder
+    buffing_item_id?: SortOrder
+    item_type?: SortOrder
+    item_id?: SortOrder
+    weight?: SortOrder
+    touch_id?: SortOrder
+    item_purity?: SortOrder
+    remarks?: SortOrder
+    casting_customer_id?: SortOrder
+    purchase_id?: SortOrder
+    customer_transaction_id?: SortOrder
+    customer_id?: SortOrder
+  }
+
+  export type StockMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    casting_item_id?: SortOrder
+    filing_item_id?: SortOrder
+    setting_item_id?: SortOrder
+    buffing_item_id?: SortOrder
+    item_type?: SortOrder
+    item_id?: SortOrder
+    weight?: SortOrder
+    touch_id?: SortOrder
+    item_purity?: SortOrder
+    remarks?: SortOrder
+    casting_customer_id?: SortOrder
+    purchase_id?: SortOrder
+    customer_transaction_id?: SortOrder
+    customer_id?: SortOrder
+  }
+
+  export type StockSumOrderByAggregateInput = {
+    id?: SortOrder
+    casting_item_id?: SortOrder
+    filing_item_id?: SortOrder
+    setting_item_id?: SortOrder
+    buffing_item_id?: SortOrder
+    item_id?: SortOrder
+    weight?: SortOrder
+    touch_id?: SortOrder
+    item_purity?: SortOrder
+    casting_customer_id?: SortOrder
+    purchase_id?: SortOrder
+    customer_transaction_id?: SortOrder
+    customer_id?: SortOrder
+  }
+
+  export type EnumITEMTYPENullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ITEMTYPE | EnumITEMTYPEFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ITEMTYPE[] | null
+    notIn?: $Enums.ITEMTYPE[] | null
+    not?: NestedEnumITEMTYPENullableWithAggregatesFilter<$PrismaModel> | $Enums.ITEMTYPE | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumITEMTYPENullableFilter<$PrismaModel>
+    _max?: NestedEnumITEMTYPENullableFilter<$PrismaModel>
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -60980,170 +60980,6 @@ export namespace Prisma {
     deleteMany?: BuffingItemsScalarWhereInput | BuffingItemsScalarWhereInput[]
   }
 
-  export type CastingItemsCreateNestedOneWithoutStockInput = {
-    create?: XOR<CastingItemsCreateWithoutStockInput, CastingItemsUncheckedCreateWithoutStockInput>
-    connectOrCreate?: CastingItemsCreateOrConnectWithoutStockInput
-    connect?: CastingItemsWhereUniqueInput
-  }
-
-  export type FilingItemsCreateNestedOneWithoutStockInput = {
-    create?: XOR<FilingItemsCreateWithoutStockInput, FilingItemsUncheckedCreateWithoutStockInput>
-    connectOrCreate?: FilingItemsCreateOrConnectWithoutStockInput
-    connect?: FilingItemsWhereUniqueInput
-  }
-
-  export type SettingItemsCreateNestedOneWithoutStockInput = {
-    create?: XOR<SettingItemsCreateWithoutStockInput, SettingItemsUncheckedCreateWithoutStockInput>
-    connectOrCreate?: SettingItemsCreateOrConnectWithoutStockInput
-    connect?: SettingItemsWhereUniqueInput
-  }
-
-  export type BuffingItemsCreateNestedOneWithoutStockInput = {
-    create?: XOR<BuffingItemsCreateWithoutStockInput, BuffingItemsUncheckedCreateWithoutStockInput>
-    connectOrCreate?: BuffingItemsCreateOrConnectWithoutStockInput
-    connect?: BuffingItemsWhereUniqueInput
-  }
-
-  export type AddItemCreateNestedOneWithoutStockInput = {
-    create?: XOR<AddItemCreateWithoutStockInput, AddItemUncheckedCreateWithoutStockInput>
-    connectOrCreate?: AddItemCreateOrConnectWithoutStockInput
-    connect?: AddItemWhereUniqueInput
-  }
-
-  export type AddTouchCreateNestedOneWithoutStockInput = {
-    create?: XOR<AddTouchCreateWithoutStockInput, AddTouchUncheckedCreateWithoutStockInput>
-    connectOrCreate?: AddTouchCreateOrConnectWithoutStockInput
-    connect?: AddTouchWhereUniqueInput
-  }
-
-  export type AddCastingCreateNestedOneWithoutStockInput = {
-    create?: XOR<AddCastingCreateWithoutStockInput, AddCastingUncheckedCreateWithoutStockInput>
-    connectOrCreate?: AddCastingCreateOrConnectWithoutStockInput
-    connect?: AddCastingWhereUniqueInput
-  }
-
-  export type AddPurchaseStockCreateNestedOneWithoutStockInput = {
-    create?: XOR<AddPurchaseStockCreateWithoutStockInput, AddPurchaseStockUncheckedCreateWithoutStockInput>
-    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutStockInput
-    connect?: AddPurchaseStockWhereUniqueInput
-  }
-
-  export type CustomerTransactionCreateNestedOneWithoutStockInput = {
-    create?: XOR<CustomerTransactionCreateWithoutStockInput, CustomerTransactionUncheckedCreateWithoutStockInput>
-    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutStockInput
-    connect?: CustomerTransactionWhereUniqueInput
-  }
-
-  export type AddCustomerCreateNestedOneWithoutStockInput = {
-    create?: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
-    connectOrCreate?: AddCustomerCreateOrConnectWithoutStockInput
-    connect?: AddCustomerWhereUniqueInput
-  }
-
-  export type NullableEnumITEMTYPEFieldUpdateOperationsInput = {
-    set?: $Enums.ITEMTYPE | null
-  }
-
-  export type CastingItemsUpdateOneWithoutStockNestedInput = {
-    create?: XOR<CastingItemsCreateWithoutStockInput, CastingItemsUncheckedCreateWithoutStockInput>
-    connectOrCreate?: CastingItemsCreateOrConnectWithoutStockInput
-    upsert?: CastingItemsUpsertWithoutStockInput
-    disconnect?: CastingItemsWhereInput | boolean
-    delete?: CastingItemsWhereInput | boolean
-    connect?: CastingItemsWhereUniqueInput
-    update?: XOR<XOR<CastingItemsUpdateToOneWithWhereWithoutStockInput, CastingItemsUpdateWithoutStockInput>, CastingItemsUncheckedUpdateWithoutStockInput>
-  }
-
-  export type FilingItemsUpdateOneWithoutStockNestedInput = {
-    create?: XOR<FilingItemsCreateWithoutStockInput, FilingItemsUncheckedCreateWithoutStockInput>
-    connectOrCreate?: FilingItemsCreateOrConnectWithoutStockInput
-    upsert?: FilingItemsUpsertWithoutStockInput
-    disconnect?: FilingItemsWhereInput | boolean
-    delete?: FilingItemsWhereInput | boolean
-    connect?: FilingItemsWhereUniqueInput
-    update?: XOR<XOR<FilingItemsUpdateToOneWithWhereWithoutStockInput, FilingItemsUpdateWithoutStockInput>, FilingItemsUncheckedUpdateWithoutStockInput>
-  }
-
-  export type SettingItemsUpdateOneWithoutStockNestedInput = {
-    create?: XOR<SettingItemsCreateWithoutStockInput, SettingItemsUncheckedCreateWithoutStockInput>
-    connectOrCreate?: SettingItemsCreateOrConnectWithoutStockInput
-    upsert?: SettingItemsUpsertWithoutStockInput
-    disconnect?: SettingItemsWhereInput | boolean
-    delete?: SettingItemsWhereInput | boolean
-    connect?: SettingItemsWhereUniqueInput
-    update?: XOR<XOR<SettingItemsUpdateToOneWithWhereWithoutStockInput, SettingItemsUpdateWithoutStockInput>, SettingItemsUncheckedUpdateWithoutStockInput>
-  }
-
-  export type BuffingItemsUpdateOneWithoutStockNestedInput = {
-    create?: XOR<BuffingItemsCreateWithoutStockInput, BuffingItemsUncheckedCreateWithoutStockInput>
-    connectOrCreate?: BuffingItemsCreateOrConnectWithoutStockInput
-    upsert?: BuffingItemsUpsertWithoutStockInput
-    disconnect?: BuffingItemsWhereInput | boolean
-    delete?: BuffingItemsWhereInput | boolean
-    connect?: BuffingItemsWhereUniqueInput
-    update?: XOR<XOR<BuffingItemsUpdateToOneWithWhereWithoutStockInput, BuffingItemsUpdateWithoutStockInput>, BuffingItemsUncheckedUpdateWithoutStockInput>
-  }
-
-  export type AddItemUpdateOneWithoutStockNestedInput = {
-    create?: XOR<AddItemCreateWithoutStockInput, AddItemUncheckedCreateWithoutStockInput>
-    connectOrCreate?: AddItemCreateOrConnectWithoutStockInput
-    upsert?: AddItemUpsertWithoutStockInput
-    disconnect?: AddItemWhereInput | boolean
-    delete?: AddItemWhereInput | boolean
-    connect?: AddItemWhereUniqueInput
-    update?: XOR<XOR<AddItemUpdateToOneWithWhereWithoutStockInput, AddItemUpdateWithoutStockInput>, AddItemUncheckedUpdateWithoutStockInput>
-  }
-
-  export type AddTouchUpdateOneWithoutStockNestedInput = {
-    create?: XOR<AddTouchCreateWithoutStockInput, AddTouchUncheckedCreateWithoutStockInput>
-    connectOrCreate?: AddTouchCreateOrConnectWithoutStockInput
-    upsert?: AddTouchUpsertWithoutStockInput
-    disconnect?: AddTouchWhereInput | boolean
-    delete?: AddTouchWhereInput | boolean
-    connect?: AddTouchWhereUniqueInput
-    update?: XOR<XOR<AddTouchUpdateToOneWithWhereWithoutStockInput, AddTouchUpdateWithoutStockInput>, AddTouchUncheckedUpdateWithoutStockInput>
-  }
-
-  export type AddCastingUpdateOneWithoutStockNestedInput = {
-    create?: XOR<AddCastingCreateWithoutStockInput, AddCastingUncheckedCreateWithoutStockInput>
-    connectOrCreate?: AddCastingCreateOrConnectWithoutStockInput
-    upsert?: AddCastingUpsertWithoutStockInput
-    disconnect?: AddCastingWhereInput | boolean
-    delete?: AddCastingWhereInput | boolean
-    connect?: AddCastingWhereUniqueInput
-    update?: XOR<XOR<AddCastingUpdateToOneWithWhereWithoutStockInput, AddCastingUpdateWithoutStockInput>, AddCastingUncheckedUpdateWithoutStockInput>
-  }
-
-  export type AddPurchaseStockUpdateOneWithoutStockNestedInput = {
-    create?: XOR<AddPurchaseStockCreateWithoutStockInput, AddPurchaseStockUncheckedCreateWithoutStockInput>
-    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutStockInput
-    upsert?: AddPurchaseStockUpsertWithoutStockInput
-    disconnect?: AddPurchaseStockWhereInput | boolean
-    delete?: AddPurchaseStockWhereInput | boolean
-    connect?: AddPurchaseStockWhereUniqueInput
-    update?: XOR<XOR<AddPurchaseStockUpdateToOneWithWhereWithoutStockInput, AddPurchaseStockUpdateWithoutStockInput>, AddPurchaseStockUncheckedUpdateWithoutStockInput>
-  }
-
-  export type CustomerTransactionUpdateOneWithoutStockNestedInput = {
-    create?: XOR<CustomerTransactionCreateWithoutStockInput, CustomerTransactionUncheckedCreateWithoutStockInput>
-    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutStockInput
-    upsert?: CustomerTransactionUpsertWithoutStockInput
-    disconnect?: CustomerTransactionWhereInput | boolean
-    delete?: CustomerTransactionWhereInput | boolean
-    connect?: CustomerTransactionWhereUniqueInput
-    update?: XOR<XOR<CustomerTransactionUpdateToOneWithWhereWithoutStockInput, CustomerTransactionUpdateWithoutStockInput>, CustomerTransactionUncheckedUpdateWithoutStockInput>
-  }
-
-  export type AddCustomerUpdateOneWithoutStockNestedInput = {
-    create?: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
-    connectOrCreate?: AddCustomerCreateOrConnectWithoutStockInput
-    upsert?: AddCustomerUpsertWithoutStockInput
-    disconnect?: AddCustomerWhereInput | boolean
-    delete?: AddCustomerWhereInput | boolean
-    connect?: AddCustomerWhereUniqueInput
-    update?: XOR<XOR<AddCustomerUpdateToOneWithWhereWithoutStockInput, AddCustomerUpdateWithoutStockInput>, AddCustomerUncheckedUpdateWithoutStockInput>
-  }
-
   export type AddCustomerCreateNestedOneWithoutHallmarksInput = {
     create?: XOR<AddCustomerCreateWithoutHallmarksInput, AddCustomerUncheckedCreateWithoutHallmarksInput>
     connectOrCreate?: AddCustomerCreateOrConnectWithoutHallmarksInput
@@ -61342,6 +61178,170 @@ export namespace Prisma {
     delete?: AddTouchWhereInput | boolean
     connect?: AddTouchWhereUniqueInput
     update?: XOR<XOR<AddTouchUpdateToOneWithWhereWithoutReceiptVoucherInput, AddTouchUpdateWithoutReceiptVoucherInput>, AddTouchUncheckedUpdateWithoutReceiptVoucherInput>
+  }
+
+  export type CastingItemsCreateNestedOneWithoutStockInput = {
+    create?: XOR<CastingItemsCreateWithoutStockInput, CastingItemsUncheckedCreateWithoutStockInput>
+    connectOrCreate?: CastingItemsCreateOrConnectWithoutStockInput
+    connect?: CastingItemsWhereUniqueInput
+  }
+
+  export type FilingItemsCreateNestedOneWithoutStockInput = {
+    create?: XOR<FilingItemsCreateWithoutStockInput, FilingItemsUncheckedCreateWithoutStockInput>
+    connectOrCreate?: FilingItemsCreateOrConnectWithoutStockInput
+    connect?: FilingItemsWhereUniqueInput
+  }
+
+  export type SettingItemsCreateNestedOneWithoutStockInput = {
+    create?: XOR<SettingItemsCreateWithoutStockInput, SettingItemsUncheckedCreateWithoutStockInput>
+    connectOrCreate?: SettingItemsCreateOrConnectWithoutStockInput
+    connect?: SettingItemsWhereUniqueInput
+  }
+
+  export type BuffingItemsCreateNestedOneWithoutStockInput = {
+    create?: XOR<BuffingItemsCreateWithoutStockInput, BuffingItemsUncheckedCreateWithoutStockInput>
+    connectOrCreate?: BuffingItemsCreateOrConnectWithoutStockInput
+    connect?: BuffingItemsWhereUniqueInput
+  }
+
+  export type AddItemCreateNestedOneWithoutStockInput = {
+    create?: XOR<AddItemCreateWithoutStockInput, AddItemUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddItemCreateOrConnectWithoutStockInput
+    connect?: AddItemWhereUniqueInput
+  }
+
+  export type AddTouchCreateNestedOneWithoutStockInput = {
+    create?: XOR<AddTouchCreateWithoutStockInput, AddTouchUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddTouchCreateOrConnectWithoutStockInput
+    connect?: AddTouchWhereUniqueInput
+  }
+
+  export type AddCastingCreateNestedOneWithoutStockInput = {
+    create?: XOR<AddCastingCreateWithoutStockInput, AddCastingUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddCastingCreateOrConnectWithoutStockInput
+    connect?: AddCastingWhereUniqueInput
+  }
+
+  export type AddPurchaseStockCreateNestedOneWithoutStockInput = {
+    create?: XOR<AddPurchaseStockCreateWithoutStockInput, AddPurchaseStockUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutStockInput
+    connect?: AddPurchaseStockWhereUniqueInput
+  }
+
+  export type CustomerTransactionCreateNestedOneWithoutStockInput = {
+    create?: XOR<CustomerTransactionCreateWithoutStockInput, CustomerTransactionUncheckedCreateWithoutStockInput>
+    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutStockInput
+    connect?: CustomerTransactionWhereUniqueInput
+  }
+
+  export type AddCustomerCreateNestedOneWithoutStockInput = {
+    create?: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddCustomerCreateOrConnectWithoutStockInput
+    connect?: AddCustomerWhereUniqueInput
+  }
+
+  export type NullableEnumITEMTYPEFieldUpdateOperationsInput = {
+    set?: $Enums.ITEMTYPE | null
+  }
+
+  export type CastingItemsUpdateOneWithoutStockNestedInput = {
+    create?: XOR<CastingItemsCreateWithoutStockInput, CastingItemsUncheckedCreateWithoutStockInput>
+    connectOrCreate?: CastingItemsCreateOrConnectWithoutStockInput
+    upsert?: CastingItemsUpsertWithoutStockInput
+    disconnect?: CastingItemsWhereInput | boolean
+    delete?: CastingItemsWhereInput | boolean
+    connect?: CastingItemsWhereUniqueInput
+    update?: XOR<XOR<CastingItemsUpdateToOneWithWhereWithoutStockInput, CastingItemsUpdateWithoutStockInput>, CastingItemsUncheckedUpdateWithoutStockInput>
+  }
+
+  export type FilingItemsUpdateOneWithoutStockNestedInput = {
+    create?: XOR<FilingItemsCreateWithoutStockInput, FilingItemsUncheckedCreateWithoutStockInput>
+    connectOrCreate?: FilingItemsCreateOrConnectWithoutStockInput
+    upsert?: FilingItemsUpsertWithoutStockInput
+    disconnect?: FilingItemsWhereInput | boolean
+    delete?: FilingItemsWhereInput | boolean
+    connect?: FilingItemsWhereUniqueInput
+    update?: XOR<XOR<FilingItemsUpdateToOneWithWhereWithoutStockInput, FilingItemsUpdateWithoutStockInput>, FilingItemsUncheckedUpdateWithoutStockInput>
+  }
+
+  export type SettingItemsUpdateOneWithoutStockNestedInput = {
+    create?: XOR<SettingItemsCreateWithoutStockInput, SettingItemsUncheckedCreateWithoutStockInput>
+    connectOrCreate?: SettingItemsCreateOrConnectWithoutStockInput
+    upsert?: SettingItemsUpsertWithoutStockInput
+    disconnect?: SettingItemsWhereInput | boolean
+    delete?: SettingItemsWhereInput | boolean
+    connect?: SettingItemsWhereUniqueInput
+    update?: XOR<XOR<SettingItemsUpdateToOneWithWhereWithoutStockInput, SettingItemsUpdateWithoutStockInput>, SettingItemsUncheckedUpdateWithoutStockInput>
+  }
+
+  export type BuffingItemsUpdateOneWithoutStockNestedInput = {
+    create?: XOR<BuffingItemsCreateWithoutStockInput, BuffingItemsUncheckedCreateWithoutStockInput>
+    connectOrCreate?: BuffingItemsCreateOrConnectWithoutStockInput
+    upsert?: BuffingItemsUpsertWithoutStockInput
+    disconnect?: BuffingItemsWhereInput | boolean
+    delete?: BuffingItemsWhereInput | boolean
+    connect?: BuffingItemsWhereUniqueInput
+    update?: XOR<XOR<BuffingItemsUpdateToOneWithWhereWithoutStockInput, BuffingItemsUpdateWithoutStockInput>, BuffingItemsUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddItemUpdateOneWithoutStockNestedInput = {
+    create?: XOR<AddItemCreateWithoutStockInput, AddItemUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddItemCreateOrConnectWithoutStockInput
+    upsert?: AddItemUpsertWithoutStockInput
+    disconnect?: AddItemWhereInput | boolean
+    delete?: AddItemWhereInput | boolean
+    connect?: AddItemWhereUniqueInput
+    update?: XOR<XOR<AddItemUpdateToOneWithWhereWithoutStockInput, AddItemUpdateWithoutStockInput>, AddItemUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddTouchUpdateOneWithoutStockNestedInput = {
+    create?: XOR<AddTouchCreateWithoutStockInput, AddTouchUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddTouchCreateOrConnectWithoutStockInput
+    upsert?: AddTouchUpsertWithoutStockInput
+    disconnect?: AddTouchWhereInput | boolean
+    delete?: AddTouchWhereInput | boolean
+    connect?: AddTouchWhereUniqueInput
+    update?: XOR<XOR<AddTouchUpdateToOneWithWhereWithoutStockInput, AddTouchUpdateWithoutStockInput>, AddTouchUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddCastingUpdateOneWithoutStockNestedInput = {
+    create?: XOR<AddCastingCreateWithoutStockInput, AddCastingUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddCastingCreateOrConnectWithoutStockInput
+    upsert?: AddCastingUpsertWithoutStockInput
+    disconnect?: AddCastingWhereInput | boolean
+    delete?: AddCastingWhereInput | boolean
+    connect?: AddCastingWhereUniqueInput
+    update?: XOR<XOR<AddCastingUpdateToOneWithWhereWithoutStockInput, AddCastingUpdateWithoutStockInput>, AddCastingUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddPurchaseStockUpdateOneWithoutStockNestedInput = {
+    create?: XOR<AddPurchaseStockCreateWithoutStockInput, AddPurchaseStockUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddPurchaseStockCreateOrConnectWithoutStockInput
+    upsert?: AddPurchaseStockUpsertWithoutStockInput
+    disconnect?: AddPurchaseStockWhereInput | boolean
+    delete?: AddPurchaseStockWhereInput | boolean
+    connect?: AddPurchaseStockWhereUniqueInput
+    update?: XOR<XOR<AddPurchaseStockUpdateToOneWithWhereWithoutStockInput, AddPurchaseStockUpdateWithoutStockInput>, AddPurchaseStockUncheckedUpdateWithoutStockInput>
+  }
+
+  export type CustomerTransactionUpdateOneWithoutStockNestedInput = {
+    create?: XOR<CustomerTransactionCreateWithoutStockInput, CustomerTransactionUncheckedCreateWithoutStockInput>
+    connectOrCreate?: CustomerTransactionCreateOrConnectWithoutStockInput
+    upsert?: CustomerTransactionUpsertWithoutStockInput
+    disconnect?: CustomerTransactionWhereInput | boolean
+    delete?: CustomerTransactionWhereInput | boolean
+    connect?: CustomerTransactionWhereUniqueInput
+    update?: XOR<XOR<CustomerTransactionUpdateToOneWithWhereWithoutStockInput, CustomerTransactionUpdateWithoutStockInput>, CustomerTransactionUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddCustomerUpdateOneWithoutStockNestedInput = {
+    create?: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
+    connectOrCreate?: AddCustomerCreateOrConnectWithoutStockInput
+    upsert?: AddCustomerUpsertWithoutStockInput
+    disconnect?: AddCustomerWhereInput | boolean
+    delete?: AddCustomerWhereInput | boolean
+    connect?: AddCustomerWhereUniqueInput
+    update?: XOR<XOR<AddCustomerUpdateToOneWithWhereWithoutStockInput, AddCustomerUpdateWithoutStockInput>, AddCustomerUncheckedUpdateWithoutStockInput>
   }
 
   export type AddTouchCreateNestedOneWithoutExpenseVoucherInput = {
@@ -70228,754 +70228,6 @@ export namespace Prisma {
     data: XOR<BuffingItemsUpdateManyMutationInput, BuffingItemsUncheckedUpdateManyWithoutBuffing_wastageInput>
   }
 
-  export type CastingItemsCreateWithoutStockInput = {
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    touch: AddTouchCreateNestedOneWithoutCasting_itemsInput
-    item: AddItemCreateNestedOneWithoutCasting_itemsInput
-    castingEntry: CastingEntryCreateNestedOneWithoutItemsInput
-    filingEntry?: FilingEntryCreateNestedManyWithoutCastingItemInput
-    settingEntry?: SettingEntryCreateNestedManyWithoutCastingItemInput
-    buffingEntry?: BuffingEntryCreateNestedManyWithoutCastingItemInput
-    filingLotMapper?: LotFilingMapperCreateNestedManyWithoutItemIdInput
-    casting_customer: AddCastingCreateNestedOneWithoutCastingitemsInput
-  }
-
-  export type CastingItemsUncheckedCreateWithoutStockInput = {
-    id?: number
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    item_id: number
-    weight: number
-    touch_id: number
-    item_purity: number
-    remarks?: string | null
-    casting_entry_id: number
-    casting_customer_id: number
-    filingEntry?: FilingEntryUncheckedCreateNestedManyWithoutCastingItemInput
-    settingEntry?: SettingEntryUncheckedCreateNestedManyWithoutCastingItemInput
-    buffingEntry?: BuffingEntryUncheckedCreateNestedManyWithoutCastingItemInput
-    filingLotMapper?: LotFilingMapperUncheckedCreateNestedManyWithoutItemIdInput
-  }
-
-  export type CastingItemsCreateOrConnectWithoutStockInput = {
-    where: CastingItemsWhereUniqueInput
-    create: XOR<CastingItemsCreateWithoutStockInput, CastingItemsUncheckedCreateWithoutStockInput>
-  }
-
-  export type FilingItemsCreateWithoutStockInput = {
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    weight: number
-    item_purity: number
-    remarks?: string | null
-    stone_option?: $Enums.STONEOPTION | null
-    filing_entry: FilingEntryCreateNestedOneWithoutFilingItemsInput
-    filingitem: AddItemCreateNestedOneWithoutFiling_itemsInput
-    touch: AddTouchCreateNestedOneWithoutFiling_itemsInput
-    setting_entry?: SettingEntryCreateNestedManyWithoutFilingItemsInput
-    buffing_entry?: BuffingEntryCreateNestedManyWithoutFiling_itemsInput
-    filing_wastage?: FilingWastageCreateNestedManyWithoutFiling_itemsInput
-    lot_setting_mapper?: LotSettingMapperCreateNestedManyWithoutItemIdInput
-    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutFilingItemIdInput
-    lotFilingMapperId?: LotFilingMapperCreateNestedOneWithoutFiling_itemsInput
-  }
-
-  export type FilingItemsUncheckedCreateWithoutStockInput = {
-    id?: number
-    createdAt?: Date | string
-    filing_entry_id: number
-    type: $Enums.CASTINGENTRYTYPE
-    filing_item_id: number
-    weight: number
-    touch_id: number
-    item_purity: number
-    remarks?: string | null
-    stone_option?: $Enums.STONEOPTION | null
-    lot_filing_mapper_id?: number | null
-    setting_entry?: SettingEntryUncheckedCreateNestedManyWithoutFilingItemsInput
-    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutFiling_itemsInput
-    filing_wastage?: FilingWastageUncheckedCreateNestedManyWithoutFiling_itemsInput
-    lot_setting_mapper?: LotSettingMapperUncheckedCreateNestedManyWithoutItemIdInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutFilingItemIdInput
-  }
-
-  export type FilingItemsCreateOrConnectWithoutStockInput = {
-    where: FilingItemsWhereUniqueInput
-    create: XOR<FilingItemsCreateWithoutStockInput, FilingItemsUncheckedCreateWithoutStockInput>
-  }
-
-  export type SettingItemsCreateWithoutStockInput = {
-    createdAt?: Date | string
-    type?: $Enums.CASTINGENTRYTYPE | null
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    item: AddItemCreateNestedOneWithoutSetting_itemsInput
-    touch: AddTouchCreateNestedOneWithoutSetting_itemsInput
-    setting_wastage?: SettingWastageCreateNestedManyWithoutSetting_itemsInput
-    buffing_entry?: BuffingEntryCreateNestedManyWithoutSetting_itemsInput
-    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutSettingItemIdInput
-    settingEntryId: SettingEntryCreateNestedOneWithoutSettingItemsInput
-  }
-
-  export type SettingItemsUncheckedCreateWithoutStockInput = {
-    id?: number
-    createdAt?: Date | string
-    type?: $Enums.CASTINGENTRYTYPE | null
-    setting_item_id: number
-    scrap_weight: number
-    touch_id: number
-    item_purity: number
-    scrap_remarks?: string | null
-    setting_entry_id: number
-    setting_wastage?: SettingWastageUncheckedCreateNestedManyWithoutSetting_itemsInput
-    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutSetting_itemsInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutSettingItemIdInput
-  }
-
-  export type SettingItemsCreateOrConnectWithoutStockInput = {
-    where: SettingItemsWhereUniqueInput
-    create: XOR<SettingItemsCreateWithoutStockInput, SettingItemsUncheckedCreateWithoutStockInput>
-  }
-
-  export type BuffingItemsCreateWithoutStockInput = {
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    scrap_weight: number
-    item_purity: number
-    scrap_remarks?: string | null
-    item: AddItemCreateNestedOneWithoutBuffing_itemsInput
-    touch: AddTouchCreateNestedOneWithoutBuffing_itemsInput
-    buffing_wastage?: BuffingWastageCreateNestedManyWithoutBuffing_itemsInput
-    buffingEntryId: BuffingEntryCreateNestedOneWithoutBuffingItemsInput
-  }
-
-  export type BuffingItemsUncheckedCreateWithoutStockInput = {
-    id?: number
-    createdAt?: Date | string
-    type: $Enums.CASTINGENTRYTYPE
-    buffing_item_id: number
-    scrap_weight: number
-    touch_id: number
-    item_purity: number
-    scrap_remarks?: string | null
-    buffing_entry_id: number
-    buffing_wastage?: BuffingWastageUncheckedCreateNestedManyWithoutBuffing_itemsInput
-  }
-
-  export type BuffingItemsCreateOrConnectWithoutStockInput = {
-    where: BuffingItemsWhereUniqueInput
-    create: XOR<BuffingItemsCreateWithoutStockInput, BuffingItemsUncheckedCreateWithoutStockInput>
-  }
-
-  export type AddItemCreateWithoutStockInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    name: string
-    casting_items?: CastingItemsCreateNestedManyWithoutItemInput
-    filing_items?: FilingItemsCreateNestedManyWithoutFilingitemInput
-    setting_items?: SettingItemsCreateNestedManyWithoutItemInput
-    buffing_items?: BuffingItemsCreateNestedManyWithoutItemInput
-    QCStock?: QcStockCreateNestedManyWithoutItemIdInput
-    billItems?: BillItemCreateNestedManyWithoutAddItemInput
-  }
-
-  export type AddItemUncheckedCreateWithoutStockInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    name: string
-    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutItemInput
-    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutFilingitemInput
-    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutItemInput
-    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutItemInput
-    QCStock?: QcStockUncheckedCreateNestedManyWithoutItemIdInput
-    billItems?: BillItemUncheckedCreateNestedManyWithoutAddItemInput
-  }
-
-  export type AddItemCreateOrConnectWithoutStockInput = {
-    where: AddItemWhereUniqueInput
-    create: XOR<AddItemCreateWithoutStockInput, AddItemUncheckedCreateWithoutStockInput>
-  }
-
-  export type AddTouchCreateWithoutStockInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    touch: number
-    casting_entry?: CastingEntryCreateNestedManyWithoutTouchInput
-    casting_items?: CastingItemsCreateNestedManyWithoutTouchInput
-    filing_items?: FilingItemsCreateNestedManyWithoutTouchInput
-    setting_items?: SettingItemsCreateNestedManyWithoutTouchInput
-    buffing_items?: BuffingItemsCreateNestedManyWithoutTouchInput
-    add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
-    customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
-    QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
-    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
-    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
-  }
-
-  export type AddTouchUncheckedCreateWithoutStockInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    touch: number
-    casting_entry?: CastingEntryUncheckedCreateNestedManyWithoutTouchInput
-    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutTouchInput
-    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutTouchInput
-    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutTouchInput
-    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutTouchInput
-    add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
-    customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
-    QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
-    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
-    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
-  }
-
-  export type AddTouchCreateOrConnectWithoutStockInput = {
-    where: AddTouchWhereUniqueInput
-    create: XOR<AddTouchCreateWithoutStockInput, AddTouchUncheckedCreateWithoutStockInput>
-  }
-
-  export type AddCastingCreateWithoutStockInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    name: string
-    phoneNumber?: string | null
-    address?: string | null
-    email?: string | null
-    balance?: number | null
-    entries?: CastingEntryCreateNestedManyWithoutCasting_customerInput
-    castingitems?: CastingItemsCreateNestedManyWithoutCasting_customerInput
-  }
-
-  export type AddCastingUncheckedCreateWithoutStockInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    name: string
-    phoneNumber?: string | null
-    address?: string | null
-    email?: string | null
-    balance?: number | null
-    entries?: CastingEntryUncheckedCreateNestedManyWithoutCasting_customerInput
-    castingitems?: CastingItemsUncheckedCreateNestedManyWithoutCasting_customerInput
-  }
-
-  export type AddCastingCreateOrConnectWithoutStockInput = {
-    where: AddCastingWhereUniqueInput
-    create: XOR<AddCastingCreateWithoutStockInput, AddCastingUncheckedCreateWithoutStockInput>
-  }
-
-  export type AddPurchaseStockCreateWithoutStockInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    purchaseDate: Date | string
-    item: $Enums.ITEMTYPE
-    weight: number
-    purity: number
-    rate: number
-    totalValue: number
-    remarks?: string | null
-    SupplierId: AddSupplierItemCreateNestedOneWithoutAddPurchaseStockInput
-    TouchId: AddTouchCreateNestedOneWithoutAdd_purchase_stockInput
-  }
-
-  export type AddPurchaseStockUncheckedCreateWithoutStockInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    purchaseDate: Date | string
-    supplierId: number
-    item: $Enums.ITEMTYPE
-    weight: number
-    touch_id: number
-    purity: number
-    rate: number
-    totalValue: number
-    remarks?: string | null
-  }
-
-  export type AddPurchaseStockCreateOrConnectWithoutStockInput = {
-    where: AddPurchaseStockWhereUniqueInput
-    create: XOR<AddPurchaseStockCreateWithoutStockInput, AddPurchaseStockUncheckedCreateWithoutStockInput>
-  }
-
-  export type CustomerTransactionCreateWithoutStockInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    date: Date | string
-    value: number
-    type: string
-    purity?: number | null
-    goldRate?: number | null
-    usedPurity?: number | null
-    customer: AddCustomerCreateNestedOneWithoutTransactionsInput
-    touch?: AddTouchCreateNestedOneWithoutCustomer_transactionInput
-  }
-
-  export type CustomerTransactionUncheckedCreateWithoutStockInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    date: Date | string
-    value: number
-    type: string
-    touchId?: number | null
-    purity?: number | null
-    goldRate?: number | null
-    customerId: number
-    usedPurity?: number | null
-  }
-
-  export type CustomerTransactionCreateOrConnectWithoutStockInput = {
-    where: CustomerTransactionWhereUniqueInput
-    create: XOR<CustomerTransactionCreateWithoutStockInput, CustomerTransactionUncheckedCreateWithoutStockInput>
-  }
-
-  export type AddCustomerCreateWithoutStockInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    name: string
-    phoneNumber?: string | null
-    address?: string | null
-    email?: string | null
-    balance?: number | null
-    openingBalance?: number | null
-    transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
-    bills?: BillCreateNestedManyWithoutCustomerInput
-    hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
-    receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
-  }
-
-  export type AddCustomerUncheckedCreateWithoutStockInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    name: string
-    phoneNumber?: string | null
-    address?: string | null
-    email?: string | null
-    balance?: number | null
-    openingBalance?: number | null
-    transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
-    bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
-    hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
-    receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
-  }
-
-  export type AddCustomerCreateOrConnectWithoutStockInput = {
-    where: AddCustomerWhereUniqueInput
-    create: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
-  }
-
-  export type CastingItemsUpsertWithoutStockInput = {
-    update: XOR<CastingItemsUpdateWithoutStockInput, CastingItemsUncheckedUpdateWithoutStockInput>
-    create: XOR<CastingItemsCreateWithoutStockInput, CastingItemsUncheckedCreateWithoutStockInput>
-    where?: CastingItemsWhereInput
-  }
-
-  export type CastingItemsUpdateToOneWithWhereWithoutStockInput = {
-    where?: CastingItemsWhereInput
-    data: XOR<CastingItemsUpdateWithoutStockInput, CastingItemsUncheckedUpdateWithoutStockInput>
-  }
-
-  export type CastingItemsUpdateWithoutStockInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    touch?: AddTouchUpdateOneRequiredWithoutCasting_itemsNestedInput
-    item?: AddItemUpdateOneRequiredWithoutCasting_itemsNestedInput
-    castingEntry?: CastingEntryUpdateOneRequiredWithoutItemsNestedInput
-    filingEntry?: FilingEntryUpdateManyWithoutCastingItemNestedInput
-    settingEntry?: SettingEntryUpdateManyWithoutCastingItemNestedInput
-    buffingEntry?: BuffingEntryUpdateManyWithoutCastingItemNestedInput
-    filingLotMapper?: LotFilingMapperUpdateManyWithoutItemIdNestedInput
-    casting_customer?: AddCastingUpdateOneRequiredWithoutCastingitemsNestedInput
-  }
-
-  export type CastingItemsUncheckedUpdateWithoutStockInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    touch_id?: IntFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    casting_entry_id?: IntFieldUpdateOperationsInput | number
-    casting_customer_id?: IntFieldUpdateOperationsInput | number
-    filingEntry?: FilingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
-    settingEntry?: SettingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
-    buffingEntry?: BuffingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
-    filingLotMapper?: LotFilingMapperUncheckedUpdateManyWithoutItemIdNestedInput
-  }
-
-  export type FilingItemsUpsertWithoutStockInput = {
-    update: XOR<FilingItemsUpdateWithoutStockInput, FilingItemsUncheckedUpdateWithoutStockInput>
-    create: XOR<FilingItemsCreateWithoutStockInput, FilingItemsUncheckedCreateWithoutStockInput>
-    where?: FilingItemsWhereInput
-  }
-
-  export type FilingItemsUpdateToOneWithWhereWithoutStockInput = {
-    where?: FilingItemsWhereInput
-    data: XOR<FilingItemsUpdateWithoutStockInput, FilingItemsUncheckedUpdateWithoutStockInput>
-  }
-
-  export type FilingItemsUpdateWithoutStockInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
-    filing_entry?: FilingEntryUpdateOneRequiredWithoutFilingItemsNestedInput
-    filingitem?: AddItemUpdateOneRequiredWithoutFiling_itemsNestedInput
-    touch?: AddTouchUpdateOneRequiredWithoutFiling_itemsNestedInput
-    setting_entry?: SettingEntryUpdateManyWithoutFilingItemsNestedInput
-    buffing_entry?: BuffingEntryUpdateManyWithoutFiling_itemsNestedInput
-    filing_wastage?: FilingWastageUpdateManyWithoutFiling_itemsNestedInput
-    lot_setting_mapper?: LotSettingMapperUpdateManyWithoutItemIdNestedInput
-    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutFilingItemIdNestedInput
-    lotFilingMapperId?: LotFilingMapperUpdateOneWithoutFiling_itemsNestedInput
-  }
-
-  export type FilingItemsUncheckedUpdateWithoutStockInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    filing_entry_id?: IntFieldUpdateOperationsInput | number
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    filing_item_id?: IntFieldUpdateOperationsInput | number
-    weight?: FloatFieldUpdateOperationsInput | number
-    touch_id?: IntFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
-    lot_filing_mapper_id?: NullableIntFieldUpdateOperationsInput | number | null
-    setting_entry?: SettingEntryUncheckedUpdateManyWithoutFilingItemsNestedInput
-    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutFiling_itemsNestedInput
-    filing_wastage?: FilingWastageUncheckedUpdateManyWithoutFiling_itemsNestedInput
-    lot_setting_mapper?: LotSettingMapperUncheckedUpdateManyWithoutItemIdNestedInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutFilingItemIdNestedInput
-  }
-
-  export type SettingItemsUpsertWithoutStockInput = {
-    update: XOR<SettingItemsUpdateWithoutStockInput, SettingItemsUncheckedUpdateWithoutStockInput>
-    create: XOR<SettingItemsCreateWithoutStockInput, SettingItemsUncheckedCreateWithoutStockInput>
-    where?: SettingItemsWhereInput
-  }
-
-  export type SettingItemsUpdateToOneWithWhereWithoutStockInput = {
-    where?: SettingItemsWhereInput
-    data: XOR<SettingItemsUpdateWithoutStockInput, SettingItemsUncheckedUpdateWithoutStockInput>
-  }
-
-  export type SettingItemsUpdateWithoutStockInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    item?: AddItemUpdateOneRequiredWithoutSetting_itemsNestedInput
-    touch?: AddTouchUpdateOneRequiredWithoutSetting_itemsNestedInput
-    setting_wastage?: SettingWastageUpdateManyWithoutSetting_itemsNestedInput
-    buffing_entry?: BuffingEntryUpdateManyWithoutSetting_itemsNestedInput
-    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutSettingItemIdNestedInput
-    settingEntryId?: SettingEntryUpdateOneRequiredWithoutSettingItemsNestedInput
-  }
-
-  export type SettingItemsUncheckedUpdateWithoutStockInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
-    setting_item_id?: IntFieldUpdateOperationsInput | number
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    touch_id?: IntFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    setting_entry_id?: IntFieldUpdateOperationsInput | number
-    setting_wastage?: SettingWastageUncheckedUpdateManyWithoutSetting_itemsNestedInput
-    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutSetting_itemsNestedInput
-    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutSettingItemIdNestedInput
-  }
-
-  export type BuffingItemsUpsertWithoutStockInput = {
-    update: XOR<BuffingItemsUpdateWithoutStockInput, BuffingItemsUncheckedUpdateWithoutStockInput>
-    create: XOR<BuffingItemsCreateWithoutStockInput, BuffingItemsUncheckedCreateWithoutStockInput>
-    where?: BuffingItemsWhereInput
-  }
-
-  export type BuffingItemsUpdateToOneWithWhereWithoutStockInput = {
-    where?: BuffingItemsWhereInput
-    data: XOR<BuffingItemsUpdateWithoutStockInput, BuffingItemsUncheckedUpdateWithoutStockInput>
-  }
-
-  export type BuffingItemsUpdateWithoutStockInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    item?: AddItemUpdateOneRequiredWithoutBuffing_itemsNestedInput
-    touch?: AddTouchUpdateOneRequiredWithoutBuffing_itemsNestedInput
-    buffing_wastage?: BuffingWastageUpdateManyWithoutBuffing_itemsNestedInput
-    buffingEntryId?: BuffingEntryUpdateOneRequiredWithoutBuffingItemsNestedInput
-  }
-
-  export type BuffingItemsUncheckedUpdateWithoutStockInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
-    buffing_item_id?: IntFieldUpdateOperationsInput | number
-    scrap_weight?: FloatFieldUpdateOperationsInput | number
-    touch_id?: IntFieldUpdateOperationsInput | number
-    item_purity?: FloatFieldUpdateOperationsInput | number
-    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    buffing_entry_id?: IntFieldUpdateOperationsInput | number
-    buffing_wastage?: BuffingWastageUncheckedUpdateManyWithoutBuffing_itemsNestedInput
-  }
-
-  export type AddItemUpsertWithoutStockInput = {
-    update: XOR<AddItemUpdateWithoutStockInput, AddItemUncheckedUpdateWithoutStockInput>
-    create: XOR<AddItemCreateWithoutStockInput, AddItemUncheckedCreateWithoutStockInput>
-    where?: AddItemWhereInput
-  }
-
-  export type AddItemUpdateToOneWithWhereWithoutStockInput = {
-    where?: AddItemWhereInput
-    data: XOR<AddItemUpdateWithoutStockInput, AddItemUncheckedUpdateWithoutStockInput>
-  }
-
-  export type AddItemUpdateWithoutStockInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: StringFieldUpdateOperationsInput | string
-    casting_items?: CastingItemsUpdateManyWithoutItemNestedInput
-    filing_items?: FilingItemsUpdateManyWithoutFilingitemNestedInput
-    setting_items?: SettingItemsUpdateManyWithoutItemNestedInput
-    buffing_items?: BuffingItemsUpdateManyWithoutItemNestedInput
-    QCStock?: QcStockUpdateManyWithoutItemIdNestedInput
-    billItems?: BillItemUpdateManyWithoutAddItemNestedInput
-  }
-
-  export type AddItemUncheckedUpdateWithoutStockInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: StringFieldUpdateOperationsInput | string
-    casting_items?: CastingItemsUncheckedUpdateManyWithoutItemNestedInput
-    filing_items?: FilingItemsUncheckedUpdateManyWithoutFilingitemNestedInput
-    setting_items?: SettingItemsUncheckedUpdateManyWithoutItemNestedInput
-    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutItemNestedInput
-    QCStock?: QcStockUncheckedUpdateManyWithoutItemIdNestedInput
-    billItems?: BillItemUncheckedUpdateManyWithoutAddItemNestedInput
-  }
-
-  export type AddTouchUpsertWithoutStockInput = {
-    update: XOR<AddTouchUpdateWithoutStockInput, AddTouchUncheckedUpdateWithoutStockInput>
-    create: XOR<AddTouchCreateWithoutStockInput, AddTouchUncheckedCreateWithoutStockInput>
-    where?: AddTouchWhereInput
-  }
-
-  export type AddTouchUpdateToOneWithWhereWithoutStockInput = {
-    where?: AddTouchWhereInput
-    data: XOR<AddTouchUpdateWithoutStockInput, AddTouchUncheckedUpdateWithoutStockInput>
-  }
-
-  export type AddTouchUpdateWithoutStockInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
-    casting_entry?: CastingEntryUpdateManyWithoutTouchNestedInput
-    casting_items?: CastingItemsUpdateManyWithoutTouchNestedInput
-    filing_items?: FilingItemsUpdateManyWithoutTouchNestedInput
-    setting_items?: SettingItemsUpdateManyWithoutTouchNestedInput
-    buffing_items?: BuffingItemsUpdateManyWithoutTouchNestedInput
-    add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
-    customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
-    QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
-    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
-    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
-  }
-
-  export type AddTouchUncheckedUpdateWithoutStockInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    touch?: FloatFieldUpdateOperationsInput | number
-    casting_entry?: CastingEntryUncheckedUpdateManyWithoutTouchNestedInput
-    casting_items?: CastingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    filing_items?: FilingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    setting_items?: SettingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput
-    add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
-    QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
-    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
-    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
-  }
-
-  export type AddCastingUpsertWithoutStockInput = {
-    update: XOR<AddCastingUpdateWithoutStockInput, AddCastingUncheckedUpdateWithoutStockInput>
-    create: XOR<AddCastingCreateWithoutStockInput, AddCastingUncheckedCreateWithoutStockInput>
-    where?: AddCastingWhereInput
-  }
-
-  export type AddCastingUpdateToOneWithWhereWithoutStockInput = {
-    where?: AddCastingWhereInput
-    data: XOR<AddCastingUpdateWithoutStockInput, AddCastingUncheckedUpdateWithoutStockInput>
-  }
-
-  export type AddCastingUpdateWithoutStockInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: NullableFloatFieldUpdateOperationsInput | number | null
-    entries?: CastingEntryUpdateManyWithoutCasting_customerNestedInput
-    castingitems?: CastingItemsUpdateManyWithoutCasting_customerNestedInput
-  }
-
-  export type AddCastingUncheckedUpdateWithoutStockInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: NullableFloatFieldUpdateOperationsInput | number | null
-    entries?: CastingEntryUncheckedUpdateManyWithoutCasting_customerNestedInput
-    castingitems?: CastingItemsUncheckedUpdateManyWithoutCasting_customerNestedInput
-  }
-
-  export type AddPurchaseStockUpsertWithoutStockInput = {
-    update: XOR<AddPurchaseStockUpdateWithoutStockInput, AddPurchaseStockUncheckedUpdateWithoutStockInput>
-    create: XOR<AddPurchaseStockCreateWithoutStockInput, AddPurchaseStockUncheckedCreateWithoutStockInput>
-    where?: AddPurchaseStockWhereInput
-  }
-
-  export type AddPurchaseStockUpdateToOneWithWhereWithoutStockInput = {
-    where?: AddPurchaseStockWhereInput
-    data: XOR<AddPurchaseStockUpdateWithoutStockInput, AddPurchaseStockUncheckedUpdateWithoutStockInput>
-  }
-
-  export type AddPurchaseStockUpdateWithoutStockInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
-    weight?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    rate?: FloatFieldUpdateOperationsInput | number
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-    SupplierId?: AddSupplierItemUpdateOneRequiredWithoutAddPurchaseStockNestedInput
-    TouchId?: AddTouchUpdateOneRequiredWithoutAdd_purchase_stockNestedInput
-  }
-
-  export type AddPurchaseStockUncheckedUpdateWithoutStockInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    supplierId?: IntFieldUpdateOperationsInput | number
-    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
-    weight?: IntFieldUpdateOperationsInput | number
-    touch_id?: IntFieldUpdateOperationsInput | number
-    purity?: FloatFieldUpdateOperationsInput | number
-    rate?: FloatFieldUpdateOperationsInput | number
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    remarks?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type CustomerTransactionUpsertWithoutStockInput = {
-    update: XOR<CustomerTransactionUpdateWithoutStockInput, CustomerTransactionUncheckedUpdateWithoutStockInput>
-    create: XOR<CustomerTransactionCreateWithoutStockInput, CustomerTransactionUncheckedCreateWithoutStockInput>
-    where?: CustomerTransactionWhereInput
-  }
-
-  export type CustomerTransactionUpdateToOneWithWhereWithoutStockInput = {
-    where?: CustomerTransactionWhereInput
-    data: XOR<CustomerTransactionUpdateWithoutStockInput, CustomerTransactionUncheckedUpdateWithoutStockInput>
-  }
-
-  export type CustomerTransactionUpdateWithoutStockInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    value?: FloatFieldUpdateOperationsInput | number
-    type?: StringFieldUpdateOperationsInput | string
-    purity?: NullableFloatFieldUpdateOperationsInput | number | null
-    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
-    customer?: AddCustomerUpdateOneRequiredWithoutTransactionsNestedInput
-    touch?: AddTouchUpdateOneWithoutCustomer_transactionNestedInput
-  }
-
-  export type CustomerTransactionUncheckedUpdateWithoutStockInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    value?: FloatFieldUpdateOperationsInput | number
-    type?: StringFieldUpdateOperationsInput | string
-    touchId?: NullableIntFieldUpdateOperationsInput | number | null
-    purity?: NullableFloatFieldUpdateOperationsInput | number | null
-    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    customerId?: IntFieldUpdateOperationsInput | number
-    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
-  }
-
-  export type AddCustomerUpsertWithoutStockInput = {
-    update: XOR<AddCustomerUpdateWithoutStockInput, AddCustomerUncheckedUpdateWithoutStockInput>
-    create: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
-    where?: AddCustomerWhereInput
-  }
-
-  export type AddCustomerUpdateToOneWithWhereWithoutStockInput = {
-    where?: AddCustomerWhereInput
-    data: XOR<AddCustomerUpdateWithoutStockInput, AddCustomerUncheckedUpdateWithoutStockInput>
-  }
-
-  export type AddCustomerUpdateWithoutStockInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: NullableFloatFieldUpdateOperationsInput | number | null
-    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
-    transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
-    bills?: BillUpdateManyWithoutCustomerNestedInput
-    hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
-    receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
-  }
-
-  export type AddCustomerUncheckedUpdateWithoutStockInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    balance?: NullableFloatFieldUpdateOperationsInput | number | null
-    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
-    transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
-    bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
-    hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
-    receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
-  }
-
   export type AddCustomerCreateWithoutHallmarksInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -71740,6 +70992,754 @@ export namespace Prisma {
     customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
     QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
     ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+  }
+
+  export type CastingItemsCreateWithoutStockInput = {
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    touch: AddTouchCreateNestedOneWithoutCasting_itemsInput
+    item: AddItemCreateNestedOneWithoutCasting_itemsInput
+    castingEntry: CastingEntryCreateNestedOneWithoutItemsInput
+    filingEntry?: FilingEntryCreateNestedManyWithoutCastingItemInput
+    settingEntry?: SettingEntryCreateNestedManyWithoutCastingItemInput
+    buffingEntry?: BuffingEntryCreateNestedManyWithoutCastingItemInput
+    filingLotMapper?: LotFilingMapperCreateNestedManyWithoutItemIdInput
+    casting_customer: AddCastingCreateNestedOneWithoutCastingitemsInput
+  }
+
+  export type CastingItemsUncheckedCreateWithoutStockInput = {
+    id?: number
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    item_id: number
+    weight: number
+    touch_id: number
+    item_purity: number
+    remarks?: string | null
+    casting_entry_id: number
+    casting_customer_id: number
+    filingEntry?: FilingEntryUncheckedCreateNestedManyWithoutCastingItemInput
+    settingEntry?: SettingEntryUncheckedCreateNestedManyWithoutCastingItemInput
+    buffingEntry?: BuffingEntryUncheckedCreateNestedManyWithoutCastingItemInput
+    filingLotMapper?: LotFilingMapperUncheckedCreateNestedManyWithoutItemIdInput
+  }
+
+  export type CastingItemsCreateOrConnectWithoutStockInput = {
+    where: CastingItemsWhereUniqueInput
+    create: XOR<CastingItemsCreateWithoutStockInput, CastingItemsUncheckedCreateWithoutStockInput>
+  }
+
+  export type FilingItemsCreateWithoutStockInput = {
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    weight: number
+    item_purity: number
+    remarks?: string | null
+    stone_option?: $Enums.STONEOPTION | null
+    filing_entry: FilingEntryCreateNestedOneWithoutFilingItemsInput
+    filingitem: AddItemCreateNestedOneWithoutFiling_itemsInput
+    touch: AddTouchCreateNestedOneWithoutFiling_itemsInput
+    setting_entry?: SettingEntryCreateNestedManyWithoutFilingItemsInput
+    buffing_entry?: BuffingEntryCreateNestedManyWithoutFiling_itemsInput
+    filing_wastage?: FilingWastageCreateNestedManyWithoutFiling_itemsInput
+    lot_setting_mapper?: LotSettingMapperCreateNestedManyWithoutItemIdInput
+    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutFilingItemIdInput
+    lotFilingMapperId?: LotFilingMapperCreateNestedOneWithoutFiling_itemsInput
+  }
+
+  export type FilingItemsUncheckedCreateWithoutStockInput = {
+    id?: number
+    createdAt?: Date | string
+    filing_entry_id: number
+    type: $Enums.CASTINGENTRYTYPE
+    filing_item_id: number
+    weight: number
+    touch_id: number
+    item_purity: number
+    remarks?: string | null
+    stone_option?: $Enums.STONEOPTION | null
+    lot_filing_mapper_id?: number | null
+    setting_entry?: SettingEntryUncheckedCreateNestedManyWithoutFilingItemsInput
+    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutFiling_itemsInput
+    filing_wastage?: FilingWastageUncheckedCreateNestedManyWithoutFiling_itemsInput
+    lot_setting_mapper?: LotSettingMapperUncheckedCreateNestedManyWithoutItemIdInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutFilingItemIdInput
+  }
+
+  export type FilingItemsCreateOrConnectWithoutStockInput = {
+    where: FilingItemsWhereUniqueInput
+    create: XOR<FilingItemsCreateWithoutStockInput, FilingItemsUncheckedCreateWithoutStockInput>
+  }
+
+  export type SettingItemsCreateWithoutStockInput = {
+    createdAt?: Date | string
+    type?: $Enums.CASTINGENTRYTYPE | null
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    item: AddItemCreateNestedOneWithoutSetting_itemsInput
+    touch: AddTouchCreateNestedOneWithoutSetting_itemsInput
+    setting_wastage?: SettingWastageCreateNestedManyWithoutSetting_itemsInput
+    buffing_entry?: BuffingEntryCreateNestedManyWithoutSetting_itemsInput
+    LotBuffingMapper?: LotBuffingMapperCreateNestedManyWithoutSettingItemIdInput
+    settingEntryId: SettingEntryCreateNestedOneWithoutSettingItemsInput
+  }
+
+  export type SettingItemsUncheckedCreateWithoutStockInput = {
+    id?: number
+    createdAt?: Date | string
+    type?: $Enums.CASTINGENTRYTYPE | null
+    setting_item_id: number
+    scrap_weight: number
+    touch_id: number
+    item_purity: number
+    scrap_remarks?: string | null
+    setting_entry_id: number
+    setting_wastage?: SettingWastageUncheckedCreateNestedManyWithoutSetting_itemsInput
+    buffing_entry?: BuffingEntryUncheckedCreateNestedManyWithoutSetting_itemsInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedCreateNestedManyWithoutSettingItemIdInput
+  }
+
+  export type SettingItemsCreateOrConnectWithoutStockInput = {
+    where: SettingItemsWhereUniqueInput
+    create: XOR<SettingItemsCreateWithoutStockInput, SettingItemsUncheckedCreateWithoutStockInput>
+  }
+
+  export type BuffingItemsCreateWithoutStockInput = {
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    scrap_weight: number
+    item_purity: number
+    scrap_remarks?: string | null
+    item: AddItemCreateNestedOneWithoutBuffing_itemsInput
+    touch: AddTouchCreateNestedOneWithoutBuffing_itemsInput
+    buffing_wastage?: BuffingWastageCreateNestedManyWithoutBuffing_itemsInput
+    buffingEntryId: BuffingEntryCreateNestedOneWithoutBuffingItemsInput
+  }
+
+  export type BuffingItemsUncheckedCreateWithoutStockInput = {
+    id?: number
+    createdAt?: Date | string
+    type: $Enums.CASTINGENTRYTYPE
+    buffing_item_id: number
+    scrap_weight: number
+    touch_id: number
+    item_purity: number
+    scrap_remarks?: string | null
+    buffing_entry_id: number
+    buffing_wastage?: BuffingWastageUncheckedCreateNestedManyWithoutBuffing_itemsInput
+  }
+
+  export type BuffingItemsCreateOrConnectWithoutStockInput = {
+    where: BuffingItemsWhereUniqueInput
+    create: XOR<BuffingItemsCreateWithoutStockInput, BuffingItemsUncheckedCreateWithoutStockInput>
+  }
+
+  export type AddItemCreateWithoutStockInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    casting_items?: CastingItemsCreateNestedManyWithoutItemInput
+    filing_items?: FilingItemsCreateNestedManyWithoutFilingitemInput
+    setting_items?: SettingItemsCreateNestedManyWithoutItemInput
+    buffing_items?: BuffingItemsCreateNestedManyWithoutItemInput
+    QCStock?: QcStockCreateNestedManyWithoutItemIdInput
+    billItems?: BillItemCreateNestedManyWithoutAddItemInput
+  }
+
+  export type AddItemUncheckedCreateWithoutStockInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutItemInput
+    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutFilingitemInput
+    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutItemInput
+    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutItemInput
+    QCStock?: QcStockUncheckedCreateNestedManyWithoutItemIdInput
+    billItems?: BillItemUncheckedCreateNestedManyWithoutAddItemInput
+  }
+
+  export type AddItemCreateOrConnectWithoutStockInput = {
+    where: AddItemWhereUniqueInput
+    create: XOR<AddItemCreateWithoutStockInput, AddItemUncheckedCreateWithoutStockInput>
+  }
+
+  export type AddTouchCreateWithoutStockInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    touch: number
+    casting_entry?: CastingEntryCreateNestedManyWithoutTouchInput
+    casting_items?: CastingItemsCreateNestedManyWithoutTouchInput
+    filing_items?: FilingItemsCreateNestedManyWithoutTouchInput
+    setting_items?: SettingItemsCreateNestedManyWithoutTouchInput
+    buffing_items?: BuffingItemsCreateNestedManyWithoutTouchInput
+    add_purchase_stock?: AddPurchaseStockCreateNestedManyWithoutTouchIdInput
+    customer_transaction?: CustomerTransactionCreateNestedManyWithoutTouchInput
+    QCStock?: QcStockCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherCreateNestedManyWithoutTouchIdInput
+  }
+
+  export type AddTouchUncheckedCreateWithoutStockInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    touch: number
+    casting_entry?: CastingEntryUncheckedCreateNestedManyWithoutTouchInput
+    casting_items?: CastingItemsUncheckedCreateNestedManyWithoutTouchInput
+    filing_items?: FilingItemsUncheckedCreateNestedManyWithoutTouchInput
+    setting_items?: SettingItemsUncheckedCreateNestedManyWithoutTouchInput
+    buffing_items?: BuffingItemsUncheckedCreateNestedManyWithoutTouchInput
+    add_purchase_stock?: AddPurchaseStockUncheckedCreateNestedManyWithoutTouchIdInput
+    customer_transaction?: CustomerTransactionUncheckedCreateNestedManyWithoutTouchInput
+    QCStock?: QcStockUncheckedCreateNestedManyWithoutTouchIdInput
+    receiptVoucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedCreateNestedManyWithoutTouchIdInput
+  }
+
+  export type AddTouchCreateOrConnectWithoutStockInput = {
+    where: AddTouchWhereUniqueInput
+    create: XOR<AddTouchCreateWithoutStockInput, AddTouchUncheckedCreateWithoutStockInput>
+  }
+
+  export type AddCastingCreateWithoutStockInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    phoneNumber?: string | null
+    address?: string | null
+    email?: string | null
+    balance?: number | null
+    entries?: CastingEntryCreateNestedManyWithoutCasting_customerInput
+    castingitems?: CastingItemsCreateNestedManyWithoutCasting_customerInput
+  }
+
+  export type AddCastingUncheckedCreateWithoutStockInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    phoneNumber?: string | null
+    address?: string | null
+    email?: string | null
+    balance?: number | null
+    entries?: CastingEntryUncheckedCreateNestedManyWithoutCasting_customerInput
+    castingitems?: CastingItemsUncheckedCreateNestedManyWithoutCasting_customerInput
+  }
+
+  export type AddCastingCreateOrConnectWithoutStockInput = {
+    where: AddCastingWhereUniqueInput
+    create: XOR<AddCastingCreateWithoutStockInput, AddCastingUncheckedCreateWithoutStockInput>
+  }
+
+  export type AddPurchaseStockCreateWithoutStockInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    purchaseDate: Date | string
+    item: $Enums.ITEMTYPE
+    weight: number
+    purity: number
+    rate: number
+    totalValue: number
+    remarks?: string | null
+    SupplierId: AddSupplierItemCreateNestedOneWithoutAddPurchaseStockInput
+    TouchId: AddTouchCreateNestedOneWithoutAdd_purchase_stockInput
+  }
+
+  export type AddPurchaseStockUncheckedCreateWithoutStockInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    purchaseDate: Date | string
+    supplierId: number
+    item: $Enums.ITEMTYPE
+    weight: number
+    touch_id: number
+    purity: number
+    rate: number
+    totalValue: number
+    remarks?: string | null
+  }
+
+  export type AddPurchaseStockCreateOrConnectWithoutStockInput = {
+    where: AddPurchaseStockWhereUniqueInput
+    create: XOR<AddPurchaseStockCreateWithoutStockInput, AddPurchaseStockUncheckedCreateWithoutStockInput>
+  }
+
+  export type CustomerTransactionCreateWithoutStockInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    date: Date | string
+    value: number
+    type: string
+    purity?: number | null
+    goldRate?: number | null
+    usedPurity?: number | null
+    customer: AddCustomerCreateNestedOneWithoutTransactionsInput
+    touch?: AddTouchCreateNestedOneWithoutCustomer_transactionInput
+  }
+
+  export type CustomerTransactionUncheckedCreateWithoutStockInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    date: Date | string
+    value: number
+    type: string
+    touchId?: number | null
+    purity?: number | null
+    goldRate?: number | null
+    customerId: number
+    usedPurity?: number | null
+  }
+
+  export type CustomerTransactionCreateOrConnectWithoutStockInput = {
+    where: CustomerTransactionWhereUniqueInput
+    create: XOR<CustomerTransactionCreateWithoutStockInput, CustomerTransactionUncheckedCreateWithoutStockInput>
+  }
+
+  export type AddCustomerCreateWithoutStockInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    phoneNumber?: string | null
+    address?: string | null
+    email?: string | null
+    balance?: number | null
+    openingBalance?: number | null
+    transactions?: CustomerTransactionCreateNestedManyWithoutCustomerInput
+    bills?: BillCreateNestedManyWithoutCustomerInput
+    hallmarks?: HallmarkCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherCreateNestedManyWithoutCustomerIdInput
+  }
+
+  export type AddCustomerUncheckedCreateWithoutStockInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    phoneNumber?: string | null
+    address?: string | null
+    email?: string | null
+    balance?: number | null
+    openingBalance?: number | null
+    transactions?: CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+    bills?: BillUncheckedCreateNestedManyWithoutCustomerInput
+    hallmarks?: HallmarkUncheckedCreateNestedManyWithoutCustomerInput
+    receipt_voucher?: ReceiptVoucherUncheckedCreateNestedManyWithoutCustomerIdInput
+  }
+
+  export type AddCustomerCreateOrConnectWithoutStockInput = {
+    where: AddCustomerWhereUniqueInput
+    create: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
+  }
+
+  export type CastingItemsUpsertWithoutStockInput = {
+    update: XOR<CastingItemsUpdateWithoutStockInput, CastingItemsUncheckedUpdateWithoutStockInput>
+    create: XOR<CastingItemsCreateWithoutStockInput, CastingItemsUncheckedCreateWithoutStockInput>
+    where?: CastingItemsWhereInput
+  }
+
+  export type CastingItemsUpdateToOneWithWhereWithoutStockInput = {
+    where?: CastingItemsWhereInput
+    data: XOR<CastingItemsUpdateWithoutStockInput, CastingItemsUncheckedUpdateWithoutStockInput>
+  }
+
+  export type CastingItemsUpdateWithoutStockInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    touch?: AddTouchUpdateOneRequiredWithoutCasting_itemsNestedInput
+    item?: AddItemUpdateOneRequiredWithoutCasting_itemsNestedInput
+    castingEntry?: CastingEntryUpdateOneRequiredWithoutItemsNestedInput
+    filingEntry?: FilingEntryUpdateManyWithoutCastingItemNestedInput
+    settingEntry?: SettingEntryUpdateManyWithoutCastingItemNestedInput
+    buffingEntry?: BuffingEntryUpdateManyWithoutCastingItemNestedInput
+    filingLotMapper?: LotFilingMapperUpdateManyWithoutItemIdNestedInput
+    casting_customer?: AddCastingUpdateOneRequiredWithoutCastingitemsNestedInput
+  }
+
+  export type CastingItemsUncheckedUpdateWithoutStockInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    touch_id?: IntFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    casting_entry_id?: IntFieldUpdateOperationsInput | number
+    casting_customer_id?: IntFieldUpdateOperationsInput | number
+    filingEntry?: FilingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
+    settingEntry?: SettingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
+    buffingEntry?: BuffingEntryUncheckedUpdateManyWithoutCastingItemNestedInput
+    filingLotMapper?: LotFilingMapperUncheckedUpdateManyWithoutItemIdNestedInput
+  }
+
+  export type FilingItemsUpsertWithoutStockInput = {
+    update: XOR<FilingItemsUpdateWithoutStockInput, FilingItemsUncheckedUpdateWithoutStockInput>
+    create: XOR<FilingItemsCreateWithoutStockInput, FilingItemsUncheckedCreateWithoutStockInput>
+    where?: FilingItemsWhereInput
+  }
+
+  export type FilingItemsUpdateToOneWithWhereWithoutStockInput = {
+    where?: FilingItemsWhereInput
+    data: XOR<FilingItemsUpdateWithoutStockInput, FilingItemsUncheckedUpdateWithoutStockInput>
+  }
+
+  export type FilingItemsUpdateWithoutStockInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
+    filing_entry?: FilingEntryUpdateOneRequiredWithoutFilingItemsNestedInput
+    filingitem?: AddItemUpdateOneRequiredWithoutFiling_itemsNestedInput
+    touch?: AddTouchUpdateOneRequiredWithoutFiling_itemsNestedInput
+    setting_entry?: SettingEntryUpdateManyWithoutFilingItemsNestedInput
+    buffing_entry?: BuffingEntryUpdateManyWithoutFiling_itemsNestedInput
+    filing_wastage?: FilingWastageUpdateManyWithoutFiling_itemsNestedInput
+    lot_setting_mapper?: LotSettingMapperUpdateManyWithoutItemIdNestedInput
+    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutFilingItemIdNestedInput
+    lotFilingMapperId?: LotFilingMapperUpdateOneWithoutFiling_itemsNestedInput
+  }
+
+  export type FilingItemsUncheckedUpdateWithoutStockInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    filing_entry_id?: IntFieldUpdateOperationsInput | number
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    filing_item_id?: IntFieldUpdateOperationsInput | number
+    weight?: FloatFieldUpdateOperationsInput | number
+    touch_id?: IntFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    stone_option?: NullableEnumSTONEOPTIONFieldUpdateOperationsInput | $Enums.STONEOPTION | null
+    lot_filing_mapper_id?: NullableIntFieldUpdateOperationsInput | number | null
+    setting_entry?: SettingEntryUncheckedUpdateManyWithoutFilingItemsNestedInput
+    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutFiling_itemsNestedInput
+    filing_wastage?: FilingWastageUncheckedUpdateManyWithoutFiling_itemsNestedInput
+    lot_setting_mapper?: LotSettingMapperUncheckedUpdateManyWithoutItemIdNestedInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutFilingItemIdNestedInput
+  }
+
+  export type SettingItemsUpsertWithoutStockInput = {
+    update: XOR<SettingItemsUpdateWithoutStockInput, SettingItemsUncheckedUpdateWithoutStockInput>
+    create: XOR<SettingItemsCreateWithoutStockInput, SettingItemsUncheckedCreateWithoutStockInput>
+    where?: SettingItemsWhereInput
+  }
+
+  export type SettingItemsUpdateToOneWithWhereWithoutStockInput = {
+    where?: SettingItemsWhereInput
+    data: XOR<SettingItemsUpdateWithoutStockInput, SettingItemsUncheckedUpdateWithoutStockInput>
+  }
+
+  export type SettingItemsUpdateWithoutStockInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: AddItemUpdateOneRequiredWithoutSetting_itemsNestedInput
+    touch?: AddTouchUpdateOneRequiredWithoutSetting_itemsNestedInput
+    setting_wastage?: SettingWastageUpdateManyWithoutSetting_itemsNestedInput
+    buffing_entry?: BuffingEntryUpdateManyWithoutSetting_itemsNestedInput
+    LotBuffingMapper?: LotBuffingMapperUpdateManyWithoutSettingItemIdNestedInput
+    settingEntryId?: SettingEntryUpdateOneRequiredWithoutSettingItemsNestedInput
+  }
+
+  export type SettingItemsUncheckedUpdateWithoutStockInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: NullableEnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE | null
+    setting_item_id?: IntFieldUpdateOperationsInput | number
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    touch_id?: IntFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    setting_entry_id?: IntFieldUpdateOperationsInput | number
+    setting_wastage?: SettingWastageUncheckedUpdateManyWithoutSetting_itemsNestedInput
+    buffing_entry?: BuffingEntryUncheckedUpdateManyWithoutSetting_itemsNestedInput
+    LotBuffingMapper?: LotBuffingMapperUncheckedUpdateManyWithoutSettingItemIdNestedInput
+  }
+
+  export type BuffingItemsUpsertWithoutStockInput = {
+    update: XOR<BuffingItemsUpdateWithoutStockInput, BuffingItemsUncheckedUpdateWithoutStockInput>
+    create: XOR<BuffingItemsCreateWithoutStockInput, BuffingItemsUncheckedCreateWithoutStockInput>
+    where?: BuffingItemsWhereInput
+  }
+
+  export type BuffingItemsUpdateToOneWithWhereWithoutStockInput = {
+    where?: BuffingItemsWhereInput
+    data: XOR<BuffingItemsUpdateWithoutStockInput, BuffingItemsUncheckedUpdateWithoutStockInput>
+  }
+
+  export type BuffingItemsUpdateWithoutStockInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: AddItemUpdateOneRequiredWithoutBuffing_itemsNestedInput
+    touch?: AddTouchUpdateOneRequiredWithoutBuffing_itemsNestedInput
+    buffing_wastage?: BuffingWastageUpdateManyWithoutBuffing_itemsNestedInput
+    buffingEntryId?: BuffingEntryUpdateOneRequiredWithoutBuffingItemsNestedInput
+  }
+
+  export type BuffingItemsUncheckedUpdateWithoutStockInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumCASTINGENTRYTYPEFieldUpdateOperationsInput | $Enums.CASTINGENTRYTYPE
+    buffing_item_id?: IntFieldUpdateOperationsInput | number
+    scrap_weight?: FloatFieldUpdateOperationsInput | number
+    touch_id?: IntFieldUpdateOperationsInput | number
+    item_purity?: FloatFieldUpdateOperationsInput | number
+    scrap_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    buffing_entry_id?: IntFieldUpdateOperationsInput | number
+    buffing_wastage?: BuffingWastageUncheckedUpdateManyWithoutBuffing_itemsNestedInput
+  }
+
+  export type AddItemUpsertWithoutStockInput = {
+    update: XOR<AddItemUpdateWithoutStockInput, AddItemUncheckedUpdateWithoutStockInput>
+    create: XOR<AddItemCreateWithoutStockInput, AddItemUncheckedCreateWithoutStockInput>
+    where?: AddItemWhereInput
+  }
+
+  export type AddItemUpdateToOneWithWhereWithoutStockInput = {
+    where?: AddItemWhereInput
+    data: XOR<AddItemUpdateWithoutStockInput, AddItemUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddItemUpdateWithoutStockInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    casting_items?: CastingItemsUpdateManyWithoutItemNestedInput
+    filing_items?: FilingItemsUpdateManyWithoutFilingitemNestedInput
+    setting_items?: SettingItemsUpdateManyWithoutItemNestedInput
+    buffing_items?: BuffingItemsUpdateManyWithoutItemNestedInput
+    QCStock?: QcStockUpdateManyWithoutItemIdNestedInput
+    billItems?: BillItemUpdateManyWithoutAddItemNestedInput
+  }
+
+  export type AddItemUncheckedUpdateWithoutStockInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    casting_items?: CastingItemsUncheckedUpdateManyWithoutItemNestedInput
+    filing_items?: FilingItemsUncheckedUpdateManyWithoutFilingitemNestedInput
+    setting_items?: SettingItemsUncheckedUpdateManyWithoutItemNestedInput
+    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutItemNestedInput
+    QCStock?: QcStockUncheckedUpdateManyWithoutItemIdNestedInput
+    billItems?: BillItemUncheckedUpdateManyWithoutAddItemNestedInput
+  }
+
+  export type AddTouchUpsertWithoutStockInput = {
+    update: XOR<AddTouchUpdateWithoutStockInput, AddTouchUncheckedUpdateWithoutStockInput>
+    create: XOR<AddTouchCreateWithoutStockInput, AddTouchUncheckedCreateWithoutStockInput>
+    where?: AddTouchWhereInput
+  }
+
+  export type AddTouchUpdateToOneWithWhereWithoutStockInput = {
+    where?: AddTouchWhereInput
+    data: XOR<AddTouchUpdateWithoutStockInput, AddTouchUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddTouchUpdateWithoutStockInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+    casting_entry?: CastingEntryUpdateManyWithoutTouchNestedInput
+    casting_items?: CastingItemsUpdateManyWithoutTouchNestedInput
+    filing_items?: FilingItemsUpdateManyWithoutTouchNestedInput
+    setting_items?: SettingItemsUpdateManyWithoutTouchNestedInput
+    buffing_items?: BuffingItemsUpdateManyWithoutTouchNestedInput
+    add_purchase_stock?: AddPurchaseStockUpdateManyWithoutTouchIdNestedInput
+    customer_transaction?: CustomerTransactionUpdateManyWithoutTouchNestedInput
+    QCStock?: QcStockUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUpdateManyWithoutTouchIdNestedInput
+  }
+
+  export type AddTouchUncheckedUpdateWithoutStockInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    touch?: FloatFieldUpdateOperationsInput | number
+    casting_entry?: CastingEntryUncheckedUpdateManyWithoutTouchNestedInput
+    casting_items?: CastingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    filing_items?: FilingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    setting_items?: SettingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    buffing_items?: BuffingItemsUncheckedUpdateManyWithoutTouchNestedInput
+    add_purchase_stock?: AddPurchaseStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    customer_transaction?: CustomerTransactionUncheckedUpdateManyWithoutTouchNestedInput
+    QCStock?: QcStockUncheckedUpdateManyWithoutTouchIdNestedInput
+    receiptVoucher?: ReceiptVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+    ExpenseVoucher?: ExpenseVoucherUncheckedUpdateManyWithoutTouchIdNestedInput
+  }
+
+  export type AddCastingUpsertWithoutStockInput = {
+    update: XOR<AddCastingUpdateWithoutStockInput, AddCastingUncheckedUpdateWithoutStockInput>
+    create: XOR<AddCastingCreateWithoutStockInput, AddCastingUncheckedCreateWithoutStockInput>
+    where?: AddCastingWhereInput
+  }
+
+  export type AddCastingUpdateToOneWithWhereWithoutStockInput = {
+    where?: AddCastingWhereInput
+    data: XOR<AddCastingUpdateWithoutStockInput, AddCastingUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddCastingUpdateWithoutStockInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    entries?: CastingEntryUpdateManyWithoutCasting_customerNestedInput
+    castingitems?: CastingItemsUpdateManyWithoutCasting_customerNestedInput
+  }
+
+  export type AddCastingUncheckedUpdateWithoutStockInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    entries?: CastingEntryUncheckedUpdateManyWithoutCasting_customerNestedInput
+    castingitems?: CastingItemsUncheckedUpdateManyWithoutCasting_customerNestedInput
+  }
+
+  export type AddPurchaseStockUpsertWithoutStockInput = {
+    update: XOR<AddPurchaseStockUpdateWithoutStockInput, AddPurchaseStockUncheckedUpdateWithoutStockInput>
+    create: XOR<AddPurchaseStockCreateWithoutStockInput, AddPurchaseStockUncheckedCreateWithoutStockInput>
+    where?: AddPurchaseStockWhereInput
+  }
+
+  export type AddPurchaseStockUpdateToOneWithWhereWithoutStockInput = {
+    where?: AddPurchaseStockWhereInput
+    data: XOR<AddPurchaseStockUpdateWithoutStockInput, AddPurchaseStockUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddPurchaseStockUpdateWithoutStockInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    weight?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    SupplierId?: AddSupplierItemUpdateOneRequiredWithoutAddPurchaseStockNestedInput
+    TouchId?: AddTouchUpdateOneRequiredWithoutAdd_purchase_stockNestedInput
+  }
+
+  export type AddPurchaseStockUncheckedUpdateWithoutStockInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    supplierId?: IntFieldUpdateOperationsInput | number
+    item?: EnumITEMTYPEFieldUpdateOperationsInput | $Enums.ITEMTYPE
+    weight?: IntFieldUpdateOperationsInput | number
+    touch_id?: IntFieldUpdateOperationsInput | number
+    purity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CustomerTransactionUpsertWithoutStockInput = {
+    update: XOR<CustomerTransactionUpdateWithoutStockInput, CustomerTransactionUncheckedUpdateWithoutStockInput>
+    create: XOR<CustomerTransactionCreateWithoutStockInput, CustomerTransactionUncheckedCreateWithoutStockInput>
+    where?: CustomerTransactionWhereInput
+  }
+
+  export type CustomerTransactionUpdateToOneWithWhereWithoutStockInput = {
+    where?: CustomerTransactionWhereInput
+    data: XOR<CustomerTransactionUpdateWithoutStockInput, CustomerTransactionUncheckedUpdateWithoutStockInput>
+  }
+
+  export type CustomerTransactionUpdateWithoutStockInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
+    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
+    customer?: AddCustomerUpdateOneRequiredWithoutTransactionsNestedInput
+    touch?: AddTouchUpdateOneWithoutCustomer_transactionNestedInput
+  }
+
+  export type CustomerTransactionUncheckedUpdateWithoutStockInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    value?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    touchId?: NullableIntFieldUpdateOperationsInput | number | null
+    purity?: NullableFloatFieldUpdateOperationsInput | number | null
+    goldRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    customerId?: IntFieldUpdateOperationsInput | number
+    usedPurity?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type AddCustomerUpsertWithoutStockInput = {
+    update: XOR<AddCustomerUpdateWithoutStockInput, AddCustomerUncheckedUpdateWithoutStockInput>
+    create: XOR<AddCustomerCreateWithoutStockInput, AddCustomerUncheckedCreateWithoutStockInput>
+    where?: AddCustomerWhereInput
+  }
+
+  export type AddCustomerUpdateToOneWithWhereWithoutStockInput = {
+    where?: AddCustomerWhereInput
+    data: XOR<AddCustomerUpdateWithoutStockInput, AddCustomerUncheckedUpdateWithoutStockInput>
+  }
+
+  export type AddCustomerUpdateWithoutStockInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
+    transactions?: CustomerTransactionUpdateManyWithoutCustomerNestedInput
+    bills?: BillUpdateManyWithoutCustomerNestedInput
+    hallmarks?: HallmarkUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUpdateManyWithoutCustomerIdNestedInput
+  }
+
+  export type AddCustomerUncheckedUpdateWithoutStockInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: NullableFloatFieldUpdateOperationsInput | number | null
+    openingBalance?: NullableFloatFieldUpdateOperationsInput | number | null
+    transactions?: CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+    bills?: BillUncheckedUpdateManyWithoutCustomerNestedInput
+    hallmarks?: HallmarkUncheckedUpdateManyWithoutCustomerNestedInput
+    receipt_voucher?: ReceiptVoucherUncheckedUpdateManyWithoutCustomerIdNestedInput
   }
 
   export type AddTouchCreateWithoutExpenseVoucherInput = {
