@@ -479,7 +479,8 @@ const handleDownloadPDF = () => {
               label="Final Weight"
               name="finalWeight"
               type="number"
-              value={formData.finalWeight}
+              // value={formData.finalWeight}
+              value={formData.finalWeight ? formData.finalWeight.toFixed(3) : ""}
               fullWidth
               margin="dense"
               InputProps={{ readOnly: true }}
@@ -509,7 +510,8 @@ const handleDownloadPDF = () => {
               label="Purity"
               name="purity"
               type="number"
-              value={formData.purity}
+              // value={formData.purity}
+              value={formData.purity ? formData.purity.toFixed(3) : ""}
               fullWidth
               margin="dense"
               InputProps={{ readOnly: true }}
@@ -593,9 +595,9 @@ const formattedTime = updatedAtObj
                     <td>{entry.itemId?.name}</td>
                     <td>{entry.weight}</td>
                     <td>{entry.stone_weight}</td>
-                    <td>{entry.final_weight}</td>
+                    <td>{(entry.final_weight).toFixed(3)}</td>
                     <td>{entry.touchId?.touch}</td>
-                    <td>{entry.purity}</td>
+                    <td>{(entry.purity).toFixed(3)}</td>
                     <td>{entry.remarks}</td>
                     <td>{entry.status}</td>
 <td>

@@ -220,7 +220,6 @@ export const getCustomerReportDetailsById = async (req, res) => {
     const customer = await prisma.addCustomer.findUnique({
       where: { id: customerId },
       include: {
-        //  Receipt Vouchers (filtered by date)
         receipt_voucher: {
           where: fromDate && toDate ? { createdAt: dateFilter } : undefined,
           include: {
@@ -293,7 +292,7 @@ export const getCustomerReportDetailsById = async (req, res) => {
 
 export const customerReport = async (req, res) => {
   try {
-    const { id } = req.params; // customerId
+    const { id } = req.params; 
     const { fromDate, toDate } = req.query;
 
     const customerId = parseInt(id);
@@ -301,33 +300,23 @@ export const customerReport = async (req, res) => {
       return res.status(400).json({ message: "Invalid customer ID" });
     }
 
-    // ----- DATE RANGE FILTER -----
     let dateFilter = {};
     if (fromDate && toDate) {
       const from = new Date(fromDate);
       const to = new Date(toDate);
-      to.setHours(23, 59, 59, 999); // include full day
+      to.setHours(23, 59, 59, 999); 
 
       dateFilter = { gte: from, lte: to };
     }
 
-    // ----- BUILD WHERE CLAUSES -----
     const billWhere = fromDate && toDate ? { createdAt: dateFilter, customer_id: customerId } : { customer_id: customerId };
     const billReceiveWhere = fromDate && toDate ? { createdAt: dateFilter } : {};
     const receiptVoucherWhere = fromDate && toDate ? { createdAt: dateFilter, customer_id: customerId } : { customer_id: customerId };
     const transactionWhere = fromDate && toDate ? { createdAt: dateFilter, customerId } : { customerId };
 
-    // ----- FETCH DATA -----
     const bills = await prisma.bill.findMany({
       where: billWhere,
       include: {
-        // billItems: {
-        //   include: {
-        //     qcStock: {
-        //       include: { itemId: true, touchId: true },
-        //     },
-        //   },
-        // },
         billItems: true,
         receivedItems: true,
       },
@@ -350,7 +339,6 @@ export const customerReport = async (req, res) => {
       },
     });
 
-    // ----- COMBINE DATA -----
     const combinedData = [
       ...bills.map((bill) => ({ type: "Bill", info: bill })),
       ...billReceives.map((receive) => ({ type: "BillReceive", info: receive })),
@@ -358,10 +346,8 @@ export const customerReport = async (req, res) => {
       ...transactions.map((tran) => ({ type: "Transaction", info: tran })),
     ];
 
-    // ----- FETCH OVERALL BALANCE -----
     const overallBalance = await getCustomerBalance(customerId);
 
-    // ----- SUMMARY -----
     const summary = {
       totalBills: bills.length,
       totalReceipts: receipts.length,
@@ -369,7 +355,6 @@ export const customerReport = async (req, res) => {
       totalBillReceives: billReceives.length,
     };
 
-    // ----- RESPONSE -----
     res.status(200).json({
       data: combinedData,
       summary,

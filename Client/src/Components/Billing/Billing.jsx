@@ -495,7 +495,7 @@ cashBalance = parseFloat(cashBalance.toFixed(3));
                     <td>{selectedProduct}</td>
                     <td>{item.weight}</td>
                     <td>{item.stoneWeight || item.stone_weight}</td>
-                    <td>{item.totalWeight || item.total_weight}</td>               
+                    <td>{(item.totalWeight || item.total_weight).toFixed(3)}</td>               
 <td>
 <TextField
   type="number"

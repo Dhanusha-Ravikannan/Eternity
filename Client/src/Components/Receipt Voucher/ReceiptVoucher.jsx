@@ -302,7 +302,7 @@ const ReceiptVoucher = () => {
               borderColor: "#25274D",
               borderStyle: "solid",
               borderWidth: "2px",
-              marginLeft:'35.5rem'
+              marginLeft:"0.1rem"
             }}
             variant="contained"
             onClick={() => {

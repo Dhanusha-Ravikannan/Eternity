@@ -14,15 +14,26 @@ const BuffingReports = () => {
   const [filtered, setFiltered] = useState([]);
   const [persons, setPersons] = useState([]);
   const [selectedPerson, setSelectedPerson] = useState("");
+  const [personData, setPersonData] = useState([]);
+  const [selectedBalance, setSelectedBalance] = useState(0); 
 
 
-  useEffect(() => {
+  const fetchPersonsWithBalance = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/buffing");
+      setPersonData(res.data);
+      console.log('Filing response:', res.data)
+    } catch (err) {
+      console.error("Error fetching persons:", err);
+    }
+  };
+
+
     const fetchBuffing = async () => {
       try {
         const res = await axios.get( `${BACKEND_SERVER_URL}/api/buffingentry/get-report-entries` );
         const data = res.data || [];
   
-        //  Filter out entries where buffingTotalBalance is not empty
         const nonEmptyBalanceEntries = data.filter(
           (entry) =>
             Array.isArray(entry.buffingTotalBalance) &&
@@ -45,8 +56,20 @@ const BuffingReports = () => {
       }
     };
   
+    
+  useEffect(() => {
     fetchBuffing();
+    fetchPersonsWithBalance(); 
   }, []);
+
+  useEffect(() => {
+    if (selectedPerson) {
+      const found = personData.find((p) => p.name === selectedPerson);
+      setSelectedBalance(found ? found.balance || 0 : 0);
+    } else {
+      setSelectedBalance(0);
+    }
+  }, [selectedPerson, personData]);
   
 
   const handleFilter = () => {
@@ -75,12 +98,8 @@ const BuffingReports = () => {
     const bal = e.buffingTotalBalance?.[0] || {};
     acc.receipt += bal.receipt_weight || 0;
     acc.scrap += bal.total_scrap_weight || 0;
-    acc.balance += bal.balance || 0;
     return acc;
   }, { receipt: 0, scrap: 0, balance: 0 });
-
-
-
 
 
 // Inside BuffingReports component, after totals calculation
@@ -101,7 +120,6 @@ const handleDownloadPDF = () => {
   doc.setFontSize(10);
   doc.text(`Total Receipt Weight: ${totals.receipt.toFixed(3)}`, 14, summaryY);
   doc.text(`Total Scrap Weight: ${totals.scrap.toFixed(3)}`, 90, summaryY);
-  doc.text(`Total Balance: ${totals.balance.toFixed(3)}`, 160, summaryY);
 
   // --- Table Columns ---
   const tableColumn = [
@@ -117,7 +135,6 @@ const handleDownloadPDF = () => {
     "Remarks",
     "Receipt Wt",
     "Total Scrap Wt",
-    "Balance",
     "Wastage",
   ];
 
@@ -146,7 +163,6 @@ const handleDownloadPDF = () => {
           fi.remarks || "-",
           i === 0 ? (balance.receipt_weight?.toFixed(3) ?? "-") : "",
           i === 0 ? (balance.total_scrap_weight?.toFixed(3) ?? "-") : "",
-          i === 0 ? (balance.balance?.toFixed(3) ?? "-") : "",
           i === 0 ? (balance.wastage ? "Yes" : "No") : "",
         ]);
       });
@@ -161,7 +177,6 @@ const handleDownloadPDF = () => {
         "-", "-", "-", "-",
         balance.receipt_weight?.toFixed(3) ?? "-",
         balance.total_scrap_weight?.toFixed(3) ?? "-",
-        balance.balance?.toFixed(3) ?? "-",
         balance.wastage ? "Yes" : "No",
       ]);
     }
@@ -243,10 +258,14 @@ const handleDownloadPDF = () => {
             <span>Total Scrap Weight :</span>
             <span> {totals.scrap.toFixed(3)}</span>
     </div>
-    <div className={styles.summaryItem}>
-            <span>Total Balance :</span>
-            <span>{totals.balance.toFixed(3)}</span>
-    </div>
+
+    {selectedPerson && (
+            <div className={styles.summaryItem}>
+              <span>{selectedPerson}'s Balance:</span>
+              <span>{selectedBalance.toFixed(3)}</span>
+            </div>
+          )}
+
         </div>
       </div>
 
@@ -262,7 +281,6 @@ const handleDownloadPDF = () => {
             <th colSpan={5}>Filing / Setting Items</th>
             <th rowSpan={2}>Receipt Wt</th>
             <th rowSpan={2}>Total Scrap Wt</th>
-            <th rowSpan={2}>Balance</th>
             <th rowSpan={2}>Wastage</th>
           </tr>
           <tr>
@@ -273,64 +291,6 @@ const handleDownloadPDF = () => {
             <th>Remarks</th>
           </tr>
         </thead>
-        {/* <tbody>
-          {filtered.length > 0 ? filtered.map((entry, idx) => {
-            const items = entry.lotBuffingMapper || [];
-            const balance = entry.buffingTotalBalance?.[0] || {};
-
-            return items.length > 0 ? items.map((fi, i) => (
-              <tr key={`${entry.id}-${fi.filing_item_id}-${i}`}>
-                {i === 0 && (
-                  <>
-                    <td rowSpan={items.length}>{idx + 1}</td>
-                    <td rowSpan={items.length}>
-                      {new Date(entry.createdAt).toLocaleDateString()}
-                    </td>
-                    <td rowSpan={items.length}>
-                      {new Date(entry.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                    </td>
-                    <td rowSpan={items.length}>{entry.buffing_person_name}</td>
-                    <td rowSpan={items.length}>{fi.lot_number}</td>
-                  </>
-                )}
-
-                <td>{fi.filing_item_name}</td>
-                <td>{fi.weight}</td>
-                <td>{fi.touch}</td>
-                <td>{fi.item_purity}</td>
-                <td>{fi.remarks}</td>
-
-                {i === 0 && (
-                  <>
-                  
-                    <td rowSpan={items.length}>{balance.receipt_weight?.toFixed(3) ?? "-"}</td>
-                    <td rowSpan={items.length}>{balance.total_scrap_weight?.toFixed(3) ?? "-"}</td>
-                    <td rowSpan={items.length}>{balance.balance?.toFixed(3) ?? "-"}</td>
-                    <td rowSpan={items.length}>
-      {balance.wastage ? "Yes" : "No"}
-    </td>
-                  </>
-                )}
-              </tr>
-            )) : (
-              <tr key={entry.id}>
-                <td>{idx + 1}</td>
-                <td>{new Date(entry.createdAt).toLocaleDateString()}</td>
-                <td>{new Date(entry.createdAt).toLocaleTimeString()}</td>
-                <td>{entry.buffing_person_name}</td>
-                <td>-</td>
-                <td colSpan={5} style={{ textAlign: "center" }}>No Filing Items</td>
-                <td>{balance.receipt_weight?.toFixed(3) ?? "-"}</td>
-                <td>{balance.total_scrap_weight?.toFixed(3) ?? "-"}</td>
-                <td>{balance.balance?.toFixed(3) ?? "-"}</td>
-              </tr>
-            );
-          }) : (
-            <tr>
-              <td colSpan="13" align="center">No records found</td>
-            </tr>
-          )}
-        </tbody> */}
         <tbody>
   {filtered.length > 0 ? filtered.map((entry, idx) => {
     const items = entry.lotBuffingMapper || [];
@@ -367,7 +327,6 @@ const handleDownloadPDF = () => {
               <>
                 <td rowSpan={items.length}>{balance.receipt_weight?.toFixed(3) ?? "-"}</td>
                 <td rowSpan={items.length}>{balance.total_scrap_weight?.toFixed(3) ?? "-"}</td>
-                <td rowSpan={items.length}>{balance.balance?.toFixed(3) ?? "-"}</td>
                 <td rowSpan={items.length}>{balance.wastage ? "Yes" : "No"}</td>
               </>
             )}
@@ -382,7 +341,6 @@ const handleDownloadPDF = () => {
             <td colSpan={5} style={{ textAlign: "center" }}>No Filing Items</td>
             <td>{balance.receipt_weight?.toFixed(3) ?? "-"}</td>
             <td>{balance.total_scrap_weight?.toFixed(3) ?? "-"}</td>
-            <td>{balance.balance?.toFixed(3) ?? "-"}</td>
             <td>{balance.wastage ? "Yes" : "No"}</td>
           </tr>
         )}
@@ -403,7 +361,6 @@ const handleDownloadPDF = () => {
     </tr>
   )}
 </tbody>
-
       </table>
 
     </>

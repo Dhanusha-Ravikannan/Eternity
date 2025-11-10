@@ -338,8 +338,8 @@ setTransactions((prev) => [newTransactionRecord, ...prev]);
       borderColor: "brown",
     }}
     onClick={() => {
-      setFromDate(null);
-      setToDate(null);
+      setFromDate(" ");
+      setToDate(" ");
     }}
   >
     Reset 
