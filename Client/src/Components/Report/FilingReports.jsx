@@ -15,6 +15,19 @@ const FilingReports = () => {
   const [selectedPerson, setSelectedPerson] = useState("");
   const [persons, setPersons] = useState([]);
   const [allEntries, setAllEntries] = useState([]);
+  const [personData, setPersonData] = useState([]);
+  const [selectedBalance, setSelectedBalance] = useState(0); 
+
+  const fetchPersonsWithBalance = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/filing");
+      setPersonData(res.data);
+      console.log('Filing response:', res.data)
+    } catch (err) {
+      console.error("Error fetching persons:", err);
+    }
+  };
+
 
   const fetchAllData = async () => {
     try {
@@ -36,7 +49,17 @@ const FilingReports = () => {
 
   useEffect(() => {
     fetchAllData();
+    fetchPersonsWithBalance(); 
   }, []);
+
+  useEffect(() => {
+    if (selectedPerson) {
+      const found = personData.find((p) => p.name === selectedPerson);
+      setSelectedBalance(found ? found.balance || 0 : 0);
+    } else {
+      setSelectedBalance(0);
+    }
+  }, [selectedPerson, personData]);
 
   console.log("Entries:", entries);
 
@@ -99,20 +122,15 @@ const FilingReports = () => {
   const totals = calculateTotals();
 
 
-
-
-   //  Added: PDF Download
    const handleDownloadPDF = () => {
     const doc = new jsPDF();
 
-    // Title in center
     doc.setFontSize(16);
     doc.text("Filing Report Details", doc.internal.pageSize.getWidth() / 2, 15, {
       align: "center",
     });
 
-     // --- Summary Section ---
-  const summaryY = 25; // starting Y for summary
+  const summaryY = 25; 
   doc.setFontSize(10);
 
   doc.text(
@@ -132,9 +150,7 @@ const FilingReports = () => {
   );
 
   doc.text(`Total Wastage: ${totals.wastage.toFixed(3)}`, 14, summaryY + 6);
-  doc.text(`Total Balance: ${totals.balance.toFixed(3)}`, 70, summaryY + 6);
 
-    // Prepare table columns
     const tableColumn = [
       "S.No",
       "Date",
@@ -152,7 +168,6 @@ const FilingReports = () => {
       "Product Wt",
       "Scrap Wt",
       "Wastage",
-      "Balance",
     ];
 
     const tableRows = [];
@@ -212,7 +227,6 @@ item?.type === "ScrapItems"
                   : "No"
                 : "-"
               : "",
-            i === 0 ? balanceData.balance?.toFixed(3) || "-" : "",
           ]);
         });
       } else {
@@ -243,36 +257,24 @@ item?.type === "ScrapItems"
               ? "Yes"
               : "No"
             : "-",
-          balanceData.balance?.toFixed(3) || "-",
         ]);
       }
     });
 
-    // AutoTable from row 25
-    // autoTable(doc, {
-    //   startY: 35,
-    //   head: [tableColumn],
-    //   body: tableRows,
-    //   styles: { fontSize: 8 },
-    //   margin: { left: 1, right: 1, top: 20 },
-    //   tableWidth: "auto",
-    // });
-
-
     autoTable(doc, {
-      startY: 35, // bring table closer to title
+      startY: 35, 
       head: [tableColumn],
       body: tableRows,
-      styles: { fontSize: 8, cellPadding: 1.5 }, // smaller padding overall
+      styles: { fontSize: 8, cellPadding: 1.5 }, 
       headStyles: {
         fontSize: 8,
         halign: "center",
         valign: "middle",
-        cellPadding: 1, // reduce space between headings
+        cellPadding: 1, 
       },
       bodyStyles: {
         valign: "middle",
-        cellPadding: 1.5, // compact row spacing
+        cellPadding: 1.5, 
       },
       margin: { left: 2, right: 2 },
       tableWidth: "auto",
@@ -332,7 +334,6 @@ item?.type === "ScrapItems"
         <Button variant="outlined" onClick={handleReset} >
           Reset
         </Button>
-           {/*  Added PDF download button */}
            <Button
           style={{ marginLeft: "32rem" }}
           variant="contained"
@@ -359,13 +360,17 @@ item?.type === "ScrapItems"
             <span>{totals.scrapWeight.toFixed(3)}</span>
           </div>
           <div className={styles.summaryItem}>
-            <span>Total Wastage:</span>
+            <span>Total Wastage Entries:</span>
             <span>{totals.wastage.toFixed(3)}</span>
           </div>
-          <div className={styles.summaryItem}>
-            <span>Total Balance:</span>
-            <span>{totals.balance.toFixed(3)}</span>
-          </div>
+
+              {/*  Display selected person's balance */}
+              {selectedPerson && (
+            <div className={styles.summaryItem}>
+              <span>{selectedPerson}'s Balance:</span>
+              <span>{selectedBalance.toFixed(3)}</span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -384,7 +389,6 @@ item?.type === "ScrapItems"
               <th rowSpan={2}>Product Weight</th>
               <th rowSpan={2}>Scrap Weight</th>
               <th rowSpan={2}>Wastage</th>
-              <th rowSpan={2}>Balance</th>
             </tr>
             <tr>
               <th>Name</th>
@@ -438,16 +442,7 @@ item?.type === "ScrapItems"
                         <td>{item?.filingitem?.name || "-"}</td>
                         <td>{item?.item_purity || "-"}</td>
                         <td>{item?.touch.touch || "-"}</td>
-                        {/* <td>{item?.type || "-"}</td>
-                        <td>
-                          {item?.stone_option === "WithStone" ? "Yes" : "No"}
-                        </td>
-                        <td>
-                          {item?.stone_option === "WithStone"
-                            ? "Setting"
-                            : "Buffing"}
-                        </td> */}
-
+          
 <td>{item?.type || "-"}</td>
 <td>
   {item?.type === "ScrapItems"
@@ -463,8 +458,6 @@ item?.type === "ScrapItems"
     ? "Setting"
     : "Buffing"}
 </td>
-
-
                         {itemIndex === 0 && (
                           <>
                             <td rowSpan={filingItems.length}>
@@ -482,11 +475,6 @@ item?.type === "ScrapItems"
                                 ? entry.filingTotalBalance[0].wastage === true
                                   ? "Yes"
                                   : "No"
-                                : "-"}
-                            </td>
-                            <td rowSpan={filingItems.length}>
-                              {balanceData.balance
-                                ? balanceData.balance.toFixed(3)
                                 : "-"}
                             </td>
                           </>

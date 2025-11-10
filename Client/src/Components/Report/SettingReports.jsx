@@ -14,9 +14,21 @@ const SettingReports = () => {
   const [filteredEntries, setFilteredEntries] = useState([]);
   const [selectedPerson, setSelectedPerson] = useState("");
   const [persons, setPersons] = useState([]);
+  const [personData, setPersonData] = useState([]);
+  const [selectedBalance, setSelectedBalance] = useState(0); 
   
+
+  const fetchPersonsWithBalance = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/setting");
+      setPersonData(res.data);
+      console.log('Filing response:', res.data)
+    } catch (err) {
+      console.error("Error fetching persons:", err);
+    }
+  };
   
-  useEffect(() => {
+
     const fetchEntries = async () => {
       try {
         const res = await axios.get(`${BACKEND_SERVER_URL}/api/settingentry/get-report-entries`);
@@ -37,9 +49,21 @@ const SettingReports = () => {
         console.error("Error fetching setting entries:", err);
       }
     };
-  
+
+  useEffect(() => {
+    fetchPersonsWithBalance(); 
     fetchEntries();
   }, []);
+
+
+  useEffect(() => {
+    if (selectedPerson) {
+      const found = personData.find((p) => p.name === selectedPerson);
+      setSelectedBalance(found ? found.balance || 0 : 0);
+    } else {
+      setSelectedBalance(0);
+    }
+  }, [selectedPerson, personData]);
   
 
   const applyDateFilter = () => {
@@ -107,26 +131,22 @@ const SettingReports = () => {
     align: "center",
   });
 
-      // Summary Section
-  const summaryY = 25; // Y position to start summary
+  const summaryY = 25; 
   doc.setFontSize(10);
   doc.text(`Total Stone Weight: ${totals.stoneWeight.toFixed(3)}`, 14, summaryY);
   doc.text(`Total Stone Count: ${totals.stoneCount.toFixed(3)}`, 80, summaryY);
   doc.text(`Total Receipt Weight: ${totals.receiptWeight.toFixed(3)}`, 150, summaryY);
   doc.text(`Total Product Weight: ${totals.productWeight.toFixed(3)}`, 14, summaryY + 6);
   doc.text(`Total Scrap Weight: ${totals.scrapWeight.toFixed(3)}`, 80, summaryY + 6);
-  doc.text(`Total Current Balance: ${totals.currentBalance.toFixed(3)}`, 150, summaryY + 6);
-  doc.text(`Total Balance: ${totals.balance.toFixed(3)}`, 14, summaryY + 12);
 
     // Table columns
     const columns = [
-      "S.No", "Date", "Time", "Person", "Lot Number",
+      "S.No", "Date", "Time", "Person", "Lot No",
       "Item", "Weight", "Touch", "Purity", "Remarks",
       "Stone Wt", "Stone Count", "Receipt Wt", "Wastage",
       "Scrap Item",
-      //  "Scrap Item Qty", 
-      "Total Product Wt",
-      "Current Balance Wt", "Total Scrap Wt", "Balance"
+      "Product Wt",
+     "Scrap Wt"
     ];
 
     // Table rows
@@ -149,7 +169,6 @@ const SettingReports = () => {
           } else {
             row.push("", "", "", "", "");
           }
-
           row.push(
             fi.filing_item_name || "",
             fi.weight || "",
@@ -158,39 +177,25 @@ const SettingReports = () => {
             fi.remarks || ""
           );
 
-          if (i === 0) {
-            row.push(
-              settingBalance.stone_weight || 0,
-              settingBalance.stone_count || 0,
-              settingBalance.receipt_weight || 0,
-              settingBalance.wastage ? "Yes" : "No",
-              // (entry.scrapItems || []).map((si) => si.itemName).join(", ") || "-",
-              // (entry.scrapItems || []).length || 0,
-//               (entry.settingItems || [])
-//   .filter((si) => si.type === "ScrapItems")
-//   .map((si) => si.item_name)
-//   .join(", ") || "-",
-// (entry.settingItems || []).filter((si) => si.type === "ScrapItems").length || 0,
-
-(entry.settingItems || [])
-  .filter((si) => si.type === "ScrapItems")
-  .map((si) => si.item_name)
-  .join(", ") || "-",
-
-
-              settingBalance.total_product_weight?.toFixed(3) || 0,
-              settingBalance.current_balance_weight?.toFixed(3) || 0,
-              settingBalance.total_scrap_weight?.toFixed(3) || 0,
-              settingBalance.balance?.toFixed(3) || 0
-            );
-          } else {
-            row.push(...Array(10).fill(""));
-          }
-
+if (i === 0) {
+  row.push(
+    settingBalance.stone_weight || 0,
+    settingBalance.stone_count || 0,
+    settingBalance.receipt_weight || 0,
+    settingBalance.wastage ? "Yes" : "No",
+    (entry.settingItems || [])
+      .filter((si) => si.type === "ScrapItems")
+      .map((si) => si.item_name)
+      .join(", ") || "-",
+    settingBalance.total_product_weight?.toFixed(3) || 0,
+    settingBalance.total_scrap_weight?.toFixed(3) || 0   
+  );
+} else {
+  row.push(...Array(11).fill("")); 
+}
           rows.push(row);
         });
       } else {
-        // If no filing items
         rows.push([
           index + 1,
           new Date(entry.createdAt).toLocaleDateString(),
@@ -205,21 +210,9 @@ const SettingReports = () => {
           "-",
           0,
           settingBalance.total_product_weight?.toFixed(3) || 0,
-          settingBalance.current_balance_weight?.toFixed(3) || 0,
-          settingBalance.total_scrap_weight?.toFixed(3) || 0,
-          settingBalance.balance?.toFixed(3) || 0
         ]);
       }
     });
-
-    // autoTable(doc, {
-    //   startY: 40,
-    //   head: [columns],
-    //   body: rows,
-    //   styles: { fontSize: 7 },
-    //   margin: { left: 1, right: 1, top: 20 },
-    //   tableWidth: "auto",
-    // });
 
     autoTable(doc, {
       startY: 40, 
@@ -299,7 +292,7 @@ const SettingReports = () => {
       </Stack>
 
       <div className={styles.summarySection}>
-  <h4>Summary</h4>
+  <h4> Total Summary</h4>
   <div className={styles.summaryGrid}>
     <div className={styles.summaryItem}>
             <span>Stone Weight :</span>
@@ -321,18 +314,16 @@ const SettingReports = () => {
             <span> Scrap Weight:  :</span>
             <span>{totals.scrapWeight.toFixed(3)}</span>
     </div>
-    <div className={styles.summaryItem}>
-            <span>Current Balance Weight :</span>
-            <span>{totals.currentBalance.toFixed(3)}</span>
-    </div>
-    <div className={styles.summaryItem}>
-            <span>Balance: </span>
-            <span>{totals.balance.toFixed(3)}</span>
-    </div>
+
+                  {selectedPerson && (
+            <div className={styles.summaryItem}>
+              <span>{selectedPerson}'s Balance:</span>
+              <span>{selectedBalance.toFixed(3)}</span>
+            </div>
+          )}
   </div>
 </div>
 
-      {/* Main Table */}
       <table className={styles.table}>
         <thead>
           <tr>
@@ -347,17 +338,13 @@ const SettingReports = () => {
             <th rowSpan={2}>Receipt Wt</th>
             <th rowSpan={2}>Wastage</th>
             <th rowSpan={2}>Scrap Item</th>
-            {/* <th rowSpan={2}>Scrap Item Qty</th> */}
             <th rowSpan={2}>Total Product Wt</th>
-            <th rowSpan={2}>Current Balance Wt</th>
             <th rowSpan={2}>Total Scrap Wt</th>
-            {/* <th rowSpan={2}>Balance</th> */}
           </tr>
           <tr>
             <th>Item</th>
             <th>Weight</th>
             <th>Touch</th>
-            {/* <th>Purity</th> */}
             <th>Remarks</th>
           </tr>
         </thead>
@@ -395,7 +382,6 @@ const SettingReports = () => {
                     <td>{fi.filing_item_name}</td>
                     <td>{fi.weight}</td>
                     <td>{fi.touch}</td>
-                    {/* <td>{fi.item_purity}</td> */}
                     <td>{fi.remarks}</td>
 
                     {i === 0 && (
@@ -413,29 +399,20 @@ const SettingReports = () => {
                           {settingBalance.wastage ? "Yes" : "No"}
                         </td>
                         <td rowSpan={filingItems.length}>
-                          {/* {(entry.scrapItems || [])
-                            .map((item) => item.itemName)
-                            .join(", ") || "-"} */}
+
                             {(entry.settingItems || [])
   .filter((item) => item.type === "ScrapItems")
   .map((item) => item.item_name)
   .join(", ") || "-" }
                         </td>
-                        {/* <td rowSpan={filingItems.length}>
-                          {(entry.scrapItems || []).length || 0}
-                        </td> */}
+     
                         <td rowSpan={filingItems.length}>
                           {settingBalance.total_product_weight?.toFixed(3) || 0}
                         </td>
                         <td rowSpan={filingItems.length}>
-                          {settingBalance.current_balance_weight?.toFixed(3) || 0}
-                        </td>
-                        <td rowSpan={filingItems.length}>
                           {settingBalance.total_scrap_weight?.toFixed(3) || 0}
                         </td>
-                        {/* <td rowSpan={filingItems.length}>
-                          {settingBalance.balance?.toFixed(3) || 0}
-                        </td> */}
+
                       </>
                     )}
                   </tr>
@@ -456,9 +433,7 @@ const SettingReports = () => {
                   <td>{settingBalance.wastage ? "Yes" : "No"}</td>
                   <td colSpan={2}>-</td>
                   <td>{settingBalance.total_product_weight?.toFixed(3) || 0}</td>
-                  <td>{settingBalance.current_balance_weight?.toFixed(3) || 0}</td>
-                  <td>{settingBalance.total_scrap_weight?.toFixed(3) || 0}</td>
-                  <td>{settingBalance.balance?.toFixed(3) || 0}</td>
+ 
                 </tr>
               );
             })

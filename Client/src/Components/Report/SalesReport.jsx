@@ -126,61 +126,81 @@ const resetFilters = () => {
   setInvoices(allInvoices);
 };
 
-  
 
+// PDF Export
 
-// Inside your SalesReport component
-const downloadPDF = () => {
+const handleDownloadPDF = () => {
   const doc = new jsPDF();
-  
-  // doc.setFontSize(14);
-  // doc.text("Daily Sales Report", 14, 15);
+
+  // Title
   doc.setFontSize(16);
-  doc.text("Daily Sales Report", doc.internal.pageSize.getWidth() / 2, 15, {
-    align: "center",
-  });
+  doc.text("Daily Sales Report", 75, 15);
 
-  // --- Summary Section ---
-  const summaryY = 25;
+  // Summary Section
+  doc.setFontSize(12);
+  doc.text("Summary:", 14, 27);
   doc.setFontSize(10);
-  doc.text(`Total Weight: ${totalWeight}`, 14, summaryY);
-  doc.text(`Total Purity: ${totalPurity}`, 80, summaryY);
-  doc.text(`Total Amount: ${totalAmount}`, 150, summaryY);
-  doc.text(`Total Amount Received: ${totalAmountReceived}`, 14, summaryY + 6);
-  doc.text(`Total Pure Received: ${totalPureReceived}`, 80, summaryY + 6);
-  doc.text(`Total Cash Balance: ${totalCashBalance}`, 150, summaryY + 6);
-  doc.text(`Total Pure Balance: ${totalPureBalance.toFixed(3)}`, 14, summaryY + 12);
 
-  // --- Invoice Table ---
-  const columns = [
-    "S.No", "Invoice No", "Date", "Customer", "Total Weight", 
-    "Total Purity", "Total Amount", "Amount Received", "Pure Received",
-    "Cash Balance", "Pure Balance"
-  ];
+  // Define consistent X positions for each "column"
+  const col1 = 14;   
+  const col2 = 80;   
+  const col3 = 140;  
 
-  const rows = invoices.map((inv, index) => [
+  // Line 1 (Top row)
+  doc.text(`Total Purity: ${totalPurity}`, col1, 37);
+  doc.text(`Total Amount: ${totalAmount.toFixed(3)}`, col2, 37);
+  doc.text(`Total Amount Received: ${totalAmountReceived}`, col3, 37);
+
+  // Line 2 (Second row, same X alignment)
+  doc.text(`Total Pure Received: ${totalPureReceived.toFixed(3)}`, col1, 43);
+  doc.text(`Total Cash Balance: ${totalCashBalance}`, col2, 43);
+  doc.text(`Total Pure Balance: ${totalPureBalance.toFixed(3)}`, col3, 43);
+
+  // Table Data
+  const tableData = invoices.map((inv, index) => [
     index + 1,
     inv.bill_no,
     new Date(inv.updatedAt).toLocaleDateString("en-GB"),
+    // inv.time || "-",
     inv.customer?.name || "-",
-    inv.gold_rate,
-    inv.total_pure,
-    inv.total_amount,
-    inv.amount_received || "-",
-    inv.pure_received || "-",
-    inv.cash_balance,
-    inv.pure_balance.toFixed(3)
+    inv.total_pure?.toFixed(3) || "-",
+    inv.total_amount?.toFixed(3) || "-",
+    inv.amount_received?.toFixed(3) || "-",
+    (
+      inv.receivedItems?.reduce(
+        (sum, row) => sum + (Number(row.purity_weight) || 0),
+        0
+      ) || 0
+    ).toFixed(3),
+    inv.cash_balance?.toFixed(3) || "-",
+    inv.pure_balance?.toFixed(3) || "-",
   ]);
 
+  // Add table below summary
   autoTable(doc, {
-    startY: summaryY + 20, // start below summary
-    head: [columns],
-    body: rows,
+    startY: 52,
+    head: [
+      [
+        "S.No",
+        "Invoice No",
+        "Date",
+        // "Time",
+        "Customer Name",
+        "Total Purity",
+        "Total Amount",
+        "Amount Received",
+        "Pure Received",
+        "Cash Balance",
+        "Pure Balance",
+      ],
+    ],
+    body: tableData,
     styles: { fontSize: 8 },
-  
+    headStyles: { fillColor: [22, 80, 132] },
+    theme: "grid",
   });
 
-  doc.save("SalesReport.pdf");
+  doc.save("Sales_Report.pdf");
 };
 
 
@@ -234,14 +254,16 @@ const downloadPDF = () => {
   <Button variant="outlined" color="primary" onClick={resetFilters}>
     Reset
   </Button>
-  <Button
+
+<Button
   variant="contained"
   color="primary"
-  onClick={downloadPDF}
+  onClick={handleDownloadPDF}
   sx={{ marginLeft:'34.7rem'}}
 >
   Download PDF
 </Button>
+
 
 </div>
         {/* Summary */}
@@ -258,7 +280,7 @@ const downloadPDF = () => {
             </div>
             <div className={styles.summaryItem}>
               <span>Total Amount:</span>
-              <span>{totalAmount}</span>
+              <span>{totalAmount.toFixed(3)}</span>
             </div>
             <div className={styles.summaryItem}>
               <span>Total Amount Received:</span>
@@ -340,19 +362,6 @@ const downloadPDF = () => {
                 </tr>
               ))}
             </tbody>
-            {/* <tfoot className={styles.trEven}>
-              <tr>
-                <td colSpan={4} style={{ fontWeight: "bold" }}>Total</td>
-                <td>{totalWeight}</td>
-                <td>{totalPurity}</td>
-                <td>{totalAmount}</td>
-                <td>{totalAmountReceived}</td>
-                <td>{totalPureReceived}</td>
-                <td>{totalCashBalance}</td>
-                <td>{totalPureBalance .toFixed(3)}</td>
-                <td></td>
-              </tr>
-            </tfoot> */}
           </table>
         </div>
       </div>
@@ -374,12 +383,6 @@ const downloadPDF = () => {
       setViewBill={setViewInvoice}
     />
   )}
-
-  {/* <DialogActions>
-    <Button variant="outlined" onClick={() => setViewInvoice(null)}>
-      Close
-    </Button>
-  </DialogActions> */}
   </div>
 </Dialog>
 

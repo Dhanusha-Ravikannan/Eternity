@@ -34,6 +34,10 @@ const CustomerReport = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
   const [viewBill, setViewBill] = useState(null);
+const [pureBalance, setPureBalance] = useState(0);
+const [excessPureBalance, setExcessPureBalance] = useState(0);
+
+
 
   
   const paginatedData =billInfo.slice(
@@ -43,15 +47,18 @@ const CustomerReport = () => {
 
   const handlePrint =  () => {
    const printContent = (
-      < CustomerReportPrint
-        fromDate={fromDate ? fromDate.format("DD/MM/YYYY") : ""}
-        toDate={toDate ? toDate.format("DD/MM/YYYY") : ""}
-        customerName={selectedCustomer?.name || ""}
-        billInfo={paginatedData}
-        billReceive={currentPageTotal.billReceive}
-        billAmount={currentPageTotal.billAmount}
-        overAllBalance={overAllBalance}
-      />
+
+      <CustomerReportPrint
+  fromDate={fromDate ? fromDate.format("DD/MM/YYYY") : ""}
+  toDate={toDate ? toDate.format("DD/MM/YYYY") : ""}
+  customerName={selectedCustomer?.name || ""}
+  billInfo={paginatedData}
+  billReceive={currentPageTotal.billReceive}
+  billAmount={currentPageTotal.billAmount}
+  overAllBalance={overAllBalance}
+  pureBalance={pureBalance}               
+  excessPureBalance={excessPureBalance}   
+/>
     );
 
     const printHtml = `
@@ -116,6 +123,25 @@ const CustomerReport = () => {
     }
     setSelectedCustomer(newValue);
     console.log(newValue);
+    if (newValue) {
+      const openingBalance = newValue.openingBalance;
+      const customerBalance = newValue.balance;
+    
+      if (openingBalance !== null && openingBalance !== undefined) {
+        if (openingBalance < 0) {
+          setExcessPureBalance(openingBalance);
+          setPureBalance(0);
+        } else {
+          setPureBalance(openingBalance);
+          setExcessPureBalance(0);
+        }
+      } else {
+        // When openingBalance is null → use customer's balance instead
+        setPureBalance(customerBalance || 0);
+        setExcessPureBalance(0);
+      }
+    }
+    
 
     const fetchBillInfo = async () => {
       try {
@@ -154,6 +180,13 @@ const CustomerReport = () => {
     setFromDate(today);
     setToDate(today);
   }, []);
+
+  // Get the first Bill from billInfo
+// const firstBill = billInfo.find(bill => bill.type === "Bill");
+
+// const pureBalance = firstBill?.info?.pure_balance || 0;
+// const customerBalance = firstBill?.info?.customer_balance || 0;
+
 
   return (
     <>
@@ -348,11 +381,11 @@ const CustomerReport = () => {
 
                   <td className={styles.customerTotal}>
                     <strong>
-                      Total bill Received :{(currentPageTotal.billReceive).toFixed(3)} gr
+                      Total bill Received :{(currentPageTotal.billReceive).toFixed(3)} 
                     </strong>
                   </td>
                   <td className={styles.customerTotal}>
-                    <strong> Total bill Amount:{(currentPageTotal.billAmount).toFixed(3)} gr</strong>
+                    <strong> Total bill Amount:{(currentPageTotal.billAmount).toFixed(3)} </strong>
                   </td>
                 </tr>
                
@@ -383,19 +416,63 @@ const CustomerReport = () => {
                 rowsPerPageOptions={[5, 10, 25]}
               />
       </div>
-        <div className={styles.overAllBalance}>
-    <div className={styles.balanceCard}> 
-           <div className={styles.balancenegative }>
-                 Excess Balance: {overAllBalance<0 ?(overAllBalance).toFixed(3):0.000} gr
-           </div>
 
-           <div className={styles.balancepositive}>
-    
-               Balance : {overAllBalance>=0 ?(overAllBalance).toFixed(3):0.000} gr
-           </div>
-           </div>
-          </div> 
 
+<div
+  className={styles.balanceContainer}
+  style={{
+    marginTop: "1rem",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    gap: "2rem", 
+    marginLeft:'31rem'
+  }}
+>
+ 
+  <div
+    className={`${styles.balanceCard} ${styles.balancePositive}`}
+    style={{
+      textAlign: "center",
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <span>
+  Pure Balance: {pureBalance.toFixed(3)}
+</span>
+
+    </div>
+  </div>
+
+  <div
+    className={`${styles.balanceCard} ${styles.balanceNegative}`}
+    style={{
+      width: "15rem",
+      textAlign: "center",
+      marginRight:'31rem'
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+ 
+      <span>
+  Excess Pure Balance: {excessPureBalance.toFixed(3)}
+</span>
+
+    </div>
+  </div>
+</div>
 
           <Dialog
   open={!!viewBill}
@@ -415,11 +492,6 @@ const CustomerReport = () => {
     />
   )}
 
-  {/* <DialogActions>
-    <Button variant="outlined" onClick={() => setViewBill(null)}>
-      Close
-    </Button>
-  </DialogActions> */}
   </div>
 </Dialog>
    
