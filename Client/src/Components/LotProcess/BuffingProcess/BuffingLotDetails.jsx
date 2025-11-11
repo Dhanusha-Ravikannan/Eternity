@@ -708,14 +708,15 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
                       <td rowSpan={entry.items.length}>
                         {entry.totalScrapWeight || "-"}
                       </td>
-                      <td rowSpan={entry.items.length}>
-                        {entry.balance || "-"}
-                      </td>
                       {/* <td rowSpan={entry.items.length}>
+                        {entry.balance || "-"}
+                      </td> */}
+                      <td rowSpan={entry.items.length}>
   {entry.balance !== undefined && entry.balance !== null
-    ? parseFloat(entry.balance).toFixed(2)
+    ? Number(entry.balance).toFixed(3)
     : "-"}
-</td> */}
+</td>
+
                       <td rowSpan={entry.items.length}>
                         <Button
                           variant="outlined"

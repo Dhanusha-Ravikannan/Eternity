@@ -14,8 +14,9 @@ const CastingMeltingReports = () => {
   const [toDate, setToDate] = useState("");
   const [castingNames, setCastingNames] = useState([]);
   const [selectedName, setSelectedName] = useState("");
+  const [selectedBalance, setSelectedBalance] = useState(null);
 
-  // Fetch all entries & casting names
+
   const fetchAllData = async () => {
     try {
       const [entryRes, castingRes] = await Promise.all([
@@ -34,7 +35,6 @@ const CastingMeltingReports = () => {
     fetchAllData();
   }, []);
 
-  // Apply date + name filters
   const handleFilter = () => {
     let filtered = allEntries;
 
@@ -61,12 +61,9 @@ const CastingMeltingReports = () => {
     setEntries(allEntries);
   };
 
-
-   //  PDF Download
    const handleDownloadPDF = () => {
     const doc = new jsPDF();
 
-    // Title in center
     doc.setFontSize(16);
     doc.text("Casting/Melting Report", doc.internal.pageSize.getWidth() / 2, 15, {
       align: "center",
@@ -109,7 +106,6 @@ const CastingMeltingReports = () => {
       "Filing",
     ]);
 
-    // AutoTable from row 25 (below title)
     autoTable(doc, {
       startY: 25,
       head: [tableColumn],
@@ -151,7 +147,7 @@ const CastingMeltingReports = () => {
         />
 
         {/*  Name dropdown filter */}
-        <TextField
+        {/* <TextField
           select
           label=" Person Name"
           value={selectedName}
@@ -165,7 +161,31 @@ const CastingMeltingReports = () => {
               {c.name}
             </MenuItem>
           ))}
-        </TextField>
+        </TextField> */}
+
+<TextField
+  select
+  label="Person Name"
+  value={selectedName}
+  onChange={(e) => {
+    const name = e.target.value;
+    setSelectedName(name);
+
+    // Find the selected person's balance from castingNames
+    const person = castingNames.find((c) => c.name === name);
+    setSelectedBalance(person ? person.balance || 0 : null);
+  }}
+  sx={{ width: "12rem" }}
+  size="small"
+>
+  <MenuItem value="">All</MenuItem>
+  {castingNames.map((c) => (
+    <MenuItem key={c.id} value={c.name}>
+      {c.name}
+    </MenuItem>
+  ))}
+</TextField>
+
 
         <Button variant="outlined" onClick={handleFilter}>
           Filter
@@ -180,6 +200,19 @@ const CastingMeltingReports = () => {
 
       </Stack>
 
+      {selectedName && selectedBalance !== null && (
+  <div style={{ 
+    marginLeft: "2rem", 
+    marginBottom: "1rem", 
+    fontWeight: "bold", 
+    fontSize: "1rem", 
+    color: "#1976d2" 
+  }}>
+    Balance for <span style={{ color: "#000" }}>{selectedName}</span>:
+    {Number(selectedBalance).toFixed(3)} 
+  </div>
+)}
+
       <div className={styles.tablecontainer}>
         <table className={styles.table}>
           <thead>
@@ -188,15 +221,10 @@ const CastingMeltingReports = () => {
               <th>Date</th>
               <th>Time</th>
               <th>Name</th>
-              {/* <th>Before Wt</th> */}  <th>Issue</th>
-              {/* <th>Product Item(s)</th>
-              <th>Product Qty</th>
-              <th>Scrap Item(s)</th>
-              <th>Scrap Qty</th> */}
-              {/* <th style={{ width: "8rem" }}>Total Item Wt</th> */}<th>Receipt</th>
+              <th>Issue</th>
+              <th>Receipt</th>
               <th>Balance Wt</th>
-              {/* <th>Scrap Wt</th> */}
-              {/* <th>Wastage</th> */} <th>Final Weight</th>
+              <th>Final Weight</th>
               <th>Next Process</th>
             </tr>
           </thead>
@@ -214,18 +242,6 @@ const CastingMeltingReports = () => {
                 </td>
                 <td>{entry.customer?.name || "-"}</td>
                 <td>{entry.final_weight ?? "-"}</td>
-                {/* <td>
-                  {Array.isArray(entry.productItems)
-                    ? entry.productItems.join(", ")
-                    : "-"}
-                </td>
-                <td>{entry.productQty || "-"}</td>
-                <td>
-                  {Array.isArray(entry.scrapItems)
-                    ? entry.scrapItems.join(", ")
-                    : "-"}
-                </td>
-                <td>{entry.scrapQty || "-"}</td> */}
                 <td>
                   {entry.totalItemWeight
                     ? entry.totalItemWeight.toFixed(2)
@@ -236,11 +252,6 @@ const CastingMeltingReports = () => {
                     ? entry.currentBalanceWeight.toFixed(2)
                     : "-"}
                 </td>
-                {/* <td>
-                  {entry.totalScrapWeight
-                    ? entry.totalScrapWeight.toFixed(2)
-                    : "-"}
-                </td> */}
                 <td>
                   {entry.totalWastage ? entry.totalWastage.toFixed(2) : "-"}
                 </td>
