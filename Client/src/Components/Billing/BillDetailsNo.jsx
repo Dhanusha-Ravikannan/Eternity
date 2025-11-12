@@ -73,7 +73,7 @@ const isNegative = total < 0;
                 <td>{item.item_name}</td>
                 <td>{item.weight}</td>
                 <td>{item.stone_weight}</td>
-                <td>{item.total_weight}</td>
+                <td>{(item.total_weight).toFixed(3)}</td>
                 <td>{item.touch?.touch ?? item.touchId ?? "-"}</td>
                 <td>{item.pure}</td>
                 <td>{item.amount}</td>

@@ -16,6 +16,8 @@ const CastingEntry = () => {
   const [nameOptions, setNameOptions] = useState([]);
   const [touchOptions, setTouchOptions] = useState([]);
   const [mode, setMode] = useState('add');
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const [form, setForm] = useState({
     date: new Date().toISOString().split('T')[0],
@@ -173,6 +175,8 @@ const CastingEntry = () => {
   };
 
   const handleView = async (entry) => {
+
+    setIsLoading(true);
     try {
       // 1️ Fetch the full casting entry by ID
       const res = await axios.get(`${BACKEND_SERVER_URL}/api/castingentry/${entry.id}`);
@@ -212,10 +216,13 @@ const CastingEntry = () => {
       setTimeout(() => {
         setMode("view");
         setOpen(true);
-      }, 0);
+      }, 300);
     } catch (err) {
       console.error(" Error fetching casting entry by ID:", err);
       alert("Failed to load casting entry details.");
+    }
+    finally{
+      setIsLoading(false)
     }
   };
 
@@ -348,6 +355,27 @@ const CastingEntry = () => {
   </tbody>
 </table>
 </div>
+
+
+{isLoading && (
+  <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    background: "rgba(255,255,255,0.8)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "1.2rem",
+    fontWeight: "bold",
+    zIndex: 9999
+  }}>
+    Loading...
+  </div>
+)}
+
 
       <CastingEntryViewModal
         open={open}
