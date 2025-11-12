@@ -99,7 +99,7 @@ const MasterPurchaseStock = () => {
     const w = parseFloat(formData.weight);
     const t = parseFloat(formData.touch_value);
     if (!isNaN(w) && !isNaN(t)) {
-      const purity = (w * t) / 100; // formula: weight * touch / 100
+      const purity = (w * t) / 100; 
       setFormData((prev) => ({ ...prev, purity: purity.toFixed(2) }));
     } else {
       setFormData((prev) => ({ ...prev, purity: "" }));
@@ -125,7 +125,6 @@ const MasterPurchaseStock = () => {
     await handleSaveAction(async () => {
     const payload = {
       supplierId: parseInt(formData.supplierId, 10),
-      // createdAt: formData.purchaseDate,
       purchaseDate: formData.purchaseDate, 
       item: formData.item,
       weight: parseFloat(formData.weight),
@@ -163,10 +162,9 @@ const MasterPurchaseStock = () => {
           headers
         );
         data = res.data;
+setPurchaseList((prev) => [data, ...prev]);
+toast.success("Purchase submitted!");
 
-        // Add new row at end of table
-        setPurchaseList((prev) => [...prev, data]);
-        toast.success("Purchase submitted!");
       }
 
       resetForm();

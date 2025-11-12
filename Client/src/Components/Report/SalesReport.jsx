@@ -5,17 +5,13 @@ import {
   Button,
   MenuItem,
   Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Typography,
 } from "@mui/material";
 import styles from "./SalesReport.module.css";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import BillDetailsNo from "../Billing/BillDetailsNo";
-
+import { formatNumber } from "../../Utils/formatNumber";
 
 const SalesReport = () => {
   const [invoices, setInvoices] = useState([]);
@@ -26,7 +22,6 @@ const SalesReport = () => {
   const [customerId, setCustomerId] = useState("all");
   const [viewInvoice, setViewInvoice] = useState(null);
 
-  // Fetch all bills (with customer info)
 useEffect(() => {
   const fetchBills = async () => {
     try {
@@ -35,7 +30,6 @@ useEffect(() => {
       setInvoices(data);
       setAllInvoices(data);
 
-      // Extract unique customers from bills
       const uniqueCustomers = [];
       const seen = new Set();
       data.forEach((inv) => {
@@ -52,13 +46,8 @@ useEffect(() => {
   fetchBills();
 }, []);
 
-
-  // Totals
   const totalWeight = invoices.reduce((sum, inv) => sum + (inv.gold_rate || 0), 0);
-  const totalPurity = (
-    invoices.reduce((sum, inv) => sum + (inv.total_pure || 0), 0) /
-    (invoices.length || 1)
-  ).toFixed(3);
+  const totalPurity = ( invoices.reduce((sum, inv)=> sum + (inv.total_pure || 0),0))
   const totalAmount = invoices.reduce((sum, inv) => sum + (inv.total_amount || 0), 0);
   const totalAmountReceived = invoices.reduce(
     (sum, inv) => sum + (inv.amount_received || 0),
@@ -82,22 +71,17 @@ useEffect(() => {
     0
   );
 
-
   const handleViewInvoice = (id) => {
     const invoice = invoices.find((inv) => inv.id === id);
     setViewInvoice(invoice);
   };
 
-  // Apply filters
-  
   const applyFilters = () => {
     let filtered = [...allInvoices];
-  
     const from = fromDate ? new Date(fromDate) : null;
     const to = toDate ? new Date(toDate) : null;
     if (to) to.setHours(23, 59, 59, 999); 
   
-    // Date filter
     if (from || to) {
       filtered = filtered.filter((inv) => {
         const invDate = new Date(inv.updatedAt);
@@ -107,27 +91,22 @@ useEffect(() => {
         return true;
       });
     }
-  
-    // Customer filter
+
     if (customerId !== "all") {
       filtered = filtered.filter(
-        (inv) => inv.customer?.id === Number(customerId) //  ensure number
+        (inv) => inv.customer?.id === Number(customerId) 
       );
     }
   
     setInvoices(filtered);
   };
   
-// Reset filters
 const resetFilters = () => {
   setFromDate("");
   setToDate("");
   setCustomerId("all");
   setInvoices(allInvoices);
 };
-
-
-// PDF Export
 
 const handleDownloadPDF = () => {
   const doc = new jsPDF();
@@ -161,7 +140,7 @@ const handleDownloadPDF = () => {
     index + 1,
     inv.bill_no,
     new Date(inv.updatedAt).toLocaleDateString("en-GB"),
-    // inv.time || "-",
+    inv.time || "-",
     inv.customer?.name || "-",
     inv.total_pure?.toFixed(3) || "-",
     inv.total_amount?.toFixed(3) || "-",
@@ -176,7 +155,7 @@ const handleDownloadPDF = () => {
     inv.pure_balance?.toFixed(3) || "-",
   ]);
 
-  // Add table below summary
+
   autoTable(doc, {
     startY: 52,
     head: [
@@ -184,7 +163,7 @@ const handleDownloadPDF = () => {
         "S.No",
         "Invoice No",
         "Date",
-        // "Time",
+        "Time",
         "Customer Name",
         "Total Purity",
         "Total Amount",
@@ -266,42 +245,38 @@ const handleDownloadPDF = () => {
 
 
 </div>
-        {/* Summary */}
+
         <div className={styles.summarySection}>
           <h4>Summary</h4>
           <div className={styles.summaryGrid}>
-            {/* <div className={styles.summaryItem}>
-              <span>Total Gold Rate:</span>
-              <span>{totalWeight}</span>
-            </div> */}
+
             <div className={styles.summaryItem}>
               <span>Total Purity:</span>
-              <span>{totalPurity}</span>
+              <span>{formatNumber(totalPurity.toFixed(3))}</span>
             </div>
             <div className={styles.summaryItem}>
               <span>Total Amount:</span>
-              <span>{totalAmount.toFixed(3)}</span>
+              <span>{formatNumber(totalAmount.toFixed(3))}</span>
             </div>
             <div className={styles.summaryItem}>
               <span>Total Amount Received:</span>
-              <span>{totalAmountReceived}</span>
+              <span>{formatNumber(totalAmountReceived)}</span>
             </div>
             <div className={styles.summaryItem}>
               <span>Total Pure Received:</span>
-              <span>{totalPureReceived.toFixed(3)}</span>
+              <span>{formatNumber(totalPureReceived.toFixed(3))}</span>
             </div>
             <div className={styles.summaryItem}>
               <span>Total Cash Balance:</span>
-              <span>{totalCashBalance}</span>
+              <span>{formatNumber(totalCashBalance)}</span>
             </div>
             <div className={styles.summaryItem}>
               <span>Total Pure Balance:</span>
-              <span>{totalPureBalance .toFixed(3)}</span>
+              <span>{formatNumber(totalPureBalance .toFixed(3))}</span>
             </div>
           </div>
         </div>
 
-        {/* Table */}
         <div className={styles.section}>
           <div className={styles.sectionHeader}>
             <h4>Invoice Details: </h4>
@@ -314,7 +289,6 @@ const handleDownloadPDF = () => {
                 <th>Date</th>
                 <th>Time</th>
                 <th>Customer Name</th>
-                {/* <th> Gold Rate</th> */}
                 <th>Total Purity</th>
                 <th>Total Amount</th>
                 <th>Amount Received</th>
@@ -332,11 +306,9 @@ const handleDownloadPDF = () => {
                   <td> {new Date(inv.updatedAt).toLocaleDateString("en-GB")} </td>
                   <td>{inv.time}</td>
                   <td>{inv.customer?.name}</td>
-                  {/* <td>{inv.gold_rate}</td> */}
                   <td>{inv.total_pure}</td>
                   <td>{inv.total_amount}</td>
                   <td>{inv.amount_received || "-"}</td>
-                  {/* <td>{inv.pure_received || "-"} </td> */}
                  
                   <td>
   {(
@@ -351,7 +323,6 @@ const handleDownloadPDF = () => {
                   <td>{inv.pure_balance.toFixed(3)}</td>
                   <td>
                     <Button
-                      // variant="contained"
                       variant="outlined"
                       size="small"
                       onClick={() => handleViewInvoice(inv.id)}
@@ -376,7 +347,6 @@ const handleDownloadPDF = () => {
 <center>
         <h4 style={{ padding: "0.5rem" }}>Invoice Details</h4>
       </center>
-
   {viewInvoice && (
     <BillDetailsNo
       viewBill={viewInvoice}
@@ -385,9 +355,6 @@ const handleDownloadPDF = () => {
   )}
   </div>
 </Dialog>
-
-
-
     </>
   );
 };

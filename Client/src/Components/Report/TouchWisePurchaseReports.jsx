@@ -22,6 +22,7 @@ import Navbar from "../Navbar/Navbar";
 import styles from "./TouchWisePurchaseReport.module.css";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { formatNumber } from "../../Utils/formatNumber";
 
 
 
@@ -304,15 +305,15 @@ const TouchWisePurchaseReport = () => {
           <div className={styles.summaryGrid}>
             <div className={styles.summaryItem}>
               <span>Total Purchases:</span>
-              <span>{overallTotals.count}</span>
+              <span>{formatNumber(overallTotals.count)}</span>
             </div>
             <div className={styles.summaryItem}>
               <span>Total Weight:</span>
-              <span>{overallTotals.totalWeight.toFixed(3)}</span>
+              <span>{formatNumber(overallTotals.totalWeight.toFixed(3))}</span>
             </div>
             <div className={styles.summaryItem}>
               <span>Total Value:</span>
-              <span>₹{overallTotals.totalValue.toFixed(3)}</span>
+              <span>₹{formatNumber(overallTotals.totalValue.toFixed(3))}</span>
             </div>
           </div>
         </div>
@@ -325,15 +326,15 @@ const TouchWisePurchaseReport = () => {
                 <React.Fragment key={touch}>
                   <div className={styles.summaryItem}>
                     <span>Touch {touch} Purchases:</span>
-                    <span>{data.count}</span>
+                    <span>{formatNumber(data.count)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Touch {touch} Weight:</span>
-                    <span>{data.totalWeight.toFixed(3)}</span>
+                    <span>{formatNumber(data.totalWeight.toFixed(3))}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Touch {touch} Value:</span>
-                    <span>₹{data.totalValue.toFixed(3)}</span>
+                    <span>{formatNumber(data.totalValue.toFixed(3))}</span>
                   </div>
                 </React.Fragment>
               ))}

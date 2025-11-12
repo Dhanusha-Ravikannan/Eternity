@@ -101,3 +101,74 @@
     background-color:#38383e;
     color: white;
   }
+
+   /* {Accordion for Calculation Details} */
+/*    
+ <Accordion className={styles.calculationAccordion}>
+ <AccordionSummary
+   expandIcon={<ExpandMoreIcon />}
+   aria-controls="casting-calculation-details"
+   id="casting-calculation-header"
+ >
+   <Typography variant="h6" sx={{ fontWeight: 600 }}>
+     Calculation Details
+   </Typography>
+ </AccordionSummary>
+
+ <AccordionDetails>
+   <div className={styles.calculationInfo}>
+     <ul>
+       <li>
+         <b>Purity</b> = Given Gold × Touch / 100
+       </li>
+       <li>
+         <b>Pure Value</b> = Final Touch / 100
+       </li>
+       <li>
+         <b>Before Weight</b> = Purity / Pure Value
+       </li>
+       <li>
+         <b>Copper</b> = Given Gold − Before Weight
+       </li>
+       <li>
+         <b>Opening Balance</b> – Comes from{" "}
+         <i>Master Casting</i> table with respective name
+       </li>
+       <li>
+         <b>Total Balance</b> = Opening Balance + Before Weight
+       </li>
+     </ul>
+     <hr/>
+
+     <div className={styles.sectionDivider}></div>
+
+     <Typography
+       variant="subtitle1"
+       sx={{ fontWeight: 600, marginBottom: "0.8rem" }}
+     >
+       In Table Calculations:
+     </Typography>
+
+     <ul>
+       <li>
+         <b>Purity</b> = Weight × Touch / 100
+       </li>
+       <li>
+         <b>Total Item Weight</b> = Sum of weight from Add Product Items
+         table
+       </li>
+       <li>
+         <b>Current Balance Weight</b> = Total Balance − Total Item Weight
+       </li>
+       <li>
+         <b>Total Scrap Weight</b> = Sum of weight from Add Scrap Items
+         table
+       </li>
+       <li>
+         <b>Total Wastage</b> = Current Balance Weight − Total Scrap
+         Weight
+       </li>
+     </ul>
+   </div>
+ </AccordionDetails>
+</Accordion> */

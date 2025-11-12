@@ -146,23 +146,6 @@ const CastingMeltingReports = () => {
           InputLabelProps={{ shrink: true }}
         />
 
-        {/*  Name dropdown filter */}
-        {/* <TextField
-          select
-          label=" Person Name"
-          value={selectedName}
-          onChange={(e) => setSelectedName(e.target.value)}
-          sx={{ width: "12rem" }}
-          size="small"
-        >
-          <MenuItem value="">All</MenuItem>
-          {castingNames.map((c) => (
-            <MenuItem key={c.id} value={c.name}>
-              {c.name}
-            </MenuItem>
-          ))}
-        </TextField> */}
-
 <TextField
   select
   label="Person Name"
@@ -171,7 +154,6 @@ const CastingMeltingReports = () => {
     const name = e.target.value;
     setSelectedName(name);
 
-    // Find the selected person's balance from castingNames
     const person = castingNames.find((c) => c.name === name);
     setSelectedBalance(person ? person.balance || 0 : null);
   }}
@@ -224,7 +206,7 @@ const CastingMeltingReports = () => {
               <th>Issue</th>
               <th>Receipt</th>
               <th>Balance Wt</th>
-              <th>Final Weight</th>
+              {/* <th>Final Weight</th> */}
               <th>Next Process</th>
             </tr>
           </thead>
@@ -252,9 +234,9 @@ const CastingMeltingReports = () => {
                     ? entry.currentBalanceWeight.toFixed(2)
                     : "-"}
                 </td>
-                <td>
+                {/* <td>
                   {entry.totalWastage ? entry.totalWastage.toFixed(2) : "-"}
-                </td>
+                </td> */}
                 <td>Filing</td>
               </tr>
             ))}

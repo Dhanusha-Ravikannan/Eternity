@@ -32,15 +32,13 @@ const Stock = () => {
     fetchStockItems();
   }, []);
   
-
   const calculateSummary = (items) => {
     const summary = {};
 
     items.forEach((item) => {
-      // const touch = item.touch?.touch || item.touch_id;
       const touch = item.touch?.touch ?? item.touch_id ?? item.touchValue ?? "Unknown";
       const weight = parseFloat(item.weight) || 0;
-
+      
       if (touch) {
         if (!summary[touch]) {
           summary[touch] = 0;
@@ -56,10 +54,9 @@ const Stock = () => {
     let filtered = [...stockItems];
 
     if (fromDate && toDate) {
-      const from = new Date(fromDate);
-      const to = new Date(toDate);
-      to.setHours(23, 59, 59, 999);
-
+      const from = new Date(fromDate + "T00:00:00");
+      const to = new Date(toDate + "T23:59:59");
+    
       filtered = filtered.filter((item) => {
         const itemDate = new Date(item.createdAt);
         return itemDate >= from && itemDate <= to;
@@ -112,8 +109,6 @@ const Stock = () => {
     calculateSummary(stockItems);
   };
 
-
-  //  Download PDF logic
   const downloadPDF = () => {
     const doc = new jsPDF();
 
@@ -122,11 +117,9 @@ const Stock = () => {
       align: "center",
     });
 
-    // Summary Section
     if (Object.keys(touchSummary).length > 0) {
       doc.setFontSize(12);
       doc.text("Summary", 14, 25);
-      
 
       const summaryData = Object.entries(touchSummary).map(([touch, weight]) => [
         `Touch ${touch}`,
@@ -143,7 +136,6 @@ const Stock = () => {
       });
     }
 
-    // Table Section
     const tableColumn = [
       "S.No",
       "Date",
@@ -157,13 +149,15 @@ const Stock = () => {
       "Process",
     ];
 
-    const tableRows = filteredItems.map((item, index) => {
-      const createdDate = new Date(item.createdAt);
-      const dateString = createdDate.toLocaleDateString();
-      const timeString = createdDate.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
+const tableRows = filteredItems.map((item, index) => {
+const displayDate = item.purchaseId?.purchaseDate || item.createdAt;
+const dateObj = new Date(displayDate);
+const dateString = dateObj.toLocaleDateString("en-GB");
+const timeString = dateObj.toLocaleTimeString([], {
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
 
       const customerName =
         item.castingItem?.castingEntry?.casting_customer?.name ||
@@ -198,7 +192,7 @@ const Stock = () => {
         itemName,
         item.weight ?? "-",
         item.touch?.touch ?? item.touch_id ?? "-",
-        item.item_purity ?? "-",
+        (item.item_purity).toFixed(3) ?? "-",
         item.remarks || "-",
         processName,
       ];
@@ -306,12 +300,14 @@ const Stock = () => {
             </thead>
             <tbody>
               {filteredItems.map((item, index) => {
-                const createdDate = new Date(item.createdAt);
-                const dateString = createdDate.toLocaleDateString();
-                const timeString = createdDate.toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                });
+                const displayDate = item.purchaseId?.purchaseDate || item.createdAt;
+const dateObj = new Date(displayDate);
+const dateString = dateObj.toLocaleDateString("en-GB");
+const timeString = dateObj.toLocaleTimeString([], {
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
 
                 const customerName =
                   item.castingItem?.castingEntry?.casting_customer?.name ||
@@ -350,7 +346,7 @@ const Stock = () => {
                     <td>{itemName}</td>
                     <td>{item.weight ?? "-"}</td>
                     <td>{item.touch?.touch ?? item.touch_id ?? item.touchValue ?? "-"}</td>
-                    <td>{item.item_purity ?? "-"}</td>
+                    <td>{(item.item_purity).toFixed(3) ?? "-"}</td>
                     <td>{item.remarks || "-"}</td>
                     <td>{processName}</td>
                   </tr>

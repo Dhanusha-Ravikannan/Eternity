@@ -1,23 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import {
-  Dialog,  Accordion,AccordionSummary,AccordionDetails ,
-  DialogTitle,
-  DialogContent,
-  Grid,
-  DialogActions,
-  Button,
-  TextField,
-  MenuItem,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Typography,
-  Box,
-  Alert,
-} from "@mui/material";
+import { Dialog, Accordion, AccordionSummary, AccordionDetails, DialogTitle, DialogContent, Grid, DialogActions, Button, TextField, MenuItem, Table, TableHead, TableRow, TableCell, TableBody, Typography, Box, Alert, CircularProgress } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 import { BACKEND_SERVER_URL } from "../../../../Config/config";
@@ -39,8 +22,6 @@ const CastingEntryViewModal = ({
   const isView = mode === "view";
   const [openingBalance, setOpeningBalance] = useState(0);
   const [totalBalance, setTotalBalance] = useState(0);
-
-
   const [productItems, setProductItems] = useState([]);
   const [scrapItems, setScrapItems] = useState([]);
   const [itemOptions, setItemOptions] = useState([]);
@@ -51,9 +32,9 @@ const CastingEntryViewModal = ({
     available: 0,
     requested: 0,
   });
+  const [loading, setLoading] = useState(false);
 
   console.log("Casting Entry ID from parent:", castingEntryId);
-
   useEffect(() => {
     if (open && mode === "add") {
       setProductItems([]);
@@ -61,7 +42,6 @@ const CastingEntryViewModal = ({
     }
   }, [open, mode]);
 
-  // Fetch available stock when modal opens
   useEffect(() => {
     const fetchAvailableStock = async () => {
       try {
@@ -72,7 +52,6 @@ const CastingEntryViewModal = ({
         console.error("Failed to fetch available stock:", error);
       }
     };
-
     if (open) {
       fetchAvailableStock();
     }
@@ -83,14 +62,10 @@ const CastingEntryViewModal = ({
       const selectedTouch = touchOptions.find((t) => t.touch === form.touch);
       if (selectedTouch) {
         const touchId = selectedTouch.id;
-
-        // Calculate available weight for this touch
         const availableForTouch = availableStock
           .filter((item) => item.touch_id === touchId)
           .reduce((sum, item) => sum + parseFloat(item.weight || 0), 0);
-
         const requestedGold = parseFloat(form.givenGold);
-
         if (requestedGold > availableForTouch) {
           setStockValidation({
             isValid: false,
@@ -118,17 +93,17 @@ const CastingEntryViewModal = ({
   }, [form.givenGold, form.touch, availableStock, touchOptions]);
 
   const handleSaveItems = async () => {
+
     if (!castingEntryId) {
       alert("Casting Entry ID is missing.");
       return;
     }
-
     if (!stockValidation.isValid) {
       alert("Cannot save with insufficient stock!");
       return;
     }
-
     try {
+      setLoading(true);
       const payloads = [];
 
       productItems.forEach((item) => {
@@ -177,7 +152,6 @@ const CastingEntryViewModal = ({
       });
 
       alert("Items and balance saved successfully!");
-
       handleCastingItemsSaved(castingEntryId, {
         totalItemWeight: totalProductWeight,
         currentBalanceWeight,
@@ -190,6 +164,8 @@ const CastingEntryViewModal = ({
     } catch (error) {
       console.error("Failed to save items:", error);
       alert("Error saving items. Please check console.");
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -207,7 +183,6 @@ const CastingEntryViewModal = ({
     fetchItems();
   }, []);
 
-  // Add a blank product item
   const addProductItem = () => {
     setProductItems([
       ...productItems,
@@ -215,7 +190,6 @@ const CastingEntryViewModal = ({
     ]);
   };
 
-  // Add a blank scrap item
   const addScrapItem = () => {
     setScrapItems([
       ...scrapItems,
@@ -229,7 +203,6 @@ const CastingEntryViewModal = ({
       if (itemId) {
         await axios.delete(`${BACKEND_SERVER_URL}/api/castingitems/${itemId}`);
       }
-
       setProductItems(productItems.filter((_, i) => i !== index));
     } catch (error) {
       console.error("Failed to delete product item:", error);
@@ -239,9 +212,7 @@ const CastingEntryViewModal = ({
 
   const deleteScrapItem = async (index, itemId) => {
     try {
-      if (itemId) {
-        await axios.delete(`${BACKEND_SERVER_URL}/api/castingitems/${itemId}`)
-      }
+      if (itemId) { await axios.delete(`${BACKEND_SERVER_URL}/api/castingitems/${itemId}`)}
       setScrapItems(scrapItems.filter((_, i) => i !== index));
     } catch (error) {
       console.error("Failed to delete scrap item:", error);
@@ -253,15 +224,12 @@ const CastingEntryViewModal = ({
     const updateArray = (prevItems) => {
       const updatedList = [...prevItems];
       const item = { ...updatedList[index], [field]: value };
-
       const weight = parseFloat(field === "weight" ? value : item.weight) || 0;
       const touch = parseFloat(field === "touch" ? value : item.touch) || 0;
 
-      // Only update purity if weight and touch are both valid
       if (!isNaN(weight) && !isNaN(touch)) {
         item.purity = ((weight * touch) / 100).toFixed(2);
       }
-
       updatedList[index] = item;
       return updatedList;
     };
@@ -272,19 +240,9 @@ const CastingEntryViewModal = ({
       setScrapItems((prev) => updateArray(prev));
     }
   };
-
-  const totalProductWeight = productItems.reduce(
-    (sum, item) => sum + parseFloat(item.weight || 0),
-    0
-  );
-
-  const currentBalanceWeight =
-  parseFloat(totalBalance || 0) - totalProductWeight;
-
-  const totalScrapWeight = scrapItems.reduce(
-    (sum, item) => sum + parseFloat(item.weight || 0),
-    0
-  );
+  const totalProductWeight = productItems.reduce((sum, item) => sum + parseFloat(item.weight || 0), 0 );
+  const currentBalanceWeight = parseFloat(totalBalance || 0) - totalProductWeight;
+  const totalScrapWeight = scrapItems.reduce((sum, item) => sum + parseFloat(item.weight || 0), 0 );
   const totalWastage = currentBalanceWeight - totalScrapWeight;
 
     useEffect(() => {
@@ -296,7 +254,7 @@ const CastingEntryViewModal = ({
           const data = res.data;
     
           if (data) {
-            // populate form
+
             handleChange("date")({ target: { value: data.date || "" } });
             handleChange("name")({ target: { value: data.casting_customer?.name || "" } });
             handleChange("touch")({ target: { value: data.touch?.touch || "" } });
@@ -306,11 +264,9 @@ const CastingEntryViewModal = ({
             handleChange("finalTouch")({ target: { value: data.final_touch || "" } });
             handleChange("copper")({ target: { value: data.copper || "" } });
     
-            //  Set correct balances directly from API
             setOpeningBalance(parseFloat(data.opening_balance || 0));
             setTotalBalance(parseFloat(data.total_sum_balance || 0));
     
-            //  Also load CastiingTotalBalance if available
             if (data.CastiingTotalBalance?.length > 0) {
               const balanceData = data.CastiingTotalBalance[0];
               setForm((prev) => ({
@@ -329,16 +285,12 @@ const CastingEntryViewModal = ({
       fetchCastingEntry();
     }, [castingEntryId, open]);
     
-  
-
   useEffect(() => {
     const fetchCastingItems = async () => {
       if (!castingEntryId) return;
-  
       try {
         const res = await axios.get(`${BACKEND_SERVER_URL}/api/castingitems/${castingEntryId}`);
         const items = res.data || [];
-  
         const product = [];
         const scrap = [];
         let balance = {};
@@ -356,7 +308,6 @@ const CastingEntryViewModal = ({
   
           if (item.type === "Items") product.push(formattedItem);
           else if (item.type === "ScrapItems") scrap.push(formattedItem);
-  
           if (item.castingEntry?.CastiingTotalBalance?.length) {
             balance = item.castingEntry.CastiingTotalBalance[0];
           }
@@ -385,11 +336,9 @@ const CastingEntryViewModal = ({
   // Calculate available stock summary by touch
     const calculateStockSummary = () => {
     const summary = {};
-
     availableStock.forEach((item) => {
       const touch = item.touch?.touch || item.touch_id;
       const weight = parseFloat(item.weight) || 0;
-
       if (touch) {
         if (!summary[touch]) {
           summary[touch] = 0;
@@ -397,19 +346,16 @@ const CastingEntryViewModal = ({
         summary[touch] += weight;
       }
     });
-
     return summary;
   };
 
   const adjustedStockSummary = () => {
     const summary = calculateStockSummary();
-
     if (form.givenGold && form.touch) {
       const selectedTouch = touchOptions.find((t) => t.touch === form.touch);
       if (selectedTouch) {
         const touchId = selectedTouch.id;
         const requestedGold = parseFloat(form.givenGold) || 0;
-
         const touchKey = selectedTouch.touch; 
         if (summary[touchKey] !== undefined) {
           summary[touchKey] = Math.max(summary[touchKey] - requestedGold, 0); 
@@ -418,9 +364,7 @@ const CastingEntryViewModal = ({
     }
     return summary;
   };
-
   const stockSummary = adjustedStockSummary();
-
 
   useEffect(() => {
     const fetchBalanceByName = async () => {
@@ -428,21 +372,15 @@ const CastingEntryViewModal = ({
         setOpeningBalance(0);
         return;
       }
-  
       try {
-        // Find the selected name object from options
         const selectedName = nameOptions.find((n) => n.name === form.name);
         if (!selectedName) return;
-  
         const res = await axios.get(`${BACKEND_SERVER_URL}/api/casting/${selectedName.id}`);
         const balance = res.data?.balance || 0;
-  
         setOpeningBalance(balance);
-        // Update the form's beforeWeight
       } catch (err) {
         console.error("Failed to fetch balance:", err);
         setOpeningBalance(0);
-
       }
     };
   
@@ -462,8 +400,7 @@ const CastingEntryViewModal = ({
   open={open}
   maxWidth={false} 
   PaperProps={{
-    sx: { width: "90%", maxWidth: "970px"}, 
-  }}
+    sx: { width: "90%", maxWidth: "970px"} }}
   disableEscapeKeyDown
   onClose={(event, reason) => {
     if (reason !== "backdropClick") {
@@ -477,13 +414,10 @@ const CastingEntryViewModal = ({
           padding: "1rem",
           textAlign: "center",
           fontWeight: "500",
-        }}
-      >
+        }}  >
         {isView ? "View Casting Entry" : "Add Casting Entry"}
       </div>
-
       <Grid container spacing={2} sx={{padding:'0rem'}}>
-  {/* LEFT SIDE — Form Section */}
   <Grid item xs={12} md={8} sx={{ml:'2rem'}}>
     <Grid container spacing={3}>
       <Grid item xs={3}>
@@ -498,7 +432,6 @@ const CastingEntryViewModal = ({
           InputProps={{ readOnly: isView }}
         />
       </Grid>
-
       <Grid item xs={3}>
         <TextField
           label="Name"
@@ -516,7 +449,6 @@ const CastingEntryViewModal = ({
           ))}
         </TextField>
       </Grid>
-
       <Grid item xs={3}>
         <TextField
           label="Touch"
@@ -534,7 +466,6 @@ const CastingEntryViewModal = ({
           ))}
         </TextField>
       </Grid>
-
       <Grid item xs={3}>
         <TextField
           label="Given Gold"
@@ -551,7 +482,6 @@ const CastingEntryViewModal = ({
         />
       </Grid>
     </Grid>
-
     {!stockValidation.isValid && (
       <Alert severity="error" sx={{ mt: 1 }}>
         Insufficient stock for this touch! Available:{" "}
@@ -559,9 +489,7 @@ const CastingEntryViewModal = ({
         {stockValidation.requested.toFixed(2)}
       </Alert>
     )}
-
     <Grid container spacing={3} sx={{ mt: 1 }}>
-
       <Grid item xs={3}>
         <TextField
           label="Purity"
@@ -571,7 +499,6 @@ const CastingEntryViewModal = ({
           InputProps={{ readOnly: true }}
         />
       </Grid>
-
       <Grid item xs={3}>
         <TextField
           label="Final Touch"
@@ -603,11 +530,9 @@ const CastingEntryViewModal = ({
           InputProps={{ readOnly: true }}
         />
       </Grid>
-      </Grid>
-      
+      </Grid>   
   </Grid>
 
-  {/* RIGHT SIDE — Available Stock Table */}
   <Grid item xs={12} md={4} sx={{marginLeft:'2rem'}}>
   <Box sx={{ maxHeight: 200, overflowY: "auto" }}>
     {Object.keys(stockSummary).length > 0 && (
@@ -624,10 +549,8 @@ const CastingEntryViewModal = ({
           gutterBottom
           color="primary"
           sx={{ textAlign: "center" }}
-        >
-          Available Stock
+        > Available Stock
         </Typography>
-
         <table
           style={{
             width: "100%",
@@ -672,75 +595,6 @@ const CastingEntryViewModal = ({
   </Grid>
 </Grid>
       <DialogContent>
- {/* Accordion for Calculation Details */}
- <Accordion className={styles.calculationAccordion}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="casting-calculation-details"
-          id="casting-calculation-header"
-        >
-          <Typography variant="h6" sx={{ fontWeight: 600 }}>
-            Calculation Details
-          </Typography>
-        </AccordionSummary>
-
-        <AccordionDetails>
-          <div className={styles.calculationInfo}>
-            <ul>
-              <li>
-                <b>Purity</b> = Given Gold × Touch / 100
-              </li>
-              <li>
-                <b>Pure Value</b> = Final Touch / 100
-              </li>
-              <li>
-                <b>Before Weight</b> = Purity / Pure Value
-              </li>
-              <li>
-                <b>Copper</b> = Given Gold − Before Weight
-              </li>
-              <li>
-                <b>Opening Balance</b> – Comes from{" "}
-                <i>Master Casting</i> table with respective name
-              </li>
-              <li>
-                <b>Total Balance</b> = Opening Balance + Before Weight
-              </li>
-            </ul>
-            <hr/>
-
-            <div className={styles.sectionDivider}></div>
-
-            <Typography
-              variant="subtitle1"
-              sx={{ fontWeight: 600, marginBottom: "0.8rem" }}
-            >
-              In Table Calculations:
-            </Typography>
-
-            <ul>
-              <li>
-                <b>Purity</b> = Weight × Touch / 100
-              </li>
-              <li>
-                <b>Total Item Weight</b> = Sum of weight from Add Product Items
-                table
-              </li>
-              <li>
-                <b>Current Balance Weight</b> = Total Balance − Total Item Weight
-              </li>
-              <li>
-                <b>Total Scrap Weight</b> = Sum of weight from Add Scrap Items
-                table
-              </li>
-              <li>
-                <b>Total Wastage</b> = Current Balance Weight − Total Scrap
-                Weight
-              </li>
-            </ul>
-          </div>
-        </AccordionDetails>
-      </Accordion>
 
 <div style={{textAlign:"end"}}> 
 <div>
@@ -756,7 +610,6 @@ const CastingEntryViewModal = ({
 
 <div> <b> Total Balance:  </b>  <span style={{marginLeft:'1rem'}}> {totalBalance.toFixed(3)} </span>  </div>
 </div>
-        {/* Add Product Items Section */}
         <Button onClick={addProductItem} variant="outlined" sx={{ mt:1, backgroundColor:' #f8f9fa', fontWeight:'530' }}>
           Add Product Items
         </Button>
@@ -819,7 +672,6 @@ const CastingEntryViewModal = ({
               </TableCell>
             </TableRow>
           </TableHead>
-
           <TableBody>
             {productItems.map((row, index) => (
               <TableRow key={index}>
@@ -900,7 +752,6 @@ const CastingEntryViewModal = ({
                     }
                   />
                 </TableCell>
-
                 <TableCell>
                   <Button
                     color="error"
@@ -914,13 +765,10 @@ const CastingEntryViewModal = ({
             ))}
           </TableBody>
         </Table>
-
         <Typography sx={{ mt: 1 }}>
           <strong>Total Item Weight:</strong> {totalProductWeight.toFixed(3)}
           <strong style={{marginLeft:'4rem'}}>Current Balance Weight: </strong>{currentBalanceWeight.toFixed(3)}
         </Typography>
-
-        {/* Add Scrap Items Section */}
         <Button onClick={addScrapItem} variant="outlined" sx={{ mt: 3 , backgroundColor:' #f8f9fa', fontWeight:'530' }}>
           Add Scrap Items
         </Button>
@@ -1099,14 +947,35 @@ const CastingEntryViewModal = ({
     Save
   </Button>
 )}
-
-
         {mode === "view" && (
           <Button onClick={handleSaveItems} variant="contained" color="primary">
             Save Items
           </Button>
         )}
       </DialogActions>
+
+
+      {loading && (
+    <Box
+      sx={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(255,255,255,0.6)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 9999,
+      }}
+    >
+      <CircularProgress size={60} color="primary" />
+      <Typography sx={{ ml: 2 }}>Saving items, please wait...</Typography>
+    </Box>
+  )}
+
+
     </Dialog>
   );
 };
