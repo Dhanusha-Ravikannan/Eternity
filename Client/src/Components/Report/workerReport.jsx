@@ -7,6 +7,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import styles from "../LotProcess/FilingProcess/FilingLotDetails.module.css";
+import { th } from "date-fns/locale";
 
 const ProcessReport = () => {
   const [entries, setEntries] = useState([]);
@@ -20,38 +21,49 @@ const ProcessReport = () => {
   const [persons, setPersons] = useState([]);
   const [allEntries, setAllEntries] = useState([]);
   const [wastageData, setWastageData] = useState({});
-
   const processTypes = [
     { value: "casting", label: "Casting" },
     { value: "filing", label: "Filing" },
     { value: "setting", label: "Setting" },
     { value: "buffing", label: "Buffing" },
   ];
+  const [memberBalances,setMemberBalances] = useState([])
 
+  useEffect(() => {
+    const fetchBalances = async () => {
+      try {
+        setLoading(true);
+        const url = `${BACKEND_SERVER_URL}/api/${filters.processType}`;
+        const response = await axios.get(url);
+        setMemberBalances(response.data || []);
+      } catch (error) {
+        console.error("Error fetching balances:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBalances();
+  }, [filters.processType]);
+
+  
   const fetchEntries = async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
-
       if (filters.processType) {
         params.append("processType", filters.processType);
       }
-
       if (filters.fromDate) {
         params.append("fromDate", filters.fromDate.toISOString().split("T")[0]);
       }
-
       if (filters.toDate) {
         params.append("toDate", filters.toDate.toISOString().split("T")[0]);
       }
-
       const response = await axios.get(
         `${BACKEND_SERVER_URL}/api/filingentry/process-entries?${params.toString()}`
       );
       setEntries(response.data);
       setAllEntries(response.data);
-
-      // Extract unique persons based on process type
       const uniquePersons = [];
       response.data.forEach((entry) => {
         let personName = "";
@@ -70,14 +82,11 @@ const ProcessReport = () => {
         ) {
           personName = entry.buffing_person_name;
         }
-
         if (personName && !uniquePersons.includes(personName)) {
           uniquePersons.push(personName);
         }
       });
-
       setPersons(uniquePersons);
-
       // Fetch wastage data for filing, setting, and buffing processes
       if (filters.processType !== "casting") {
         fetchWastageData(response.data);
@@ -89,13 +98,11 @@ const ProcessReport = () => {
       setLoading(false);
     }
   };
-
   const fetchWastageData = async (entriesData) => {
     try {
       const wastagePromises = entriesData.map(async (entry) => {
         let lotNumber = "";
         let personId = "";
-
         // Extract lot number and person ID based on process type
         if (
           entry.processType === "filing" &&
@@ -119,10 +126,8 @@ const ProcessReport = () => {
           lotNumber = entry.lotBuffingMapper[0].lot_number;
           personId = entry.buffing_person_id;
         }
-
         if (lotNumber && personId) {
           let url = "";
-
           if (entry.processType === "filing") {
             url = `${BACKEND_SERVER_URL}/api/filingitems/entry/${personId}/${lotNumber}`;
           } else if (entry.processType === "setting") {
@@ -130,7 +135,6 @@ const ProcessReport = () => {
           } else if (entry.processType === "buffing") {
             url = `${BACKEND_SERVER_URL}/api/buffing/entry/${personId}/${lotNumber}`;
           }
-
           if (url) {
             const response = await axios.get(url);
             if (response.data && response.data.length > 0) {
@@ -143,22 +147,18 @@ const ProcessReport = () => {
         }
         return null;
       });
-
       const wastageResults = await Promise.all(wastagePromises);
       const wastageMap = {};
-
       wastageResults.forEach((result) => {
         if (result) {
           wastageMap[result.lotNumber] = result.wastageData;
         }
       });
-
       setWastageData(wastageMap);
     } catch (error) {
       console.error("Error fetching wastage data:", error);
     }
   };
-
   useEffect(() => {
     fetchEntries();
   }, [filters]);
@@ -169,13 +169,11 @@ const ProcessReport = () => {
       [field]: value,
     }));
   };
-
   const handlePersonFilter = () => {
     if (!selectedPerson) {
       setEntries(allEntries);
       return;
     }
-
     const filtered = allEntries.filter((entry) => {
       if (
         entry.processType === "casting" &&
@@ -200,10 +198,8 @@ const ProcessReport = () => {
       }
       return false;
     });
-
     setEntries(filtered);
   };
-
   const handleReset = () => {
     setFilters({
       processType: "casting",
@@ -214,7 +210,6 @@ const ProcessReport = () => {
     setEntries(allEntries);
     setWastageData({});
   };
-
   const getProcessColor = (processType) => {
     const colors = {
       casting: "primary",
@@ -224,13 +219,19 @@ const ProcessReport = () => {
     };
     return colors[processType] || "default";
   };
-
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString();
+    return new Date(dateString).toLocaleDateString("en-GB");
   };
-
   const formatTime = (dateString) => {
     return new Date(dateString).toLocaleTimeString();
+  };
+
+  const calculateTotalCastingWeight = () => {
+    const castingEntries = entries.filter(entry => entry.processType === "casting");
+    const totalCastingWeight = castingEntries.reduce((total, entry) => {
+      return total + (entry.final_weight || 0); 
+    }, 0);
+    return totalCastingWeight.toFixed(3); 
   };
 
   const calculateTotals = () => {
@@ -244,7 +245,6 @@ const ProcessReport = () => {
       wastage: 0,
       balance: 0,
     };
-
     entries.forEach((entry) => {
       if (entry.processType === "casting") {
         totals.castingWeight += entry.totalItemWeight || 0;
@@ -279,22 +279,18 @@ const ProcessReport = () => {
       }
     });
 
+    console.log(totals)
     return totals;
   };
-
   const totals = calculateTotals();
-
   // Group entries by lot number for non-casting processes
   const groupEntriesByLot = () => {
     if (filters.processType === "casting") {
       return { "": entries }; // No lot grouping for casting
     }
-
     const grouped = {};
-
     entries.forEach((entry) => {
       let lotNumber = "Unknown Lot";
-
       // Extract lot number based on process type
       if (
         entry.processType === "filing" &&
@@ -315,13 +311,11 @@ const ProcessReport = () => {
       ) {
         lotNumber = entry.lotBuffingMapper[0].lot_number || "Unknown Lot";
       }
-
       if (!grouped[lotNumber]) {
         grouped[lotNumber] = [];
       }
       grouped[lotNumber].push(entry);
     });
-
     return grouped;
   };
 
@@ -340,14 +334,11 @@ const ProcessReport = () => {
         </TableCell>
         <TableCell>{entry.customer?.name || "-"}</TableCell>
         <TableCell>{entry.productItems.join(", ") || "-"}</TableCell>
-        <TableCell>{entry.totalItemWeight?.toFixed(3) || "0.00"}</TableCell>
+        <TableCell>{entry.final_weight?.toFixed(3) || "0.00"}</TableCell>
         <TableCell colSpan={6}>-</TableCell>
         <TableCell>{entry.totalItemWeight?.toFixed(3) || "0.00"}</TableCell>
         <TableCell>{entry.totalScrapWeight?.toFixed(3) || "0.00"}</TableCell>
         <TableCell>{entry.totalWastage?.toFixed(3) || "0.00"}</TableCell>
-        <TableCell>
-          {entry.currentBalanceWeight?.toFixed(3) || "0.00"}
-        </TableCell>
       </TableRow>
     );
   };
@@ -394,9 +385,7 @@ const ProcessReport = () => {
                 : "No"
               : "-"}
           </TableCell>
-          <TableCell>
-            {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
-          </TableCell>
+          <TableCell/>
         </TableRow>
       );
     }
@@ -462,7 +451,6 @@ const ProcessReport = () => {
                 : "-"}
             </TableCell>
             <TableCell rowSpan={filingItems.length}>
-              {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
             </TableCell>
           </>
         )}
@@ -512,9 +500,7 @@ const ProcessReport = () => {
                 : "No"
               : "-"}
           </TableCell>
-          <TableCell>
-            {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
-          </TableCell>
+          <TableCell/>
         </TableRow>
       );
     }
@@ -575,9 +561,7 @@ const ProcessReport = () => {
                   : "No"
                 : "-"}
             </TableCell>
-            <TableCell rowSpan={settingItems.length}>
-              {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
-            </TableCell>
+            <TableCell rowSpan={settingItems.length}>   </TableCell>
           </>
         )}
       </TableRow>
@@ -626,9 +610,7 @@ const ProcessReport = () => {
                 : "No"
               : "-"}
           </TableCell>
-          <TableCell>
-            {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
-          </TableCell>
+          <TableCell/>
         </TableRow>
       );
     }
@@ -689,9 +671,7 @@ const ProcessReport = () => {
                   : "No"
                 : "-"}
             </TableCell>
-            <TableCell rowSpan={buffingItems.length}>
-              {balanceData.balance ? balanceData.balance.toFixed(3) : "0.00"}
-            </TableCell>
+            <TableCell rowSpan={buffingItems.length}> </TableCell>
           </>
         )}
       </TableRow>
@@ -715,7 +695,6 @@ const ProcessReport = () => {
 
   const renderWastageRow = (lotNumber) => {
     const wastage = wastageData[lotNumber];
-
     console.log("Wastage for lot", lotNumber, ":", wastage);
     if (!wastage) return null;
 
@@ -849,7 +828,16 @@ const ProcessReport = () => {
               </Grid>
             </CardContent>
           </Card>
-
+          {selectedPerson && (
+  <Typography variant="h6" sx={{ mt: 2, ml: 2 }}>
+    {selectedPerson}'s Balance:{" "}
+    <strong>
+      {(
+        memberBalances.find((m) => m.name === selectedPerson)?.balance || 0
+      ).toFixed(3)}
+    </strong>
+  </Typography>
+)}
           {/* Summary Section */}
           <div className={styles.summarySection}>
             <h4>Summary</h4>
@@ -858,11 +846,12 @@ const ProcessReport = () => {
                 <>
                   <div className={styles.summaryItem}>
                     <span>Total Casting Weight:</span>
-                    <span>{totals.castingWeight.toFixed(3)}</span>
+                    <span>{calculateTotalCastingWeight()}</span> 
+
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Product Weight:</span>
-                    <span>{totals.productWeight.toFixed(3)}</span>
+                    <span>{totals.castingWeight.toFixed(3)}</span>
                   </div>
                   <div className={styles.summaryItem}>
                     <span>Total Scrap Weight:</span>
@@ -872,10 +861,7 @@ const ProcessReport = () => {
                     <span>Total Wastage Entries:</span>
                     <span>{totals.wastage}</span>
                   </div>
-                  <div className={styles.summaryItem}>
-                    <span>Total Balance:</span>
-                    <span>{totals.balance.toFixed(3)}</span>
-                  </div>
+   
                 </>
               )}
               {filters.processType === "filing" && (
@@ -896,10 +882,7 @@ const ProcessReport = () => {
                     <span>Total Wastage Entries:</span>
                     <span>{totals.wastage}</span>
                   </div>
-                  <div className={styles.summaryItem}>
-                    <span>Total Balance:</span>
-                    <span>{totals.balance.toFixed(3)}</span>
-                  </div>
+ 
                 </>
               )}
               {filters.processType === "setting" && (
@@ -920,10 +903,7 @@ const ProcessReport = () => {
                     <span>Total Wastage Entries:</span>
                     <span>{totals.wastage}</span>
                   </div>
-                  <div className={styles.summaryItem}>
-                    <span>Total Balance:</span>
-                    <span>{totals.balance.toFixed(3)}</span>
-                  </div>
+
                 </>
               )}
               {filters.processType === "buffing" && (
@@ -944,23 +924,17 @@ const ProcessReport = () => {
                     <span>Total Wastage Entries:</span>
                     <span>{totals.wastage}</span>
                   </div>
-                  <div className={styles.summaryItem}>
-                    <span>Total Balance:</span>
-                    <span>{totals.balance.toFixed(3)}</span>
-                  </div>
                 </>
               )}
             </div>
           </div>
-
-          {/* Results */}
+        
           {loading ? (
             <Box
               display="flex"
               justifyContent="center"
               alignItems="center"
-              minHeight="200px"
-            >
+              minHeight="200px" >
               <CircularProgress />
             </Box>
           ) : (
@@ -974,12 +948,21 @@ const ProcessReport = () => {
                     <th rowSpan={2}>Process</th>
                     <th rowSpan={2}>Person</th>
                     <th rowSpan={2}>Item</th>
-                    <th rowSpan={2}>Weight</th>
+                    {/* <th rowSpan={2}>Weight</th> */}
+                    <th rowSpan={2}>
+  {filters.processType === "casting" ? "Casting Weight" : 
+   filters.processType === "filing" ? "Filing Weight" : 
+   filters.processType === "setting" ? "Setting Weight" : 
+   filters.processType === "buffing" ? "Buffing Weight" : "Weight"}
+</th>
+
                     <th colSpan={6}>Process Items</th>
                     <th rowSpan={2}>Product Weight</th>
                     <th rowSpan={2}>Scrap Weight</th>
                     <th rowSpan={2}>Wastage</th>
-                    <th rowSpan={2}>Balance</th>
+                    {filters.processType!=='casting' && (
+                      <th rowSpan={2}> Balance </th>
+                    )}
                   </tr>
                   <tr>
                     <th>Name</th>
@@ -995,20 +978,9 @@ const ProcessReport = () => {
                     <React.Fragment key={lotNumber}>
                       {lotNumber && lotNumber !== "" && (
                         <tr className={styles.lotHeader}>
-                          <td
-                            colSpan="17"
-                            style={{
-                              fontWeight: "bold",
-                              backgroundColor: "#f0f0f0",
-                            }}
-                          >
-                            Lot {lotNumber}
-                          </td>
-                        </tr>
-                      )}
-                      {groupedEntries[lotNumber].map((entry, index) =>
-                        renderTableRow(entry, index)
-                      )}
+                          <td colSpan="17"  style={{ fontWeight: "bold",backgroundColor: "#f0f0f0" }}> Lot {lotNumber} </td>
+                        </tr>  )}
+                      {groupedEntries[lotNumber].map((entry, index) => renderTableRow(entry, index) )}
                       {lotNumber &&
                         lotNumber !== "" &&
                         wastageData[lotNumber] &&

@@ -20,7 +20,7 @@ const FilingReports = () => {
 
   const fetchPersonsWithBalance = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/filing");
+      const res = await axios.get(`${BACKEND_SERVER_URL}/api/filing`);
       setPersonData(res.data);
       console.log('Filing response:', res.data)
     } catch (err) {
@@ -149,7 +149,7 @@ const FilingReports = () => {
     summaryY
   );
 
-  doc.text(`Total Wastage: ${totals.wastage.toFixed(3)}`, 14, summaryY + 6);
+  doc.text(`Total Wastage Entries: ${totals.wastage.toFixed(3)}`, 14, summaryY + 6);
 
     const tableColumn = [
       "S.No",
@@ -183,12 +183,12 @@ const FilingReports = () => {
             i === 0 ? index + 1 : "",
             i === 0
               ? entry.createdAt
-                ? new Date(entry.createdAt).toLocaleDateString()
+                ? new Date(entry.createdAt).toLocaleDateString("en-GB")
                 : "-"
               : "",
             i === 0
               ? entry.createdAt
-                ? new Date(entry.createdAt).toLocaleTimeString()
+                ? new Date(entry.createdAt).toLocaleTimeString("en-GB")
                 : "-"
               : "",
             i === 0 ? entry.filing_person_name || "-" : "",
@@ -233,10 +233,10 @@ item?.type === "ScrapItems"
         tableRows.push([
           index + 1,
           entry.createdAt
-            ? new Date(entry.createdAt).toLocaleDateString()
+            ? new Date(entry.createdAt).toLocaleDateString("en-GB")
             : "-",
           entry.createdAt
-            ? new Date(entry.createdAt).toLocaleTimeString()
+            ? new Date(entry.createdAt).toLocaleTimeString("en-GB")
             : "-",
           entry.filing_person_name || "-",
           lotInfo.lot_number || "-",
@@ -405,6 +405,9 @@ item?.type === "ScrapItems"
               const lotInfo = entry.lotFilingMapper?.[0] || {};
               const filingItems = entry.filingItems || [];
 
+              const totalWeight = filingItems.reduce((sum, fi) => sum + (fi.item_purity || 0), 0);
+
+
               return (
                 <>
                   {filingItems.length > 0 ? (
@@ -415,7 +418,7 @@ item?.type === "ScrapItems"
                             <td rowSpan={filingItems.length}>{index + 1}</td>
                             <td rowSpan={filingItems.length}>
                               {entry.createdAt
-                                ? new Date(entry.createdAt).toLocaleDateString()
+                                ? new Date(entry.createdAt).toLocaleDateString("en-GB")
                                 : "-"}
                             </td>
                             <td rowSpan={filingItems.length}>
@@ -477,9 +480,18 @@ item?.type === "ScrapItems"
                                   : "No"
                                 : "-"}
                             </td>
+                            {/* {filingItems.length > 1 && (
+          <tr className={styles.entryFooter}>
+            <td colSpan={6} style={{ textAlign: "right", fontWeight: "bold",  }}>Total Weight:</td>
+            <td style={{ fontWeight: "bold" }}>{totalWeight}</td>
+            <td colSpan={6}></td>
+          </tr>
+        )} */}
+     
                           </>
                         )}
                       </tr>
+                      
                     ))
                   ) : (
                     <tr key={entry.id}>

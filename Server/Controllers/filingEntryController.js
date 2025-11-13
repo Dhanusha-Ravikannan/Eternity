@@ -591,15 +591,33 @@ export const getAllProcessEntries = async (req, res) => {
     const { fromDate, toDate, processType } = req.query;
 
     // Build date filter if provided
+    // let dateFilter = {};
+    // if (fromDate && toDate) {
+    //   dateFilter = {
+    //     createdAt: {
+    //       gte: new Date(fromDate),
+    //       lte: new Date(new Date(toDate).setHours(23, 59, 59, 999)),
+    //     },
+    //   };
+    // }
+
     let dateFilter = {};
-    if (fromDate && toDate) {
-      dateFilter = {
-        createdAt: {
-          gte: new Date(fromDate),
-          lte: new Date(new Date(toDate).setHours(23, 59, 59, 999)),
-        },
-      };
-    }
+
+if (fromDate && toDate) {
+  dateFilter.createdAt = {
+    gte: new Date(fromDate),
+    lte: new Date(new Date(toDate).setHours(23, 59, 59, 999)),
+  };
+} else if (fromDate) {
+  dateFilter.createdAt = {
+    gte: new Date(fromDate),
+  };
+} else if (toDate) {
+  dateFilter.createdAt = {
+    lte: new Date(new Date(toDate).setHours(23, 59, 59, 999)),
+  };
+}
+
 
     let result = [];
 

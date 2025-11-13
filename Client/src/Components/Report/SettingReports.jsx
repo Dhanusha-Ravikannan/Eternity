@@ -20,7 +20,7 @@ const SettingReports = () => {
 
   const fetchPersonsWithBalance = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/setting");
+      const res = await axios.get(`${BACKEND_SERVER_URL}/api/setting`);
       setPersonData(res.data);
       console.log('Filing response:', res.data)
     } catch (err) {
@@ -161,7 +161,7 @@ const SettingReports = () => {
           if (i === 0) {
             row.push(
               index + 1,
-              new Date(entry.createdAt).toLocaleDateString(),
+              new Date(entry.createdAt).toLocaleDateString("en-GB"),
               new Date(entry.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
               entry.setting_person_name,
               fi.lot_number
@@ -198,7 +198,7 @@ if (i === 0) {
       } else {
         rows.push([
           index + 1,
-          new Date(entry.createdAt).toLocaleDateString(),
+          new Date(entry.createdAt).toLocaleDateString("en-GB"),
           new Date(entry.createdAt).toLocaleTimeString(),
           entry.setting_person_name,
           "-",
@@ -355,6 +355,8 @@ if (i === 0) {
               const filingItems = entry.lotSettingMapper || [];
               const settingBalance = entry.settingTotalBalance?.[0] || {};
 
+              const totalWeight = filingItems.reduce((sum, fi) => sum + (fi.weight || 0), 0);
+
               return filingItems.length > 0 ? (
                 filingItems.map((fi, i) => (
                   <tr key={`${entry.id}-${fi.filing_item_id}-${i}`}>
@@ -362,7 +364,7 @@ if (i === 0) {
                       <>
                         <td rowSpan={filingItems.length}>{index + 1}</td>
                         <td rowSpan={filingItems.length}>
-                          {new Date(entry.createdAt).toLocaleDateString()}
+                          {new Date(entry.createdAt).toLocaleDateString("en-GB")}
                         </td>
                         <td rowSpan={filingItems.length}>
                           {new Date(entry.createdAt).toLocaleTimeString([], {
@@ -412,17 +414,22 @@ if (i === 0) {
                         <td rowSpan={filingItems.length}>
                           {settingBalance.total_scrap_weight?.toFixed(3) || 0}
                         </td>
-
+                        {/* {filingItems.length > 1 && (
+          <tr className={styles.entryFooter}>
+            <td colSpan={6} style={{ textAlign: "right", fontWeight: "bold",  }}>Total Weight:</td>
+            <td style={{ fontWeight: "bold" }}>{totalWeight}</td>
+            <td colSpan={6}></td>
+          </tr>
+        )} */}
                       </>
                     )}
-                  </tr>
-                  
+                  </tr>               
                 ))
-                
+                               
               ) : (
                 <tr key={`empty-${entry.id}`}>
                   <td>{index + 1}</td>
-                  <td>{new Date(entry.createdAt).toLocaleDateString()}</td>
+                  <td>{new Date(entry.createdAt).toLocaleDateString("en-GB")}</td>
                   <td>{new Date(entry.createdAt).toLocaleTimeString()}</td>
                   <td colSpan={5} style={{ textAlign: "center" }}>
                     No Filing Items
