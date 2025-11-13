@@ -249,7 +249,6 @@ const handleDownloadPDF = () => {
         <h4>Summary</h4>
 
         <div className={styles.summaryGrid}>
-
         <div className={styles.summaryItem}>
             <span>Total Receipt Weight :</span>
             <span>{totals.receipt.toFixed(3)}</span>
@@ -258,6 +257,7 @@ const handleDownloadPDF = () => {
             <span>Total Scrap Weight :</span>
             <span> {totals.scrap.toFixed(3)}</span>
     </div>
+
 
     {selectedPerson && (
             <div className={styles.summaryItem}>
