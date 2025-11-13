@@ -39,7 +39,7 @@ const BuffingLot = () => {
         <div className={styles.details}><strong>Name:</strong> <span>{name}</span></div>
         <div className={styles.details}><strong>Phone Number:</strong> <span>{userDetails?.phoneNumber || '-'}</span></div>
         <div className={styles.details}><strong>Address:</strong> <span>{userDetails?.address || '-'}</span></div>
-        <div className={styles.details}><strong>Opening Balance:</strong> <span>{userDetails?.balance|| '-'}</span></div>
+        <div className={styles.details}><strong>Opening Balance:</strong> <span>{(userDetails?.balance).toFixed(3)|| '-'}</span></div>
         <hr />
       </div>
 

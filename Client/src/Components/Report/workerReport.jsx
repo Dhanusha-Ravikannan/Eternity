@@ -1,29 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
-import {
-  Box,
-  Typography,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Select,
-  Chip,
-  Card,
-  CardContent,
-  Grid,
-  CircularProgress,
-  Button,
-  Stack,
-} from "@mui/material";
+import { Box, Typography, TableCell, TableRow, TextField, MenuItem, FormControl, InputLabel, Select, Chip, Card, CardContent, Grid, CircularProgress, Button, Stack } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -760,7 +738,7 @@ const ProcessReport = () => {
           Percentage: {wastage.wastage_percentage || 0}%
         </TableCell>
         <TableCell colSpan={2} style={{ fontWeight: "bold" }}>
-          Add -On Wastage:{" "}
+          Add - On Wastage:{" "}
           {wastage.add_wastage ? wastage.add_wastage.toFixed(3) : 0}
         </TableCell>
         <TableCell colSpan={2} style={{ fontWeight: "bold" }}>

@@ -606,7 +606,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
         <Button variant="outlined" onClick={() => handleFilter()}>   Filter </Button>
         <Button variant="outlined" onClick={() => handleResetFilter()}>  Reset  </Button>
         
-        <Button> Open Balance: {openingBalanceTotal}</Button>       
+        <Button> Open Balance: {(openingBalanceTotal).toFixed(3)}</Button>       
         <Button
           style={{
             backgroundColor: "#F5F5F5",
@@ -614,7 +614,7 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
             borderColor: "#25274D",
             borderStyle: "solid",
             borderWidth: "2px",
-            marginLeft: "36rem",
+            marginLeft: "34 rem",
           }}
           variant="contained"
           onClick={handleClickOpen}
