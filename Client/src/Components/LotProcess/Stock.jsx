@@ -50,42 +50,49 @@ const Stock = () => {
     setTouchSummary(summary);
   };
 
+  
   const applyFilters = () => {
     let filtered = [...stockItems];
-
+  
     if (fromDate && toDate) {
       const from = new Date(fromDate + "T00:00:00");
       const to = new Date(toDate + "T23:59:59");
-    
+  
       filtered = filtered.filter((item) => {
-        const itemDate = new Date(item.createdAt);
+        const itemDate = new Date(item.purchaseId?.purchaseDate || item.createdAt);
         return itemDate >= from && itemDate <= to;
       });
     }
-
+  
     if (customerName.trim()) {
       const nameLower = customerName.toLowerCase();
-
+  
       filtered = filtered.filter((item) => {
+  
         const castingName =
-          item.castingItem?.castingEntry?.casting_customer?.name?.toLowerCase() ||
-          "";
-        const filingName =
-          item.filingItem?.filing_entry?.filing_person?.name?.toLowerCase() ||
-          "";
-        const settingName =
-          item.settingItem?.settingEntryId?.setting_person?.name?.toLowerCase() ||
-          "";
-        const buffingName =
-          item.buffingItem?.buffingEntryId?.buffing_person?.name?.toLowerCase() ||
-          "";
-        const purchaseName =
-          item.purchaseId?.SupplierId?.name?.toLowerCase() || "";
-        const transactionName =
-          item.customer?.name?.toLowerCase() || 
-          item.transactionCustomer?.name?.toLowerCase() || 
-          "";
+          item.castingItem?.castingEntry?.casting_customer?.name?.toLowerCase() || "";
 
+        const filingName =
+          item.filingItem?.filing_entry?.filing_person?.name?.toLowerCase() || "";
+  
+        const settingName =
+          item.settingItem?.settingEntryId?.setting_person?.name?.toLowerCase() || "";
+
+        const buffingName =
+          item.buffingItem?.buffingEntryId?.buffing_person?.name?.toLowerCase() || "";
+  
+        const purchaseName =
+          item.purchaseId?.SupplierId?.name?.toLowerCase() ||
+          item.purchaseId?.supplier?.name?.toLowerCase() ||
+          item.purchaseId?.supplierName?.toLowerCase() ||
+          "";
+  
+        const transactionName =
+          item.customer?.name?.toLowerCase() ||
+          item.customer_transaction?.customer?.name?.toLowerCase() ||
+          item.transactionCustomer?.name?.toLowerCase() ||
+          "";
+  
         return (
           castingName.includes(nameLower) ||
           filingName.includes(nameLower) ||
@@ -96,10 +103,11 @@ const Stock = () => {
         );
       });
     }
-
+  
     setFilteredItems(filtered);
     calculateSummary(filtered);
   };
+  
 
   const resetFilters = () => {
     setFromDate("");

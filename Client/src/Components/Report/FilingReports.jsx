@@ -359,10 +359,10 @@ item?.type === "ScrapItems"
             <span>Total Scrap Weight:</span>
             <span>{totals.scrapWeight.toFixed(3)}</span>
           </div>
-          <div className={styles.summaryItem}>
+          {/* <div className={styles.summaryItem}>
             <span>Total Wastage Entries:</span>
             <span>{totals.wastage.toFixed(3)}</span>
-          </div>
+          </div> */}
 
               {/*  Display selected person's balance */}
               {selectedPerson && (
