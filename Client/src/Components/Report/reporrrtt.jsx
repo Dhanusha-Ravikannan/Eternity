@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 import { Box, Typography, TableCell, TableRow, TextField, MenuItem, FormControl, InputLabel, Select, Chip, Card, CardContent, Grid, CircularProgress, Button, Stack } from "@mui/material";
+// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { BACKEND_SERVER_URL } from "../../../Config/config";
 import styles from "../LotProcess/FilingProcess/FilingLotDetails.module.css";
 import { th } from "date-fns/locale";
@@ -9,6 +12,11 @@ import { th } from "date-fns/locale";
 const ProcessReport = () => {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(false);
+  // const [filters, setFilters] = useState({
+  //   processType: "casting",
+  //   fromDate: null,
+  //   toDate: null,
+  // });
   const [filters, setFilters] = useState({
     processType: "casting",
   });
@@ -41,55 +49,58 @@ const ProcessReport = () => {
     fetchBalances();
   }, [filters.processType]);
 
+  
   const fetchEntries = async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
-  
-      if (filters.processType) params.append("processType", filters.processType);
-      if (filters.fromDate) params.append("fromDate", filters.fromDate);
-      if (filters.toDate) params.append("toDate", filters.toDate);
-  
+      if (filters.processType) {
+        params.append("processType", filters.processType);
+      }
+      // if (filters.fromDate) {
+      //   params.append("fromDate", filters.fromDate.toISOString().split("T")[0]);
+      // }
+      // if (filters.toDate) {
+      //   params.append("toDate", filters.toDate.toISOString().split("T")[0]);
+      // }
       const response = await axios.get(
         `${BACKEND_SERVER_URL}/api/filingentry/process-entries?${params.toString()}`
       );
-  
       setEntries(response.data);
       setAllEntries(response.data);
-  
-      // auto filter person whenever entries change
-      if (selectedPerson) {
-        const filtered = response.data.filter((entry) => {
-          if (entry.customer?.name === selectedPerson) return true;
-          if (entry.filing_person_name === selectedPerson) return true;
-          if (entry.setting_person_name === selectedPerson) return true;
-          if (entry.buffing_person_name === selectedPerson) return true;
-          return false;
-        });
-        setEntries(filtered);
-      }
-  
-      // Generate persons list
       const uniquePersons = [];
       response.data.forEach((entry) => {
-        const name =
-          entry.customer?.name ||
-          entry.filing_person_name ||
-          entry.setting_person_name ||
-          entry.buffing_person_name;
-  
-        if (name && !uniquePersons.includes(name)) uniquePersons.push(name);
+        let personName = "";
+        if (entry.processType === "casting" && entry.customer?.name) {
+          personName = entry.customer.name;
+        } else if (entry.processType === "filing" && entry.filing_person_name) {
+          personName = entry.filing_person_name;
+        } else if (
+          entry.processType === "setting" &&
+          entry.setting_person_name
+        ) {
+          personName = entry.setting_person_name;
+        } else if (
+          entry.processType === "buffing" &&
+          entry.buffing_person_name
+        ) {
+          personName = entry.buffing_person_name;
+        }
+        if (personName && !uniquePersons.includes(personName)) {
+          uniquePersons.push(personName);
+        }
       });
-  
       setPersons(uniquePersons);
-  
+      if (filters.processType !== "casting") {
+        fetchWastageData(response.data);
+      }
     } catch (error) {
       console.error("Error fetching entries:", error);
+      alert("Failed to fetch entries");
     } finally {
       setLoading(false);
     }
   };
-
   const fetchWastageData = async (entriesData) => {
     try {
       const wastagePromises = entriesData.map(async (entry) => {
@@ -193,6 +204,11 @@ const ProcessReport = () => {
     setEntries(filtered);
   };
   const handleReset = () => {
+    // setFilters({
+    //   processType: "casting",
+    //   fromDate: null,
+    //   toDate: null,
+    // });
     setFilters({
       processType: "casting",
     });
@@ -200,7 +216,6 @@ const ProcessReport = () => {
     setEntries(allEntries);
     setWastageData({});
   };
-
   const getProcessColor = (processType) => {
     const colors = {
       casting: "primary",
@@ -658,6 +673,9 @@ const ProcessReport = () => {
         {itemIndex === 0 && (
           <>
             <TableCell rowSpan={buffingItems.length}>
+              {/* {balanceData.total_product_weight
+                ? balanceData.total_product_weight.toFixed(3)
+                : "0.00"} */}
                        {balanceData.receipt_weight
                 ? balanceData.receipt_weight .toFixed(3)
                 : "0.00"}
@@ -748,6 +766,7 @@ const ProcessReport = () => {
   return (
     <>
       <Navbar />
+      {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
         <Box sx={{ p: 3 }}>
           <center>
           <Typography variant="h5" gutterBottom>
@@ -755,6 +774,7 @@ const ProcessReport = () => {
           </Typography>
           </center>
 
+          {/* Filters */}
           <Card sx={{ mb: 3 }}>
             <CardContent>
               <Grid container spacing={2} alignItems="center">
@@ -776,7 +796,26 @@ const ProcessReport = () => {
                     </Select>
                   </FormControl>
                 </Grid>
-       
+                {/* <Grid item xs={12} sm={2}>
+                  <DatePicker
+                    label="From Date"
+                    value={filters.fromDate}
+                    onChange={(date) => handleFilterChange("fromDate", date)}
+                    renderInput={(params) => (
+                      <TextField {...params} fullWidth />
+                    )}
+                  />
+                </Grid> */}
+                {/* <Grid item xs={12} sm={2}>
+                  <DatePicker
+                    label="To Date"
+                    value={filters.toDate}
+                    onChange={(date) => handleFilterChange("toDate", date)}
+                    renderInput={(params) => (
+                      <TextField {...params} fullWidth />
+                    )}
+                  />
+                </Grid> */}
                 <Grid item xs={12} sm={3}>
                   <FormControl sx={{width:'10rem'}}>
                     <InputLabel>Person</InputLabel>
@@ -803,27 +842,6 @@ const ProcessReport = () => {
                     >
                       Filter Person
                     </Button>
-
-                    <TextField
-  label="From Date"
-  type="date"
-  size="small"
-  InputLabelProps={{ shrink: true }}
-  value={filters.fromDate || ""}
-  onChange={(e) => handleFilterChange("fromDate", e.target.value)}
-  style={{ marginRight: "1rem" }}
-/>
-
-<TextField
-  label="To Date"
-  type="date"
-  size="small"
-  InputLabelProps={{ shrink: true }}
-  value={filters.toDate || ""}
-  onChange={(e) => handleFilterChange("toDate", e.target.value)}
-  style={{ marginRight: "1rem" }}
-/>
-
                     <Button variant="outlined" onClick={handleReset}>
                       Reset
                     </Button>
@@ -860,7 +878,12 @@ const ProcessReport = () => {
                   <div className={styles.summaryItem}>
                     <span>Total Scrap Weight:</span>
                     <span>{totals.scrapWeight.toFixed(3)}</span>
-                  </div>  
+                  </div>
+                  {/* <div className={styles.summaryItem}>
+                    <span>Total Wastage Entries:</span>
+                    <span>{totals.wastage}</span>
+                  </div> */}
+   
                 </>
               )}
               {filters.processType === "filing" && (
@@ -877,6 +900,10 @@ const ProcessReport = () => {
                     <span>Total Scrap Weight:</span>
                     <span>{totals.scrapWeight.toFixed(3)}</span>
                   </div>
+                  {/* <div className={styles.summaryItem}>
+                    <span>Total Wastage Entries:</span>
+                    <span>{totals.wastage}</span>
+                  </div> */}
  
                 </>
               )}
@@ -894,6 +921,11 @@ const ProcessReport = () => {
                     <span>Total Scrap Weight:</span>
                     <span>{totals.scrapWeight.toFixed(3)}</span>
                   </div>
+                  {/* <div className={styles.summaryItem}>
+                    <span>Total Wastage Entries:</span>
+                    <span>{totals.wastage}</span>
+                  </div> */}
+
                 </>
               )}
               {filters.processType === "buffing" && (
@@ -910,6 +942,10 @@ const ProcessReport = () => {
                     <span>Total Scrap Weight:</span>
                     <span>{totals.scrapWeight.toFixed(3)}</span>
                   </div>
+                  {/* <div className={styles.summaryItem}>
+                    <span>Total Wastage Entries:</span>
+                    <span>{totals.wastage}</span>
+                  </div> */}
                 </>
               )}
             </div>
@@ -977,7 +1013,7 @@ const ProcessReport = () => {
             </div>
           )}
         </Box>
-
+      {/* </LocalizationProvider> */}
     </>
   );
 };
