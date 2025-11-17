@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Navbar from "../Navbar/Navbar";
-import { TextField, IconButton, MenuItem, Button,Typography } from "@mui/material";
+import { TextField, IconButton, MenuItem, Button } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "./Billing.module.css";
@@ -195,7 +195,6 @@ useEffect(() => {
           amount: parseFloat(amount.toFixed(3)),
         };
       }
-
       return item;
     });
 
@@ -595,8 +594,6 @@ cashBalance = parseFloat(cashBalance.toFixed(3));
     );
   })()}
 </tfoot>
-
-
 
             </table>
           </div>

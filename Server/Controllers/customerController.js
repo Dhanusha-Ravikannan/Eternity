@@ -289,7 +289,6 @@ export const getCustomerReportDetailsById = async (req, res) => {
 
 
 
-
 export const customerReport = async (req, res) => {
   try {
     const { id } = req.params; 
@@ -317,6 +316,7 @@ export const customerReport = async (req, res) => {
     const bills = await prisma.bill.findMany({
       where: billWhere,
       include: {
+        customer: true,
         billItems: true,
         receivedItems: true,
       },
