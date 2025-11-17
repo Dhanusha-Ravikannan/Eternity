@@ -130,4 +130,16 @@
   color: #2b2b2b;
 }
 
+.highlightInput {
+  border: 2px solid #e81e40 !important;
+  background: white !important;
+
+}
+
+.error {
+  color: red;
+  font-size: 1rem;
+  margin-top: 2px;
+}
+
 

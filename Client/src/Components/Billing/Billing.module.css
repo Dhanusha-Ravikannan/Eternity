@@ -106,10 +106,9 @@
     color: rgb(234, 35, 35);
     font-weight: bold;
     font-size: 1.2rem;
-    margin-top: 2rem;
- 
-    
+    margin-top: 2rem;  
 } 
+
 .customerCardd {
   margin-left: 0;
   background-color: rgb(245, 247, 249);
@@ -181,20 +180,6 @@
 
 }
 
-.leftSection {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
- 
-}
-
-.rightSection {
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
 .table1 th{ 
   border: 1px solid #ccc;
   background-color: #38383e;
@@ -205,32 +190,23 @@
 .table1 td{
   border: 1px solid #ccc;
 }
-/* 
-.billHeader {
-  width: 100%;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
-}
 
-.billRow {
+
+.row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 2rem;
+  width: 100%;
+  margin-bottom: 4px;
 }
 
-.leftSection {
-  display: flex;
-  flex-direction: column;
+.left {
+  flex: 1;
   text-align: left;
-  line-height: 1.3;
+  white-space: nowrap;
 }
 
-.rightSection {
-  display: flex;
-  flex-direction: column;
-  text-align: right;
-  line-height: 1.3;
-} */
-
-
+.right {
+  flex: 1;
+  text-align: right !important; 
+  white-space: nowrap;
+}

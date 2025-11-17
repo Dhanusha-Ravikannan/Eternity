@@ -317,7 +317,7 @@ const ReceiptVoucher = () => {
             <table className={styles.receiptTable}>
               <thead className={styles.receipthead}>
                 <tr className={styles.receiptRow}>
-                  <th>S.no</th>
+                  <th>S.No</th>
                   <th>Date</th>
                   <th>Type</th>
                   <th>GoldRate</th>
@@ -338,9 +338,23 @@ const ReceiptVoucher = () => {
                         type="date"
                         className={styles.receiptTableDate}
                         value={item.date}
-                        onChange={(e) =>
-                          handleChangeReceipt(index, "date", e.target.value)
-                        }
+  
+                        onChange={(e) => {
+                          const updated = {
+                            ...receipt[index],
+                            date: e.target.value,
+                            type: "",
+                            goldRate: "",
+                            gold: "",
+                            touch: "",
+                            amount: "",
+                            purity: "0.000"
+                          };
+                          const rows = [...receipt];
+                          rows[index] = updated;
+                          setReceipt(rows);
+                        }}
+                        
                       />
 
                       <br></br>
@@ -380,7 +394,7 @@ const ReceiptVoucher = () => {
                         onChange={(e) =>
                           handleChangeReceipt(index, "goldRate", e.target.value)
                         }
-                      />
+                      />                     
                       <br></br>
                       {receiptErrors[index]?.goldRate && (
                         <span className={styles.error}>
@@ -420,7 +434,6 @@ const ReceiptVoucher = () => {
                           </option>
                         ))}
                       </select>
-
                       <br></br>
                       {receiptErrors[index]?.touch && (
                         <span className={styles.error}>
@@ -444,6 +457,7 @@ const ReceiptVoucher = () => {
                           handleChangeReceipt(index, "amount", e.target.value)
                         }
                       />
+
                       <br></br>
                       {receiptErrors[index]?.amount && (
                         <span className={styles.error}>

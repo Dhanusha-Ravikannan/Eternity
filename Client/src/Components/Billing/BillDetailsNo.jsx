@@ -3,57 +3,39 @@ import { Button } from "@mui/material";
 import styles from "./Billing.module.css";
 import { formatNumber } from "../../Utils/formatNumber";
 
-const BillDetailsNo = ({ viewBill, setViewBill, printRef }) => {
+const BillDetailsNo = ({ viewBill, setViewBill }) => {
   if (!viewBill) return null;
 
-const total = viewBill.total_pure + viewBill.customer_balance;
-const isNegative = total < 0;
-
   return (
-    <div id="print-section" ref={printRef}>
-      <div className="bill-header">
-        <div className="bill-row">
-          <span className="left">
+    <div>
+      <div className={styles.bill_header}>
+        <div className={styles.row}>
+          <div className={styles.left}>
             <b>Bill No:</b> {viewBill.bill_no}
-          </span>
-          <span className="right" style={{marginLeft:'26rem'}}>
+          </div>
+          <div className={styles.right}>
             <b>Date:</b> {viewBill.date}
-          </span>
+          </div>
         </div>
-        <div className="bill-row">
-          <span className="left">
+
+        <div className={styles.row}>
+          <div className={styles.left}>
             <b>Customer Name:</b> {viewBill.customer?.name}
-          </span>
-          <span className="right" style={{marginLeft:'20rem'}}>
+          </div>
+          <div className={styles.right}>
             <b>Time:</b> {viewBill.time}
-          </span>
+          </div>
         </div>
-        <div className="bill-row">
-          <span className="left">
+
+        <div className={styles.row}>
+          <div className={styles.left}>
             <b>Gold Rate:</b> {viewBill.gold_rate}
-          </span>
+          </div>
+          <div className={styles.right}></div>
         </div>
       </div>
 
-{/* <div className={styles.billHeader}>
-  <div className={styles.billRow}>
- 
-    <div className={styles.leftSection}>
-      <div><b>Bill No:</b> {viewBill.bill_no}</div>
-      <div><b>Customer Name:</b> {viewBill.customer?.name}</div>
-      <div><b>Gold Rate:</b> {viewBill.gold_rate}</div>
-    </div>
-
-
-    <div className={styles.rightSection}>
-      <div><b>Date:</b> {viewBill.date}</div>
-      <div><b>Time:</b> {viewBill.time}</div>
-    </div>
-  </div>
-</div> */}
-
-
-      <div className={styles.billdetails}>Bill Details:</div>
+      <div className={styles.billdetails} style={{marginTop:'2rem'}}>Bill Details:</div>
       <div className={styles.table}>
         <table>
           <thead>
@@ -224,10 +206,8 @@ const isNegative = total < 0;
     <td colSpan={2}></td>
   </tr>
 </tfoot> 
-
         </table>
       </div>
-
 
 <div className="balance-line" style={{ marginTop: "1rem" }}>
   <span>
@@ -254,8 +234,9 @@ const isNegative = total < 0;
 
       <Button
         variant="outlined"
-        style={{ marginTop: "2rem",}}
+        style={{ marginTop: "2rem" }}
         onClick={() => setViewBill(null)}
+        className="no-print"
       >
         Back to Bills
       </Button>

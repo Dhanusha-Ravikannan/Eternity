@@ -6,7 +6,6 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import styles from './CustomerReport.module.css'
 import {Dialog, 
-  DialogActions,
   Autocomplete,
   Button,
   TextField,
@@ -34,12 +33,9 @@ const CustomerReport = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
   const [viewBill, setViewBill] = useState(null);
-const [pureBalance, setPureBalance] = useState(0);
-const [excessPureBalance, setExcessPureBalance] = useState(0);
+  const [pureBalance, setPureBalance] = useState(0);
+  const [excessPureBalance, setExcessPureBalance] = useState(0);
 
-
-
-  
   const paginatedData =billInfo.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
@@ -268,8 +264,8 @@ const [excessPureBalance, setExcessPureBalance] = useState(0);
                   <th>S.No</th>
                   <th>Bill No</th>
                   <th>Date</th>
-                  <th>Bill&Receive</th>
-                  <th>View bill</th>
+                  <th>Bill & Receive</th>
+                  <th>View Bill</th>
                   <th>Received Amount</th>
                   <th>Bill Amount</th>
                 </tr>
