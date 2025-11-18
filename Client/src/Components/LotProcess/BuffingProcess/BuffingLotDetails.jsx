@@ -899,6 +899,10 @@ const totalBalanceSum = filteredData.reduce((sum, entry) => {
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                   InputLabelProps={{ shrink: true }}
+                  inputProps={{
+                    min: today,  
+                    max: today,   
+                  }}
                   sx={{ ml: 0, mt: 2, mb: 2, width: "200px" }}
                 />
                  <Typography variant="h6" gutterBottom>

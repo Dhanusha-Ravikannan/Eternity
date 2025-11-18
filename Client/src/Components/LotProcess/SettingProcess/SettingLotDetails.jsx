@@ -23,16 +23,10 @@ import styles from "./SettingLotDetails.module.css";
 
 
 const SettingLotDetails = () => {
-  const getTodayDateString = () => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
-    return `${yyyy}-${mm}-${dd}`;
-  };
 
+  const today = new Date().toISOString().split("T")[0];
   const { id: settingPersonId, name, lotNumber } = useParams();
-  const [fromDate, setFromDate] = useState(getTodayDateString());
+  const [fromDate, setFromDate] = useState(today);
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -757,7 +751,7 @@ const SettingLotDetails = () => {
 
       {/* Add Setting Dialog */}
       <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-        {/* <DialogTitle>Add Setting Details</DialogTitle> */}
+
         <div
         style={{
           fontSize: "1.3rem",
@@ -778,7 +772,13 @@ const SettingLotDetails = () => {
             value={fromDate}
             onChange={(e) => setFromDate(e.target.value)}
             InputLabelProps={{ shrink: true }}
+            inputProps={{
+              min: today,  
+              max: today,   
+            }}
+            
             sx={{ ml: 0, mt: 0, mb: 2, width: "200px" }}
+  
           />
            <Typography variant="h6" gutterBottom>
             Available Setting Items

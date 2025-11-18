@@ -26,7 +26,8 @@ import AddIcon from "@mui/icons-material/Add";
 
 const FilingLotDetails = () => {
   const [isAssignOpen, setIsAssignOpen] = useState(false);
-  const [date, setDate] = useState( () => new Date().toISOString().split("T")[0]);
+  const today = new Date().toISOString().split("T")[0];
+  const [date, setDate] = useState(today);
   const [availableItems, setAvailableItems] = useState([]);
   const [selectedItemIds, setSelectedItemIds] = useState([]);
   const [assignedEntries, setAssignedEntries] = useState([]);
@@ -865,6 +866,10 @@ const finalBalance = currentBalanceWeight - totalScrapWeight;
             value={date}
             onChange={(e) => setDate(e.target.value)}
             InputLabelProps={{ shrink: true }}
+            inputProps={{
+              min: today,  
+              max: today,   
+            }}
             sx={{ mb: 2, mt: 0 }}
           />
 
