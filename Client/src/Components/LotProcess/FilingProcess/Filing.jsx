@@ -132,7 +132,8 @@ const Filing = () => {
           <TableCell className={styles.tableCell}>{row.name}</TableCell>
           <TableCell className={styles.tableCell}>{row.phoneNumber || "-"}</TableCell>
           <TableCell className={styles.tableCell}>{row.address || "-"}</TableCell>
-          <TableCell className={styles.tableCell}>{row.balance || "-"}</TableCell>
+          {/* <TableCell className={styles.tableCell}>{row.balance || "0"}</TableCell> */}
+          <TableCell className={styles.tableCell}> {row.balance?.toFixed ? row.balance.toFixed(3) : "-"}</TableCell>
           <TableCell className={styles.tableCell}>
             <Link
               to={`/filinglot/${row.id}/${encodeURIComponent(row.name)}/${row.lotInfo?.[0]?.lotNumber || 0}`}
