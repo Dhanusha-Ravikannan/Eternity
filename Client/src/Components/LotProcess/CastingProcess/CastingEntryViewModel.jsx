@@ -58,6 +58,17 @@ const CastingEntryViewModal = ({
   }, [open]);
 
   useEffect(() => {
+
+    if (mode === "view") {
+      setStockValidation({
+        isValid: true,
+        message: "",
+        available: 0,
+        requested: 0,
+      });
+      return; 
+    }
+
     if (form.givenGold && form.touch) {
       const selectedTouch = touchOptions.find((t) => t.touch === form.touch);
       if (selectedTouch) {
