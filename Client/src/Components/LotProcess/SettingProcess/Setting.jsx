@@ -130,7 +130,8 @@ const Setting = () => {
           <TableCell className={styles.tableCell}>{row.name}</TableCell>
           <TableCell className={styles.tableCell}>{row.phoneNumber || "-"}</TableCell>
           <TableCell className={styles.tableCell}>{row.address || "-"}</TableCell>
-          <TableCell className={styles.tableCell}>{row.balance || "-"}</TableCell>
+          {/* <TableCell className={styles.tableCell}>{row.balance || "-"}</TableCell> */}
+          <TableCell className={styles.tableCell}> {row.balance?.toFixed ? row.balance.toFixed(3) : "-"}</TableCell>
 
           <TableCell className={styles.tableCell}>
             <Link

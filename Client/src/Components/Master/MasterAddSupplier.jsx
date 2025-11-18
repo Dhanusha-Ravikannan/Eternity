@@ -83,11 +83,6 @@ const validateForm = () => {
     return false;
   }
 
-  // if (!address.trim()) {
-  //   toast.error("Address is required");
-  //   return false;
-  // }
-
   //  Check duplicate name (case-insensitive)
   const isDuplicateName = customers.some(
     (c, i) => c.name.toLowerCase() === trimmedName.toLowerCase() && i !== editIndex
@@ -144,7 +139,8 @@ const validateForm = () => {
       } else {
         // POST request for adding new customer
         const response = await axios.post(`${BACKEND_SERVER_URL}/api/addsupplier`, customerData);
-        setCustomers((prev) => [...prev, response.data]);
+        setCustomers((prev) => [response.data, ...prev]); 
+
         toast.success("Supplier added successfully");
       }
       closeModal();
